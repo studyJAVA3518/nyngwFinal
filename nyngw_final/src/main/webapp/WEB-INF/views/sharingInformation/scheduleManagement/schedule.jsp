@@ -52,10 +52,10 @@
 <link href='resources/css/base.css' rel='stylesheet' />
 <link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
 
-<script src='../../resources/js/fullCalendar/moment.min.js'></script>
-<script src='../../resources/js/fullCalendar/jquery.min.js'></script>
-<script src='../../resources/js/fullCalendar/fullcalendar.min.js'></script>
-<script src='../../resources/js/fullCalendar/ko.js'></script>
+<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
+<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/jquery.min.js'></script>
+<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
+<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
 
 
 <script>
