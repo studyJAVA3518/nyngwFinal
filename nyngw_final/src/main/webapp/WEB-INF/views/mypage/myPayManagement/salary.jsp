@@ -29,7 +29,14 @@
 	<br>
 	<br>   
    <div>
-      이곳에 검색한 내용보여주기
+     <table class="table table-bordered">
+   		<tr>
+   			<td>급여</td>
+   		</tr>
+   		<tr>
+   			<td></td>
+   		</tr>
+   	</table>
    </div>
 </body>
 </html>
