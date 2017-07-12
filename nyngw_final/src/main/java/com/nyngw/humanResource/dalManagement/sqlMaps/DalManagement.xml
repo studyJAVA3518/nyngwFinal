@@ -6,19 +6,22 @@
 
 	<select id="searchContent" parameterType="com.nyngw.dto.Member_ViewVO"
 		resultType="com.nyngw.dto.Member_ViewVO">
-		select
-		mem_number,mem_id,position_name,dept_name,dal_date,dal_content,mdi_bank,mdi_bank_account,mdi_account_holder
-		from
-		DILIGENCE_AND_LAZINESS,member,department,MEMBER_DETAIL_INFORMATION,position
+		select mem_number,mem_id,mem_name,
+			   position_name,
+			   dept_name,
+			   dal_date,dal_content,
+			   mdi_bank,mdi_bank_account,mdi_account_holder
+		from   DILIGENCE_AND_LAZINESS,member,department,MEMBER_DETAIL_INFORMATION,position
 		where DAL_MEM_NUMBER=MEM_NUMBER
-		and position_number =
-		member.MEM_POSITION_NUMBER
-		and MEM_NUMBER = DEPT_MEMBERNUMBER
-		and
-		mem_NUMBER = mdi_mem_number
-		and DAL_DATE between to_date(#{startdal_date},
-		'YYYY-MM-DD') and
-		to_date(#{enddal_date}, 'YYYY-MM-DD')+0.99999
+		  and position_number = member.MEM_POSITION_NUMBER
+		  and MEM_NUMBER = DEPT_MEMBERNUMBER
+		  and mem_NUMBER = mdi_mem_number
+		  and DAL_DATE between to_date(#{startdal_date},'YYYY-MM-DD') and to_date(#{enddal_date}, 'YYYY-MM-DD')+0.99999
+		 <if test="mem_name != null">
+			<if test="mem_name != ''">
+				and mem_name = #{mem_name}
+			</if>
+		</if>
 	</select>
 
 	<select id="dateSearchList_HRDS" parameterType="com.nyngw.dto.FN_GETDALCNT" resultType="com.nyngw.dto.FN_GETDALCNT">

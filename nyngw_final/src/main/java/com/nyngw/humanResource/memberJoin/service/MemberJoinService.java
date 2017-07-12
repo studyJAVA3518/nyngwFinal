@@ -1,5 +1,9 @@
 package com.nyngw.humanResource.memberJoin.service;
 
-public interface MemberJoinService {
+import com.nyngw.dto.MemberVO;
 
+public interface MemberJoinService {
+	
+	public MemberVO idCheck(String id);
+	
 }

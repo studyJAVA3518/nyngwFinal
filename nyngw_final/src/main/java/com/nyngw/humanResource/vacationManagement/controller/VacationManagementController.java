@@ -9,7 +9,7 @@ public class VacationManagementController {
 	
 	@RequestMapping("/vmtm")
 	public String vacationMain(){
-		return "/humanResource/vacationManagement/vmtm";
+		return "humanResource/vacationManagement/vmtm";
 	}
 	
 }
