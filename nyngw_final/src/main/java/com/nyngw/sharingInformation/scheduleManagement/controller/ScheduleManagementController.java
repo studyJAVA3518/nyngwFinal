@@ -33,10 +33,10 @@ public class ScheduleManagementController {
 	 * 일정추가버튼을 누를시 데이터를 입력하는 url을 반환하는 메서드
 	 * @return 입력폼 url 반환
 	 */
-	@RequestMapping("8")
+	@RequestMapping("/scheduleWriteForm")
 	public String scheduleWriteForm(){
 		
-		return null;
+		return "sharingInformation/scheduleManagement/scheduleWrite";
 	}
 	
 	/**
