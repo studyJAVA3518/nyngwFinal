@@ -29,4 +29,6 @@ public class EnvironmentSettingController {
 		String url = "enovironmentSetting/deptInsertPopup";
 		return url;
 	}
+	
+	
 }
