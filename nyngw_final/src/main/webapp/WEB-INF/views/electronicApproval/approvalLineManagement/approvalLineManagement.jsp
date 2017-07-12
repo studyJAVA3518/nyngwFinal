@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@page import="com.nyngw.electronicApproval.approvalLineManagement.controller.ApprovalLineManagementController"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="com.nyngw.electronicApproval.approvalLineManagement.service.ApprovalLineManagementServiceImpl"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
