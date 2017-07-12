@@ -136,17 +136,17 @@
 }
 </style>
 <body id='index-page'>
-
+	<a href = "/sharingInformation/scheduleManagement/scheduleWriteForm"><button>일정등록</button></a>
 	<div id='body' class='section'>
 		<div>
 			<div class='two-col'>
 				<div class='content'>
-					<div id='calendar'></div>
+					<div id='calendar'>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<a href = "createEventForm"><button>일정등록</button></a>
 </body>
 </html>
