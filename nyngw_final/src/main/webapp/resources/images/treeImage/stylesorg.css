@@ -1,0 +1,53 @@
+<style type="text/css">
+<!--
+
+	a.fldblue:link {font-size:9pt; color:000000; font-family:±¼¸²;}
+	a.fldblue:active {font-size:9pt; color:000000; font-family:±¼¸²;}
+	a.fldblue:visited {font-size:9pt; color:000000; font-family:±¼¸²;}
+	a.fldblue:hover {font-size:9pt; color:000000; font-family:±¼¸²;}
+
+.style4 {font-size: 12; font-weight: bold; }
+
+.empty {
+width: 100px;
+	border: 1px solid #86B7FF;
+	font-size: 10pt;
+	font-family : ±¼¸²;
+	height: 25px;
+	border: 1px none white;
+	background-color: white;
+}
+
+.readonly {
+ background-color: #B9B9B9;
+}
+
+body {
+ font-size: 10pt;
+ font-family : ±¼¸²;
+}
+
+table {
+	width: 820px;
+	border: 1px solid #86B7FF;
+}
+
+th{
+	background-color:#D2E0FF;
+	font-size: 10pt;
+	font-family : ±¼¸²;
+	height: 25px;
+	border: 1px solid #0099CC;
+}
+
+td {
+	font-size: 10pt;
+	font-family : ±¼¸²;
+	height: 25px;
+	border: 1px none #0099CC;
+	background-color: #DDE7FF;
+}
+
+
+-->
+</style>

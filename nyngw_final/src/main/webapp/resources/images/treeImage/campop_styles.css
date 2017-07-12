@@ -1,0 +1,24 @@
+body {
+ font-size: 10pt;
+ font-family : ±¼¸²;
+}
+
+table {
+	border: 1px solid #F9FF86;
+}
+
+th{
+	background-color: #FFFCBB;
+	font-size: 10pt;
+	font-family : ±¼¸²;
+	height: 25px;
+	border: 1px solid #FBF400;
+}
+
+td {
+	font-size: 10pt;
+	font-family : ±¼¸²;
+	height: 25px;
+	border: 1px none #0099CC;
+	background-color: #FFFED2;
+}
