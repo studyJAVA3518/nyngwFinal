@@ -50,4 +50,25 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 		DocumentVO document = (DocumentVO) sqlSession.selectOne("selectDocumentUpdateForm",doc_number);
 		return document;
 	}
+
+	@Override
+	public List<DocumentViewVO> selectDocumentKind(int firstRow, int endRow,
+			String val) {
+		// 검색기능구현하기
+		return null;
+	}
+
+	@Override
+	public List<DocumentViewVO> selectDocumentName(int firstRow, int endRow,
+			String val) {
+		// 검색기능구현하기
+		return null;
+	}
+
+	@Override
+	public List<DocumentViewVO> selectDocumentMember(int firstRow, int endRow,
+			String val) {
+		// 검색기능구현하기
+		return null;
+	}
 }
