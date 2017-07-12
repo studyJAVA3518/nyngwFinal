@@ -1,5 +1,7 @@
 package com.nyngw.humanResource.memberJoin.dao;
 
-public interface MemberJoinDao {
+import com.nyngw.dto.MemberVO;
 
+public interface MemberJoinDao {
+	public MemberVO idCheck_MJ(String id);
 }

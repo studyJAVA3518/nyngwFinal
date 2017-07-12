@@ -7,6 +7,7 @@ public class Member_ViewVO {
 	private String mem_name;  //회원 이름
 	private String position_name; //직책
 	private String dept_name; //부서명
+	private String dal_date;			//날짜
 	private String startdal_date;			//날짜
 	private String enddal_date;			//날짜
 	private String dal_content;			//사유
@@ -43,6 +44,12 @@ public class Member_ViewVO {
 	}
 	public void setDept_name(String dept_name) {
 		this.dept_name = dept_name;
+	}
+	public String getDal_date() {
+		return dal_date;
+	}
+	public void setDal_date(String dal_date) {
+		this.dal_date = dal_date;
 	}
 	public String getStartdal_date() {
 		return startdal_date;

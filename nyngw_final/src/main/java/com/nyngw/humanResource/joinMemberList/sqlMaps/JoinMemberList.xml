@@ -2,7 +2,14 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="joinMemberList">
-
-
+<mapper namespace="com.nyngw.humanResource.joinMemberList.dao.JoinMemberListDao">
+	
+	<select id="getJoinMemberList_JM" resultType="com.nyngw.dto.JoinMemberVO">
+		select *
+		from member,MEMBER_DETAIL_INFORMATION
+		where mdi_mem_number = mem_number
+		and mem_retirement = '1'
+	</select>
+	
+	
 </mapper>

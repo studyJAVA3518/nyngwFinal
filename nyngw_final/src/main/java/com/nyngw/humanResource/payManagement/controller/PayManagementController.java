@@ -9,7 +9,7 @@ public class PayManagementController {
 	
 	@RequestMapping("/pmm")
 	public String pmm(){
-		return "/humanResource/payManagement/pmm";
+		return "humanResource/payManagement/pmm";
 	}
 	
 }

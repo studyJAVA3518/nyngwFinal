@@ -9,6 +9,6 @@ public class RetiredMemberListController {
 	
 	@RequestMapping("/rmm")
 	public String rmm(){
-		return "/humanResource/retiredMemberList/rmm";
+		return "humanResource/retiredMemberList/rmm";
 	}
 }

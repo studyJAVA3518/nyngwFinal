@@ -37,7 +37,6 @@
 								<li>
 									<h3>인사 관리</h3>
 									<ul>
-										<li><a href="/humanResource/memberJoin/mjm">&nbsp;&nbsp;&nbsp;└ 사원 가입</a></li>
 										<li><a href="/humanResource/joinMemberList/jlm">&nbsp;&nbsp;&nbsp;└ 사원 목록</a></li>
 										<li><a href="/humanResource/retiredMemberList/rmm">&nbsp;&nbsp;&nbsp;└ 퇴사자 목록</a></li>
 									</ul>
