@@ -38,14 +38,20 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	}
 	
 	@Override
-	public DocumentVO selectDocument(String doc_number){
-		DocumentVO document = documentManagerDao.selectDocument(doc_number);
+	public DocumentVO selectDocumentDetail(String doc_number){
+		DocumentVO document = documentManagerDao.selectDocumentDetail(doc_number);
 		return document;
 	}
 	
 	@Override
-	public void documentUpdate(DocumentVO document) {
-		documentManagerDao.documentUpdate(document);
+	public void documentManagerUpdate(DocumentVO document) {
+		documentManagerDao.documentManagerUpdate(document);
+	}
+
+	@Override
+	public DocumentVO selectDocumentUpdateForm(String doc_number) {
+		DocumentVO document = documentManagerDao.selectDocumentUpdateForm(doc_number);
+		return document;
 	}
 	
 }

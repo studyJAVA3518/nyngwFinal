@@ -33,14 +33,10 @@
 	<div></div>
 	<br>
 	<div style="text-align: right;">
-		<button class="btn"> <a href="/documentManagement/documentManager/documentInsert">등록</a></button>
+		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert?page=${pageNumber}">등록</a></button>
 	</div>
-	<%
-		Integer pageNumber = (Integer)request.getAttribute("pageNumber");
-		DocumentListView viewData = (DocumentListView)request.getAttribute("viewData");
-	%>
-	<div>
 	
+	<div>
 		<table class="table table-bordered">
 			<tr>
 				<th>번호</th>
@@ -50,34 +46,33 @@
 				<th>문서명</th>
 				<th>등록자</th>
 			</tr>
-			<%if(viewData.getDocumentCountPerPage()>0){
-				List<DocumentViewVO> documentList = viewData.getDocumentList();
-				for(int i = 0; i < documentList.size(); i++){
-				%>
+		<c:choose>
+			<c:when test="${viewData.documentCountPerPage>0 }">
+				<c:forEach items="${viewData.documentList }" var="documentView" varStatus="i">
 					<tr>
-						<td><%=viewData.getFirstRow()+i %></td>
-						<td><%=documentList.get(i).getDv_code_name()%></td>
-						<td><%=documentList.get(i).getDv_doc_date() %></td>
-						<td><%=documentList.get(i).getDv_doc_number() %></td>
-						<td><a href="/documentManagement/documentManager/documentDetail"><%=documentList.get(i).getDv_doc_name() %></a></td>
-						<td><%=documentList.get(i).getDv_mem_name() %></td>
+						<td>${fn:substring(bocumentView.doc_number,3,10077777)}</td>
+						<td>${documentView.dv_code_name }</td>
+						<td>${documentView.dv_doc_date }</td>
+						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_number }</a></td>
+						<td>${documentView.dv_doc_name }</td>
+						<td>${documentView.dv_mem_name }</td>
 					</tr>
-				<%
-				}
-				%>
-				
-			<%}else{ %>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
 				<tr>
-					<td style="text-align: center;">내용없음</td>
+					<td style="text-align : center;">내용이 없습니다.</td>
 				</tr>
-			<%} %>
+			</c:otherwise>
+		</c:choose>
+			
 		</table>
 	</div>
 	<div id="pageNum" style="text-align: center;">
-		<%for(int i = 1; i<viewData.getPageTotalCount()+1;i++){ %>
-			<a href="/documentManagement/documentManager/documentSelect?page=<%=i %>">
-			[<%=i %>]</a>
-		<%} %>
+		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"
+			var="i">
+			<a href="/documentManagement/documentManager/documentSelect?page=${i} %>">[${ i}]</a>
+		</c:forEach>
 	</div>
 </body>
 </html>
