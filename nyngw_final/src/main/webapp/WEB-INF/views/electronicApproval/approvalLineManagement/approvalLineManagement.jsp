@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
+결재라인관리
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
@@ -66,10 +66,10 @@ td {
 		if (oDiv != null) {
 			if (oDiv.style.display == "none") {
 				oDiv.style.display = ""
-				oImg.src = "/resources/images/treeImage/minus.gif";
+				oImg.src = "/resources/images/tree/minus.gif";
 			} else {
 				oDiv.style.display = "none"
-				oImg.src = "/resources/images/treeImage/plus.gif";
+				oImg.src = "/resources/images/tree/plus.gif";
 			}
 		}
 	}
@@ -80,7 +80,7 @@ td {
 		if (oDiv != null) {
 			if (oDiv.style.display == "none") {
 				oDiv.style.display = ""
-				oImg.src = "/resources/images/treeImage/plus.gif";
+				oImg.src = "/resources/images/tree/plus.gif";
 			}
 		}
 		changecolor(sg);

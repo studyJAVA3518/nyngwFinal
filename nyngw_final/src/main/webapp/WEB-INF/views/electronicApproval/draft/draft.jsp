@@ -3,7 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- 전자결재>기안하기-->
+전자결재>기안하기(기안문서열람)
 <form>
 	<table class="table">
 		<tr>
@@ -48,7 +48,7 @@
 	<c:forEach items="${documentList }" var="document" varStatus="status">
 		<tr>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${document.doc_name }</td>
+			<td><a href="/electronicApproval/draft/createDraftForm?doc_number=${document.doc_number }">${document.doc_name }</a></td>
 			<td>${document.doc_explanation }</td>
 			<td>${document.doc_mem_number }</td>
 			<td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>

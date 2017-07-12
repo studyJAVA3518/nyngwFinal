@@ -1,12 +1,15 @@
 package com.nyngw.electronicApproval.approvalProgress.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Common_CodeVO;
@@ -92,4 +95,40 @@ public class ApprovalProgressController {
 		model.addAttribute("EAList",EAList );
 		return "electronicApproval/approvalProgress/refusedApproval";
 	}
+	
+	//미결재 문서 상세 페이지
+	@RequestMapping("/waitingApprovalDetail")
+	public String waitingApprovalDetail(Model model,String ea_number){
+		return "electronicApproval/approvalProgress/waitingApprovalDetail";
+	}
+	
+	//완료 문서 상세 페이지
+	@RequestMapping("/completeApprovalDetail")
+	public String completeApprovalDetail(Model model,String ea_number){
+		return "electronicApproval/approvalProgress/completeApprovalDetail";
+	}
+	
+	//반려 문서 상세 페이지
+	@RequestMapping("/refusedApprovalDetail")
+	public String refusedApprovalDetail(Model model,String ea_number){
+		return "electronicApproval/approvalProgress/refusedApprovalDetail";
+	}
+	
+	//결재하기
+	@RequestMapping("/conformApproval")
+	public @ResponseBody Map<String,String> conformApproval(String id){
+		System.out.println(id);
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("uri", "/electronicApproval/individualDocumentBox/completeApprovalBox");
+		return map;
+	}
+	
+	
+	//결재하기
+	@RequestMapping("/editDraftForm")
+	public String  editDraftForm(String id){
+		return "electronicApproval/approvalProgress/editDraftForm";
+	}
+	
+	
 }

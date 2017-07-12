@@ -18,7 +18,7 @@ public class ApprovalLineManagementController {
 
 	@RequestMapping("/approvalLineManagement")
 	public String ApprovalLineManagement(Model model){
-		String sb = approvalLineManagementService.getMenuDocumentString().toString();
+		String sb = approvalLineManagementService.getMenuDepartmentString().toString();
 		model.addAttribute("sb",sb);
 		return "electronicApproval/approvalLineManagement/approvalLineManagement";
 	}
