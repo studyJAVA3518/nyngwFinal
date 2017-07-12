@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.dao.DocumentManagerDaoImpl;
+import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
 
 @Service
@@ -34,6 +35,17 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 			documentList = Collections.emptyList();
 		}
 		return new DocumentListView(documentList, documentTotalCount, currentPageNumber, DOCUMENT_COUNT_PER_PAGE, firstRow, endRow);
+	}
+	
+	@Override
+	public DocumentVO selectDocument(String doc_number){
+		DocumentVO document = documentManagerDao.selectDocument(doc_number);
+		return document;
+	}
+	
+	@Override
+	public void documentUpdate(DocumentVO document) {
+		documentManagerDao.documentUpdate(document);
 	}
 	
 }
