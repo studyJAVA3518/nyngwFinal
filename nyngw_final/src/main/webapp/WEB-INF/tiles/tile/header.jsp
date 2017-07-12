@@ -41,10 +41,6 @@
 						            <li class="topMenuTitle">문서 관리</li>
 						            <li><a href="/documentManagement/documentManager/documentSelect">문서 조회</a></li>
 						            <li><a href="/documentManagement/documentManager/documentInsert">문서 등록</a></li>
-						            <li class="divider"></li>
-						            <li class="topMenuTitle">양식 관리</li>
-						            <li><a href="/documentManagement/electronicApprovalFormManagement/eaFormSelect">양식 조회</a></li>
-						            <li><a href="/documentManagement/electronicApprovalFormManagement/eaFormInsert">양식 등록</a></li>
 						          </ul>
 						        </div>
 								
