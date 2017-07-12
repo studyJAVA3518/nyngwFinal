@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.mypage.myDalManagement.dao.MyDalManagementDao">
+
+	
+	<select id="selectAttendCount" resultType="java.lang.Integer">
+		select count(*) from Diligence_And_Laziness
+	</select>
+
+	<select id="selectAttendList" parameterType="java.lang.String" resultType="com.nyngw.dto.DalViewVO">
+		select * from DalView where dalview_number like '%'||#{dalview_number}||'%'
+	</select>
+	
+	
+	<select id="selectVacationCount" resultType="java.lang.Integer">
+		select count(*) from vacation
+	</select>
+
+	<select id="selectVacationList" parameterType="java.lang.String" resultType="com.nyngw.dto.VacationVO">
+		select * from vacation where vacation_number like '%'||#{vacation_number}||'%'
+	</select>
+	
+	
+</mapper>

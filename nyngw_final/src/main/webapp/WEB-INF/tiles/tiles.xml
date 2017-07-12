@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<!-- businessSupport BS-->
+	<definition name="layoutBS" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideBS.jsp"/>
+	</definition>
+	
+	<!-- documentManagement DM-->
+	<definition name="layoutDM" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideDM.jsp"/>
+	</definition>
+	
+	<!-- electronicApproval EA-->
+	<definition name="layoutEA" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideEA.jsp"/>
+	</definition>
+	
+	<!-- enovironmentSetting ES -->
+	<definition name="layoutES" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideES.jsp"/>
+	</definition>
+	
+	<!-- homeMain HM -->
+	<definition name="layoutHM" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideHM.jsp"/>
+	</definition>
+	
+	<!-- humanResource HR -->
+	<definition name="layoutHR" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideHR.jsp"/>
+	</definition>
+	
+	<!-- mypage MP -->
+	<definition name="layoutMP" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideMP.jsp"/>
+	</definition>
+	
+	<!-- sharingInformation SI -->
+	<definition name="layoutSI" template="/WEB-INF/tiles/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/tile/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/tile/footer.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/tiles/tile/submenu/sideSI.jsp"/>
+	</definition>
+	
+	
+	
+	<!-- 컨트롤러에서 리턴해 주는 뷰이름(컨트롤러 맵핑)  -->
+	<definition name="homeMain/*" extends="layoutHM">
+		<put-attribute name="content" value="/WEB-INF/views/homeMain/{1}.jsp"/>
+	</definition>
+	
+	<definition name="businessSupport/*/*" extends="layoutBS">
+		<put-attribute name="content" value="/WEB-INF/views/businessSupport/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="documentManagement/*/*" extends="layoutDM">
+		<put-attribute name="content" value="/WEB-INF/views/documentManagement/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="electronicApproval/*/*" extends="layoutEA">
+		<put-attribute name="content" value="/WEB-INF/views/electronicApproval/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="enovironmentSetting/*/*" extends="layoutES">
+		<put-attribute name="content" value="/WEB-INF/views/enovironmentSetting/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="homeMain/*/*" extends="layoutHM">
+		<put-attribute name="content" value="/WEB-INF/views/homeMain/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="humanResource/*/*" extends="layoutHR">
+		<put-attribute name="content" value="/WEB-INF/views/humanResource/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="mypage/*/*" extends="layoutMP">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<definition name="sharingInformation/*/*" extends="layoutSI">
+		<put-attribute name="content" value="/WEB-INF/views/sharingInformation/{1}/{2}.jsp"/>
+	</definition> 
+
+	
+	
+</tiles-definitions>

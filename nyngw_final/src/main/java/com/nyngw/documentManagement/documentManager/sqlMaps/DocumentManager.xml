@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.documentManagement.documentManager.dao.DocumentManagerDao">
+	
+	<select id="selectDocumentCount" resultType="java.lang.Integer">
+		select count(*) from document
+	</select>
+	
+	<select id="selectDocumentManagerList" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentViewVO">
+		select 
+			dv_code_name,
+       		dv_doc_date,
+       		dv_doc_name,
+       		dv_doc_number,
+       		dv_mem_name
+		from documentview where dv_doc_number like '%'||#{dv_doc_number}||'%'
+	</select>
+</mapper>

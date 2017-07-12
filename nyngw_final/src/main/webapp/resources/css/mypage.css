@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+
+#searchDiv>div{
+   float: left;
+   margin: auto;
+}
+#searchDiv{
+   text-align: center;
+   width:100%;
+}
+
+#summary {
+	border: 2px solid #AAA;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 15px;
+	box-sizing: border-box;
+	color: black;
+	background-color: white;
+	min-height: 30px;
+}
+#files {
+	border: 3px solid #AAA;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 40px;
+	_padding-top: 70px;
+	box-sizing: border-box;
+	color: gray;
+	background-color: white;
+	min-height: 150px;
+}
+#wastebasket {
+	border: 3px solid #AAA;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 18px;
+	_padding-top: 30px;
+	box-sizing: border-box;
+	color: gray;
+	background-color: white;
+	min-height: 50px;
+}
+#files ul {
+	padding: 0px;
+	margin: 5px;
+}
+
+#files ul li {
+	display: inline-block;
+	width: 200px;
+	height: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 0 10px;
+}
+
+#files ul li .file-info {
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+}

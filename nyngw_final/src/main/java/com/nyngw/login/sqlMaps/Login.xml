@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.nyngw.login.dao.LoginDao">
+	
+	<select id="getMemberList" resultType="com.nyngw.dto.MemberVO" >
+		SELECT *
+		FROM MEMBER
+	</select>
+
+	<select id="getMemberParam" parameterType="hashmap" resultType="com.nyngw.dto.MemberVO" >
+		SELECT *
+		FROM MEMBER,POSITION
+		WHERE MEM_POSITION_NUMBER = POSITION_NUMBER 
+		AND MEM_EMAIL=#{mem_email} 
+		AND MEM_NAME=#{mem_name} 
+		AND POSITION_NAME =#{position_name}
+	</select>
+	
+	<select id="getMemberSearchPwd" parameterType="com.nyngw.dto.MemberVO" resultType="com.nyngw.dto.MemberVO" >
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_EMAIL=#{mem_email} 
+		AND MEM_NAME=#{mem_name} 
+		AND MEM_NUMBER =#{mem_number}
+	</select>
+	
+	<update id="updatePwd" parameterType="com.nyngw.dto.MemberVO">
+		UPDATE MEMBER
+		SET MEM_PWD = '123456789'
+		WHERE MEM_ID=#{mem_id}
+	</update>
+	
+</mapper>

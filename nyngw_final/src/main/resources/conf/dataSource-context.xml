@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:property-placeholder
+		location="classpath:configuration_oracle/oracle-config.properties" />
+	<!-- ${username} ${password} -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+
+	<bean id="dataSourceLog4j" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSource" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL         :  " />
+			</bean>
+		</property>
+	</bean>
+
+
+	<!-- <bean id="sqlSessionFactory" -->
+	<!-- class="org.mybatis.spring.SqlSessionFactoryBean" -->
+	<!-- p:dataSource-ref="dataSource" -->
+	<!-- p:configLocation="classpath:mybatis/mybatis_config.xml" -->
+	<!-- /> -->
+
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" -->
+	<!-- c:sqlSessionFactory-ref="sqlSessionFactory" -->
+	<!-- /> -->
+
+	<!-- spring transaction -->
+	<!-- <bean id="transactionManager" -->
+	<!-- class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- </bean> -->
+
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
+	<!-- <tx:attributes> -->
+	<!-- <tx:method name="**" propagation="REQUIRED" /> -->
+	<!-- <tx:method name="insert*" rollback-for="Exception" /> -->
+	<!-- <tx:method name="delete*" rollback-for="Exception" /> -->
+	<!-- <tx:method name="update*" rollback-for="Exception" /> -->
+	<!-- <tx:method name="get*" read-only="true" /> -->
+	<!-- </tx:attributes> -->
+	<!-- </tx:advice> -->
+
+	<!-- <aop:config> -->
+	<!-- <aop:pointcut id="servicePublicMethod" -->
+	<!-- expression="execution(public * com.nonage.service..*Service.*(..))" 
+		/> -->
+	<!-- <aop:advisor advice-ref="txAdvice" pointcut-ref="servicePublicMethod" 
+		/> -->
+	<!-- </aop:config> -->
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- DAO -->
+	<!-- loginDaoImpl -->
+	<!-- <bean id="loginDaoImpl" class="com.nyngw.login.dao.LoginDaoImpl" > -->
+	<!-- <property name="sqlSession" ref="sqlSession"/> -->
+	<!-- </bean> -->
+
+
+	<!-- Service -->
+	<!-- ServiceImpl -->
+	<!-- <bean id="loginService" class="com.nyngw.login.service.LoginServiceImpl" 
+		> -->
+	<!-- <property name="loginDaoImpl" ref="loginDaoImpl"/> -->
+	<!-- </bean> -->
+
+	<context:component-scan base-package="com.nyngw" />
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="com.nyngw" />
+		<property name="mapperLocations" value="classpath:com/nyngw/**/sqlMaps/*.xml" />
+	</bean>
+
+	<!-- <bean id="sqlSessionFactory" -->
+	<!-- class="org.mybatis.spring.SqlSessionFactoryBean" -->
+	<!-- p:dataSource-ref="dataSource" -->
+	<!-- p:configLocation="classpath:mybatis/mybatis_config.xml" -->
+	<!-- /> -->
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		c:sqlSessionFactory-ref="sqlSessionFactory" />
+
+
+</beans>
