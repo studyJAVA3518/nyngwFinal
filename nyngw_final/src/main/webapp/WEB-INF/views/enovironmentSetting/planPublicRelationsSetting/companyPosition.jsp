@@ -59,8 +59,8 @@
 						<input type="submit" value="▲아래로" class="btn btn-default" action="downPoNum_go();"/> 
 					</td>
 					<td>
-						<input type="submit" value="직급 등록" action="updatePosition_go();"/>
-						<input type="submit" value="직급 등록" action="deletePosition_go();"/>
+						<input type="submit" value="직급 등록" onclick="updatePosition_go();"/>
+						<input type="submit" value="직급 등록" onclick="deletePosition_go();"/>
 					</td>
 				</tr>
 			</form>
