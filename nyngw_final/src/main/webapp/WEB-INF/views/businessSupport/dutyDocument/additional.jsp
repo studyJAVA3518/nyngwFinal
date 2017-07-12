@@ -7,16 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-마이페이지 >> 나의 급여 관리 >> 퇴직금 현황
 
-<button class="btn btn-primary">확인하기</button>
-<table class="table table-bordered">
-   		<tr>
-   			<td>퇴직금</td>
-   		</tr>
-   		<tr>
-   			<td></td>
-   		</tr>
-   	</table>
+업무지원 >> 업무일지 >> 추가업무조회
 </body>
 </html>

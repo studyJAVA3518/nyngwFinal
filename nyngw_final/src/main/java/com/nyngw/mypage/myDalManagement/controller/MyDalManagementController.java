@@ -12,7 +12,7 @@ import com.nyngw.mypage.myDalManagement.MyVacationListView;
 import com.nyngw.mypage.myDalManagement.service.MyDalManagementServiceImpl;
 
 @Controller
-@RequestMapping("mypage/myDalManagement")
+@RequestMapping("/mypage/myDalManagement")
 public class MyDalManagementController {
 	
 	@Autowired
@@ -23,7 +23,7 @@ public class MyDalManagementController {
 	 * 출결보기 버튼을 누를시 화면전환 url을 보내주는 메서드
 	 * @return	출결보기url 반환
 	 */
-	@RequestMapping("attended")
+	@RequestMapping("/attended")
 	public String attendOffCheck(@RequestParam(value="page",defaultValue="1")int pageNumber,
 			Model model){
 		MyAttendedListView viewData = (MyAttendedListView) myDalManagementService.selectAttendList(pageNumber); 
