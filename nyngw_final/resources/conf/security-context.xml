@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:bean xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select mem_id as username,
+												mem_pwd as password,
+												mem_retirement as enabled
+										 from member
+										 where mem_id=?"
+				authorities-by-username-query="select mem_id as username,
+													  mngr_name as authority
+											   from member,manager
+											   where mem_mngr_number = mngr_number and mem_id=?" />
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<http use-expressions="true" >
+	<form-login 
+			login-page="/user/loginForm" 
+			login-processing-url="/user/login"
+			username-parameter="mem_id" 
+			password-parameter="mem_pwd" 
+			default-target-url="/homeMain/main"
+			authentication-failure-url="/user/loginForm?error=true"
+			always-use-default-target="true"
+
+			 />
+		<logout logout-success-url="/user/logout" delete-cookies="true" />
+		<access-denied-handler error-page="/user/accessDenied"/>
+		<intercept-url pattern="/login/loginForm" access="permitAll" />
+		<intercept-url pattern="/login/login" access="permitAll" />
+		<intercept-url pattern="/login/**" access="permitAll" />
+		
+		<intercept-url pattern="/main" access="isAuthenticated()" />
+		<intercept-url pattern="/**" access="permitAll" />
+		
+		
+		<session-management>
+			<concurrency-control max-sessions="1" expired-url="/user/login_duplicate"/>
+		</session-management>
+
+	</http>
+</beans:bean>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.humanResource.dalManagement.dao.DalManagementDao">
+
+	<select id="searchContent" parameterType="com.nyngw.dto.Member_ViewVO"
+		resultType="com.nyngw.dto.Member_ViewVO">
+		select
+		mem_number,mem_id,position_name,dept_name,dal_date,dal_content,mdi_bank,mdi_bank_account,mdi_account_holder
+		from
+		DILIGENCE_AND_LAZINESS,member,department,MEMBER_DETAIL_INFORMATION,position
+		where DAL_MEM_NUMBER=MEM_NUMBER
+		and position_number =
+		member.MEM_POSITION_NUMBER
+		and MEM_NUMBER = DEPT_MEMBERNUMBER
+		and
+		mem_NUMBER = mdi_mem_number
+		and DAL_DATE between to_date(#{startdal_date},
+		'YYYY-MM-DD') and
+		to_date(#{enddal_date}, 'YYYY-MM-DD')+0.99999
+	</select>
+
+	<select id="dateSearchList_HRDS" parameterType="com.nyngw.dto.FN_GETDALCNT" resultType="com.nyngw.dto.FN_GETDALCNT">
+		SELECT DEPT_NUMBER
+		, DEPT_NAME
+		, (SELECT COUNT(*) FROM MEMBER WHERE MEMBER.MEM_DEPT_NUMBER = DEPARTMENT.DEPT_NUMBER) dept_total
+		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf1') dept_sf1
+		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf2') dept_sf2
+		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf3') dept_sf3
+		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf4') dept_sf4
+		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf5') dept_sf5
+		FROM DEPARTMENT
+	</select>
+
+</mapper>

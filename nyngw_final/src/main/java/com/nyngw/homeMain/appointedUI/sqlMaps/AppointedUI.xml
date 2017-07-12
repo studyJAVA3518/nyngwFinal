@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.homeMain.appointedUI.dao.AppointedUIDao">
+	
+	<select id="selectCompany" resultType="com.nyngw.dto.CompanyVO" >
+		select * from company
+	</select>
+	
+	<update id="updateCompany" parameterType="com.nyngw.dto.CompanyVO">
+		update company set 
+		company_name=#{company_name}, 
+		company_logo=#{company_logo},
+		company_tel=#{company_tel},
+		company_addr=#{company_addr}
+		where id=#{id}
+	</update>
+	
+	<select id="selectMember" resultType="com.nyngw.dto.MemberVO" parameterType="java.lang.String">
+		select * from member_view where mem_id=#{mem_id}
+	</select>
+
+</mapper>

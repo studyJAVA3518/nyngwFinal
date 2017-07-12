@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.sharingInformation.board.dao.BoardDao">
+	
+	<select id="selectList" resultType="com.nyngw.dto.BoardVO">
+		select * from board
+	</select>
+	
+	<select id="selectBoardCount" resultType="java.lang.Integer">
+		select count(*) from board
+	</select>
+	
+	<select id="selectBoardList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_title like '%'||#{board_title}||'%' order by 1 desc
+	</select>
+	
+	<select id="selectTitleList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_title like '%'||#{board_title}||'%' order by 1 desc
+	</select>
+	
+	<select id="selectWriteList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_mem_number like '%'||#{board_mem_number}||'%' order by 1 desc
+	</select>
+	
+	<select id="selectBoard" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_number like #{board_number}
+	</select>
+
+	<select id="selectMax" resultType="java.lang.String">
+		select max(board_number) from board
+	</select>
+	
+	<update id="boardUpdate" parameterType="com.nyngw.dto.BoardVO">
+		update board 
+		set board_code_number=#{board_code_number},
+			board_title=#{board_title}, 
+			board_content=#{board_content},
+			board_file_name=#{board_file_name},
+			board_count=#{board_count},
+			board_date=#{board_date},
+			board_mem_number=#{board_mem_number}
+		where board_number=#{board_number}
+	</update>
+
+	<update id="boardInsert" parameterType="com.nyngw.dto.BoardVO">
+		insert into board(board_number, board_code_number, board_title, board_content, 
+							board_file_name, board_count, board_date, board_mem_number)
+		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content},
+		       #{board_file_name}, #{board_count}, #{board_date}, #{board_mem_number})
+	</update>
+	
+</mapper>

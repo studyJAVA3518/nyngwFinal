@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyngw.electronicApproval.draft.dao.DraftDao">
+
+	<!-- 모두 검색 -->
+	<select id= "selectDocumentList" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10'
+	</select>
+	
+	<!-- 검색어 분류와 기안문서함으로 검색-->
+	<select id= "selectDocumentListByDocName" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_name like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+	</select>
+	<select id= "selectDocumentListByDocExplanation" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_explanation like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+	</select>
+	<select id= "selectDocumentListByDocMemNumber" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_mem_number like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+	</select>
+	<select id= "selectDocumentListByDocDate" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_date like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+	</select>
+	
+	<!-- 검색어 분류만으로 검색 -->
+	<select id= "selectDocumentListOnlyByDocName" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_name like '%'||#{searchText}||'%' and (doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10')
+	</select>
+	<select id= "selectDocumentListOnlyByDocExplanation" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_explanation like '%'||#{searchText}||'%' and (doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10')
+	</select>
+	<select id= "selectDocumentListOnlyByDocMemNumber" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_mem_number like '%'||#{searchText}||'%' and (doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10')
+	</select>
+	<select id= "selectDocumentListOnlyByDocDate" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * from document where doc_date like '%'||#{searchText}||'%' and (doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10')
+	</select>
+	
+	<!-- 기안함구분으로만 검색 -->
+	<select id= "selectDocumentListOnlyByDraftBoxOption" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * 
+		from document 
+		where (doc_name like '%'||#{searchText}||'%'
+		or doc_explanation like '%'||#{searchText}||'%'
+		or doc_mem_number like '%'||#{searchText}||'%' 
+		or doc_date like '%'||#{searchText}||'%')
+		and doc_code_number = #{draftBoxOption}
+	</select>
+	
+	<!-- 아무것도 선택 안하고 검색 -->
+	<select id= "selectDocumentListOnlyBySearchText" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
+		select * 
+		from document 
+		where (doc_name like '%'||#{searchText}||'%'
+		   or doc_explanation like '%'||#{searchText}||'%'
+		   or doc_mem_number like '%'||#{searchText}||'%' 
+		   or doc_date like '%'||#{searchText}||'%') 
+		   and doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10'
+	</select>
+	
+</mapper>
