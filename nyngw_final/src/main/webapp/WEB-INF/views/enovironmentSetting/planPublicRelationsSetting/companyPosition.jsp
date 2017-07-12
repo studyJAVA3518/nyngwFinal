@@ -47,8 +47,8 @@
 						<input type="submit" value="▲아래로" class="btn btn-default" action="downPoNum_go();"/> 
 					</td>
 					<td>
-						<input type="submit" value="직급 등록" action="updatePosition_go();"/>
-						<input type="submit" value="직급 등록" action="deletePosition_go();"/>
+						<input type="submit" value="직급 수정" onclick="updatePosition_go();"/>
+						<input type="submit" value="직급 삭제" onclick="deletePosition_go();"/>
 					</td>
 				</tr>
 				<tr>
@@ -59,11 +59,38 @@
 						<input type="submit" value="▲아래로" class="btn btn-default" action="downPoNum_go();"/> 
 					</td>
 					<td>
-						<input type="submit" value="직급 등록" onclick="updatePosition_go();"/>
-						<input type="submit" value="직급 등록" onclick="deletePosition_go();"/>
+						<input type="submit" value="직급 수정" onclick="updatePosition_go();"/>
+						<input type="submit" value="직급 삭제" onclick="deletePosition_go();"/>
 					</td>
 				</tr>
 			</form>
 		</table>
 	</div>
 </div>
+
+<script>
+	function updatePosition_go(){
+		alert("직급수정!!");
+
+		var url = "/enovironmentSetting/positionPopupForm";
+	    
+	    cw=screen.availWidth;     //화면 넓이
+	    ch=screen.availHeight;    //화면 높이
+	
+	    sw=600;    //띄울 창의 넓이
+	    sh=650;    //띄울 창의 높이
+	
+	    ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+	    mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+	
+	    window.open(
+	       url,
+	       "_blank_1",
+	       "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width="
+	       +sw+",height="+sh+",top="+mt+",left="+ml
+	    );
+	}
+	function deletePosition_go(){
+		alert("직급삭제!!");
+	}
+</script>

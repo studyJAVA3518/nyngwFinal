@@ -5,38 +5,14 @@
 
 
 <div class="row">
-	<h4>부서 수정하기</h4>
+	<h4>직급 수정하기</h4>
 	<table class="table">
 		<form action="#" method="post">
 			<tr>
-				<th>부서 이름</th>
+				<th>직급 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>부서장 사원번호</th>
-				<td>
-					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>부서 연락처</th>
-				<td>
-					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>부서 위치</th>
-				<td>
-					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input type="text" id="position_name" name="position_name"/>
 					</div>
 				</td>
 			</tr>
