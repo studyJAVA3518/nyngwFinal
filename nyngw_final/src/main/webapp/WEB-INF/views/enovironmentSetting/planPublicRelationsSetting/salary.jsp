@@ -42,5 +42,6 @@
 <script>
 	function paySetting_go(){
 		alert("페이정책 고!!");
+		
 	}
 </script>
