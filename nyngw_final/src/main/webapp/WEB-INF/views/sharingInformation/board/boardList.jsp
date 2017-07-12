@@ -14,16 +14,15 @@
 <body>
 	<h1>게시판</h1>
 	
-	<form action="/sharingInformation/board/select">
+	<form action="/sharingInformation/board/list">
 		<select name="index">
 				<option value="board_mem_number" selected="selected">작성자</option>
 				<option value="board_title">제목</option>
 		</select>
 		<input type="text" name="val">
 		<input type="submit" value="검색">
+		<button type="button"><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
 	</form>
-	<button><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
-	<a href="/sharingInformation/board/detail">4</a>
 	<table class="table table-bordered">
 		<tr>
 			<th>글번호</th>
@@ -37,7 +36,7 @@
 				<c:forEach items="${viewData.boardList }" var="board" varStatus="i">
 					<tr>
 						<td>${fn:substring(board.board_number,5,10077777)}</td>
-						<td><a href="/sharingInformation/board/updateForm">${board.board_title }</a></td>
+						<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 						<td>${board.board_mem_number }</td>
 						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
