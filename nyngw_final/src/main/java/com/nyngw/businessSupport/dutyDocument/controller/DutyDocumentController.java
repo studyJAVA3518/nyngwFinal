@@ -17,10 +17,17 @@ public class DutyDocumentController {
 		
 		return "businessSupport/dutyDocument/additional";
 	}
+	
 	@RequestMapping("/department")
 	public String departmentselect(){
 		
 		return "businessSupport/dutyDocument/department";
+	}
+
+	@RequestMapping("/departmentDetail")
+	public String departmentDetail(){
+		
+		return "businessSupport/dutyDocument/departmentDetail";
 	}
 	@RequestMapping("/personal")
 	public String personalselect(){
