@@ -22,4 +22,9 @@ public class MeetingManagementController {
 		
 		return "businessSupport/meetingManagement/meetingFile";
 	}
+	@RequestMapping("addMeeting")
+	public String addmeet(){
+		
+		return "businessSupport/meetingManagement/addMeeting";
+	}
 }

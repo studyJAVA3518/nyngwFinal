@@ -42,13 +42,6 @@
 								</li>
 								
 								<li>
-									<h3>업무 상태</h3>                       
-									<ul>                                 
-										<li><a href="/businessSupport/dutyStatusReport/completeDuty">&nbsp;&nbsp;&nbsp;└ 완료업무함</a></li>  
-										<li><a href="/businessSupport/dutyStatusReport/incompleteDuty">&nbsp;&nbsp;&nbsp;└ 미완료업무함</a></li>  
-									</ul>                                	
-								</li>
-								<li>
 									<h3>회의 시설 정보</h3>                       
 									<ul>                                 
 										<li><a href="/businessSupport/meetingFacilitiesManagement/facilitiesBooking">&nbsp;&nbsp;&nbsp;└ 회의록 관리</a></li>  
