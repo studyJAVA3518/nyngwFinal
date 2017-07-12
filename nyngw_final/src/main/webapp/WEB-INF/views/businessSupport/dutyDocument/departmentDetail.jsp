@@ -7,10 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table class="table table-border">
+	부서업무조회상세페이지
+	<table class="table table-bordered">
 		<tr>
-			<th>제목</th>
-			<td>나야나그룹웨어솔루션산출물</td>
+			<th >제목</th>
+			<td colspan="3">나야나그룹웨어솔루션산출물</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
@@ -33,6 +34,25 @@
 			<th>작성일지</th>
 			<td>2017.07.12 19:35:01</td>
 		</tr>
+		<tr>
+			<td colspan="4">
+				<textarea rows="20" cols="110" style="resize: none;" readonly="readonly">
+				</textarea>
+			</td>
+		</tr>
 	</table>
+	<table class="table table-bordered">
+		<tr>
+			<th>의견</th>
+			<td>
+				<textarea rows="3" cols="100" style="resize: none;" readonly="readonly">
+				</textarea>
+			</td>
+			<td>
+				<button>등록</button>
+			</td>
+		</tr>
+	</table>
+	<button type="button"><a href="/businessSupport/dutyDocument/department">목록</a></button>
 </body>
 </html>

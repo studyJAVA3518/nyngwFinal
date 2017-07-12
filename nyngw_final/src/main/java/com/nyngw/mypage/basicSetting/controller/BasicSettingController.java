@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,14 +24,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 
 
 @Controller
-@RequestMapping("mypage/basicSetting")
+@RequestMapping("/mypage/basicSetting")
 public class BasicSettingController {
-//	@Autowired
-//	private BasicSettingServiceImpl basicSettingServiceImpl; 
+	
+	@Autowired
+	private BasicSettingServiceImpl basicSettingServiceImpl; 
 	
 	
 	
@@ -38,7 +41,7 @@ public class BasicSettingController {
 	 * 자신의 서명을 등록하는 폼의 url을 반환하는 메서드
 	 * @return 서명등록하는 페이지를 보여줄 url
 	 */
-	@RequestMapping("sign")
+	@RequestMapping("/sign")
 	public String signInsertForm(){
 		System.out.println("사인 들어옴");
 		
@@ -86,7 +89,7 @@ public class BasicSettingController {
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
-	@RequestMapping("dragUpload")
+	@RequestMapping("/dragUpload")
 	public @ResponseBody String uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files, @RequestParam("fileNames") String[] fileNames, HttpServletRequest request, HttpServletResponse reponse) throws JsonGenerationException, JsonMappingException, IOException {
 		System.out.println("마하반야바라2");
 		String fileName = "";
