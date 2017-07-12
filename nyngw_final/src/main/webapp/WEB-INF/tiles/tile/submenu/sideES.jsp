@@ -34,8 +34,8 @@
 										<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">&nbsp;&nbsp;&nbsp;└ 회사 부서 설정</a></li>
 										<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">&nbsp;&nbsp;&nbsp;└ 회사 직급 설정</a></li>
 										<li><a href="/enovironmentSetting/planPublicRelationsSetting/organizationForm/">&nbsp;&nbsp;&nbsp;└ 조직도 설정</a></li>
+										<li><a href="/enovironmentSetting/planPublicRelationsSetting/salaryForm/">&nbsp;&nbsp;&nbsp;└ 급여정책 설정</a></li>
 									</ul>
-									
 								</li>
 							
 								<li>
