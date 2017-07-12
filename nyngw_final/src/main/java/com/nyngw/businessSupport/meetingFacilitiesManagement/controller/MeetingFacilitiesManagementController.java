@@ -13,9 +13,18 @@ public class MeetingFacilitiesManagementController {
 	@Autowired
 	private MeetingFacilitiesManagementServiceImpl meetingFacilitiesManagementService;
 	
+	/**
+	 * 회의실 목록
+	 * @return
+	 */
 	@RequestMapping("facilitiesBooking")
 	public String Booking(){
 		
 		return "businessSupport/meetingFacilitiesManagement/facilitiesBooking";
+	}
+	
+	@RequestMapping("reservation")
+	public String reservation(){
+		return "businessSupport/meetingFacilitiesManagement/reservation";
 	}
 }
