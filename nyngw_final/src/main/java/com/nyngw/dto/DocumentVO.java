@@ -81,4 +81,14 @@ public class DocumentVO {
 	public void setDoc_mem_number(String doc_mem_number) {
 		this.doc_mem_number = doc_mem_number;
 	}
+	@Override
+	public String toString() {
+		return "DocumentVO [doc_number=" + doc_number + ", doc_name="
+				+ doc_name + ", doc_date=" + doc_date + ", doc_file_name="
+				+ doc_file_name + ", doc_explanation=" + doc_explanation
+				+ ", doc_lifetime=" + doc_lifetime + ", doc_code_number="
+				+ doc_code_number + ", doc_mem_number=" + doc_mem_number
+				+ ", doc_eadoc=" + doc_eadoc + ", mem_name=" + mem_name + "]";
+	}
+	
 }

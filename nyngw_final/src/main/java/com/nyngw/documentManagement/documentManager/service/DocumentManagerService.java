@@ -5,6 +5,7 @@ import com.nyngw.dto.DocumentVO;
 
 public interface DocumentManagerService {
 	public DocumentListView selectDocumentList(int pageNumber);
-	public void documentUpdate(DocumentVO document);
-	public DocumentVO selectDocument(String doc_number);
+	public void documentManagerUpdate(DocumentVO document);
+	public DocumentVO selectDocumentDetail(String doc_number);
+	public DocumentVO selectDocumentUpdateForm(String doc_number);
 }

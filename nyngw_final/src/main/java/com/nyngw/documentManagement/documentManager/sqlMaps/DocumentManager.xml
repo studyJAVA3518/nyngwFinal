@@ -18,9 +18,17 @@
 		from documentview where dv_doc_number like '%'||#{dv_doc_number}||'%'
 	</select>
 	
-	<select id="selectDocumentManager" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentVO">
-		select * from document where doc_number like #{doc_number}
+	<select id="selectDocumentDetail" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentVO">
+		select * from document where doc_number = #{dv_doc_number}
 	</select>
+	
+	<select id="selectDocumentUpdateForm" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentVO">
+		select * from document where doc_number = #{doc_number}
+	</select>
+	
+<!-- 	<select id="selectDocumentView" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentViewVO"> -->
+<!-- 		select dv_doc_number from documentview where dv_doc_number like #{dv_doc_number} -->
+<!-- 	</select> -->
 	
 	<update id="documentManagerUpdate" parameterType="com.nyngw.dto.DocumentVO">
 		update document
@@ -28,8 +36,7 @@
 			doc_number = #{doc_number},
 			doc_name = #{doc_name},
 			doc_explanation = #{doc_explanation},
-			doc_date = #{doc_date},
-			doc_lifetime = #{doc_lifetime},
+			doc_file_name = #{doc_file_name},
 			doc_mem_number = #{doc_mem_number}
 		where  doc_number = #{doc_number}
 	</update>

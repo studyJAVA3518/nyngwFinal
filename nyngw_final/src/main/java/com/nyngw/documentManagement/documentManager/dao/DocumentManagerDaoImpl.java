@@ -31,15 +31,23 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 		return result;
 	}
 
-	@Override
-	public void documentUpdate(DocumentVO document) {
-		// TODO Auto-generated method stub
-		sqlSession.update("documentManagerUpdate", document);
-	}
 	
 	@Override
-	public DocumentVO selectDocument(String doc_number){
-		DocumentVO document = (DocumentVO) sqlSession.selectOne("selectDocumentManager",doc_number);
+	public void documentManagerUpdate(DocumentVO document) {
+		sqlSession.update("documentManagerUpdate", document);
+	}
+	/**
+	 * 상세정보 조회
+	 */
+	@Override
+	public DocumentVO selectDocumentDetail(String doc_number){
+		DocumentVO document = (DocumentVO) sqlSession.selectOne("selectDocumentDetail",doc_number);
+		return document;
+	}
+
+	@Override
+	public DocumentVO selectDocumentUpdateForm(String doc_number) {
+		DocumentVO document = (DocumentVO) sqlSession.selectOne("selectDocumentUpdateForm",doc_number);
 		return document;
 	}
 }
