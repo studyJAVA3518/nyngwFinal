@@ -11,9 +11,16 @@ public class DepartmentVO {
 	private String dept_name;			//부서명
 	private String dept_membernumber;	//부서장사원번호
 	private String dept_tel;			//부서연락처
-	private String dept_level;			//부서등급
+	private Long dept_level;			//부서등급
 	private String dept_addr;			//주소
 	private String dept_parents;		//부모부서명
+	
+	public Long getDept_level() {
+		return dept_level;
+	}
+	public void setDept_level(Long dept_level) {
+		this.dept_level = dept_level;
+	}
 	public String getDept_number() {
 		return dept_number;
 	}
@@ -37,12 +44,6 @@ public class DepartmentVO {
 	}
 	public void setDept_tel(String dept_tel) {
 		this.dept_tel = dept_tel;
-	}
-	public String getDept_level() {
-		return dept_level;
-	}
-	public void setDept_level(String dept_level) {
-		this.dept_level = dept_level;
 	}
 	public String getDept_addr() {
 		return dept_addr;

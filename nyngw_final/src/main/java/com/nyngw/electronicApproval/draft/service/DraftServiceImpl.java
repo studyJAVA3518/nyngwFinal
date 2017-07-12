@@ -53,7 +53,6 @@ public class DraftServiceImpl implements DraftService {
 			whatToRun +=2;
 		}
 		
-		System.out.println(documentSearchVO.getSearchText()+"****"+ documentSearchVO.getDraftBoxOption());
 		switch(whatToRun){
 		case 0://둘 다 선택했을 때
 			switch(searchOption){
