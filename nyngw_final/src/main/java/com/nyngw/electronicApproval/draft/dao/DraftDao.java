@@ -2,6 +2,7 @@ package com.nyngw.electronicApproval.draft.dao;
 
 import java.util.List;
 
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
 import com.nyngw.dto.DocumentVO;
 
@@ -34,4 +35,6 @@ public interface DraftDao {
 
 	//둘다 선택 안 했을 때
 	public List<DocumentVO> selectDocumentListOnlyBySearchText(DocumentSearchVO documentSearchVO);
+	
+	public List<DepartmentVO> draft_selectDepartmentList();
 }

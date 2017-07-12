@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
 import com.nyngw.dto.DocumentVO;
 
@@ -75,6 +76,10 @@ public class DraftDaoImpl implements DraftDao {
 	@Override
 	public List<DocumentVO> selectDocumentListOnlyBySearchText(DocumentSearchVO documentSearchVO) {
 		return sqlSession.selectList("selectDocumentListOnlyBySearchText", documentSearchVO);
+	}
+
+	public List<DepartmentVO> draft_selectDepartmentList() {
+		return sqlSession.selectList("draft_selectDepartmentList");
 	}
 
 }

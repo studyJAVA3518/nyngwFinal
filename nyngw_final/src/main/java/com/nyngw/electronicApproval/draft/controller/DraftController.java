@@ -51,4 +51,32 @@ public class DraftController {
 			model.addAttribute("documentList", documentList);
 		return "electronicApproval/draft/draft";
 	}
+	
+	@RequestMapping("/createDraftForm")
+	public String createDraftForm(String doc_number,Model model){
+		return "electronicApproval/draft/createDraftForm";
+	}
+	
+	@RequestMapping("/approvalLineManager")
+	public String approvalLineManager(Model model){
+		String sb = draftService.getMenuDepartmentString().toString();
+		model.addAttribute("sb",sb);
+		return "electronicApproval/draft/approvalLineManager";
+	}
+	
+	@RequestMapping("/searchMember")
+	public String searchMember(Model model,String searchText){
+//		List<MemberVO> memberList = approvalLineManagementService.searchMember(searchText);
+//		model.addAttribute("memberList",memberList);
+		return "electronicApproval/draft/approvalLineManagement";
+	}
+
+	//결재 상신
+	@RequestMapping("/submitApproval")
+	public String submitApproval(Model model){
+//		List<MemberVO> memberList = approvalLineManagementService.searchMember(searchText);
+//		model.addAttribute("memberList",memberList);
+		return "electronicApproval/individualDocumentBox/submitApprovalBox";
+	}
+	
 }

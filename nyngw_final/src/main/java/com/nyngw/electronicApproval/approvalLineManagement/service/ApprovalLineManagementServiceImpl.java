@@ -17,7 +17,7 @@ public class ApprovalLineManagementServiceImpl implements
 	private ApprovalLineManagementDaoImpl approvalLineManagementDao;  
 	
 	
-	public StringBuffer getMenuDocumentString() {
+	public StringBuffer getMenuDepartmentString() {
 
 		StringBuffer menuString = new StringBuffer(2048);
 
@@ -55,7 +55,7 @@ public class ApprovalLineManagementServiceImpl implements
 					javascript_2 = "javascript:expandsub('"+i+"');goThere('"+menu_id+"')";
 					if( ((DepartmentVO)select.get(i)).getDept_level() == menu_level ) {                       
 						menuString.append("<span id=SG"+i+">"
-											+ "<IMG SRC='/resources/images/treeImage/minus.gif' BORDER=0 ID=IMG"+i+">");
+											+ "<IMG SRC='/resources/images/tree/minus.gif' BORDER=0 ID=IMG"+i+">");
 						menuString.append("	   <A HREF=\""+javascript_2+"\" ID=A"+i+" class=fldblue> "
 													+ menu_nm 
 										     +"</A>"
@@ -64,7 +64,7 @@ public class ApprovalLineManagementServiceImpl implements
 					} else if ( ((DepartmentVO)select.get(i)).getDept_level() > menu_level ) {                      
 						menuString.append("<span id=SG"+i+">"
 											+ "<A HREF=\""+javascript_1+"\">"
-													+ "<IMG SRC='/resources/images/treeImage/plus.gif' BORDER=0 ID=IMG"+i+">"
+													+ "<IMG SRC='/resources/images/tree/plus.gif' BORDER=0 ID=IMG"+i+">"
 											+ "</A>" 
 											+ "<A HREF=\""+javascript_2+"\" ID=A"+i+" class=fldblue> "
 													+ menu_nm 
@@ -75,7 +75,7 @@ public class ApprovalLineManagementServiceImpl implements
 						
 					} else if ( ((DepartmentVO)select.get(i)).getDept_level() < menu_level ) {                      
 						menuString.append("<span id=SG"+i+">"
-											+ "<IMG SRC='/resources/images/treeImage/minus.gif' BORDER=0 ID=IMG"+i+">"
+											+ "<IMG SRC='/resources/images/tree/minus.gif' BORDER=0 ID=IMG"+i+">"
 											+ "<A HREF=\""+javascript_2+"\" ID=A"+i+" class=fldblue> "
 												+ menu_nm 
 											+" </A>"
@@ -96,7 +96,7 @@ public class ApprovalLineManagementServiceImpl implements
 			javascript_2 = "javascript:expandsub('"+i+"');goThere('"+menu_id+"')";
 
 			menuString.append("<span id=SG"+i+">"
-								+ "<IMG SRC='/resources/images/treeImage/minus.gif' BORDER=0 ID=IMG"+i+">"
+								+ "<IMG SRC='/resources/images/tree/minus.gif' BORDER=0 ID=IMG"+i+">"
 								+ "<A HREF=\""+javascript_2+"\" ID=A"+i+" class=fldblue> "
 									+ menu_nm 
 								+ "</A>"

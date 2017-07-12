@@ -18,8 +18,9 @@
     <!-- Custom CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/simple-sidebar.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Bootstrap Core JavaScript -->
     <script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
     
