@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
 
 @Repository
@@ -28,5 +29,17 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	public int selectDocumentCount() {
 		int result =(Integer) sqlSession.selectOne("selectDocumentCount");
 		return result;
+	}
+
+	@Override
+	public void documentUpdate(DocumentVO document) {
+		// TODO Auto-generated method stub
+		sqlSession.update("documentManagerUpdate", document);
+	}
+	
+	@Override
+	public DocumentVO selectDocument(String doc_number){
+		DocumentVO document = (DocumentVO) sqlSession.selectOne("selectDocumentManager",doc_number);
+		return document;
 	}
 }

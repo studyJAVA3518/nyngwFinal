@@ -5,6 +5,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,17 +16,17 @@
 	문서관리 > 문서조회
 	<div id="searchDiv" style="text-align: center;">
 		<div>
-			<select>
-				<option>문서종류</option>
-				<option>문서명</option>
-				<option>등록자</option>
-			</select>
+			<form action="/documentManagement/documentManager/documentSelect">
+				<select name="index">
+					<option value="doc_code_number">문서종류</option>
+					<option value="doc_name">문서명</option>
+					<option value="doc_mem_number">등록자</option>
+				</select>
+				<input type="text" name="val">
+				<input type="submit" value="검색">
+			</form>
 		</div>
 		<div>
-			<input type="search">
-		</div>
-		<div>
-			<button class="btn"><a href="/documentManagement/documentManager/documentSelect">검색</a></button>
 		</div>
 	</div>
 	<br>
