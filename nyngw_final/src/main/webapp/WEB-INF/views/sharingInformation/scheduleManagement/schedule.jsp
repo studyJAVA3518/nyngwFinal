@@ -49,8 +49,8 @@
 
 <!-- 	<link href='//fonts.googleapis.com/css?family=Lato:100,400,700' rel='stylesheet' />
  -->
-<link href='resources/css/base.css' rel='stylesheet' />
-<link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
+<link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
+<link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
 
 <script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
 <script src='<%=request.getContextPath() %>/resources/js/fullCalendar/jquery.min.js'></script>
