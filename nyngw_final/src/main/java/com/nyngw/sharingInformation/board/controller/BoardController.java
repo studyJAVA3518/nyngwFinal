@@ -32,7 +32,7 @@ public class BoardController {
 	
 	@RequestMapping("/list")
 	public String boardList1(@RequestParam(value="page",defaultValue="1")int pageNumber,
-			Model model){
+			Model model,String val, String index){
 		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber,"","");
 		
 	
@@ -44,7 +44,7 @@ public class BoardController {
 	 * 특정게시물을 검색할때 제목이나 내용 작성자 등의 값을 가지고 있는 값을 가지고 검색된 리스트를 보여줄 url을 반환하는 메서드
 	 * @return 검색된 리스트 url을 반환
 	 */
-	@RequestMapping("/select")
+//	@RequestMapping("/select")
 	public String boardSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,String val, String index, Model model){
 		System.out.println(val);
 		System.out.println(index);
@@ -126,8 +126,10 @@ public class BoardController {
 	 * @return 게시물 상세페이지 url 반환
 	 */
 	@RequestMapping("detail")
-	public String boardDetail(){
-		
+	public String boardDetail(String board_number, Model model,String page){
+		BoardVO board = boardService.selectBoard(board_number);
+		model.addAttribute("board", board);
+		model.addAttribute("page",page);
 		return "sharingInformation/board/boardDetail";
 	}
 	

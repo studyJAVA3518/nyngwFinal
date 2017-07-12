@@ -8,12 +8,15 @@
 </head>
 <body>
 	<div>
-		<form action="">
-			<label>이름</label><input type="text"><br>
-			<label>주소</label><input type="text"><br>
-			<label>이메일</label><input type="text"><br>
-			<button><a href="/sharingInformation/noticeMatter/nmWrite">등록</a></button>
-			<button><a href="/sharingInformation/noticeMatter/cancle">취소</a></button>
+		<form action="/sharingInformation/noticeMatter/nmWrite" method="post">
+			<label>게시판종류</label><input type="text" value="자유게시판" readonly="readonly"><br>
+			<label>제목</label><input type="text" name="board_title"><br>
+			<label>내용</label><input type="text" name="board_content"><br>
+			<label>파일이름</label><input type="text" name="board_file_name"><br>
+			<input type="hidden" value="${page}">
+			<input type="submit" value="등록" />
+			<input type="reset" value="초기화" />		
+			<button type="button"><a href="/sharingInformation/noticeMatter/nmList">취소</a></button>
 		</form>
 	</div>
 </body>
