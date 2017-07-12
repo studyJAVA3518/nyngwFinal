@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	부서업무조회상세페이지
+	수정페이지
 	<table class="table table-bordered">
 		<tr>
 			<th >제목</th>
@@ -41,18 +41,7 @@
 			</td>
 		</tr>
 	</table>
-	<table class="table table-bordered">
-		<tr>
-			<th>의견</th>
-			<td>
-				<textarea rows="3" cols="100" style="resize: none;" readonly="readonly">
-				</textarea>
-			</td>
-			<td>
-				<button>등록</button>
-			</td>
-		</tr>
-	</table>
-	<button type="button"><a href="/businessSupport/dutyDocument/department">목록</a></button>
+	<button><a href="/businessSupport/dutyDocument/personal">수정</a></button>
+	<button><a href="/businessSupport/dutyDocument/personal">취소</a></button>
 </body>
 </html>
