@@ -74,13 +74,25 @@
 						          	업무지원 <span class="caret"></span>
 						          </a>
 						          <ul class="dropdown-menu" role="menu">
-						            <li><a href="#">Action</a></li>
-						            <li><a href="#">Another action</a></li>
-						            <li><a href="#">Something else here</a></li>
+						            <li class="topMenuTitle">업무일지</li>
+									<li><a href="/businessSupport/dutyDocument/department">부서 업무 조회</a></li>
+									<li><a href="/businessSupport/dutyDocument/personal">개인 업무 조회</a></li>
+									<li><a href="/businessSupport/dutyDocument/additional">추가 업무 조회</a></li>
 						            <li class="divider"></li>
-						            <li><a href="#">Separated link</a></li>
+						            <li class="topMenuTitle">업무보고상신</li>
+									<li><a href="/businessSupport/dutyReport/dutyReport">업무 보고 상신</a></li>
 						            <li class="divider"></li>
-						            <li><a href="#">One more separated link</a></li>
+						            <li class="topMenuTitle">업무 상태</li>
+									<li><a href="/businessSupport/dutyStatusReport/completeDuty">완료업무함</a></li>
+									<li><a href="/businessSupport/dutyStatusReport/incompleteDuty">미완료업무함</a></li>
+						            <li class="divider"></li>
+						            <li class="topMenuTitle">회의 시설 정보</li>
+									<li><a href="/businessSupport/meetingFacilitiesManagement/facilitiesBooking">회의록 관리</a></li>
+						            <li class="divider"></li>
+						            <li class="topMenuTitle">회의 관리</li>
+									<li><a href="/businessSupport/meetingManagement/meetingCalendar">회의 일정</a></li>
+									<li><a href="/businessSupport/meetingManagement/meetingFile">회의록 관리</a></li>
+						            <li class="divider"></li>
 						          </ul>
 						        </div>
 						        
@@ -106,6 +118,8 @@
 									<li><a href="/electronicApproval/theRestDocumentBox/implementDocumentBox">시행문서함</a></li>  
 									<li><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">참조문서함</a></li>  
 									<li><a href="/electronicApproval/theRestDocumentBox/overallDocumentBox">전체문서함</a></li>  
+						            <li class="divider"></li>
+									<li><a href="/electronicApproval/approvalLineManagement/approvalLineManagement">결재라인관리</a></li>  
 						         
 						          </ul>
 						        </div>
@@ -156,6 +170,7 @@
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">회사 부서 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">회사 직급 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/organizationForm/">조직도 설정</a></li>
+									<li><a href="/enovironmentSetting/planPublicRelationsSetting/salaryForm">급여정책 설정</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">인사부부 설정</li>
 									<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>

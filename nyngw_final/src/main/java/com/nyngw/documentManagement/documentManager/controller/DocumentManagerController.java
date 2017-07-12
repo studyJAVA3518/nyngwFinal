@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
+import com.nyngw.dto.DocumentVO;
 
 @Controller
 @RequestMapping("documentManagement/documentManager")
@@ -31,13 +32,26 @@ public class DocumentManagerController {
 		return "documentManagement/documentManager/documentInsert";
 	}
 	
-	@RequestMapping("/documentDetail")
-	public String documentDetail(){
-		return "documentManagement/documentManager/documentDetail";
-	}
-	
-	@RequestMapping("/documentUpdate")
-	public String documentUpdate(){
+	@RequestMapping("/documentUpdateForm")
+	public String documentUpdate(String doc_number, Model model, String page){
+		DocumentVO document = documentManagerService.selectDocumentUpdateForm(doc_number);
+		model.addAttribute("document",document);
+		model.addAttribute("page",page);
 		return "documentManagement/documentManager/documentUpdate";
+	}
+	@RequestMapping("/documentUpdate")
+	public String documentUpdate(DocumentVO document){
+		
+		System.out.println(document.toString());
+		
+		documentManagerService.documentManagerUpdate(document);
+		return "redirect:/documentManagement/documentManager/documentSelect";
+	}
+	@RequestMapping("/documentDetail")
+	public String documentDetail(String dv_doc_number, Model model, String page){
+		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
+		model.addAttribute("document",document);
+		model.addAttribute("page",page);
+		return "documentManagement/documentManager/documentDetail";
 	}
 }

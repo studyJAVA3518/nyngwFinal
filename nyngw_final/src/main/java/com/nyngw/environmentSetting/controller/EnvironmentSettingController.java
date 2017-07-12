@@ -29,6 +29,15 @@ public class EnvironmentSettingController {
 		String url = "enovironmentSetting/deptInsertPopup";
 		return url;
 	}
+
+	/**
+	 * 회사 직급 등록 팝업 화면으로 이동
+	 */
+	@RequestMapping("/positionPopupForm")
+	public String positionPopupForm(){
+		String url = "enovironmentSetting/positionInsertPopup";
+		return url;
+	}
 	
 	
 }
