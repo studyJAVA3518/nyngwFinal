@@ -17,4 +17,9 @@ public class DutyReportController {
 		
 		return "businessSupport/dutyReport/dutyReport";
 	}
+	
+	@RequestMapping("/dutyReportWrite")
+	public String dutyReportWrite(){
+		return "businessSupport/dutyReport/dutyReportWrite";
+	}
 }
