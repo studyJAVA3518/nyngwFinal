@@ -4,10 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.electronicApproval.individualDocumentBox.dao.individualDocumentBoxDao">
 
+	<!-- 상신문서함 -->
 	<select id="selectSAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_approval
 		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
 		and not (ea_status = '결재완료' or ea_status = '반려')  
-		
+	</select>
+
+	<!-- 완료문서함 -->
+	<select id="selectCAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
+		select * from Electronic_approval
+		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
+		and ea_status = '결재완료'  
+	</select>
+
+	<!-- 반려문서함 -->
+	<select id="selectRAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
+		select * from Electronic_approval
+		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
+		and ea_status = '반려'  
 	</select>
 </mapper>
