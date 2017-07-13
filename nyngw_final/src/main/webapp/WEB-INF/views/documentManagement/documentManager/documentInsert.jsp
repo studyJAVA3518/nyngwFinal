@@ -1,20 +1,63 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.userdetails.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	문서관리 > 문서등록<br>
-	<label>문서번호</label><input type="text" name="doc_number"><br>
-	<label>보존기간</label><input type="text" name="doc_lifetime">
-	<label>해당담당자</label><input type="text" value="" readonly="readonly"><br>
-	<label>문서명</label><input type="text" name="doc_name"><br>
-	<label>설명</label><textarea rows="20" cols="60" name="doc_explanation">텍스트편집기</textarea><br>
-	<label>파일</label><textarea rows="20" cols="60" name="doc_file_name">drag&drop</textarea> 
-	
-	
-</body>
-</html>
+<%
+      User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+%>
+
+<script type="text/javascript">
+   function file_change(file){
+   var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
+   file = file.substring(str, file.length);
+   document.getElementsByName('attach_file')[0].value=file;
+}
+</script>
+	<form enctype="multipart/form-data" action="/documentManagement/documentManager/documentInsertComplete" method="POST">
+		<table class="table table-bordered">
+<!-- 			<colgroup> -->
+<!-- 				<col width="5%"/> -->
+<!-- 				<col width="*"/> -->
+<!-- 			</colgroup> -->
+			<caption>문서 작성</caption>
+			<tbody>
+				<tr>
+					<th>문서종류</th>
+					<td>
+						<select>
+							<option>기안문서A타입</option>
+							<option>기안문서B타입</option>
+							<option>기안문서C타입</option>
+						</select>
+					</td>
+					<th>전자문서</th>
+					<td><input type="checkbox" name="doc_eadoc"></td>
+				</tr>
+				<tr>
+					<th>보존기간</th>
+					<td colspan="3"><input type="date" id="doc_date" name="doc_date"></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td colspan="3"><input type="text" id="doc_mem_number" name="doc_mem_number" value="<%=user.getUsername() %>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>문서명</th>
+					<td colspan="3"><input type="text" id="doc_name" name="doc_name"></td>
+				</tr>
+				<tr>
+					<th>설명</th>
+					<td  colspan="3"><textarea rows="20" cols="100" id="doc_explanation" name="doc_explanation"></textarea></td>
+				</tr>
+				<tr>
+					<th>파일</th>
+					<td colspan="3"><input type="file" name="doc_file_name" onchange="javascript:file_change(this.value);"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<input type="submit" value="등록" class="btn">
+			<button class="btn"><a href="/documentManagement/documentManager/documentSelect" id="documentSelect">취소</a></button>
+		</div>
+	</form>

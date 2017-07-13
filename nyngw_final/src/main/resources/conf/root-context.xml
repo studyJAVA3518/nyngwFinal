@@ -29,7 +29,13 @@
 		<property name="typeAliasesPackage" value="com.nyngw" />
 		<property name="mapperLocations" value="classpath:com/nyngw/**/sqlMaps/*.xml" />
 	</bean>
-
+<!-- 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+<!-- 		<property name="defaultEncoding" value="utf-8"/> -->
+<!-- 		<property name="maxUploadSize" value="100000000"/> -->
+<!-- 		<property name="uploadTempDir" value="C:\test"/> -->
+<!-- 		<property name="maxInMemorySize" value="100000000"/> -->
+<!-- 	</bean> -->
+	
 	<!-- <bean id="sqlSessionFactory" -->
 	<!-- class="org.mybatis.spring.SqlSessionFactoryBean" -->
 	<!-- p:dataSource-ref="dataSource" -->
