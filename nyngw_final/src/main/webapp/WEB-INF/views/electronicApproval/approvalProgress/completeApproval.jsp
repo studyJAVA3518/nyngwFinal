@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 결재진행> 완료문서
+결재완료는 본인이 상신했던 문서 중 결재 처리가 된 문서를 확인할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>

@@ -4,6 +4,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 개인문서함>완료문서함
+결재완료문서는 본인이 결재라인에 포함되어 있는 문서들 중 결재 처리를 한 문서들을 확인할 수 있는 메뉴입니다.
+검색 목록의 제목을 클릭하면 결재문서가 팝업으로 뜨면 결재 이력을 확인할 수 있습니다. 
+
+<script type="text/javascript">
+$(function(){
+	 $('#approvalHistoryDialog').css('display', 'none');
+	 
+	/////////////////////////////////////////////////
+	$("#approvalHistory_go").click(function(){
+		$('#approvalHistoryDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons: {
+		       "취소": function() {
+					$(this).dialog("close");
+				}
+			},
+			close: function() {
+				$('#textArea').val('');
+			}
+	    });
+    })
+    ///////////////////////////////////////////////
+	$("#editDraft_go").click(function(){
+		location.href="/electronicApproval/individualDocumentBox/editDraftForm";
+	});
+	
+})
+</script>
+<div id="approvalHistoryDialog">
+	결재상태 이력보기
+	<table class="table">
+		<tr>
+			<th>회사</th>
+			<th>부서</th>
+			<th>직급</th>
+			<th>직책</th>
+			<th>이름</th>
+			<th>결재종류</th>
+			<th>결재종시간</th>
+		</tr>
+		<tr>
+			<td>심플렉스인터넷(주)</td>
+			<td>TFT 기획</td>
+			<td>사원</td>
+			<td>사원</td>
+			<td>이주빈</td>
+			<td>가결</td>
+			<td>2008-03-25 11:53:07</td>
+		</tr>
+	</table>
+</div>
+
 <form>
 	<table class="table">
 		<tr>
@@ -61,7 +115,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${EA.ea_title }</td>
+			<td id="approvalHistory_go" style="color:blue;">${EA.ea_title }</td>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 			<td>${EA.ea_status }</td>
 			<td>합의 내용</td>

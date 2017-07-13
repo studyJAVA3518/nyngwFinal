@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 그외문서함>참조문서함
+참조문서함은 본인이 수신참조인으로 지정된 결재문서를 확인 할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>
@@ -60,7 +62,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${EA.ea_title }</td>
+			<td><a href="electronicApproval/theRestDocumentBox/referenceDocumentDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
 			<td>${EA.ea_mem_number}</td>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>

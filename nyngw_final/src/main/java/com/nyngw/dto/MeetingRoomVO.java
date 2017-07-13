@@ -9,6 +9,7 @@ public class MeetingRoomVO {
 	private String mr_number;		//회의실번호
 	private String mr_name; 		//회의실명
 	private String mr_roomnumber;	//회의실호수
+	
 	public String getMr_number() {
 		return mr_number;
 	}

@@ -44,6 +44,16 @@ public class IndividualDocumentBoxController {
 	public String searchSubmitApproval(Model model, Principal principal){
 		return "electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
+	//상신문서상세
+	@RequestMapping("/submitApprovalDetail")
+	public String submitApprovalDetail(Model model,String ea_number){
+		return "electronicApproval/individualDocumentBox/submitApprovalDetail";
+	}
+	//상신문서수정페이지
+	@RequestMapping("/editDraftForm")
+	public String editDraftForm(Model model){
+		return "electronicApproval/individualDocumentBox/editDraftForm";
+	}
 	
 	//임시보관함
 	@RequestMapping("/outbox")
@@ -101,5 +111,10 @@ public class IndividualDocumentBoxController {
 		model.addAttribute("code_nameList",code_nameList );
 		model.addAttribute("EAList",EAList );*/
 		return "electronicApproval/individualDocumentBox/refusedApprovalBox";
+	}
+	//반려문서상세
+	@RequestMapping("/refusedApprovalDetail")
+	public String refusedApprovalDetail(Model model,String ea_number){
+		return "electronicApproval/individualDocumentBox/refusedApprovalDetail";
 	}
 }

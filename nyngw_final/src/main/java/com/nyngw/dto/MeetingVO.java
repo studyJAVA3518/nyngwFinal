@@ -10,6 +10,7 @@ public class MeetingVO {
 	private String mt_reader;		//회의주최자
 	private String mt_md_number;	//회의록번호
 	private String mt_rv_number;	//예약번호
+	
 	public String getMt_number() {
 		return mt_number;
 	}
