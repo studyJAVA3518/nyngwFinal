@@ -44,7 +44,7 @@
 								<li>
 									<h3>기본 설정</h3>                       
 									<ul>                                 
-										<li><a href="/mypage/basicSetting/sign">&nbsp;&nbsp;&nbsp;└ 서명 등록</a></li>  
+										<li><a href="/mypage/basicSetting/sign">&nbsp;&nbsp;&nbsp;└ 개인 정보 수정</a></li>  
 									</ul>                                	
 								</li>
 							</ul>

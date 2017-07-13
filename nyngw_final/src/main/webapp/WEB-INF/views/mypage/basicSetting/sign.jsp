@@ -1,5 +1,11 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.userdetails.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%
+   User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+ %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 <script type="text/javascript">
 	
@@ -324,6 +330,41 @@
 </script>
 
 
+<form>
+<table class="table table-bordered">
+	<tr>
+		<th>사진</th>
+		<td><img src="/resources/images/logo.png"></td>
+	</tr>
+	<tr>
+		<th>사원이름</th>
+		<td>${MemberVoDetail.mem_name}</td>
+	</tr>
+	<tr>
+		<th>연락처</th>
+		<td>${MemberVoDetail.mem_tel }</td>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<td>${MemberVoDetail.mem_email }</td>
+	</tr>
+	<tr>
+		<th>주소</th>
+		<td>${MemberVoDetail.mem_addr1 }</td>
+	</tr>
+	<tr>
+		<th>상세주소</th>
+		<td>${MemberVoDetail.mem_addr2 }</td>
+	</tr>
+	
+					
+</table>
+</form>
+
+
+
+
+
 	<div id="files">
 		<ul id="fileList">
 			<li id="intro">
@@ -340,4 +381,5 @@
 	<center><input type='button' onclick="fnAllClear();" value='전체삭제'/>
 	<input id="uploadBtn" type="button" value="업로드" onclick="fnUpload()"/></center>
 
+<button><a href="/mypage/basicSetting/updateMemberForm">수정</a></button>
 
