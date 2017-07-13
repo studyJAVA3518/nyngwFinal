@@ -75,4 +75,17 @@
 		delete from board where board_number = #{board_number}
 	</update>
 	
+	<!-- 댓글 -->
+	<update id="answerWrite" parameterType="com.nyngw.dto.Board_CommentVO">
+		insert into board_comment(comment_number, comment_board_number, comment_content, comment_date, comment_mem_number)
+		values('comment'||comment_seq.nextVal, #{comment_board_number}, #{comment_content}, #{comment_date}, #{comment_mem_number})
+	</update>
+	
+	<select id="answerSelectList" parameterType="java.lang.String" resultType="com.nyngw.dto.Board_CommentVO">
+		select * from board_comment where comment_board_number = #{board_number}
+	</select>
+
+	<update id="answerDelete" parameterType="java.lang.String">
+		delete from board_comment where comment_number = #{comment_number}
+	</update>
 </mapper>

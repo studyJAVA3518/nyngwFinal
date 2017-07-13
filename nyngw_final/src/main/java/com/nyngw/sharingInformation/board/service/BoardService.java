@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
 
 public interface BoardService {
@@ -14,4 +15,9 @@ public interface BoardService {
 	public void boardUpdate(BoardVO board);
 	public void boardInsert(BoardVO board);
 	public void boardDelete(String board_number);
+	
+	//댓글
+	public void answerWrite(Board_CommentVO comment);
+	public List<Board_CommentVO> answerSelectList(String board_number);
+	public void answerDelete(String comment_number);
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
 
 @Repository
@@ -90,5 +91,23 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void boardDelete(String board_number) {
 		sqlSession.delete("boardDelete", board_number);
+	}
+
+	//댓글
+	
+	@Override
+	public void answerWrite(Board_CommentVO comment) {
+		sqlSession.insert("answerWrite", comment);
+	}
+
+	@Override
+	public List<Board_CommentVO> answerSelectList(String board_number) {
+		List<Board_CommentVO> comment = sqlSession.selectList("answerSelectList", board_number);
+		return comment;
+	}
+
+	@Override
+	public void answerDelete(String comment_number) {
+		sqlSession.delete("answerDelete", comment_number);
 	}
 }

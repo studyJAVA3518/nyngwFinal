@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.sharingInformation.board.dao.BoardDaoImpl;
 
@@ -95,5 +96,24 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardDelete(String board_number) {
 		boardDao.boardDelete(board_number);
+	}
+	
+	
+	
+	//댓글
+	@Override
+	public void answerWrite(Board_CommentVO comment) {
+		boardDao.answerWrite(comment);
+	}
+
+	@Override
+	public List<Board_CommentVO> answerSelectList(String board_number) {
+		List<Board_CommentVO> comment = boardDao.answerSelectList(board_number);
+		return comment;
+	}
+
+	@Override
+	public void answerDelete(String comment_number) {
+		boardDao.answerDelete(comment_number);
 	}
 }

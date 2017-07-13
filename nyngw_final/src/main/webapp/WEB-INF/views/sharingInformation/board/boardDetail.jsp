@@ -28,15 +28,46 @@
 			});
 		}
 	}
-// 		var con_test = confirm("어떤 값이 나올까요. 확인을 눌러보세요.");
-// 		$.ajax({
-//             type : "POST",
-//             url : "/sharingInformation/board/answerUpdate",
-//             data : {'id' : id},
-//             success : function(){
-// 	          },
-//             dataType : 'json' 
-// 		});
+	function answerWriteClick(id,form){
+		var comment_content = document.getElementsByName('comment_content')[0].value;
+		alert(comment_content);
+		
+		$.ajax({
+            type : "POST",
+            url : "/sharingInformation/board/answerWrite",
+            data : {'id' : id ,'comment_content' : comment_content},
+            success : function(result){
+            	location.href=result.uri;
+	        }, 
+	        error : function(){
+	        },
+            dataType : 'json' 
+		});
+	}
+	function answerDeleteClick(id,board_number){
+		$.ajax({
+            type : "POST",
+            url : "/sharingInformation/board/answerDelete",
+            data : {'id' : id , "board_number":board_number},
+            success : function(result){
+            	location.href=result.uri;
+	        }, 
+	        error : function(){
+	        },
+            dataType : 'json' 
+		});
+	}
+	function aa() {
+	}
+	$(function(){
+		$('#btn').click(function(){
+// 			$('#content').attr("readonly",true);
+			$('#con').prop('readonly',!$('#con').prop('readonly'));
+			if($('#con').attr('readonly')==true){
+				alert($('#con').val());
+			}
+		});
+	});
 </script>
 <body>
 	<div>
@@ -56,7 +87,7 @@
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-				<textarea rows="20" cols="71" style="resize: none;" readonly="readonly">${board.board_content }</textarea>
+					<textarea rows="20" cols="71" style="resize: none;" readonly="readonly">${board.board_content }</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -73,29 +104,34 @@
 		<form action="/sharingInformation/board/answerUpdate">
 			<table class="table table-bordered">
 				<tr>
-					<th colspan="5">댓글</th>
+					<th>작성자</th>
+					<th colspan="2">댓글</th>
+					<th>작성시간</th>
+					<th>기타</th>
 				</tr>
-				<tr>
-					<td>김병현</td>
-					<td colspan="2">내용12333333333333333333333333333333333333333333333333333</td>
-					<td>2017.07.13</td>
-					<td>
-						<button type="button" onclick="aa('${board.board_title}');">수정</button>
-						<button type="button">삭제</button>
-					</td>
-				</tr>
+				<c:forEach items="${comment}" var="i">
+					<tr>
+						<td>${i.comment_mem_number }<input type="hidden" value="${i.comment_number }"></td>
+						<td colspan="2"><textarea  id="con" rows="2" cols="50" style="resize: none;" readonly>${i.comment_content }</textarea></td>
+						<td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
+						<td>
+							<button id="btn"type="button" onclick="aa();">수정</button>
+							<button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
+						</td>
+					</tr>
+				</c:forEach> 
 			</table>
 		</form>
 			
 		<form action="/sharingInformation/board/answerWrite">
 			<table class="table table-bordered">
 				<tr>
-					<td colspan="4">
+					<th colspan="4">
 						<textarea rows="5" cols="71" style="resize: none;" name="comment_content"></textarea>
-					</td>
+					</th>
 					<td>
 						<input type="hidden" name="board_number" value="${board.board_number}">
-						<input type="submit" value="등록">
+						<button type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
 					</td>
 				</tr>
 			</table>
