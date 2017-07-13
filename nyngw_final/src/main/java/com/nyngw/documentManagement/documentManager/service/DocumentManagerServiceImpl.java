@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.dao.DocumentManagerDaoImpl;
+import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
 
@@ -58,6 +59,12 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	public int documentInsertComplete(DocumentVO documentVO) {
 		int result = documentManagerDao.documentInsertComplete(documentVO);
 		return result;
+	}
+
+	@Override
+	public List<Common_CodeVO> documentCodeSelect() {
+		List<Common_CodeVO> code = documentManagerDao.documentCodeSelect();
+		return code;
 	}
 	
 }

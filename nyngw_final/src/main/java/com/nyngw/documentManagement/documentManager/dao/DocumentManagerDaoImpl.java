@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
 
@@ -55,5 +56,11 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	public int documentInsertComplete(DocumentVO documentVO) {
 		int result = (Integer)sqlSession.update("documentManagerInsert",documentVO);
 		return result;
+	}
+
+	@Override
+	public List<Common_CodeVO> documentCodeSelect() {
+		List<Common_CodeVO> code = (ArrayList<Common_CodeVO>) sqlSession.selectList("documentCodeSelect"); 
+		return code;
 	}
 }
