@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
 
 /**
@@ -29,7 +30,8 @@ public class PlanPublicRelationsSettingController {
 	
 	@Autowired
 	AppointedUIServiceImpl appointedUIService;
-	
+	@Autowired
+	PlanPublicRelationsSettingServiceImpl planPublicRelationsSettingService; 
 	/**
 	 * 근무일 및 출결정보 등록시간 설정 화면으로 이동
 	 */
@@ -49,25 +51,30 @@ public class PlanPublicRelationsSettingController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/multipartFile",method=RequestMethod.POST)
-	public String uploadExcelFile(
-			@RequestParam("file") MultipartFile multipartFile,
+	public String uploadlFile(
+			@RequestParam("logoFile") MultipartFile multipartFile,
+			@RequestParam("company_number2") String company_number2,
 			Model model,
 			HttpServletRequest request
 			) throws IOException{
 		
 		String upload = request.getSession()
 				.getServletContext().getRealPath("WEB_INF/uplode");
-		
-		
+		File file = null;
 		if(!multipartFile.isEmpty()){
-			File file = new File(upload,multipartFile.getOriginalFilename());
-		
-//			multipartFile.transferTo(file);
+			file = new File(upload,multipartFile.getOriginalFilename());
 			
+//			multipartFile.transferTo(file);
 			model.addAttribute("fileName",multipartFile.getOriginalFilename());
 			model.addAttribute("uploadPath",file.getAbsolutePath());
 		}
-		return "enovironmentSetting/planPublicRelationsSetting/workingDay";
+		int resultComLogo = -1;
+		try {
+			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(file.getAbsolutePath(), company_number2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "enovironmentSetting/planPublicRelationsSetting/companyInfoForm";
 	}
 	
 	/**
@@ -90,22 +97,58 @@ public class PlanPublicRelationsSettingController {
 	 * 회사 로고 제외한 정보 수정을 처리하는 메서드
 	 */
 	@RequestMapping("/companyInfo")
-	public String companyInfoForm(@RequestParam("company_name") String company_name,
-			@RequestParam("company_tel") String company_tel,
-			@RequestParam("zipNo") String zipNo,
-			@RequestParam("roadAddrPart1") String roadAddrPart1,
-			@RequestParam("addrDetail") String addrDetail){
+	public String companyInfoForm(
+			@RequestParam("zipNo") String company_zip,
+			@RequestParam("roadAddrPart1") String compay_addr1,
+			@RequestParam("addrDetail") String compay_addr2,
+			CompanyVO companyVO,
+			Model model){
 		
 		String url = "enovironmentSetting/planPublicRelationsSetting/companyInfo";
+		int result = -1;
 		
-		CompanyVO company = new CompanyVO();
-		company.setCompany_name(company_name);
-		company.setCompany_tel(company_tel);
-		company.setCompany_zip(zipNo);
-		company.setCompany_addr1(roadAddrPart1);
-		company.setCompany_addr2(addrDetail);
+		companyVO.setCompany_zip(company_zip);
+		companyVO.setCompany_addr1(compay_addr1);
+		companyVO.setCompany_addr2(compay_addr2);
 		
-//		int result = 
+		//회사 정보가 있는지 확인하기 위해서 select로 불러온다
+		CompanyVO companyInit = null;
+		try {
+			companyInit = appointedUIService.checkCompany();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//companyVO 가 null이 아니다->해당 정보를 수정해준다
+		if(companyInit != null){
+			try {
+				result = planPublicRelationsSettingService.modifyCompanyInfo(companyVO);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			model.addAttribute("resultCompanyInfo",result);
+		}else {	//companyVO 가 null이다-> 회사정보를 insert해준다
+			try {
+				result = planPublicRelationsSettingService.joinCompanyInfo(companyVO);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//insert,update를 완료하고 나서 해당 변경된 회사 정보를 다시 select로 불러와서 화면에 보여지게 한다
+		CompanyVO companyView = null;
+		try {
+			companyView = appointedUIService.checkCompany();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("companyInfo",companyView);
+		
 		
 		return url;
 	}

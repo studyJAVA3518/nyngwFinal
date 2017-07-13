@@ -18,26 +18,31 @@
 	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	}
 	
-	
 	function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
-			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-			document.getElementById("roadAddrPart1").value = roadAddrPart1;
-			document.getElementById("addrDetail").value = addrDetail;
-			document.getElementById("zipNo").value = zipNo;
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+		document.getElementById("roadAddrPart1").value = roadAddrPart1;
+		document.getElementById("addrDetail").value = addrDetail;
+		document.getElementById("zipNo").value = zipNo;
 	}
 	
 	function comInfoUpdate(){
-		document.comInfo.action= "enovironmentSetting/planPublicRelationsSetting/companyInfo";
+		document.comInfo.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyInfo";
 		document.comInfo.method = "post";
 		document.comInfo.submit();
-	} 
+	}
+	
+	function updateLogo_go(){
+		document.comLogo.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/multipartFile";
+		document.comLogo.method = "post";
+		document.comLogo.submit();
+	}
 	 
 </script>
 
 <h2>회사 정보 설정</h2>
 <h4>회사 로고 등록 및 변경</h4>
 <table class="table">
-	<form class="form-inline" method="post" id="form">
+	<form class="form-inline" method="post" name="comLogo" enctype="multipart/form-data">
 		<tr>
 			<td colspan="2">
 				<label for="basic">기본 이미지 사용</label>
@@ -49,7 +54,8 @@
 		</tr>
 		<tr>
 			<th>로고(CI) 변경</th>
-			<td><input type="file" value="첨부하기" id="logoFile"/>
+			<td><input type="file" id="logoFile" name="logoFile"/>
+				<input type="hidden" id="company_number2" name="company_number2" value="${companyInfo.company_number}"/>
 				<span class="logoDesc">(최적 사이즈 220*80)</span>
 			</td>
 		</tr>
@@ -59,7 +65,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="submit" value="로고 수정" class="btn btn-default"/>
+				<input type="button" value="로고 수정" class="btn btn-default" onclick="updateLogo_go();"/>
 			</td>
 		</tr>
 	</form>
@@ -74,6 +80,7 @@
 			<td>
 				<div class="form-group">
 					<input type="text" id="company_name" name="company_name" class="form-control" placeholder="정보 없음" value="${companyInfo.company_name}"/>
+					<input type="hidden" id="company_number" name="company_number" value="${companyInfo.company_number}"/>
 				</div>
 			</td>
 		</tr>
@@ -98,7 +105,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="회사 정보 수정" class="btn btn-default"/>
+				<input type="button" value="회사 정보 등록/수정" class="btn btn-default" onclick="comInfoUpdate();"/>
 			</td>
 		</tr>
 	</form>

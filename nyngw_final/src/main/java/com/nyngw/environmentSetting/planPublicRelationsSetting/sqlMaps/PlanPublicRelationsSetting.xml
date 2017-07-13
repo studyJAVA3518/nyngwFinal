@@ -2,25 +2,27 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="planPublicRelationsSetting">
+<mapper namespace="com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDao">
 	
 	<update id="updateCompanyInfo" parameterType="com.nyngw.dto.CompanyVO">
 		update company set 
-		company_name=#{company_name}, 
-		company_tel=#{company_tel},
-		company_zip=#{company_zip},
-		company_addr1=#{company_addr1},
-		company_addr2=#{company_addr2}
-		where company
+			company_name=#{company_name}, 
+			company_tel=#{company_tel},
+			company_zip=#{company_zip},
+			company_addr1=#{company_addr1},
+			company_addr2=#{company_addr2}
+		where company_number = #{company_number}
 	</update>
 	
-	<update id="updateCompanyLogo" parameterType="java.lang.String">
+	<update id="updateCompanyLogo" parameterType="map">
 		update company set 
-		company_name=#{company_name}, 
-		company_tel=#{company_tel},
-		company_zip=#{company_zip},
-		company_addr1=#{company_addr1},
-		company_addr2=#{company_addr2},
+			company_logo=#{company_logo} 
+		where company_number = #{company_number}
+	</update>
+	
+	<update id="insertCompanyInfo" parameterType="com.nyngw.dto.CompanyVO">
+		insert into company (company_number,company_name,company_tel,company_zip,company_addr1,company_addr2)
+		values (com_seq.nextval, #{company_name},#{company_tel},#{company_zip},#{company_addr1},#{company_addr2})
 	</update>
 
 </mapper>

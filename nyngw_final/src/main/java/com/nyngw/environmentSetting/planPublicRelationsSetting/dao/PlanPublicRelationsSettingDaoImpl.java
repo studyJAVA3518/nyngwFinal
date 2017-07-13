@@ -1,12 +1,16 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.CompanyVO;
 
+@Repository
 public class PlanPublicRelationsSettingDaoImpl implements
 		PlanPublicRelationsSettingDao {
 	
@@ -20,7 +24,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	 * @throws SQLException
 	 */
 	public int insertCompanyInfo(CompanyVO vo) throws SQLException {
-		int result=(Integer)sqlSession.update("insertCompany",vo);
+		int result=(Integer)sqlSession.update("insertCompanyInfo",vo);
 		return result;
 	}
 	
@@ -31,7 +35,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	 * @throws SQLException
 	 */
 	public int updateCompanyInfo(CompanyVO vo) throws SQLException {
-		int result=(Integer)sqlSession.update("updateCompany",vo);
+		int result=(Integer)sqlSession.update("updateCompanyInfo",vo);
 		return result;
 	}
 	
@@ -43,8 +47,8 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	 */
 	@Override
 	public int insertCompanyLogo(String company_logo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=(Integer)sqlSession.update("inserttCompanyInfo",company_logo);
+		return result;
 	}
 	
 	/**
@@ -54,8 +58,13 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	 * @throws SQLException
 	 */
 	@Override
-	public int updateCompanyLogo(String company_logo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException {
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("company_logo", company_logo);
+		paramMap.put("company_number", company_number);
+		System.out.println("파람맵:"+paramMap);
+		int result=(Integer)sqlSession.update("updateCompanyLogo",paramMap);
+		return result;
 	}
 }

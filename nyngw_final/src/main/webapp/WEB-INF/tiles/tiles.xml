@@ -63,39 +63,39 @@
 	
 	<!-- 컨트롤러에서 리턴해 주는 뷰이름(컨트롤러 맵핑)  -->
 	<definition name="homeMain/*" extends="layoutHM">
-		<put-attribute name="content" value="/WEB-INF/views/homeMain/{1}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/homeMain/{1}.jsp"/>
 	</definition>
 	
 	<definition name="businessSupport/*/*" extends="layoutBS">
-		<put-attribute name="content" value="/WEB-INF/views/businessSupport/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/businessSupport/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="documentManagement/*/*" extends="layoutDM">
-		<put-attribute name="content" value="/WEB-INF/views/documentManagement/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/documentManagement/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="electronicApproval/*/*" extends="layoutEA">
-		<put-attribute name="content" value="/WEB-INF/views/electronicApproval/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/electronicApproval/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="enovironmentSetting/*/*" extends="layoutES">
-		<put-attribute name="content" value="/WEB-INF/views/enovironmentSetting/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/enovironmentSetting/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="homeMain/*/*" extends="layoutHM">
-		<put-attribute name="content" value="/WEB-INF/views/homeMain/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/homeMain/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="humanResource/*/*" extends="layoutHR">
-		<put-attribute name="content" value="/WEB-INF/views/humanResource/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/humanResource/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="mypage/*/*" extends="layoutMP">
-		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/mypage/{1}/{2}.jsp"/>
 	</definition> 
 	
 	<definition name="sharingInformation/*/*" extends="layoutSI">
-		<put-attribute name="content" value="/WEB-INF/views/sharingInformation/{1}/{2}.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/sharingInformation/{1}/{2}.jsp"/>
 	</definition> 
 
 	
