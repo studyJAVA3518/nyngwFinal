@@ -23,7 +23,7 @@ public class MemberJoinController {
 	
 	@RequestMapping("/mjm")
 	public String mjm(){
-		return "/humanResource/memberJoin/mjm";
+		return "humanResource/memberJoin/mjm";
 	}
 	
 	@RequestMapping("/idCheck")

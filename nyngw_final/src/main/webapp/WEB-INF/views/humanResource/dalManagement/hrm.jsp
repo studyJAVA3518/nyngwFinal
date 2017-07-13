@@ -5,24 +5,45 @@
 
 
 
-<h2>근태현황</h2>
-<form action="hrm">
-	<input type="date" name="startdal_date" class="form-control"/>
-	<input type="date" name="enddal_date" class="form-control"/> 
-	<input type="text" name="mem_name" placeholder="사원 이름을 입력" class="form-control">
-	<button class="btn btn-default">조회</button>
+<form action="hrm" method="post">
+	<table class="table table-bordered">
+		<tr>
+			<th colspan='4'>근태현황</th>
+		</tr>
+		<tr>
+			<td>
+				<input type="date" name="startdal_date" class="form-control" />
+			</td>
+			<td>
+				<input type="date" name="enddal_date" class="form-control" />
+			</td>
+			<td>
+				<input type="text" name="mem_name" placeholder="사원 이름을 입력" class="form-control"></td>
+			<td>
+				<button class="btn btn-default">조회</button>
+			</td>
+		</tr>
+	</table>
 </form>
 
-<h2>사원 현황</h2>
-<table>
+
+<table class="table table-bordered">
 	<tr>
-		<td>사원번호</td>
-		<td>사원아이디</td>
-		<td>사원명</td>
-		<td>부서명</td>
-		<td>직책</td>
-		<td>날짜</td>
-		<td>사유</td>
+		<th colspan='5'>사원현황</th>
+		<th colspan='3'>
+			<form action="excelMemberRank">
+				<button class="btn btn-default">엑셀출력</button>
+			</form>
+		</th>
+	</tr>
+	<tr>
+		<th>사원번호</th>
+		<th>사원아이디</th>
+		<th>사원명</h>
+		<th>부서명</h>
+		<th>직책</th>
+		<th>날짜</th>
+		<th>사유</th>
 	</tr>
 	<c:forEach items="${memdalList}" var="mem">
 		<tr>
@@ -36,20 +57,23 @@
 		</tr>
 	</c:forEach>
 </table>
-<form action="excelMemberRank">
-	<button class="btn btn-default">엑셀출력</button>
-</form>
 
-<h2>부서별 현황</h2>
-<table>
+<table class="table table-bordered">
 	<tr>
-		<td>부서</td>
-		<td>직원수</td>
-		<td>휴가</td>
-		<td>조퇴</td>
-		<td>외근</td>
-		<td>야근</td>
-		<td>결근</td>
+		<th colspan='5'>부서별현황</th>
+		<th colspan='3'><form action="excelCountRank">
+				<button class="btn btn-default">엑셀출력</button>
+			</form>
+		</th>
+	</tr>
+	<tr>
+		<th>부서</th>
+		<th>직원수</th>
+		<th>휴가</th>
+		<th>조퇴</th>
+		<th>외근</th>
+		<th>야근</th>
+		<th>결근</th>
 	</tr>
 	<c:forEach items="${countTotal}" var="mem">
 		<tr>
@@ -63,6 +87,3 @@
 		</tr>
 	</c:forEach>
 </table>
-<form action="excelCountRank">
-	<button class="btn btn-default">엑셀출력</button>
-</form>

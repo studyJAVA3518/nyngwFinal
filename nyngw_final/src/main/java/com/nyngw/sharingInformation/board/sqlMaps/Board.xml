@@ -12,16 +12,36 @@
 		select count(*) from board
 	</select>
 	
-	<select id="selectBoardList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
-		select * from board where board_title like '%'||#{board_title}||'%' order by 1 desc
+	<select id="boardSelectCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from board where board_code_number = 'code7'
+		<choose>
+		    <when test='index == "board_mem_number"'>
+		    	AND board_mem_number like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "board_title"'>
+		    	AND board_title like '%'||#{val}||'%'
+		    </when>
+	  	</choose>
 	</select>
 	
-	<select id="selectTitleList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
-		select * from board where board_title like '%'||#{board_title}||'%' order by 1 desc
-	</select>
-	
-	<select id="selectWriteList" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
-		select * from board where board_mem_number like '%'||#{board_mem_number}||'%' order by 1 desc
+<!-- 		select * from board where board_title like  and board_code_number = 'code7' order by 1 desc -->
+	<select id="selectBoardList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.BoardVO">
+<!-- 		우선 전체 출력이 되도록한다. -->
+		select * from board where 1 = 1
+		
+		<choose>
+<!-- 			index는 작성자로 검색할 것인지, 제목으로 검색할 것인지 담겨있는 String 이며
+				담겨있는값이 뭐냐에 따라 검색이 된다.
+ -->
+		    <when test='index == "board_mem_number"'>
+		    	AND board_mem_number like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "board_title"'>
+		    	AND board_title like '%'||#{val}||'%'
+		    </when>
+	  	</choose>
+<!-- 	  	그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
+		and board_code_number = 'code7' order by 1 desc
 	</select>
 	
 	<select id="selectBoard" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">
@@ -49,6 +69,10 @@
 							board_file_name, board_count, board_date, board_mem_number)
 		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content},
 		       #{board_file_name}, #{board_count}, #{board_date}, #{board_mem_number})
+	</update>
+
+	<update id="boardDelete" parameterType="java.lang.String">
+		delete from board where board_number = #{board_number}
 	</update>
 	
 </mapper>

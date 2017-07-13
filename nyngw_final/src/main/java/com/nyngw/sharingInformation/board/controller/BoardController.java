@@ -1,16 +1,21 @@
 package com.nyngw.sharingInformation.board.controller;
 
 import java.security.Principal;
-import java.util.List;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Board_CommentVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.sharingInformation.board.service.BoardServiceImpl;
 
 @Controller
@@ -33,11 +38,18 @@ public class BoardController {
 	@RequestMapping("/list")
 	public String boardList1(@RequestParam(value="page",defaultValue="1")int pageNumber,
 			Model model,String val, String index){
-		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber,"","");
-		
+		Board_SelectVO select = new Board_SelectVO();
+		if(val!=null && !val.equals("")){
+			select.setIndex(index);
+			select.setVal(val);
+		}
+		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber, select);
 	
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select);
+		}
 		return "sharingInformation/board/boardList";
 	}
 	/**
@@ -46,10 +58,10 @@ public class BoardController {
 	 */
 //	@RequestMapping("/select")
 	public String boardSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,String val, String index, Model model){
-		System.out.println(val);
-		System.out.println(index);
-		
-		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber,val,index);
+		Board_SelectVO select = null;
+		select.setIndex(index);
+		select.setVal(val);
+		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber, select);
 		
 		
 		model.addAttribute("viewData",viewData);
@@ -115,17 +127,21 @@ public class BoardController {
 	 * 게시물 삭제 버튼을 눌러 화면전환 url을 반환하는 메서드
 	 * @return url 반환
 	 */
-	@RequestMapping("8")
-	public String boardDelete(){
+	@RequestMapping("/boardDelete")
+	public @ResponseBody Map<String,String> boardDelete(String id){
+		System.out.println(id+"오니?");
+		boardService.boardDelete(id);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/sharingInformation/board/list");
 		
-		return null;
+		return resultMap;
 	}
 	
 	/**
 	 * 등록된 게시물을 선택하면 내용을 상세히 볼수 있는 페이지의 url을 반환하는 메서드
 	 * @return 게시물 상세페이지 url 반환
 	 */
-	@RequestMapping("detail")
+	@RequestMapping("/detail")
 	public String boardDetail(String board_number, Model model,String page){
 		BoardVO board = boardService.selectBoard(board_number);
 		model.addAttribute("board", board);
@@ -157,10 +173,19 @@ public class BoardController {
 	 * 댓글을 전부 쓴뒤 등록 버튼을 눌러 화면전환 url을 반환하는 메서드 
 	 * @return 등록 url 반환
 	 */
-	@RequestMapping("12")
-	public String answerWrite(){
+	@RequestMapping("/answerWrite")
+	public String answerWrite(String comment_content, String board_number, Principal principal ){
+		System.out.println(principal.getName());
+		Date dt = new Date();
+		Board_CommentVO comment = new Board_CommentVO();
+		comment.setComment_board_number(board_number);
+		comment.setComment_content(comment_content);
+		comment.setComment_date(dt);
 		
-		return null;
+//		private String comment_number;		//댓글번호
+//		private Date comment_date;			//작성날짜
+//		private String comment_mem_number;	//작성자
+		return "redirect:/sharingInformation/board/list";
 	}
 	
 	/**
@@ -197,10 +222,10 @@ public class BoardController {
 	 * 수정할 내용을 다 입력한뒤 수정 버튼을 눌러 화면을 전환하는 url을 반환하는 메서드
 	 * @return 수정 url 반환
 	 */
-	@RequestMapping("16")
-	public String answerUpdate(){
-		
-		return null;
+	@RequestMapping("/answerUpdate")
+	public String answerUpdate(String id){
+		System.out.println(id);
+		return "sharingInformation/board/boardList";
 	}
 	
 }
