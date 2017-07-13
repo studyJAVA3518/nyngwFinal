@@ -9,13 +9,30 @@
 
 마이페이지 >> 나의 근태 관리 >> 출결관리
 
+	
 	<div>
 		<button>출근 체크</button>
 		<button>퇴근 체크</button>
 	</div>
-
+	<table class="table table-bordered">
+			<tr>
+			<th>검색</th>
+					<td>
+					<form action="">
+						<select name="">
+							<option value="">날짜</option>
+							<option value="">결근사유</option>
+						</select>
+					<input type="text"/>
+					<button type="submit">검색</button>
+					</td>
+					</form>
+					
+			</tr>		
+	</table>
 	
 	<table class="table table-bordered">
+	
 	<tr>
 			<th>번호</th>
 			<th>날짜</th>
