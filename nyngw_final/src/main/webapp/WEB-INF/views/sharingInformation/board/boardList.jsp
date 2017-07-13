@@ -19,7 +19,8 @@
 				<option value="board_mem_number" selected="selected">작성자</option>
 				<option value="board_title">제목</option>
 		</select>
-		<input type="text" name="val">
+		<input type="hidden" value="${select.index}">
+		<input type="text" name="val" value="${select.val}">
 		<input type="submit" value="검색">
 		<button type="button"><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
 	</form>
@@ -40,7 +41,6 @@
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 						<td>${board.board_mem_number }</td>
 						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
-										삭제&nbsp;/</a> <a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
 										&nbsp;수정</a></td>
 					</tr>
 				</c:forEach>
@@ -53,9 +53,8 @@
 		</c:choose>
 	</table>
 	<div id="pageNum">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"
-			var="i">
-			<a href="/sharingInformation/board/list?page=${i }">[${i}]</a>
+		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
+			<a href="/sharingInformation/board/list?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
 		</c:forEach>
 	</div>
 
