@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 개인문서함>반려문서함
+반려문서는 본인이 반려한 문서 또는 본인이 결재한 문서를 다른 결재자가 반려한 문서들을 확인할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>
@@ -48,7 +50,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${EA.ea_title }</td>
+			<td><a href="/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
 			<td>${EA.ea_mem_number }</td>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 			<td><fmt:formatDate value="${EA.ea_refusaldate}" pattern="yyyy/MM/dd"/></td>

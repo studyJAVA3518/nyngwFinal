@@ -5,10 +5,12 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
-결재진행>완료문서상세
+그외문서함>참조문서함>디테일
+반려의견확인 : 결재 문서 하단에서 반려자가 입력한 반려 의견을 확인 할 수 있습니다.
+<%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
 <form name="hiddenForm">
 	<input type="hidden" id="ea_number" value="${ea_number }">
-	<button type="button" id="rewriteApproval_go">재작성</button>
+	<button type="button" id="approvalSpacification_go">결재특이사항</button>
 	<button type="button" id="approvalHistory_go">결재이력</button>
 </form>
 
@@ -17,27 +19,28 @@ $(function(){
 	 $('#approvalHistoryDialog').css('display', 'none');
 	 
 	/////////////////////////////////////////////////
-	 $("#approvalHistory_go").click(function(){
-		 $('#approvalHistoryDialog').dialog({
-				width: 700,
-				height: 500,
-				modal: true,
-				buttons: {
-			       "취소": function() {
-						$(this).dialog("close");
-					}
-				},
-				close: function() {
+	$("#approvalHistory_go").click(function(){
+		$('#approvalHistoryDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons: {
+		       "취소": function() {
+					$(this).dialog("close");
 				}
-	     });
-     })
-     
-	$("#rewriteApproval_go").click(function(){
-		location.href="/electronicApproval/approvalProgress/editDraftForm";
+			},
+			close: function() {
+				$('#textArea').val('');
+			}
+	    });
+    })
+    ///////////////////////////////////////////////
+	$("#editDraft_go").click(function(){
+		location.href="/electronicApproval/individualDocumentBox/editDraftForm";
 	});
+	
 })
 </script>
-
 <div id="approvalHistoryDialog">
 	결재상태 이력보기
 	<table class="table">
@@ -62,7 +65,6 @@ $(function(){
 	</table>
 </div>
 
-<hr>
 <div>
-	결재한 문서
+	어떤 결재 문서
 </div>

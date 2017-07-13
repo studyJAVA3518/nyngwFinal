@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 결재진행>반려문서
+반려문서는 본인이 상신한 문서 중 결재자가 반려 처리한 문서를 확인, 처리할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>

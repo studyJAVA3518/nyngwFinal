@@ -117,7 +117,6 @@ public class ApprovalProgressController {
 	//결재하기
 	@RequestMapping("/conformApproval")
 	public @ResponseBody Map<String,String> conformApproval(String id){
-		System.out.println(id);
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("uri", "/electronicApproval/individualDocumentBox/completeApprovalBox");
 		return map;

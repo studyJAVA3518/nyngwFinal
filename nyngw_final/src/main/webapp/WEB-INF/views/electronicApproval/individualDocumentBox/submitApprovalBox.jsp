@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 개인문서함>상신문서함
+상신 문서함은 본인이 작성하여 상신한 결재 문서들을 검색 할 수 있으며, 결재 진행 상태를 확인 할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>
@@ -61,7 +63,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${EA.ea_title }</td>
+			<td><a href="/electronicApproval/individualDocumentBox/submitApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 			<td>${EA.ea_status }</td>
 			<td>합의 내용</td>

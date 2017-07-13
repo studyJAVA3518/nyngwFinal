@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 그외문서함>시행문서함
+시행문서함은 본인이 시행자로 지정되어 있는 결재 문서가 결재 완료된 후 이동하는 곳으로 보관된 결재 
+문서들을 확인, 처리할 수 있는 메뉴입니다
 <form>
 	<table class="table">
 		<tr>
@@ -62,7 +64,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td>${EA.ea_title }</td>
+			<td><a href="electronicApproval/theRestDocumentBox/implementDocumentDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
 			<td>${EA.ea_mem_number}</td>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>

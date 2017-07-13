@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 결재진행>미결재문서함
+미결재문서는 본인이 결재자로 지정된 결재 문서 중 결재 처리를 하지 않은 문서들을 검색, 처리 할 수 있는 메뉴입니다.
+
 <form>
 	<table class="table">
 		<tr>
