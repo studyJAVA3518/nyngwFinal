@@ -36,6 +36,6 @@ public interface PlanPublicRelationsSettingDao {
 	 * @return int
 	 * @throws SQLException
 	 */
-	public int updateCompanyLogo(String company_logo) throws SQLException;
+	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException;
 	
 }

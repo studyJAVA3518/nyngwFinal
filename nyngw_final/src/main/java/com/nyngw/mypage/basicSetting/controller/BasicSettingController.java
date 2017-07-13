@@ -88,7 +88,7 @@ public class BasicSettingController {
 	public String updateMember(MemberVO vo,Principal principal){
 		String mem_id = principal.getName();
 		vo.setMem_sign("");
-		vo.setMem_img("");
+//		vo.setMem_img("");
 		vo.setMem_id(mem_id);
 		basicSettingServiceImpl.updateMember(vo);
 		

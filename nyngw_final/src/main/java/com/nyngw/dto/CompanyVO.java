@@ -9,11 +9,15 @@ public class CompanyVO {
 	private String company_name;	//회사명
 	private String company_logo;	//회사로고
 	private String company_tel;		//전화번호
+	
 	//수정됨
 	private String company_addr1;	//주소1
 	private String company_addr2;	//주소2
 	private String company_zip;		//우편번호
+	//수정됨
+	private String company_number;	//회사번호
 	//수정됨 --끝
+	
 	
 	public String getCompany_name() {
 		return company_name;
@@ -52,6 +56,13 @@ public class CompanyVO {
 	}
 	public void setCompany_zip(String company_zip) {
 		this.company_zip = company_zip;
+	}
+	//수정됨
+	public String getCompany_number() {
+		return company_number;
+	}
+	public void setCompany_number(String company_number) {
+		this.company_number = company_number;
 	}
 	//수정됨 --끝
 }

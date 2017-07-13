@@ -12,14 +12,14 @@ public interface PlanPublicRelationsSettingService {
 	 * @return CompanyVO
 	 * @throws SQLException
 	 */
-	public int companyJoin(CompanyVO vo) throws SQLException;
+	public int joinCompanyInfo(CompanyVO vo) throws SQLException;
 	
 	/**
 	 * 회사 정보를 수정하는 메서드
 	 * @return CompanyVO
 	 * @throws SQLException
 	 */
-	public int companyModify(CompanyVO vo) throws SQLException;
+	public int modifyCompanyInfo(CompanyVO vo) throws SQLException;
 	
 	/**
 	 * 회사 로고를 입력하는 메서드
@@ -35,5 +35,5 @@ public interface PlanPublicRelationsSettingService {
 	 * @return int
 	 * @throws SQLException
 	 */
-	public int modifyCompanyLogo(String company_logo) throws SQLException;
+	public int modifyCompanyLogo(String company_logo, String company_number) throws SQLException;
 }

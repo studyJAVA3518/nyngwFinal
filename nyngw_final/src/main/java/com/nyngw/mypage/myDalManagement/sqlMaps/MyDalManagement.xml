@@ -10,7 +10,7 @@
 	</select>
 
 	<select id="selectAttendList" parameterType="java.lang.String" resultType="com.nyngw.dto.DalViewVO">
-		select * from DalView where dalview_number like '%'||#{dalview_number}||'%' order by 1 desc
+		select * from DalView where dalview_number like '%'||#{dalview_number}||'%' order by 2 desc
 	</select>
 	
 	
@@ -22,5 +22,8 @@
 		select * from vacation where vacation_number like '%'||#{vacation_number}||'%'
 	</select>
 	
+	<select id="selectMyVacation" parameterType="java.lang.String" resultType="com.nyngw.dto.VacationVO">
+		select * from vacation where vacation_mem_number=#{mem_number}
+	</select>
 	
 </mapper>

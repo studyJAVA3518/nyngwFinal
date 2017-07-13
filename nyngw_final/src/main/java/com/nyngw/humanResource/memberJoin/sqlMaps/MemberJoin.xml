@@ -10,4 +10,4 @@
 		where mem_id=#{id}
 	</select>
 
-</mapper>
+</mapper> 
