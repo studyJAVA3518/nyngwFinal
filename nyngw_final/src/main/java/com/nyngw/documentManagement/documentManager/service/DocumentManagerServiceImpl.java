@@ -53,5 +53,11 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 		DocumentVO document = documentManagerDao.selectDocumentUpdateForm(doc_number);
 		return document;
 	}
+
+	@Override
+	public int documentInsertComplete(DocumentVO documentVO) {
+		int result = documentManagerDao.documentInsertComplete(documentVO);
+		return result;
+	}
 	
 }

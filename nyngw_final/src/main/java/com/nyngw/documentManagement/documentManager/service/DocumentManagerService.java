@@ -8,4 +8,5 @@ public interface DocumentManagerService {
 	public void documentManagerUpdate(DocumentVO document);
 	public DocumentVO selectDocumentDetail(String doc_number);
 	public DocumentVO selectDocumentUpdateForm(String doc_number);
+	public int documentInsertComplete(DocumentVO documentVO);
 }

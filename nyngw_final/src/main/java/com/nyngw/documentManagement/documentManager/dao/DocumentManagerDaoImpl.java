@@ -52,23 +52,8 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	}
 
 	@Override
-	public List<DocumentViewVO> selectDocumentKind(int firstRow, int endRow,
-			String val) {
-		// 검색기능구현하기
-		return null;
-	}
-
-	@Override
-	public List<DocumentViewVO> selectDocumentName(int firstRow, int endRow,
-			String val) {
-		// 검색기능구현하기
-		return null;
-	}
-
-	@Override
-	public List<DocumentViewVO> selectDocumentMember(int firstRow, int endRow,
-			String val) {
-		// 검색기능구현하기
-		return null;
+	public int documentInsertComplete(DocumentVO documentVO) {
+		int result = (Integer)sqlSession.update("documentManagerInsert",documentVO);
+		return result;
 	}
 }

@@ -1,14 +1,23 @@
 package com.nyngw.documentManagement.documentManager.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
 import com.nyngw.dto.DocumentVO;
+import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 /**
  * 문서관리 컨트롤러
@@ -20,6 +29,9 @@ public class DocumentManagerController {
 	
 	@Autowired
 	private DocumentManagerServiceImpl documentManagerService;
+	
+	@Autowired
+	private BasicSettingServiceImpl basicSettingService; 
 	
 	/**
 	 * @param pageNumber
@@ -44,6 +56,30 @@ public class DocumentManagerController {
 		return "documentManagement/documentManager/documentInsert";
 	}
 	
+	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
+	public String documentInsertComplete(@RequestParam("doc_file_name") MultipartFile multipartFile,
+			Model model , HttpServletRequest request, Principal principal) throws IOException{
+		
+		String upload = request.getSession().getServletContext().getRealPath("/upload");
+		
+		if(!multipartFile.isEmpty()){
+			File file = new File(upload , multipartFile.getOriginalFilename()+"$$"+System.currentTimeMillis());
+			
+			multipartFile.transferTo(file);
+			
+			DocumentVO documentVO = new DocumentVO();
+			documentVO.setDoc_name("doc_name");
+			documentVO.setDoc_file_name("doc_file_name");
+			documentVO.setDoc_explanation("doc_explanation");
+			documentVO.setDoc_code_number("doc_code_number");
+//			documentVO.setDoc_mem_number(basicSettingService.);
+			
+			model.addAttribute("doc_file_name",multipartFile.getOriginalFilename());
+			model.addAttribute("uploadPath",file.getAbsolutePath());
+			return "documentManagement/documentManager/documentSelect";
+		}
+		return "documentManagement/documentManager/documentInsert";
+	}
 	/**
 	 * 
 	 * @param doc_number

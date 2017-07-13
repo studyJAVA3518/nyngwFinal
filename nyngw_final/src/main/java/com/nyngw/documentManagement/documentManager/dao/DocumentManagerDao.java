@@ -11,7 +11,5 @@ public interface DocumentManagerDao {
 	public void documentManagerUpdate(DocumentVO document);
 	public DocumentVO selectDocumentDetail(String doc_number);
 	public DocumentVO selectDocumentUpdateForm(String doc_number);
-	public List<DocumentViewVO> selectDocumentKind(int firstRow, int endRow, String val);
-	public List<DocumentViewVO> selectDocumentName(int firstRow, int endRow, String val);
-	public List<DocumentViewVO> selectDocumentMember(int firstRow, int endRow, String val);
+	public int documentInsertComplete(DocumentVO documentVO);
 }

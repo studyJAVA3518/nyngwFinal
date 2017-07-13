@@ -40,4 +40,9 @@
 			doc_mem_number = #{doc_mem_number}
 		where  doc_number = #{doc_number}
 	</update>
+	
+	<update id="documentManagerInsert">
+		insert into document(doc_number, doc_name, doc_date, doc_file_name, doc_explanation, doc_code_number, doc_mem_number, doc_lifetime, doc_eadoc)
+		values('doc'||doc_seq.nextval,#{doc_name},sysdate, #{doc_file_name}, #{doc_explanation},#{doc_code_number},#{doc_mem_number},#{doc_lifetime},#{doc_eadoc})
+	</update>
 </mapper>
