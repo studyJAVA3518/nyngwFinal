@@ -22,12 +22,6 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 	}
 
 	@Override
-	public int companyModify(CompanyVO vo) throws SQLException {
-		int result = appointedUIDao.updateCompany(vo);
-		return result;
-	}
-
-	@Override
 	public MemberVO checkMember(String mem_id) throws SQLException {
 		MemberVO memberList = appointedUIDao.selectMember(mem_id);
 		return memberList;

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.Principal;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 
@@ -42,21 +47,17 @@ public class BasicSettingController {
 	 * @return 서명등록하는 페이지를 보여줄 url
 	 */
 	@RequestMapping("/sign")
-	public String signInsertForm(){
+	public String signInsertForm(Model model, Principal principal){
 		System.out.println("사인 들어옴");
+		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String mem_id = user.getUsername();
+		
+		MemberVO vo =  basicSettingServiceImpl.selectMember(mem_id);
+		model.addAttribute("MemberVoDetail",vo);
 		
 		return "mypage/basicSetting/sign";
 	}
-	
-	/**
-	 * 정보를 전부 입력한뒤 등록 버튼을 눌러 화면전환 url을 반환하는 메서드
-	 * @return 등록 url 반환
-	 */
-//	@RequestMapping("fnUpload")
-//	public String signInsert(){
-//		
-//		return null;
-//	}
 	
 	/**
 	 * 자신의 서명을 재등록 하기 위해 화면을 전환하는 메서드
@@ -72,11 +73,27 @@ public class BasicSettingController {
 	 * 정보를 입력한뒤 수정 버튼을 통해 화면전환 하는 url을 반환하는 메서드
 	 * @return	수정 url 반환
 	 */
-//	@RequestMapping("")
-//	public String signUpdate(){
-//		
-//		return null;
-//	}
+	@RequestMapping("/updateMemberForm")
+	public String updateMemberForm(Model model, MemberVO vo ){
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String mem_id = user.getUsername();
+		
+		vo =  basicSettingServiceImpl.selectMember(mem_id);
+		model.addAttribute("MemberVoDetail",vo);
+		
+		return "mypage/basicSetting/updateMemberForm";
+	}
+	
+	@RequestMapping("/updateMember")
+	public String updateMember(MemberVO vo,Principal principal){
+		String mem_id = principal.getName();
+		vo.setMem_sign("");
+		vo.setMem_img("");
+		vo.setMem_id(mem_id);
+		basicSettingServiceImpl.updateMember(vo);
+		
+		return "redirect:/mypage/basicSetting/sign";
+	}
 	
 	/**
 	 * 파일업로드 등록버튼
