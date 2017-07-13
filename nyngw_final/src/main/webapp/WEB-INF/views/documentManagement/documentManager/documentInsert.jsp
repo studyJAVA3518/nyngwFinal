@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
       User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 %>
@@ -11,10 +12,13 @@
    function file_change(file){
    var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
    file = file.substring(str, file.length);
-   document.getElementsByName('attach_file')[0].value=file;
+   document.getElementsByName('doc_file_name')[0].value=file;
 }
+   var checked = document.getElementById("doc_eadoc");
+   var checkedResult = checked.getAttribute("checked");
+   
 </script>
-	<form enctype="multipart/form-data" action="/documentManagement/documentManager/documentInsertComplete" method="POST">
+	<form enctype="multipart/form-data" action="documentInsertComplete" method="POST">
 		<table class="table table-bordered">
 <!-- 			<colgroup> -->
 <!-- 				<col width="5%"/> -->
@@ -25,22 +29,22 @@
 				<tr>
 					<th>문서종류</th>
 					<td>
-						<select>
-							<option>기안문서A타입</option>
-							<option>기안문서B타입</option>
-							<option>기안문서C타입</option>
+						<select name="doc_code_number">
+						<c:forEach items="${codeList }" var="codeList">
+							<option value="${codeList.code_number }">${codeList.code_name }</option>
+						</c:forEach>
 						</select>
 					</td>
 					<th>전자문서</th>
-					<td><input type="checkbox" name="doc_eadoc"></td>
+					<td><input type="checkbox" name="doc_eadoc" id="doc_eadoc"></td>
 				</tr>
 				<tr>
 					<th>보존기간</th>
-					<td colspan="3"><input type="date" id="doc_date" name="doc_date"></td>
+					<td colspan="3"><input type="date" id="doc_lifetime" name="doc_lifetime"></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td colspan="3"><input type="text" id="doc_mem_number" name="doc_mem_number" value="<%=user.getUsername() %>" readonly="readonly"></td>
+					<td colspan="3"><input type="text" id="doc_mem_number" name="doc_mem_number" value="${mem.mem_name }" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>문서명</th>

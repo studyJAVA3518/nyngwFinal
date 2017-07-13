@@ -45,4 +45,8 @@
 		insert into document(doc_number, doc_name, doc_date, doc_file_name, doc_explanation, doc_code_number, doc_mem_number, doc_lifetime, doc_eadoc)
 		values('doc'||doc_seq.nextval,#{doc_name},sysdate, #{doc_file_name}, #{doc_explanation},#{doc_code_number},#{doc_mem_number},#{doc_lifetime},#{doc_eadoc})
 	</update>
+	
+	<select id="documentCodeSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
+		select * from common_code where code_ck_number = 'ck2'
+	</select>
 </mapper>

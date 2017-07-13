@@ -7,12 +7,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	문서관리 > 문서조회
 	<div id="searchDiv" style="text-align: center;">
 		<div>
@@ -33,7 +27,7 @@
 	<div></div>
 	<br>
 	<div style="text-align: right;">
-		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert?page=${pageNumber}">등록</a></button>
+		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert">등록</a></button>
 	</div>
 	
 	<div>
@@ -74,5 +68,3 @@
 			<a href="/documentManagement/documentManager/documentSelect?page=${i} %>">[${ i}]</a>
 		</c:forEach>
 	</div>
-</body>
-</html>
