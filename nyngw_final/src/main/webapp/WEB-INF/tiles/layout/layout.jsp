@@ -168,8 +168,8 @@
 
 				<!-- 컨텐트 -->
 				<div>
-					<div id="content" class="col-md-9">
-						<tiles:insertAttribute name="content" />
+					<div id="contentWrap" class="col-md-9">
+						<tiles:insertAttribute name="contents" />
 					</div>
 				</div>
 			</div>
