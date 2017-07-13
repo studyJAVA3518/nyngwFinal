@@ -32,15 +32,6 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 		return Company;
 	}
 	
-	/**
-	 * 회사 정보 수정하는 메서드
-	 * @return int
-	 */
-	@Override
-	public int updateCompany(CompanyVO vo) throws SQLException{
-		int result=(Integer)sqlSession.update("updateCompany",vo);
-		return result;
-	}
 	
 	/**
 	 * 회원 정보를 조회하는 메서드

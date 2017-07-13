@@ -8,15 +8,6 @@
 		select * from company
 	</select>
 	
-	<update id="updateCompany" parameterType="com.nyngw.dto.CompanyVO">
-		update company set 
-		company_name=#{company_name}, 
-		company_logo=#{company_logo},
-		company_tel=#{company_tel},
-		company_addr=#{company_addr}
-		where id=#{id}
-	</update>
-	
 	<select id="selectMember" resultType="com.nyngw.dto.MemberVO" parameterType="java.lang.String">
 		select * from member_view where mem_id=#{mem_id}
 	</select>
