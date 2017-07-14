@@ -44,6 +44,7 @@
 		  position_number,
 		  position_name
 		from dept_view
+		order by dept_level, dept_name
 	</select>
 	
 	<select id="esSelectUpperMember" resultType="com.nyngw.dto.DepartmentViewVO">

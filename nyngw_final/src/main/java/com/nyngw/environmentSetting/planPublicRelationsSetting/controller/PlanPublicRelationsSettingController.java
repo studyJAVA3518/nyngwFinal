@@ -194,8 +194,15 @@ public class PlanPublicRelationsSettingController {
 	 * 회사 부서 설정 화면으로 이동
 	 */
 	@RequestMapping("/companyDepartForm")
-	public String companyDepartForm(){
+	public String companyDepartForm(Model model){
+		
 		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+		try {
+			planPublicRelationsSettingService.viewDeptInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return url;
 	}
 	

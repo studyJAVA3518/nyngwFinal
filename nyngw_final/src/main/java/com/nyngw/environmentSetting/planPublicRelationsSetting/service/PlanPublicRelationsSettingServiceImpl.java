@@ -1,11 +1,14 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
 
 @Service
@@ -57,6 +60,19 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	public int modifyCompanyLogo(String company_logo, String company_number) throws SQLException {
 		int result = planPublicRelationsSettingDao.updateCompanyLogo(company_logo, company_number);
 		return result;
+	}
+
+	@Override
+	public void viewDeptInfo(Model model) throws SQLException {
+		
+		//회사 직급정보 
+		ArrayList<DepartmentViewVO> dvList = planPublicRelationsSettingDao.selectDepartmentView();
+		System.out.println("리스트 사이즈 : "+dvList.size());
+		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectDepartmentView();
+		System.out.println("리스트 사이즈 : "+upperMemList.size());
+		
+		model.addAttribute("dvList",dvList);
+		model.addAttribute("upperMemList",upperMemList);
 	}
 
 }
