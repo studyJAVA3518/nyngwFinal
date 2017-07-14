@@ -3,14 +3,13 @@ package com.nyngw.documentManagement.documentManager.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.plaf.multi.MultiPanelUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.CommandDocumentVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
@@ -49,11 +50,19 @@ public class DocumentManagerController {
 	 */
 	@RequestMapping("/documentSelect")
 	public String documentSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,
-			Model model){
-		DocumentListView viewData = (DocumentListView) documentManagerService.selectDocumentList(pageNumber);
-		
+			Model model,String val, String index){
+		Board_SelectVO select = new Board_SelectVO();
+		if(val!=null && !val.equals("")){
+			select.setIndex(index);
+			select.setVal(val);
+		}
+		DocumentListView viewData = (DocumentListView) documentManagerService.selectDocumentList(pageNumber,select);
+
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select);
+		}
 		return "documentManagement/documentManager/documentSelect";
 	}
 	
@@ -72,17 +81,23 @@ public class DocumentManagerController {
 		
 		return "documentManagement/documentManager/documentInsert";
 	}
-	
+	/**
+	 * 파일등록하여 글 등록하는 것
+	 * @param model
+	 * @param request
+	 * @param document
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
 	public String documentInsertComplete(Model model , HttpServletRequest request, CommandDocumentVO document) throws IOException{
 		
-		
-		String upload = "";
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload";
 		
 		MultipartFile multipartFile = document.getDoc_file_name();
 		
 		if(!multipartFile.isEmpty()){
-			File file = new File(upload , multipartFile.getOriginalFilename()+"$$"+System.currentTimeMillis());
+			File file = new File(upload , multipartFile.getOriginalFilename());//+"$$"+System.currentTimeMillis()
 			
 			multipartFile.transferTo(file);
 			
@@ -92,16 +107,12 @@ public class DocumentManagerController {
 			String mem_number = mem.getMem_number();
 			
 			DocumentVO doc=document.toDocumentVO();
-//			if(document.getDoc_eadoc().equals(true)){
-//				doc.setDoc_eadoc("y");
-//			}else{
-//				doc.setDoc_eadoc("n");
-//			}
-			doc.setDoc_eadoc("y");
+			doc.setDoc_eadoc("n");
+			if(document.getDoc_eadoc() != null){
+				doc.setDoc_eadoc("y");
+			}
 			doc.setDoc_mem_number(mem_number);
-			doc.setDoc_file_name(multipartFile.getOriginalFilename());
-			
-			//doc.setDoc_file_name(request.getParameter("doc_file_name"));
+			doc.setDoc_file_name("D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/"+multipartFile.getOriginalFilename());
 			
 			model.addAttribute(doc);
 			
@@ -148,14 +159,20 @@ public class DocumentManagerController {
 	@RequestMapping("/documentDetail")
 	public String documentDetail(String dv_doc_number, Model model, String page){
 		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingService.selectMember(user.getUsername());
+		model.addAttribute("mem",mem);
 		model.addAttribute("document",document);
 		model.addAttribute("page",page);
 		return "documentManagement/documentManager/documentDetail";
 	}
 	
 	@RequestMapping("/documentDelete")
-	public String documentDelete(String doc_number,Model model, String page){
-		return "";
+	public @ResponseBody Map<String,String> documentDelete(String id){
+		documentManagerService.documentDelete(id);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/documentManagement/documentManager/documentSelect");
+		return resultMap;
 	}
 	
 }
