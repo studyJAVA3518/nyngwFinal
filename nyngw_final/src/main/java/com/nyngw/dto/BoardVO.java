@@ -16,6 +16,13 @@ public class BoardVO {
 	private String board_count;			//조회수
 	private Date board_date;			//작성날짜
 	private String board_mem_number;	//작성자
+	private String mem_name;//이름
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
 	public String getBoard_number() {
 		return board_number;
 	}

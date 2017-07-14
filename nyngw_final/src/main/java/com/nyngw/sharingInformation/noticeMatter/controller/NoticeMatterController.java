@@ -1,24 +1,59 @@
 package com.nyngw.sharingInformation.noticeMatter.controller;
 
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.BoardListViewVO;
+import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl;
 
 @Controller
 @RequestMapping("/sharingInformation/noticeMatter")
 public class NoticeMatterController {
 	@Autowired
-	private NoticeMatterServiceImpl noticeMatterServiceImpl;
+	private NoticeMatterServiceImpl noticeMatterService;
+	
+	@Autowired
+	private CommonServiceImpl CommonService;
 	
 	/**
 	 * 공지사항 List를 보여주는 페이지의 url을 반환하는 메소드
 	 * @return  공지사항 url을 반환
 	 */
 	@RequestMapping("/nmList")
-	public String noticeMatterCheck(){
-		
+	public String noticeMatterCheck(@RequestParam(value="page",defaultValue="1")int pageNumber,
+			Model model,String val, String index){
+		Board_SelectVO select = new Board_SelectVO();
+		if(val!=null && !val.equals("")){
+			select.setIndex(index);
+			select.setVal(val);
+		}
+		BoardListViewVO viewData = (BoardListViewVO) noticeMatterService.selectNoticeMatterList(pageNumber, select);
+		MemberVO member = new MemberVO();
+		List<BoardVO> list = viewData.getBoardList();
+		for(int i = 0; i < list.size(); i++){
+			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
+			//			list.get(i).setMem_name();
+			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+			System.out.println(";lll"+member.getMem_name());
+		}
+		model.addAttribute("viewData",viewData);
+		model.addAttribute("pageNumber",pageNumber);
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select);
+		}
 		return "sharingInformation/noticeMatter/noticeMatterList";
 	}
 	
@@ -26,19 +61,19 @@ public class NoticeMatterController {
 	 * 공지사항 List를 보여주는 페이지의 url을 반환하는 메소드
 	 * @return  공지사항 url을 반환
 	 */
-	@RequestMapping("/nmSelect")
-	public String noticeMatterSelect(){
-		
-		return "sharingInformation/noticeMatter/noticeMatterList";
-	}
+//	@RequestMapping("/nmSelect")
+//	public String noticeMatterSelect(){
+//		
+//		return "sharingInformation/noticeMatter/noticeMatterList";
+//	}
 	
 	/**
 	 * 공지사항 List페이지에서 등록 버튼을 누를씨 등록페이지를 보여주는 url을 반환하는 메소드
 	 * @return 공지사항등록페이지 url 반환
 	 */
 	@RequestMapping("/nmWriteForm")
-	public String noticeMatterWriteForm(){
-		
+	public String noticeMatterWriteForm(String page, Model model){
+		model.addAttribute("page",page);
 		return "sharingInformation/noticeMatter/noticeMatterWriteForm";
 	}
 	
@@ -47,9 +82,11 @@ public class NoticeMatterController {
 	 * @return 등록한뒤 url 반환
 	 */
 	@RequestMapping("/nmWrite")
-	public String noticeMatterWrite(){
-		
-		return "sharingInformation/noticeMatter/noticeMatterList";
+	public String noticeMatterWrite(BoardVO board, String page,Principal principal){
+		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		board.setBoard_mem_number(member.getMem_number());
+		noticeMatterService.noticeMatterInsert(board);
+		return "redirect:/sharingInformation/noticeMatter/nmList";
 	}
 	
 	/**
@@ -57,8 +94,10 @@ public class NoticeMatterController {
 	 * @return 공지사항수정페이지 url 반환
 	 */
 	@RequestMapping("/nmUpdateForm")
-	public String noticeMatterUpdateForm(){
-		
+	public String noticeMatterUpdateForm(String board_number, Model model, String page){
+		BoardVO board = null;
+		model.addAttribute("board",board);
+		model.addAttribute("page", page);
 		return "sharingInformation/noticeMatter/noticeMatterUpdateForm";
 	}
 	
@@ -67,29 +106,31 @@ public class NoticeMatterController {
 	 * @return 공지사항수정페이지 url 반환
 	 */
 	@RequestMapping("/nmUpdate")
-	public String noticeMatterUpdate(){
+	public String noticeMatterUpdate(BoardVO board){
 		
-		return "sharingInformation/noticeMatter/noticeMatterList";
+		return "redirect:sharingInformation/noticeMatter/nmList";
 	}
 	
 	/**
 	 * 공지사항 List페이지에서 삭제 버튼을 누를시 삭제페이지를 보여주는 url을 반환하는 메소드
 	 * @return 공지사항삭제페이지 url 반환
 	 */
-	@RequestMapping("/nmDeleteForm")
-	public String noticeMatterDeleteForm(){
-		
-		return "sharingInformation/noticeMatter/noticeMatterList";
-	}
+//	@RequestMapping("/nmDeleteForm")
+//	public String noticeMatterDeleteForm(){
+//		
+//		return "sharingInformation/noticeMatter/noticeMatterList";
+//	}
 	
 	/**
 	 * 
 	 * @return 공지사항삭제페이지 url 반환
 	 */
 	@RequestMapping("/nmDelete")
-	public String noticeMatterDelete(){
+	public @ResponseBody Map<String,String> noticeMatterDelete(String id){
 		
-		return "sharingInformation/noticeMatter/noticeMatterList";
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/sharingInformation/board/list");
+		return resultMap;
 	}
 	
 	/**
@@ -97,8 +138,12 @@ public class NoticeMatterController {
 	 * @return 공지사항 상세페이지 url 반환
 	 */
 	@RequestMapping("/nmDetail")
-	public String noticeMatterDetail(){
-		
+	public String noticeMatterDetail(String board_number, Model model, String page){
+		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
+		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		board.setMem_name(member.getMem_name());
+		model.addAttribute("board", board);
+		model.addAttribute("page", page);
 		return "sharingInformation/noticeMatter/noticeMatterDetail";
 	}
 	
@@ -106,9 +151,9 @@ public class NoticeMatterController {
 	 * 상세보기에서 목록보기 버튼을 누르거나 등록, 수정, 삭제 화면에서 취소버튼을 누르면 보던 리스트 페이지로 가는 url을 반환하는 메서드
 	 * @return 자신이 보던 리스트 화면으로 돌아가는 url 반환
 	 */
-	@RequestMapping("/cancle")
-	public String cancleAndList(){
-		
-		return "sharingInformation/noticeMatter/noticeMatterList";
-	}
+//	@RequestMapping("/cancle")
+//	public String cancleAndList(){
+//		
+//		return "sharingInformation/noticeMatter/noticeMatterList";
+//	}
 }

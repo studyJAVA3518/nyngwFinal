@@ -10,15 +10,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<table class="table">
-			<tr><th>제목</th><td>제목나와야하구용~</td><th>작성자</th><td>작성자이름나오구용~</td></tr>
-			<tr><th>작성일</th><td>날자 나와야하구용</td><th>조회수</th><td>조회수나옵니다</td></tr>
-			<tr><th>내용</th><td>내용나와야하는 곳</td></tr>
-			<tr><th>첨부파일</th><td>첨부파일이 있다면 나와야하는곳</td></tr>
+		<div>
+		<table class="table table-bordered">
+			<tr>
+				<th>제목</th>
+				<td>${board.board_title}</td>
+				<th>작성자</th>
+				<td>${board.mem_name}</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
+				<th>조회수</th>
+				<td>${board.board_count }</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td colspan="3">
+					<textarea rows="20" cols="71" style="resize: none;" readonly="readonly">${board.board_content }</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td colspan="3">${board.board_file_name }</td>
+			</tr>
 		</table>
-			<button><a href="/sharingInformation/noticeMatter/nmUpdateForm">수정하기</a></button>
-			<button><a href="/sharingInformation/noticeMatter/nmList">목록</a></button>
+			<button><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
+			<button type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
+			<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 	</div>
 </body>
 </html>

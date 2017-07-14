@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.nyngw.dto.DocumentViewVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.nyngw.documentManagement.documentManager.DocumentListView"%>
@@ -7,16 +8,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-	문서관리 > 문서조회
+	<h1>문서조회</h1>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
 			<form action="/documentManagement/documentManager/documentSelect">
 				<select name="index">
-					<option value="doc_code_number">문서종류</option>
-					<option value="doc_name">문서명</option>
-					<option value="doc_mem_number">등록자</option>
+					<option value="dv_code_name">문서종류</option>
+					<option value="dv_doc_name">문서명</option>
+					<option value="dv_mem_name">등록자</option>
 				</select>
-				<input type="text" name="val">
+				<input type="hidden" value="${select.index }">
+				<input type="text" name="val" value="${select.val }">
 				<input type="submit" value="검색">
 			</form>
 		</div>
@@ -44,7 +46,7 @@
 			<c:when test="${viewData.documentCountPerPage>0 }">
 				<c:forEach items="${viewData.documentList }" var="documentView" varStatus="i">
 					<tr>
-						<td>${fn:substring(bocumentView.doc_number,3,10077777)}</td>
+						<td>${fn:substring(documentView.dv_doc_number,3,10077777)}</td>
 						<td>${documentView.dv_code_name }</td>
 						<td>${documentView.dv_doc_date }</td>
 						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_number }</a></td>
@@ -63,8 +65,7 @@
 		</table>
 	</div>
 	<div id="pageNum" style="text-align: center;">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"
-			var="i">
-			<a href="/documentManagement/documentManager/documentSelect?page=${i} %>">[${ i}]</a>
+		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
+			<a href="/documentManagement/documentManager/documentSelect?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
 		</c:forEach>
 	</div>

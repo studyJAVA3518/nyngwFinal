@@ -20,6 +20,21 @@ public class JoinMemberVO {
 	private String mdi_bank_account;
 	private String mem_dept_number;
 	private String mem_position_number;
+	private String dept_name;
+	private String position_name;	//직급명
+	
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getPosition_name() {
+		return position_name;
+	}
+	public void setPosition_name(String position_name) {
+		this.position_name = position_name;
+	}
 	public String getMem_number() {
 		return mem_number;
 	}

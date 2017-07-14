@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
@@ -18,17 +19,22 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<DocumentViewVO> selectDocumentManagerList(int firstRow, int endRow) {
+	public List<DocumentViewVO> selectDocumentManagerList(int firstRow, int endRow, Board_SelectVO select) {
 		int offset = firstRow - 1;
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<DocumentViewVO> documentList = (ArrayList<DocumentViewVO>)sqlSession.selectList("selectDocumentManagerList","",rowBounds);
+		List<DocumentViewVO> documentList = (ArrayList<DocumentViewVO>)sqlSession.selectList("selectDocumentManagerList",select,rowBounds);
 		return documentList;
 	}
-
 	@Override
 	public int selectDocumentCount() {
 		int result =(Integer) sqlSession.selectOne("selectDocumentCount");
+		return result;
+	}
+	
+	@Override
+	public int documentSelectCount(Board_SelectVO select){
+		int result=(Integer) sqlSession.selectOne("documentSelectCount",select);
 		return result;
 	}
 
@@ -62,5 +68,10 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	public List<Common_CodeVO> documentCodeSelect() {
 		List<Common_CodeVO> code = (ArrayList<Common_CodeVO>) sqlSession.selectList("documentCodeSelect"); 
 		return code;
+	}
+	
+	@Override
+	public void documentDelete(String doc_number){
+		sqlSession.delete("documentDelete",doc_number);
 	}
 }

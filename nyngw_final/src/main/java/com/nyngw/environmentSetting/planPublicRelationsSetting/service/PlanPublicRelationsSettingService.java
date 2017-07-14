@@ -1,8 +1,12 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.springframework.ui.Model;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentViewVO;
 
 public interface PlanPublicRelationsSettingService {
 	
@@ -36,4 +40,12 @@ public interface PlanPublicRelationsSettingService {
 	 * @throws SQLException
 	 */
 	public int modifyCompanyLogo(String company_logo, String company_number) throws SQLException;
+	
+	/**
+	 * 직급 정보를 모두 불러오는 메서드
+	 * @return 
+	 * @throws SQLException
+	 */
+	public void viewDeptInfo(Model model) throws SQLException;
+	
 }

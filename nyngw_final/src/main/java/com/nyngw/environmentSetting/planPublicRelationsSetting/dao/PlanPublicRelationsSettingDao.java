@@ -1,8 +1,11 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentViewVO;
 
 public interface PlanPublicRelationsSettingDao {
 	
@@ -37,5 +40,20 @@ public interface PlanPublicRelationsSettingDao {
 	 * @throws SQLException
 	 */
 	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException;
+	
+	/**
+	 * 회사의 직급에 대한 모든 정보를 조회하는 메서드
+	 * @return DepartmentViewVO
+	 * @throws SQLException
+	 */
+	public ArrayList<DepartmentViewVO> selectDepartmentView() throws SQLException;
+	
+	/**
+	 * 상위 직급의 멤버 일부 정보를 조회하는 메서드
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<DepartmentViewVO> selectUpperMember() throws SQLException;
+	
 	
 }

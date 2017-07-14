@@ -8,16 +8,45 @@
 		select count(*) from document
 	</select>
 	
-	<select id="selectDocumentManagerList" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentViewVO">
+	<select id="selectDocumentManagerList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.DocumentViewVO">
 		select 
 			dv_code_name,
        		dv_doc_date,
        		dv_doc_name,
        		dv_doc_number,
        		dv_mem_name
-		from documentview where dv_doc_number like '%'||#{dv_doc_number}||'%'
+		from documentview 
+		where 1 = 1
+		<choose>
+<!-- 			index는 작성자로 검색할 것인지, 제목으로 검색할 것인지 담겨있는 String 이며
+				담겨있는값이 뭐냐에 따라 검색이 된다.
+ -->
+		    <when test='index == "dv_code_name"'>
+		    	AND dv_code_name like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "dv_doc_name"'>
+		    	AND dv_doc_name like '%'||#{val}||'%'
+		    </when>
+	     	<when test='index == "dv_mem_name"'>
+		    	AND dv_mem_name like '%'||#{val}||'%'
+		    </when>
+	  	</choose>
+		order by dv_doc_number desc
 	</select>
-	
+	<select id="documentSelectCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from documentView where 1=1
+		<choose>
+		    <when test='index == "dv_code_name"'>
+		    	AND dv_code_name like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "dv_doc_name"'>
+		    	AND dv_doc_name like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "dv_mem_name"'>
+		    	AND dv_mem_name like '%'||#{val}||'%'
+		    </when>
+	  	</choose>
+	</select>
 	<select id="selectDocumentDetail" parameterType="java.lang.String" resultType="com.nyngw.dto.DocumentVO">
 		select * from document where doc_number = #{dv_doc_number}
 	</select>
@@ -49,4 +78,8 @@
 	<select id="documentCodeSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
 		select * from common_code where code_ck_number = 'ck2'
 	</select>
+	
+	<update id="documentDelete" parameterType="java.lang.String">
+		delete from document where doc_number = #{doc_number}	
+	</update>
 </mapper>

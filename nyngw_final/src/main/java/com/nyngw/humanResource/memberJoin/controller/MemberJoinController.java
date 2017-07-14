@@ -63,6 +63,9 @@ public class MemberJoinController {
 		
 		model.addAttribute("status", "no");
 		int result = memberJoinService.joinMember(joinMember);
+		if(result==1){
+			model.addAttribute("status", "ok");
+		}
 		
 		return map;
 	}

@@ -30,7 +30,7 @@ function idCheck(){
 				idch=true;
 				$('#check').html(code).css('color','blue');
 			}else{
-				alert("aaa");
+				idch=false;
 				code+=res.id+"사용 불가능합니다.";
 				$('#check').html(code).css('color','red');
 			}
@@ -44,6 +44,10 @@ function joinMember(){
 		alert("아이디 입력.");
 		return;
 	} 
+	if(!idch){
+		alert("중복확인");
+		return;
+	}
 	if(!$("#mem_pwd").val()){
 		alert("비번");
 		return;
@@ -73,11 +77,10 @@ function joinMember(){
 		success :function(res){
 			var code ="";
 			if(res.status == "ok" ){
-				code+= res.id+"님 가입 축하";
+				alert("사원이 가입되었습니다.");
 			}else{
-				code+= "가입이 실패했습니다.";
+				alert("가입이 실패하였습니다.");
 			}
-			$('span:last').html(code).css('color','orange');
 		},
 		error : function(res){
 			alert("실패");
