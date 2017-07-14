@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 
 @Repository
@@ -93,7 +94,17 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		= (ArrayList<DepartmentViewVO>) sqlSession.selectList("esSelectUpperMember", "");
 		return dvMemList;
 	}
-	
-	
+
+	/**
+	 * 부서 정보 등록하는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int insertDepartment(DepartmentVO dvo) throws SQLException {
+		int result = sqlSession.update("esInsertDepartment", dvo);
+		return result;
+	}
 	
 }

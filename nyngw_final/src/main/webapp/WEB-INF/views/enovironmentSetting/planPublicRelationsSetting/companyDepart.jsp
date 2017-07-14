@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 환경설정관리 -> 기획홍보부 설정 ->회사 부서 설정에 대한 화면 -->
 
@@ -71,7 +72,13 @@
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<select name="dept_membernumber">
+							<c:forEach var="member" items="${upperMemList}">
+								<option value="${member.mem_number}">
+									${member.mem_number}&#09;${member.mem_name}&#09;${member.position_name}
+								</option>
+							</c:forEach>
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -95,11 +102,12 @@
 				<th>상위 부서 선택</th>
 				<td>
 					<div class="form-group">
-						<select>
-							<option>사장</option>
-							<option>부사장</option>
-							<option>인사부</option>
-							<option>기획홍보부</option>
+						<select name="dept_parents">
+							<c:forEach var="dept" items="${dvList}">
+								<option value="${dept.dept_number}">
+									${dept.dept_name}
+								</option>
+							</c:forEach>
 						</select>
 					</div>
 				</td>
@@ -123,13 +131,22 @@
 
 <div class="row">
 	<h4>부서 리스트 (총 n 개의 부서가 등록되어 있습니다.)</h4>
+	
+	
+
+	
+	
+	
+	
+	<c:forEach var="depart" items="${dvList}">
 	<div class="row">
-		<div class="col-md-3">사장</div>
+		<div class="col-md-3">${depart.dept_name}</div>
 		<div class="col-md-9">
 			<input type="button" value="수정" class="btn btn-default insertDeptBtn"/>
 			<input type="button" onclick="deleteDept_go();" value="삭제" class="btn btn-default"/>
 		</div>
 	</div>
+	</c:forEach>
 <!-- 	<div class="row"> -->
 <!-- 		<div class="col-md-3">&nbsp;&nbsp;&nbsp;└ 부사장</div> -->
 <!-- 		<div class="col-md-9"> -->

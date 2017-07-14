@@ -44,6 +44,7 @@
 		  position_number,
 		  position_name
 		from dept_view
+		order by dept_level, dept_name
 	</select>
 	
 	<select id="esSelectUpperMember" resultType="com.nyngw.dto.DepartmentViewVO">
@@ -65,7 +66,7 @@
 	</update>
 	
 	<!-- 직급정보 수정 -->
-	<update id="esUpdateDepart" parameterType="com.nyngw.dto.DepartmentVO">
+	<update id="esUpdateDepartment" parameterType="com.nyngw.dto.DepartmentVO">
 		update company set 
 			company_logo=#{company_logo} 
 		where company_number = #{company_number}

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.DalViewVO;
 import com.nyngw.dto.VacationVO;
 import com.nyngw.mypage.myDalManagement.MyAttendedListView;
@@ -27,7 +28,7 @@ public class MyDalManagementServiceImpl implements MyDalManagementService {
 	}
 
 	@Override
-	public MyAttendedListView selectAttendList(int pageNumber) {
+	public MyAttendedListView selectAttendList(int pageNumber,Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
 		
 		int boardTotalCount = myDalManagementDaoImpl.selectBoardCount();
@@ -38,7 +39,10 @@ public class MyDalManagementServiceImpl implements MyDalManagementService {
 		if (boardTotalCount > 0) {
 			firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
 			endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
-			boardList =myDalManagementDaoImpl.selectBoardList(firstRow, endRow);
+			boardList =myDalManagementDaoImpl.selectBoardList(firstRow, endRow, select);
+			if(select.getVal()!=null && !select.getVal().equals("")){
+				boardTotalCount = myDalManagementDaoImpl.dalSelectCount(select);
+	         }
 		} else {
 			currentPageNumber = 0;
 			boardList = Collections.emptyList();

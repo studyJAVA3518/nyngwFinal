@@ -1,11 +1,15 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
+import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
 
 @Service
@@ -57,6 +61,30 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	public int modifyCompanyLogo(String company_logo, String company_number) throws SQLException {
 		int result = planPublicRelationsSettingDao.updateCompanyLogo(company_logo, company_number);
 		return result;
+	}
+
+	@Override
+	public void viewDeptInfo(Model model) throws SQLException {
+		
+		//회사 직급정보 
+		ArrayList<DepartmentViewVO> dvList = planPublicRelationsSettingDao.selectDepartmentView();
+		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectUpperMember();
+		
+		model.addAttribute("dvList",dvList);
+		model.addAttribute("upperMemList",upperMemList);
+	}
+	
+	/**
+	 * 부서 정보 등록하는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public void enrollDept(Model model, DepartmentVO dvo) throws SQLException {
+		int result = planPublicRelationsSettingDao.insertDepartment(dvo);
+		model.addAttribute("resultInserDept",result);
+		
 	}
 
 }

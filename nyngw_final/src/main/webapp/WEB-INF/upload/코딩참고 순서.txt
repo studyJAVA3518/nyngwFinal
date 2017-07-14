@@ -1,0 +1,5 @@
+1. jsp 만들고
+2. controller에 해당 jsp 열어주는 메서드 메핑 시켜서 return값 주고
+3. jsp 안에서 일어나는 일에대한 엑션에 대한 메서드도 controller에 만들어주고 알맞게 mapping
+위에 컨트롤러, 메서드 메핑과 return 해야하는 값에 유의하자
+경우에 따라 return할 때  "redirect:"도 해줘야한다

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="com.nyngw.dto.DalViewVO"%>
 <%@page import="com.nyngw.mypage.myDalManagement.MyAttendedListView"%>
@@ -7,39 +7,62 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-¸¶ÀÌÆäÀÌÁö >> ³ªÀÇ ±ÙÅÂ °ü¸® >> Ãâ°á°ü¸®
+ë§ˆì´íŽ˜ì´ì§€ >> ë‚˜ì˜ ê·¼íƒœ ê´€ë¦¬ >> ì¶œê²°ê´€ë¦¬
+<script type="text/javascript">
+$(function(){
+	 $('#dialog').css('display', 'none');
+		$("#company_in").click(function(){
+		$('#dialogg').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons: {
+		       "ì·¨ì†Œ": function() {
+					$(this).dialog("close");
+				}
+			},
+			close: function() {
+				$('#textArea').val('');
+			}
+	    });
+    })
+})
+</script>
 
-	
-	<div>
-		<button>Ãâ±Ù Ã¼Å©</button>
-		<button>Åð±Ù Ã¼Å©</button>
-	</div>
+	<form name="hiddenForm">
+	<input type="hidden" id="ea_number" value="${ea_number }">
+	<button type="button" id="company_in">ì¶œê·¼</button>
+	<button type="button" id="editDraft_go">í‡´ê·¼</button>
+	</form>
+
+<div id="dialogg">
+	ì¶œê·¼í•˜ì…”ìŽ¼ì—¬ ?
+</div>
+
+
 	<table class="table table-bordered">
 			<tr>
-			<th>°Ë»ö</th>
+			<th>ê²€ìƒ‰</th>
 					<td>
-					<form action="">
-						<select name="">
-							<option value="">³¯Â¥</option>
-							<option value="">°á±Ù»çÀ¯</option>
+					<form action="/mypage/myDalManagement/attended">
+						<select name="index">
+							<option value="dalview_date">ë‚ ì§œ</option>
+							<option value="dalview_content">ê²°ê·¼ì‚¬ìœ </option>
 						</select>
-					<input type="text"/>
-					<button type="submit">°Ë»ö</button>
+					<input type="hidden" value="${select.index}">
+					<input type="text" name="val" value="${select.val}">
+					<input type="submit" value="ê²€ìƒ‰">
+					</form> 
 					</td>
-					</form>
 					
 			</tr>		
-	</table>
-	
-	<table class="table table-bordered">
-	
-	<tr>
-			<th>¹øÈ£</th>
-			<th>³¯Â¥</th>
-			<th>Ãâ±Ù ½Ã°£</th>
-			<th>Åð±Ù ½Ã°£</th>
-			<th>°á±Ù »çÀ¯</th>
-			<th>°á±Ù »çÀ¯</th>
+			<tr>
+			<th>ë²ˆí˜¸</th>
+			<th>ë‚ ì§œ</th>
+			<th>ì¶œê·¼ ì‹œê°„</th>
+			<th>í‡´ê·¼ ì‹œê°„</th>
+			<th>ê²°ê·¼ ì‚¬ìœ </th>
+			<th>ê²°ê·¼ ì‚¬ìœ </th>
 		</tr>
 			<c:choose>
 				<c:when test="${viewData.boardCountPerPage > 0}">
@@ -56,14 +79,18 @@
 				</c:when>
 				<c:otherwise>
 					<tr>
-						<td style="text-align: center;">³»¿ëÀÌ ¾ø½À´Ï´Ù.</td>
+						<td style="text-align: center;">ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤.</td>
 					</tr>
 				</c:otherwise>
 			</c:choose>
-</table>
+	</table>
+	
+	
+	
+
 	<div id="pageNum">
 		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i">
-			<a href="/mypage/myDalManagement/attended?page=${i}">[${i}]</a>
+			<a href="/mypage/myDalManagement/attended?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
 		</c:forEach>
 	</div>
 	

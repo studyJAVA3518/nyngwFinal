@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.dao.DocumentManagerDaoImpl;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
@@ -19,7 +20,7 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	private static final int DOCUMENT_COUNT_PER_PAGE = 5;
 	
 	@Override
-	public DocumentListView selectDocumentList(int pageNumber) {
+	public DocumentListView selectDocumentList(int pageNumber, Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
 		
 		int documentTotalCount = documentManagerDao.selectDocumentCount();
@@ -30,7 +31,10 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 		if(documentTotalCount > 0){
 			firstRow = (pageNumber - 1) * DOCUMENT_COUNT_PER_PAGE + 1;
 			endRow = firstRow + DOCUMENT_COUNT_PER_PAGE - 1;
-			documentList = documentManagerDao.selectDocumentManagerList(firstRow, endRow);
+			documentList = documentManagerDao.selectDocumentManagerList(firstRow, endRow,select);
+			if(select.getVal()!=null && !select.getVal().equals("")){
+				documentTotalCount = documentManagerDao.documentSelectCount(select);
+			}
 		} else {
 			currentPageNumber = 0;
 			documentList = Collections.emptyList();
@@ -65,6 +69,11 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	public List<Common_CodeVO> documentCodeSelect() {
 		List<Common_CodeVO> code = documentManagerDao.documentCodeSelect();
 		return code;
+	}
+
+	@Override
+	public void documentDelete(String doc_number) {
+		documentManagerDao.documentDelete(doc_number);
 	}
 	
 }

@@ -374,7 +374,7 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 	</tr>
 	<tr>
 		<th>이메일</th>
-		<td><input type="text" name="mem_email" value="${MemberVoDetail.mem_email}"/></td>
+		<td><input type="email" name="mem_email" value="${MemberVoDetail.mem_email}"/></td>
 	</tr>
 	<tr>
 		<th>우편 번호</th>
