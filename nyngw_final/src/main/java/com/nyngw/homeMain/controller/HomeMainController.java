@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
@@ -30,7 +32,10 @@ public class HomeMainController {
 	BoardServiceImpl boardService;
 	
 	@RequestMapping("/main")
-	public String homeMain(Model model, Principal principal){
+	public String homeMain(
+			Model model, 
+			Principal principal,
+			HttpSession session){
 		String url = "homeMain/main";
 		
 		//회사정보
@@ -42,6 +47,8 @@ public class HomeMainController {
 		String mem_id = user.getUsername();
 		//공지사항 리스트
 		List<BoardVO> boardList = null;
+		
+		
 		try {
 			company = appointedUIService.checkCompany();
 			model.addAttribute("company",company);
@@ -49,6 +56,10 @@ public class HomeMainController {
 			model.addAttribute("member",member);
 			boardList = boardService.selectList();
 			model.addAttribute("boardList", boardList);
+		
+			//session에 회사 로고 경로를 저장해야 한다.
+			session.setAttribute("companyLogo",company.getCompany_logo());
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
