@@ -10,4 +10,13 @@
 		where mem_id=#{id}
 	</select>
 
-</mapper> 
+	<insert id="joinMember_JM" parameterType="com.nyngw.dto.JoinMemberVO" >
+		insert into member (mem_number,mem_id,mem_pwd,mem_name,mem_reg,mem_zip,mem_addr1,mem_addr2,mem_email,mem_retirement,mem_tel,mem_dept_number,mem_position_number,MEM_MNGR_NUMBER) 
+		values('mem'||mem_seq.nextval ,#{mem_id},#{mem_pwd},#{mem_name},#{mem_reg},#{mem_zip},#{mem_addr1},#{mem_addr2},#{mem_email},#{mem_retirement},#{mem_tel},#{mem_dept_number},#{mem_position_number},'role_user')
+	</insert>
+	
+	<insert id="joinMemberMDI_JM" parameterType="com.nyngw.dto.JoinMemberVO" >
+		insert into MEMBER_DETAIL_INFORMATION (MDI_MEM_NUMBER,MDI_BANK,MDI_BANK_ACCOUNT,MDI_ACCOUNT_HOLDER)
+		values(#{mem_number},#{mdi_bank},#{mdi_bank_account},#{mem_name})
+	</insert>
+</mapper>
