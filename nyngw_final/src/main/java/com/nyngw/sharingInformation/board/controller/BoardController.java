@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_CommentVO;
@@ -29,6 +30,9 @@ public class BoardController {
 	
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService;
+	
+	@Autowired
+	private CommonServiceImpl CommonService;
 	
 	/**
 	 * 게시판 리스트 화면을 보여주는 url을 반환하는 메서드
@@ -53,7 +57,7 @@ public class BoardController {
 //		MemberVO member = new MemberVO();
 //		List<BoardVO> list = viewData.getBoardList();
 //		for(int i = 0; i < list.size(); i++){
-//			member = basicSettingService.selectMember(list.get(i).getBoard_mem_number());
+//			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
 //			//			list.get(i).setMem_name();
 //			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
 //			System.out.println(";lll"+member.getMem_name());
