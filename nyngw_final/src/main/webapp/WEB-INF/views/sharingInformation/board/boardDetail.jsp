@@ -62,7 +62,7 @@
 	$(function(){
 		$('#btn').click(function(){
 // 			$('#content').attr("readonly",true);
-			$('#con').prop('readonly',!$('#con').prop('readonly'));
+			$('#con').prop ('readonly',!$('#con').prop('readonly'));
 			if($('#con').attr('readonly')==true){
 				alert($('#con').val());
 			}

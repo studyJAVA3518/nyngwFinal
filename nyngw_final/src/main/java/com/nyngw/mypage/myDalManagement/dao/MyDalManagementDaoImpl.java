@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.DalViewVO;
 import com.nyngw.dto.VacationVO;
 
@@ -25,20 +26,28 @@ public class MyDalManagementDaoImpl implements MyDalManagementDao {
 
 	@Override
 	public List<DalViewVO> selectBoardList(int firstRow,
-			int endRow) {
+			int endRow,Board_SelectVO select) {
 		int offset = firstRow - 1;
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<DalViewVO> boardList = (ArrayList<DalViewVO>)sqlSession.selectList("selectAttendList","",rowBounds);
+		List<DalViewVO> boardList = (ArrayList<DalViewVO>)sqlSession.selectList("selectAttendList",select,rowBounds);
 		return boardList;
 	}
+	
 
+	@Override
+	public int dalSelectCount(Board_SelectVO select){
+		int result = (Integer) sqlSession.selectOne("dalSelectCount",select);
+		return result;
+	}
+	
 	@Override
 	public int selectBoardCount() {
 		int result =(Integer) sqlSession.selectOne("selectAttendCount");
 		return result;
 	}
 
+	
 	
 	
 	
@@ -64,4 +73,6 @@ public class MyDalManagementDaoImpl implements MyDalManagementDao {
 		int result =(Integer) sqlSession.selectOne("selectVacationCount");
 		return result;
 	}
+
+	
 }

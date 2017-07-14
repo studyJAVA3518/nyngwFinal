@@ -155,7 +155,7 @@
 									<li><a href="/mypage/myPayManagement/severance">퇴직금 현황</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">기본 설정</li>
-						            <li><a href="/mypage/basicSetting/sign">서명 등록</a></li>
+						            <li><a href="/mypage/basicSetting/sign">개인 정보 수정</a></li>
 						          </ul>
 						        </div>
 						        

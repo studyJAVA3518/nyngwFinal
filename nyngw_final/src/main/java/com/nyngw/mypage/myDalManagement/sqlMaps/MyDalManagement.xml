@@ -10,9 +10,35 @@
 	</select>
 
 	<select id="selectAttendList" parameterType="java.lang.String" resultType="com.nyngw.dto.DalViewVO">
-		select * from DalView where dalview_number like '%'||#{dalview_number}||'%' order by 2 desc
+		select * from DalView 
+		where 1=1
+		<choose>
+<!--          index는 작성자로 검색할 것인지, 제목으로 검색할 것인지 담겨있는 String 이며
+            담겨있는값이 뭐냐에 따라 검색이 된다.
+ -->
+          <when test='index == "dalview_date"'>
+             AND dalview_date like '%'||#{val}||'%'
+          </when>
+          <when test='index == "dalview_content"'>
+             AND dalview_content like '%'||#{val}||'%'
+          </when>
+           
+        </choose>
+		order by 2 desc
+		
 	</select>
 	
+	<select id="dalSelectCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+      select count(*) from DalView where 1=1
+      <choose>
+          <when test='index == "dalview_date"'>
+             AND dalview_date like '%'||#{val}||'%'
+          </when>
+          <when test='index == "dalview_content"'>
+             AND dalview_content like '%'||#{val}||'%'
+          </when>
+        </choose>
+   </select>
 	
 	<select id="selectVacationCount" resultType="java.lang.Integer">
 		select count(*) from vacation
