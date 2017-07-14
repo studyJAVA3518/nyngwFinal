@@ -26,7 +26,7 @@
   					<div class="col-md-2">
   						<!-- image를 사용할 때에는 클래스에 img-responsive -->
   						<a href="#">
-  							<img src="<%=request.getContextPath()%>/resources/images/logo.png" alt="company logo" class="img-responsive">
+  							<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive">
   						</a>
   					</div>
   					<div class="col-md-10">

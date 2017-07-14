@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>부트스트랩 템플릿</title>
+    <title>GroupWaare Solution - NYN GroupWare</title>
 
 	<!-- Bootstrap Core CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
