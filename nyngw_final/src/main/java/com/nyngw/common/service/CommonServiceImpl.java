@@ -19,6 +19,10 @@ public class CommonServiceImpl implements CommonService{
 	}
 
 	public MemberVO findMemberByMemId(String mem_id){
-		return codeManagerDao.common_selectMember(mem_id);
+		return codeManagerDao.common_selectMemberByMemID(mem_id);
+	} 
+	
+	public MemberVO findMemberByMemNumber(String mem_number){
+		return codeManagerDao.common_selectMemberByMemNumber(mem_number);
 	} 
 }

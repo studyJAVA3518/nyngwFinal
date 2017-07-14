@@ -20,8 +20,12 @@ public class CommonDaoImpl implements CommonDao {
 		return (Common_CodeVO) sqlSession.selectOne("selectCodeNameByDocNumber", ea_doc_number);
 	}
 
-	public MemberVO common_selectMember(String mem_id) {
+	public MemberVO common_selectMemberByMemID(String mem_id) {
 		return (MemberVO) sqlSession.selectOne("common_selectMember", mem_id);
+	}
+	
+	public MemberVO common_selectMemberByMemNumber(String mem_number) {
+		return (MemberVO) sqlSession.selectOne("common_selectMember", mem_number);
 	}
 
 }
