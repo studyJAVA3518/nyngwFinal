@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.ui.Model;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 
 public interface PlanPublicRelationsSettingService {
@@ -47,5 +48,13 @@ public interface PlanPublicRelationsSettingService {
 	 * @throws SQLException
 	 */
 	public void viewDeptInfo(Model model) throws SQLException;
+	
+	/**
+	 * 부서 정보 등록하는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	public void enrollDept(Model model, DepartmentVO dvo) throws SQLException;
 	
 }

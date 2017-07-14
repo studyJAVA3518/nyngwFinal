@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 
 public interface PlanPublicRelationsSettingDao {
@@ -55,5 +56,12 @@ public interface PlanPublicRelationsSettingDao {
 	 */
 	public ArrayList<DepartmentViewVO> selectUpperMember() throws SQLException;
 	
+	/**
+	 * 부서 정보 등록하는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int insertDepartment(DepartmentVO dvo) throws SQLException;
 	
 }
