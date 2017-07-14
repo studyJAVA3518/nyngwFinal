@@ -54,14 +54,14 @@ public class BoardController {
 			select.setVal(val);
 		}
 		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber, select);
-//		MemberVO member = new MemberVO();
-//		List<BoardVO> list = viewData.getBoardList();
-//		for(int i = 0; i < list.size(); i++){
-//			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
-//			//			list.get(i).setMem_name();
-//			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
-//			System.out.println(";lll"+member.getMem_name());
-//		}
+		MemberVO member = new MemberVO();
+		List<BoardVO> list = viewData.getBoardList();
+		for(int i = 0; i < list.size(); i++){
+			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
+			//			list.get(i).setMem_name();
+			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+			System.out.println(";lll"+member.getMem_name());
+		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		if(val!=null && !val.equals("")){
