@@ -58,23 +58,27 @@ public class PlanPublicRelationsSettingController {
 			HttpServletRequest request
 			) throws IOException{
 		
-		String upload = request.getSession()
-				.getServletContext().getRealPath("WEB_INF/uplode");
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
 		File file = null;
 		if(!multipartFile.isEmpty()){
 			file = new File(upload,multipartFile.getOriginalFilename());
 			
-//			multipartFile.transferTo(file);
+			multipartFile.transferTo(file);
 			model.addAttribute("fileName",multipartFile.getOriginalFilename());
+			
 			model.addAttribute("uploadPath",file.getAbsolutePath());
 		}
 		int resultComLogo = -1;
+		CompanyVO company = null;
 		try {
-			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(file.getAbsolutePath(), company_number2);
+			String uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
+			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
+			company = appointedUIService.checkCompany();
+			model.addAttribute("company",company);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "enovironmentSetting/planPublicRelationsSetting/companyInfoForm";
+		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
 	}
 	
 	/**
