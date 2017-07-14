@@ -1,7 +1,9 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentViewVO;
 
 @Repository
 public class PlanPublicRelationsSettingDaoImpl implements
@@ -63,8 +66,34 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("company_logo", company_logo);
 		paramMap.put("company_number", company_number);
-		System.out.println("파람맵:"+paramMap);
 		int result=(Integer)sqlSession.update("updateCompanyLogo",paramMap);
 		return result;
 	}
+	
+	/**
+	 * 회사의 직급에 대한 모든 정보를 조회하는 메서드
+	 * @return ArrayList<DepartmentViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<DepartmentViewVO> selectDepartmentView() throws SQLException {
+		ArrayList<DepartmentViewVO>dvVoList 
+			= (ArrayList<DepartmentViewVO>) sqlSession.selectList("esSelectDepartmentView", "");
+		return dvVoList;
+	}
+	
+	/**
+	 * 상위 직급의 멤버 일부 정보를 조회하는 메서드
+	 * @return ArrayList<DepartmentViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<DepartmentViewVO> selectUpperMember() throws SQLException {
+		ArrayList<DepartmentViewVO>dvMemList 
+		= (ArrayList<DepartmentViewVO>) sqlSession.selectList("esSelectUpperMember", "");
+		return dvMemList;
+	}
+	
+	
+	
 }

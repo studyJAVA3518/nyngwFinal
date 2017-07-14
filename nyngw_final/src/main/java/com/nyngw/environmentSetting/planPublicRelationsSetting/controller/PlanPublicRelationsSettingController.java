@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,20 +88,14 @@ public class PlanPublicRelationsSettingController {
 		CompanyVO company = null;
 		//파일 경로
 		String uploadFilePath = null;
-		
 		//basic : 로고를 변경하지 않고 업체에서 제공하는 기본로고를 사용함
 		if (logo.equals("basic")) {
 			
 			uploadFilePath = "resources/images/basic_logo.jpg";
-			try {
-				resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
-				company = appointedUIService.checkCompany();
-				session.setAttribute("companyLogo",company.getCompany_logo());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		}else {	// custom : 원하는 파일을 업로드하여 로고를 변경한다
+			System.out.println("기본로고!!!!!!!!!!!!!!");
+		
+		// custom : 원하는 파일을 업로드하여 로고를 변경한다
+		}else if(logo.equals("custom")){	
 			
 			//업로드 경로 지정
 			String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
@@ -111,16 +107,26 @@ public class PlanPublicRelationsSettingController {
 				file = new File(upload,multipartFile.getOriginalFilename());
 				//업로드한다!!
 				multipartFile.transferTo(file);
-			}
-			
-			try {
 				uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
-				resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
-				company = appointedUIService.checkCompany();
-				session.setAttribute("companyLogo",company.getCompany_logo());
-			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("로고 변경시!!!!!!!!!!!!!!");
 			}
+		}
+		
+		System.out.println("파일패스: "+uploadFilePath);
+		System.out.println("회사번호: "+company_number2);
+		//파일 경로를 update한다
+		try {
+			//파일경로를 업데이트하고 결과값을 int로 저장
+			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, session.getAttribute("companyNumber").toString());
+			System.out.println("업데이트 결과값 : "+resultComLogo);
+			//company
+			company = appointedUIService.checkCompany();
+			//session에 logo경로 저장
+			session.setAttribute("companyLogo",company.getCompany_logo());
+			System.out.println("session에 저장된 값: "+company.getCompany_logo());
+			model.addAttribute("resultComLogo",resultComLogo);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
@@ -176,12 +182,10 @@ public class PlanPublicRelationsSettingController {
 		try {
 			companyView = appointedUIService.checkCompany();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("companyInfo",companyView);
-		
 		
 		return url;
 	}
