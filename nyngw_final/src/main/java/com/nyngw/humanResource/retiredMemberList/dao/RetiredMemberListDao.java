@@ -1,5 +1,9 @@
 package com.nyngw.humanResource.retiredMemberList.dao;
 
-public interface RetiredMemberListDao {
+import java.util.List;
 
+import com.nyngw.dto.JoinMemberVO;
+
+public interface RetiredMemberListDao {
+	public List<JoinMemberVO> getRetiredMemberList_RM(JoinMemberVO member);
 }

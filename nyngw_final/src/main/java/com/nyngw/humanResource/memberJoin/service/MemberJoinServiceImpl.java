@@ -2,6 +2,7 @@ package com.nyngw.humanResource.memberJoin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.MemberVO;
@@ -18,13 +19,20 @@ public class MemberJoinServiceImpl implements MemberJoinService {
 		return memberJoinDao.idCheck_MJ(id);
 	}
 	
+	@Transactional
 	@Override
 	public int joinMember(JoinMemberVO joinMember) {
-		memberJoinDao.joinMember_JM(joinMember);
-		MemberVO member = memberJoinDao.idCheck_MJ(joinMember.getMem_id());
-		joinMember.setMem_number(member.getMem_number());
-		memberJoinDao.joinMemberMDI_JM(joinMember);
-		return 0;
+		int result=0;
+		try{
+			memberJoinDao.joinMember_JM(joinMember);
+			MemberVO member = memberJoinDao.idCheck_MJ(joinMember.getMem_id());
+			joinMember.setMem_number(member.getMem_number());
+			memberJoinDao.joinMemberMDI_JM(joinMember);
+			result=1;
+		}catch(Exception e){
+			
+		}
+		return result;
 	}
 
 }

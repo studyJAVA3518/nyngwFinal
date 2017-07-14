@@ -9,7 +9,6 @@
 </form>
 	<table class="table table-bordered">
 		<tr>
-			<th>사원번호</th>
 			<th>ID</th>
 			<th>사원</th>
 			<th>부서</th>
@@ -19,12 +18,11 @@
 			<th>연락처</th>
 		</tr>
 		<c:forEach items="${joinMemberList}" var="member">
-			<tr>
-				<td><a href="<c:url value=''/>" value="${member.mem_number }">${member.mem_number }</a></td>
+			<tr onclick="location.href='/humanResource/joinMemberList/detail?mem_id=${member.mem_id }'">
 				<td>${member.mem_id }</td>
 				<td>${member.mem_name }</td>
-				<td>${member.mem_dept_number }</td>
-				<td>${member.mem_position_number }</td>
+				<td>${member.dept_name}</td>
+				<td>${member.position_name }</td>
 				<td>${member.mem_reg }</td>
 				<td>${member.mem_email }</td>
 				<td>${member.mem_tel }</td>

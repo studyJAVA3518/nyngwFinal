@@ -71,6 +71,7 @@
 	<!-- humanResource excel -->
 	<beans:bean id="memberExcelViewHR" class="com.nyngw.humanResource.dalManagement.controller.Member_ViewVOExcelView"/>
 	<beans:bean id="countExcelViewHR" class="com.nyngw.humanResource.dalManagement.controller.FN_GETDALCNTExcelView"/>
+	<beans:bean id="joinExcelViewHR" class="com.nyngw.humanResource.joinMemberList.controller.JoinMember_ViewVOExcelView"/>
 	
 	<context:component-scan base-package="com.nyngw" />
 	

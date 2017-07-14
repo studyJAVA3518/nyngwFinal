@@ -2,7 +2,24 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="retiredMemberList">
-
+<mapper namespace="com.nyngw.humanResource.retiredMemberList.dao.RetiredMemberListDao">
+	
+	<select id="getRetiredMemberList_RM" parameterType="com.nyngw.dto.JoinMemberVO" resultType="com.nyngw.dto.JoinMemberVO">
+		select * 
+		from member,POSITION,DEPARTMENT
+		where mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '0'
+		<if test="mem_name != null">
+			<if test="mem_name != ''">
+ 				and mem_name = #{mem_name}
+			</if>
+		</if>
+		<if test="mem_dept_number != null">
+			<if test="mem_dept_number != ''">
+				and mem_dept_number = #{mem_dept_number}
+			</if>
+		</if>
+	</select>
 
 </mapper>

@@ -5,11 +5,58 @@
 <mapper namespace="com.nyngw.humanResource.joinMemberList.dao.JoinMemberListDao">
 	
 	<select id="getJoinMemberList_JM" resultType="com.nyngw.dto.JoinMemberVO">
-		select *
-		from member,MEMBER_DETAIL_INFORMATION
-		where mdi_mem_number = mem_number
+		select * 
+		from member,MEMBER_DETAIL_INFORMATION,POSITION,DEPARTMENT
+		where mdi_mem_number = mem_number 
+		and mem_position_number = position_number 
+		and mem_dept_number = dept_number 
 		and mem_retirement = '1'
+		order by mem_position_number
 	</select>
 	
+	<select id="getJoinMemberVOList_JM" resultType="com.nyngw.dto.JoinMemberVO">
+		select * 
+		from member,POSITION,DEPARTMENT
+		where mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '1'
+		order by mem_position_number
+	</select>
+	
+	<select id="getMemberDetail_JM" parameterType="String" resultType="com.nyngw.dto.JoinMemberVO">
+		select * 
+		from member,MEMBER_DETAIL_INFORMATION,POSITION,DEPARTMENT
+		where mdi_mem_number = mem_number 
+		and mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '1'
+		and mem_id =#{mem_id}
+	</select>
+	
+	<select id="getMemberDetailCommon_JM" parameterType="String" resultType="com.nyngw.dto.JoinMemberVO">
+		select * 
+		from member,POSITION,DEPARTMENT
+		where mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '1'
+		and mem_id =#{mem_id}
+	</select>
+	
+	<update id="modifyMemberBank" parameterType="com.nyngw.dto.JoinMemberVO">
+		update MEMBER_DETAIL_INFORMATION
+		set mdi_bank=#{mdi_bank} ,mdi_bank_account =#{mdi_bank_account},MDI_ACCOUNT_HOLDER=#{mem_name}
+		where mdi_mem_number = #{mem_number}
+	</update>
+	
+	<insert id="modifyMemberBankinsert" parameterType="com.nyngw.dto.JoinMemberVO">
+		insert into MEMBER_DETAIL_INFORMATION (mdi_bank ,mdi_bank_account,MDI_ACCOUNT_HOLDER,MDI_MEM_NUMBER)
+   		 values(#{mdi_bank},#{mdi_bank_account},#{mem_name},#{mem_number})
+	</insert>
+	
+	<update id="modifyDeleteMembter" parameterType="com.nyngw.dto.JoinMemberVO">
+		update member
+		set MEM_RETIREMENT = '0'
+		where mem_id = #{mem_id}
+	</update>
 	
 </mapper>
