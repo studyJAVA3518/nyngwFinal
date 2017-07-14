@@ -31,6 +31,7 @@ public class MeetingFacilitiesManagementController {
 	
 	@RequestMapping("/reservation")
 	public String reservation(String rv_date, String mr_number){
+		System.out.println(rv_date+"123"+mr_number);
 		return "businessSupport/meetingFacilitiesManagement/reservation";
 	}
 	
