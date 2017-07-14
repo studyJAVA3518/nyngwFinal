@@ -44,7 +44,7 @@
 								<li>
 									<h3>회의 시설 정보</h3>                       
 									<ul>                                 
-										<li><a href="/businessSupport/meetingFacilitiesManagement/facilitiesBooking">&nbsp;&nbsp;&nbsp;└ 회의록 관리</a></li>  
+										<li><a href="/businessSupport/meetingFacilitiesManagement/meetingRoomBooking">&nbsp;&nbsp;&nbsp;└ 회의실 관리</a></li>  
 									</ul>                                	
 								</li>
 								<li>

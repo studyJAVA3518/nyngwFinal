@@ -26,7 +26,7 @@
   					<div class="col-md-2">
   						<!-- image를 사용할 때에는 클래스에 img-responsive -->
   						<a href="#">
-  							<img src="<%=request.getContextPath()%>/resources/images/logo.png" alt="company logo" class="img-responsive">
+  							<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive">
   						</a>
   					</div>
   					<div class="col-md-10">
@@ -87,7 +87,7 @@
 									<li><a href="/businessSupport/dutyStatusReport/incompleteDuty">미완료업무함</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">회의 시설 정보</li>
-									<li><a href="/businessSupport/meetingFacilitiesManagement/facilitiesBooking">회의록 관리</a></li>
+									<li><a href="/businessSupport/meetingFacilitiesManagement/meetingRoomBooking">회의실 관리</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">회의 관리</li>
 									<li><a href="/businessSupport/meetingManagement/meetingCalendar">회의 일정</a></li>
