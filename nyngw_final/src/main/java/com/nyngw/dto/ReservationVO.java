@@ -12,13 +12,13 @@ public class ReservationVO {
 	private String rv_time;			//예약시간
 	private String rv_mem_number;	//예약자
 	private String rv_mr_number;	//회의실번호
-	private String rv_date;	//예약날짜
+	private Date rv_date;	//예약날짜
 	
 	
-	public String getRv_date() {
+	public Date getRv_date() {
 		return rv_date;
 	}
-	public void setRv_date(String rv_date) {
+	public void setRv_date(Date rv_date) {
 		this.rv_date = rv_date;
 	}
 	public String getRv_time() {
