@@ -124,6 +124,9 @@ public class BoardController {
 	@RequestMapping("/updateForm")
 	public String boardUpdateForm(String board_number, Model model,String page){
 		BoardVO board = boardService.selectBoard(board_number);
+		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		board.setMem_name(member.getMem_name());
+		System.out.println(member.getMem_name());
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
 		return "sharingInformation/board/boardUpdateForm";
@@ -135,6 +138,15 @@ public class BoardController {
 	 */
 	@RequestMapping("/update")
 	public String boardUpdate(BoardVO board){
+		board.setBoard_code_number("code7");
+		System.out.println(board.getBoard_code_number());
+		System.out.println(board.getBoard_content());
+		System.out.println(board.getBoard_count());
+		System.out.println(board.getBoard_file_name());
+		System.out.println(board.getBoard_mem_number());
+		System.out.println(board.getBoard_number());
+		System.out.println(board.getBoard_title());
+		System.out.println(board.getBoard_date());
 		boardService.boardUpdate(board);
 		return "redirect:/sharingInformation/board/list";
 	}

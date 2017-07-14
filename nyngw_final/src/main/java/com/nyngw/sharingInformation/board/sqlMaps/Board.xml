@@ -58,7 +58,7 @@
 			board_title=#{board_title}, 
 			board_content=#{board_content},
 			board_file_name=#{board_file_name},
-			board_count=#{board_count},
+<!-- 			board_count=#{board_count}, -->
 			board_date=#{board_date},
 			board_mem_number=#{board_mem_number}
 		where board_number=#{board_number}

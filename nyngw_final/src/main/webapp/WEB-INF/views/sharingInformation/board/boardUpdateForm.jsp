@@ -12,31 +12,36 @@
 	게시판 수정폼
 	<div>
 		<form action="/sharingInformation/board/update" method="post">
-			<label>게시글번호</label><input type="text" value="${board.board_number }" name="board_number" readonly="readonly"><br>
-			<label>게시글구분번호</label><input type="text" value="자유게시판" readonly="readonly"><br>
-			<label>제목</label><input type="text" name="board_title" value="${board.board_title }"><br>
-			<label>내용</label><input type="text" name="board_content" value="${board.board_content }"><br>
-			<label>파일이름</label><input type="text" name="board_file_name"><br>
-			<c:choose>
-				<c:when test="${board.board_count==null||board.board_count=='0'}">
-					<label>조회수</label>
-					<input type="text" value="0" name="board_count" readonly="readonly">
-					<br>
-				</c:when>
-				<c:otherwise>
-					<label>조회수</label>
-					<input type="text" value="${board.board_count }" name="board_count" readonly="readonly">
-					<br>
-				</c:otherwise>
-			</c:choose>
-			<label>작성날자</label><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/><br>
-			<label>작성자</label><input type="text" name="board_mem_number" value="${board.board_mem_number }" readonly="readonly"><br>
+			<table class="table table-bordered">
+				<tr>
+					<th>게시글번호</th>
+					<td>${board.board_number }<input type="hidden" value="${board.board_number}" name="board_number" readonly="readonly"></td>
+					<th>게시글구분번호</th>
+					<td>공지사항</td>
+					<th>작성자</th>
+					<td>${board.mem_name}<input type="hidden" name="board_mem_number" value="${board.board_mem_number}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td colspan="3"><input type="text" name="board_title" value="${board.board_title}"></td>
+					<th>작성날자</th>
+					<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
+				</tr>
+				<tr>
+					<th colspan="6">내용</th>
+				</tr>
+				<tr>
+					<td colspan="6"><textarea rows="15" cols="97" style="resize: none;" name="board_content">${board.board_content }</textarea></td>
+				</tr>
+				<tr>
+					<th>파일이름</th>
+					<td colspan="5"><input type="hidden" name="board_file_name"></td>
+				</tr>
+			</table>
 			<input type="hidden" value="${page}">
-			<input type="submit" value="수정" />
-			<input type="reset" value="초기화" />		
+			<input type="submit" value="수정" /> <input type="reset" value="초기화" />
 			<button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
 		</form>
 	</div>
-	
 </body>
 </html>
