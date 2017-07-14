@@ -21,5 +21,11 @@
 			</if>
 		</if>
 	</select>
+	
+	<update id="saveMember_RM" parameterType="String">
+		update member
+		set MEM_RETIREMENT = '1'
+		where mem_id = #{mem_id}
+	</update>
 
 </mapper>

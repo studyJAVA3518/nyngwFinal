@@ -19,4 +19,9 @@ public class RetiredMemberListServiceImpl implements RetiredMemberListService {
 		return retiredMemberListDao.getRetiredMemberList_RM(member);
 	}
 
+	@Override
+	public void saveMember(String mem_id) {
+		retiredMemberListDao.saveMember_RM(mem_id);
+	}
+
 }

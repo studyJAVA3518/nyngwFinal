@@ -20,7 +20,7 @@
 	    
 	</script>
 					
-					<h2 class="blind">서브 메뉴</h2>
+					<h2 class="blind">인사관리</h2>
 					<article>
 						<div class="lst_snb" id="accordion">
 							<ul>

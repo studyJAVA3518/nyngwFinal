@@ -3,6 +3,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script language="javascript">
+		
+		
+	function saveMember() {
+		
+		//alert($('#1').is(":checked"));
+		
+		
+		var items=[];
+		$('input[name="mem_chk"]:checkbox:checked').each(function(){items.push($(this).val());});
+
+		
+		
+		$.ajax({
+			url : '/humanResource/retiredMemberList/save',
+			type : 'post',
+			data :  {'mem_chk': items},
+			success : function(res) {
+				
+			},
+			error : function() {
+				
+			},
+			dataType : 'json'
+		})
+		
+	}
+	
+</script>
 
 퇴사자 리스트
 <form action="rmm" method="post">
@@ -33,9 +62,9 @@
 			<th>직책</th>
 			<th>연락처</th>
 		</tr>
-		<c:forEach items="${memberList}" var="member">
+		<c:forEach items="${memberList}" var="member" varStatus="status">
 			<tr>
-				<td>${member.mem_retirement }</td>
+				<td><input type="checkbox" id="${status.count}" name="mem_chk" value="${member.mem_id}"/></td>
 				<td>${member.dept_name }</td>
 				<td>${member.mem_name}</td>
 				<td>${member.position_name }</td>
@@ -43,6 +72,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<input type="button" value="복직" name="" class="btn btn-default" /> <input
-		type="button" value="퇴사" name="" class="btn btn-default" />
+	<input type="button" value="복직" onclick="saveMember();" class="btn btn-default" /> 
+	<input type="button" value="퇴사" name="" class="btn btn-default" />
 </form>

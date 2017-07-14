@@ -10,13 +10,18 @@ import com.nyngw.dto.JoinMemberVO;
 
 @Repository
 public class RetiredMemberListDaoImpl implements RetiredMemberListDao {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
 	@Override
 	public List<JoinMemberVO> getRetiredMemberList_RM(JoinMemberVO member) {
 		return sqlSession.selectList("getRetiredMemberList_RM", member);
+	}
+	
+	@Override
+	public void saveMember_RM(String mem_id) {
+		sqlSession.update("saveMember_RM", mem_id);
 	}
 
 }
