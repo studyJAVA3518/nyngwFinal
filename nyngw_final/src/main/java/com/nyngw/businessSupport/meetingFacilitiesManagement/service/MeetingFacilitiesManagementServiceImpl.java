@@ -1,12 +1,12 @@
 package com.nyngw.businessSupport.meetingFacilitiesManagement.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hamcrest.core.SubstringMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -61,5 +61,18 @@ public class MeetingFacilitiesManagementServiceImpl implements
 			//모델에 검색 날짜 추가
 			model.addAttribute("rv_date", rv_date);
 		} 
+	}
+
+	public void reserveMR(String rv_mem_number, String rv_time, String rv_date,String rv_mr_number) {
+		ReservationVO reservation = new ReservationVO();
+		reservation.setRv_mr_number(rv_mr_number);
+		reservation.setRv_mem_number(rv_mem_number);
+		try {
+			reservation.setRv_date((new SimpleDateFormat("yyyy-MM-dd").parse(rv_date)));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		reservation.setRv_time(rv_time);
+		meetingFacilitiesManagementDao.insertReservation(reservation);
 	}
 }

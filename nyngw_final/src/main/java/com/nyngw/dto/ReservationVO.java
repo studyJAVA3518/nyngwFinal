@@ -14,7 +14,6 @@ public class ReservationVO {
 	private String rv_mr_number;	//회의실번호
 	private Date rv_date;	//예약날짜
 	
-	
 	public Date getRv_date() {
 		return rv_date;
 	}

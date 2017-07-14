@@ -1,8 +1,6 @@
 package com.nyngw.businessSupport.meetingFacilitiesManagement.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nyngw.businessSupport.meetingFacilitiesManagement.service.MeetingFacilitiesManagementServiceImpl;
-import com.nyngw.dto.ReservationVO;
+import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.MemberVO;
 
 @Controller
 @RequestMapping("/businessSupport/meetingFacilitiesManagement")
@@ -18,6 +17,9 @@ public class MeetingFacilitiesManagementController {
 	
 	@Autowired
 	private MeetingFacilitiesManagementServiceImpl meetingFacilitiesManagementService;
+	
+	@Autowired
+	private CommonServiceImpl CommonService;
 	
 	/**
 	 * 회의실 목록
@@ -30,9 +32,11 @@ public class MeetingFacilitiesManagementController {
 	}
 	
 	@RequestMapping("/reservation")
-	public String reservation(String rv_date, String mr_number){
-		System.out.println(rv_date+"123"+mr_number);
-		return "businessSupport/meetingFacilitiesManagement/reservation";
+	public String reservation(Principal principal, String rv_time,String rv_date, String rv_mr_number){
+		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		//MR = MeetingRoom = 회의실
+		meetingFacilitiesManagementService.reserveMR(member.getMem_id(),rv_time,rv_date,rv_mr_number);
+		return "redirect:businessSupport/meetingFacilitiesManagement/meetingRoomBooking?rv_time="+rv_time;
 	}
 	
 }

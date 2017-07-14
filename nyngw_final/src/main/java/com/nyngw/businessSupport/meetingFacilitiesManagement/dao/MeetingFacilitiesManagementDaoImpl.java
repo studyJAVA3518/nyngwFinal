@@ -23,4 +23,8 @@ public class MeetingFacilitiesManagementDaoImpl implements
 	public List<ReservationVO> selectReservation(Map<String, String> paramMap) {
 		return sqlSession.selectList("selectReservation",paramMap);
 	}
+
+	public void insertReservation(ReservationVO reservation) {
+		sqlSession.insert("insertReservation",reservation);
+	}
 }
