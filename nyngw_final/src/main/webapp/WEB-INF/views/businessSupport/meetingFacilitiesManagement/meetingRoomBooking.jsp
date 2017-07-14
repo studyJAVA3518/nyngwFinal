@@ -16,9 +16,26 @@
 </style>
 
 <script type="text/javascript">
+	/* $(function(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+			dd='0'+dd
+		} 
+		if(mm<10){
+			mm='0'+mm
+		} 
+		today = yyyy+'-'+mm+'-'+dd;
+
+		$('#rv_date').attr('value', today);
+	}); */
+	
 	function searchReservation_go(form){
 		form.method="get";
-		form.action="/businessSupport/meetingFacilitiesManagement/searchReservation";
+		form.action="/businessSupport/meetingFacilitiesManagement/meetingRoomBooking";
 		form.submit();
 	}
 
@@ -29,9 +46,10 @@
 </script>
 회의실 예약!!!!!!!!!!!!!!
 	<div>
-		<form action="">
+		<form>
 			<table class="table table-bordered">
-				<tr><th>날짜</th><td><input type="date"></td></tr>
+				<tr><th>날짜</th><td>
+				<input type="date" name="rv_date" value="${rv_date }"></td></tr>
 			</table>
 			<button type="button" onclick="searchReservation_go(this.form);">검색</button>
 		</form>
@@ -49,7 +67,9 @@
 				<%List<ReservationVO> RList = (List) request.getAttribute(mrList.get(i).getMr_number());	//각 회의실 별 예약 리스트 (모든 시간의 정보가 들어있는 게 아님)
 				if (RList.size()==0){	//예약정보가 없을 시 모든시간 사용가능
 					for (int j = 9; j<18; j++){%>
-					<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능</td></tr>
+					<tr><td style="background:green;">
+						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?<%=mrList.get(i).getMr_number()%>&rv_time=<%=j%>">예약</a></button>
+					</td></tr>
 					<%}%>
 				<%}else{	//예약정보가 하나라도 있을 시
 					int RListIndex = 0;
@@ -60,11 +80,10 @@
 								RListIndex++;
 							}
 						}else{%>
-							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능</td></tr>
+							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?<%=mrList.get(i).getMr_number()%>&rv_time=<%=j%>">예약</a></button></td></tr>
 						<%}
 					}
 				}%>
-				<tr><td><button><a href="/businessSupport/meetingFacilitiesManagement/reservation">예약하기</a></button></tr>
 			</table>
 		</div>
 		<%}%>

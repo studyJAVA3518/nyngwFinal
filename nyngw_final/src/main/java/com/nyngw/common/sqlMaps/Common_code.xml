@@ -11,5 +11,8 @@
 		where code_number = (select doc_code_number from document where doc_number = #{ea_doc_number}) 
 	</select>
 
-	
+	<select id="common_selectMember" resultType="com.nyngw.dto.MemberVO">
+		select * from member
+		where mem_id = #{mem_id}
+	</select>
 </mapper>
