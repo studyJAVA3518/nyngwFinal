@@ -33,13 +33,13 @@
 			<th>기타</th>
 		</tr>
 		<c:choose>
-			<c:when test="${viewData.boardCountPerPage>0 }">
+			<c:when test="${viewData.boardTotalCount > 0 }">
 				<c:forEach items="${viewData.boardList }" var="board" varStatus="i">
 					<tr>
 						<td>${fn:substring(board.board_number,5,10077777)}</td>
 						<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
-						<td>${board.board_mem_number }</td>
+						<td>${board.mem_name }</td>
 						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
 										&nbsp;수정</a></td>
 					</tr>
@@ -47,7 +47,7 @@
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td style="text-align: center;">내용이 없습니다.</td>
+					<td style="text-align: center;" colspan="5">내용이 없습니다.</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>

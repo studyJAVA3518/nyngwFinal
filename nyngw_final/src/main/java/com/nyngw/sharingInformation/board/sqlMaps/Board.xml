@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectBoardCount" resultType="java.lang.Integer">
-		select count(*) from board
+		select count(*) from board where board_code_number = 'code7'
 	</select>
 	
 	<select id="boardSelectCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
@@ -64,6 +64,12 @@
 		where board_number=#{board_number}
 	</update>
 
+	<update id="updateBoardCountPlus" parameterType="com.nyngw.dto.BoardVO">
+		update board
+		set board_count =  to_number(board_count)+1
+		where board_number = #{board_number}
+	</update>
+
 	<update id="boardInsert" parameterType="com.nyngw.dto.BoardVO">
 		insert into board(board_number, board_code_number, board_title, board_content, 
 							board_file_name, board_count, board_date, board_mem_number)
@@ -87,5 +93,14 @@
 
 	<update id="answerDelete" parameterType="java.lang.String">
 		delete from board_comment where comment_number = #{comment_number}
+	</update>
+
+	<update id="answerUpdate" parameterType="com.nyngw.dto.Board_CommentVO">
+		update board_comment 
+		set comment_board_number=#{comment_board_number},
+			comment_content=#{comment_content}, 
+			comment_date=#{comment_date},
+			comment_mem_number=#{comment_mem_number}
+		where comment_number=#{comment_number}
 	</update>
 </mapper>

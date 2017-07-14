@@ -7,16 +7,35 @@
 <title>Insert title here</title>
 </head>
 <body>
+	공지사항 등록폼
 	<div>
 		<form action="/sharingInformation/noticeMatter/nmWrite" method="post">
-			<label>게시판종류</label><input type="text" value="자유게시판" readonly="readonly"><br>
-			<label>제목</label><input type="text" name="board_title"><br>
-			<label>내용</label><input type="text" name="board_content"><br>
-			<label>파일이름</label><input type="text" name="board_file_name"><br>
+			<table class="table table-bordered">
+				<tr>
+					<th>게시판종류</th>
+					<td>공지사항</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input type="text" name="board_title"></td>
+				</tr>
+				<tr>
+					<th colspan="2">내용</th>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<textarea rows="15" cols="97" name="board_content" style="resize: none;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>파일이름</th>
+					<td><input type="text" name="board_file_name"></td>
+				</tr>
+			</table>
 			<input type="hidden" value="${page}">
 			<input type="submit" value="등록" />
 			<input type="reset" value="초기화" />		
-			<button type="button"><a href="/sharingInformation/noticeMatter/nmList">취소</a></button>
+			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
 		</form>
 	</div>
 </body>

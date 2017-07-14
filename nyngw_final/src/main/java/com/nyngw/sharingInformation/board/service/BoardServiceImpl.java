@@ -58,6 +58,7 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Override
 	public BoardVO selectBoard(String board_number) {
+		boardDao.updateBoardCountPlus(board_number);
 		BoardVO board = boardDao.selectBoard(board_number);
 		return board;
 	}
@@ -83,7 +84,6 @@ public class BoardServiceImpl implements BoardService {
 		board.setBoard_code_number("code7");
 		board.setBoard_date(dt);
 		board.setBoard_count("0");
-		board.setBoard_mem_number("mem1");
 		boardDao.boardInsert(board);
 	}
 
@@ -115,5 +115,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void answerDelete(String comment_number) {
 		boardDao.answerDelete(comment_number);
+	}
+
+	@Override
+	public void answerUpdate(Board_CommentVO comment) {
+		boardDao.answerUpdate(comment);
 	}
 }

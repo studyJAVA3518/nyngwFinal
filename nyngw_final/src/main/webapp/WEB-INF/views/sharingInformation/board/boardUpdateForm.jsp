@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	게시판 수정폼
 	<div>
 		<form action="/sharingInformation/board/update" method="post">
 			<label>게시글번호</label><input type="text" value="${board.board_number }" name="board_number" readonly="readonly"><br>

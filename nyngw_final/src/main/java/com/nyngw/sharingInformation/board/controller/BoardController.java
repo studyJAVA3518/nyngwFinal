@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_CommentVO;
@@ -29,6 +30,9 @@ public class BoardController {
 	
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService;
+	
+	@Autowired
+	private CommonServiceImpl CommonService;
 	
 	/**
 	 * 게시판 리스트 화면을 보여주는 url을 반환하는 메서드
@@ -50,7 +54,14 @@ public class BoardController {
 			select.setVal(val);
 		}
 		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber, select);
-	
+		MemberVO member = new MemberVO();
+		List<BoardVO> list = viewData.getBoardList();
+		for(int i = 0; i < list.size(); i++){
+			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
+			//			list.get(i).setMem_name();
+			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+			System.out.println(";lll"+member.getMem_name());
+		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		if(val!=null && !val.equals("")){
@@ -63,12 +74,19 @@ public class BoardController {
 	 * @return 검색된 리스트 url을 반환
 	 */
 //	@RequestMapping("/select")
-	public String boardSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,String val, String index, Model model){
+	public String boardSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,String val, String index, Model model, Principal principal){
 		Board_SelectVO select = null;
 		select.setIndex(index);
 		select.setVal(val);
 		BoardListViewVO viewData = (BoardListViewVO) boardService.selectBoardList(pageNumber, select);
-		
+		MemberVO member = new MemberVO();
+		List<BoardVO> list = viewData.getBoardList();
+		for(int i = 0; i < list.size(); i++){
+			member = basicSettingService.selectMember(list.get(i).getBoard_mem_number());
+//			list.get(i).setMem_name();
+			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+			System.out.println(";lll"+member.getMem_name());
+		}
 		
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
@@ -91,8 +109,10 @@ public class BoardController {
 	 * @return 등록 url 반환
 	 */
 	@RequestMapping("/write")
-	public String boardWrite(BoardVO board,String page){//,Principal principal
-//		System.out.println(principal.getName());
+	public String boardWrite(BoardVO board,String page, Principal principal){//,Principal principal
+		MemberVO member = basicSettingService.selectMember(principal.getName());
+		System.out.println(principal.getName());
+		board.setBoard_mem_number(member.getMem_number());
 		boardService.boardInsert(board);
 		return "redirect:/sharingInformation/board/list";
 	}
@@ -150,6 +170,7 @@ public class BoardController {
 	@RequestMapping("/detail")
 	public String boardDetail(String board_number, Model model,String page){
 		BoardVO board = boardService.selectBoard(board_number);
+		
 		List<Board_CommentVO> comment = boardService.answerSelectList(board_number);
 		if(page==null){
 			page = "1";
@@ -198,7 +219,7 @@ public class BoardController {
 		comment.setComment_board_number(id);
 		comment.setComment_content(comment_content);
 		comment.setComment_date(dt);
-		comment.setComment_mem_number(member.getMem_number());
+		comment.setComment_mem_number(member.getMem_name());
 		boardService.answerWrite(comment);
 //		return "redirect:/sharingInformation/board/list";
 		Map<String,String> resultMap = new HashMap<String, String>();
@@ -235,9 +256,22 @@ public class BoardController {
 	 * @return 수정 url 반환
 	 */
 	@RequestMapping("/answerUpdate")
-	public String answerUpdate(String id){
-		System.out.println(id);
-		return "sharingInformation/board/boardList";
+	public @ResponseBody Map<String,String> answerUpdate(String board_number, String comment_number, String comment_mem_number, String comment_content){
+		Date dt = new Date();
+		Board_CommentVO comment = new Board_CommentVO();
+		comment.setComment_board_number(board_number);
+		comment.setComment_content(comment_content);
+		comment.setComment_date(dt);
+		comment.setComment_mem_number(comment_mem_number);
+		comment.setComment_number(comment_number);
+		boardService.answerUpdate(comment);
+//		System.out.println(board_number);
+//		System.out.println(comment_number);
+//		System.out.println(comment_mem_number);
+//		System.out.println(comment_content);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/sharingInformation/board/detail?board_number="+board_number);
+		return resultMap;
 	}
 	
 }
