@@ -75,4 +75,8 @@ public class MeetingFacilitiesManagementServiceImpl implements
 		reservation.setRv_time(rv_time);
 		meetingFacilitiesManagementDao.insertReservation(reservation);
 	}
+
+	public void cancelMR(String rv_number) {
+		meetingFacilitiesManagementDao.deleteReservation(rv_number);
+	}
 }

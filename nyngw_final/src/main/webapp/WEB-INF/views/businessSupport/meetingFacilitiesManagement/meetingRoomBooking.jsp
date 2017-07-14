@@ -1,3 +1,7 @@
+<%@page import="com.nyngw.dto.MemberVO"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.userdetails.User"%>
+<%@page import="com.nyngw.common.service.CommonServiceImpl"%>
 <%@page import="com.nyngw.dto.ReservationVO"%>
 <%@page import="com.nyngw.dto.MeetingRoomVO"%>
 <%@page import="java.util.List"%>
@@ -68,19 +72,27 @@
 				if (RList.size()==0){	//예약정보가 없을 시 모든시간 사용가능
 					for (int j = 9; j<18; j++){%>
 					<tr><td style="background:green;">
-						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button>
+						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; 
+						<button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button>
 					</td></tr>
 					<%}%>
 				<%}else{	//예약정보가 하나라도 있을 시
 					int RListIndex = 0;
 					for(int j = 9 ; j<18 ;j++){
 						if(RList.get(RListIndex).getRv_time().equals(j+"")){%>
-							<tr><td style="background:red;"><%=j %>시 &nbsp;&nbsp; 예약중</td></tr>
+							<tr><td style="background:red;">
+								<%=j %>시 &nbsp;&nbsp; 예약중
+								<%
+							    MemberVO member = (MemberVO)request.getAttribute("member");
+								if(RList.get(RListIndex).getRv_mem_number().equals(member.getMem_number())){%>
+									<button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/cancel?rv_date=${rv_date }&rv_number=<%=RList.get(RListIndex).getRv_number()%>">취소</a></button>
+								<%}%>
+							</td></tr>
 							<%if(RListIndex+1!=RList.size()){
 								RListIndex++;
 							}
 						}else{%>
-							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation&rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button></td></tr>
+							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button></td></tr>
 						<%}
 					}
 				}%>

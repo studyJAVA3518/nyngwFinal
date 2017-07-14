@@ -26,7 +26,9 @@ public class MeetingFacilitiesManagementController {
 	 * @return
 	 */
 	@RequestMapping("/meetingRoomBooking")
-	public String meetingRoomBooking(String rv_date, Model model){
+	public String meetingRoomBooking(String rv_date, Model model,Principal principal){
+		MemberVO member = CommonService.findMemberByMemId((principal.getName()));
+		model.addAttribute("member",member);
 		meetingFacilitiesManagementService.checkReservation(rv_date,model);
 		return "businessSupport/meetingFacilitiesManagement/meetingRoomBooking";
 	}
@@ -35,8 +37,15 @@ public class MeetingFacilitiesManagementController {
 	public String reservation(Principal principal, String rv_time,String rv_date, String rv_mr_number){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
 		//MR = MeetingRoom = 회의실
-		meetingFacilitiesManagementService.reserveMR(member.getMem_id(),rv_time,rv_date,rv_mr_number);
-		return "redirect:businessSupport/meetingFacilitiesManagement/meetingRoomBooking?rv_time="+rv_time;
+		meetingFacilitiesManagementService.reserveMR(member.getMem_number(),rv_time,rv_date,rv_mr_number);
+		return "redirect:/businessSupport/meetingFacilitiesManagement/meetingRoomBooking?rv_date="+rv_date;
+	}
+	
+	@RequestMapping("/cancel")
+	public String cancel(String rv_number,String rv_date){
+		//MR = MeetingRoom = 회의실
+		meetingFacilitiesManagementService.cancelMR(rv_number);
+		return "redirect:/businessSupport/meetingFacilitiesManagement/meetingRoomBooking?rv_date="+rv_date;
 	}
 	
 }
