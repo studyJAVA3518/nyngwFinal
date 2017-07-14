@@ -88,7 +88,7 @@
 	</update>
 	
 	<select id="answerSelectList" parameterType="java.lang.String" resultType="com.nyngw.dto.Board_CommentVO">
-		select * from board_comment where comment_board_number = #{board_number}
+		select * from board_comment where comment_board_number = #{board_number} order by 4
 	</select>
 
 	<update id="answerDelete" parameterType="java.lang.String">

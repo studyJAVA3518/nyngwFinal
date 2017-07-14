@@ -11,4 +11,6 @@ public interface NoticeMatterDao {
 	public int boardNoticeMatterCount(Board_SelectVO select);
 	public void noticeMatterInsert(BoardVO board);
 	public String NoticeMatterMax();
+	public BoardVO selectNoticeMatte(String board_number);
+	public void updateNoticeMatterCountPlus(String board_number);
 }

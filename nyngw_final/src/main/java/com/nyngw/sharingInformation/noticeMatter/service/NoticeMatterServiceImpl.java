@@ -46,12 +46,17 @@ public class NoticeMatterServiceImpl implements NoticeMatterService {
 		board.setBoard_code_number("code11");
 		board.setBoard_date(dt);
 		board.setBoard_count("1");
-		board.setBoard_mem_number("mem1");
 		noticeMatterDao.noticeMatterInsert(board);
 	}
 	@Override
 	public String noticeMatterMax() {
 		String maxnum = noticeMatterDao.NoticeMatterMax();
 		return maxnum;
+	}
+	@Override
+	public BoardVO selectNoticeMatte(String board_number) {
+		noticeMatterDao.updateNoticeMatterCountPlus(board_number);
+		BoardVO board = noticeMatterDao.selectNoticeMatte(board_number);
+		return board;
 	}
 }

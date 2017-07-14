@@ -12,7 +12,15 @@ public class Board_CommentVO {
 	private String comment_board_number;//게시판번호
 	private String comment_content;		//내용
 	private Date comment_date;			//작성날짜
-	private String comment_mem_number;	//작성자
+	private String comment_mem_number;	//작성아이디
+	private String comment_mem_name;    //이름
+	
+	public String getComment_mem_name() {
+		return comment_mem_name;
+	}
+	public void setComment_mem_name(String comment_mem_name) {
+		this.comment_mem_name = comment_mem_name;
+	}
 	public String getComment_number() {
 		return comment_number;
 	}

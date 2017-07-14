@@ -23,8 +23,8 @@
 <!-- 	  	그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
 		and board_code_number = 'code11' order by 1 desc
 	</select>
-	
-		<select id="selectNoticeMatterCount" resultType="java.lang.Integer">
+
+	<select id="selectNoticeMatterCount" resultType="java.lang.Integer">
 		select count(*) from board where board_code_number = 'code11'
 	</select>
 	
@@ -50,6 +50,16 @@
 	<select id="NoticeMatterMax" resultType="java.lang.String">
 		select max(board_number) from board
 	</select>
-	
-	
+
+	<select id="selectNoticeMatte" parameterType="java.lang.String"
+		resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_number like #{board_number}
+	</select>
+
+	<update id="updateNoticeMatterCountPlus" parameterType="com.nyngw.dto.BoardVO">
+		update board
+		set
+		board_count = to_number(board_count)+1
+		where board_number = #{board_number}
+	</update>
 </mapper>

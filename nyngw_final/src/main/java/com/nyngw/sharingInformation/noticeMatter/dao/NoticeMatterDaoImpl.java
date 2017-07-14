@@ -48,4 +48,15 @@ public class NoticeMatterDaoImpl implements NoticeMatterDao {
 		String maxnum = (String) sqlSession.selectOne("NoticeMatterMax");
 		return maxnum;
 	}
+	//
+	@Override
+	public BoardVO selectNoticeMatte(String board_number) {
+		BoardVO board = (BoardVO) sqlSession.selectOne("selectNoticeMatte",board_number);
+		return board;
+	}
+
+	@Override
+	public void updateNoticeMatterCountPlus(String board_number) {
+		sqlSession.update("updateNoticeMatterCountPlus", board_number);
+	}
 }

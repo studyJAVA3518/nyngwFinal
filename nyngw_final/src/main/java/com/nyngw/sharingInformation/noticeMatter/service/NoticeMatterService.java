@@ -8,4 +8,5 @@ public interface NoticeMatterService {
 	public BoardListViewVO selectNoticeMatterList(int pageNumber, Board_SelectVO select);
 	public void noticeMatterInsert(BoardVO board);
 	public String noticeMatterMax();
+	public BoardVO selectNoticeMatte(String board_number);
 }

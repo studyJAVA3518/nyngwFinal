@@ -12,25 +12,26 @@
 <title>Insert title here</title>
 </head>
 <script>
-	function boardDelete(id){
-		var con_test = confirm("어떤 값이 나올까요. 확인을 눌러보세요.");
-		if(con_test==true){
-			$.ajax({
-	            type : "POST",
-	            url : "/sharingInformation/board/boardDelete",
-	            data : {'id' : id},
-	            success : function(result){
-	            	location.href=result.uri;
-		        }, 
-		        error : function(){
-		        },
-	            dataType : 'json' 
-			});
-		}
-	}
+// 	function boardDelete(id){
+// 		var con_test = confirm("어떤 값이 나올까요. 확인을 눌러보세요.");
+// 		if(con_test==true){
+// 			$.ajax({
+// 	            type : "POST",
+// 	            url : "/sharingInformation/board/boardDelete",
+// 	            data : {'id' : id},
+// 	            success : function(result){
+// 	            	location.href=result.uri;
+// 		        }, 
+// 		        error : function(){
+// 		        },
+// 	            dataType : 'json' 
+// 			});
+// 		}
+// 	}
 	function answerWriteClick(id,form){
 		var comment_content = document.getElementsByName('comment_content')[0].value;
 		alert(comment_content);
+		alert(id);
 		
 		$.ajax({
             type : "POST",
@@ -45,17 +46,20 @@
 		});
 	}
 	function answerDeleteClick(id,board_number){
-		$.ajax({
-            type : "POST",
-            url : "/sharingInformation/board/answerDelete",
-            data : {'id' : id , "board_number":board_number},
-            success : function(result){
-            	location.href=result.uri;
-	        }, 
-	        error : function(){
-	        },
-            dataType : 'json' 
-		});
+		var con_test = confirm("삭제할거에요?");
+		if(con_test==true){
+			$.ajax({
+	            type : "POST",
+	            url : "/sharingInformation/board/answerDelete",
+	            data : {'id' : id , "board_number":board_number},
+	            success : function(result){
+	            	location.href=result.uri;
+		        }, 
+		        error : function(){
+		        },
+	            dataType : 'json' 
+			});
+		}
 	}
 	$(function(){
 // 		$('#btn').click(function(){
@@ -105,7 +109,7 @@
 				<th>제목</th>
 				<td>${board.board_title}</td>
 				<th>작성자</th>
-				<td>${board.board_mem_number}</td>
+				<td>${board.mem_name}</td>
 			</tr>
 			<tr>
 				<th>작성일</th>
@@ -140,7 +144,7 @@
 				</tr>
 				<c:forEach items="${comment}" var="i">
 					<tr>
-						<td>${i.comment_mem_number }<input type="hidden" value="${i.comment_number }"></td>
+						<td><input id="${i.comment_mem_number}" type="hidden" value="${i.comment_mem_number }">${i.comment_mem_name }<input type="hidden" value="${i.comment_number }"></td>
 						<td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;" readonly>${i.comment_content }</textarea></td>
 						<td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
 						<td>
