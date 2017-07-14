@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class PlanPublicRelationsSettingController {
 	AppointedUIServiceImpl appointedUIService;
 	@Autowired
 	PlanPublicRelationsSettingServiceImpl planPublicRelationsSettingService; 
+	
 	/**
 	 * 근무일 및 출결정보 등록시간 설정 화면으로 이동
 	 */
@@ -39,46 +41,6 @@ public class PlanPublicRelationsSettingController {
 	public String workingDaysForm(){
 		String url = "enovironmentSetting/planPublicRelationsSetting/workingDay";
 		return url;
-	}
-	
-	/**
-	 * 엑셀파일을 수동으로 업로드하는 메서드
-	 * @param multipartFile
-	 * @param title
-	 * @param model
-	 * @param request
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping(value="/multipartFile",method=RequestMethod.POST)
-	public String uploadlFile(
-			@RequestParam("logoFile") MultipartFile multipartFile,
-			@RequestParam("company_number2") String company_number2,
-			Model model,
-			HttpServletRequest request
-			) throws IOException{
-		
-		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
-		File file = null;
-		if(!multipartFile.isEmpty()){
-			file = new File(upload,multipartFile.getOriginalFilename());
-			
-			multipartFile.transferTo(file);
-			model.addAttribute("fileName",multipartFile.getOriginalFilename());
-			
-			model.addAttribute("uploadPath",file.getAbsolutePath());
-		}
-		int resultComLogo = -1;
-		CompanyVO company = null;
-		try {
-			String uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
-			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
-			company = appointedUIService.checkCompany();
-			model.addAttribute("company",company);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
 	}
 	
 	/**
@@ -95,6 +57,73 @@ public class PlanPublicRelationsSettingController {
 			e.printStackTrace();
 		}
 		return url;
+	}
+	
+	/**
+	 * 회사정보수정에서 그림파일을 수동으로 업로드하는 메서드
+	 * @param multipartFile - 받아온 그림파일 정보
+	 * @param company_number2 - 회사번호
+	 * @param logo - radio tag에서 가져온 선택값
+	 * @param model
+	 * @param request
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/updateLogoFile",method=RequestMethod.POST)
+	public String uploadlFile(
+			@RequestParam("logoFile") MultipartFile multipartFile,
+			@RequestParam("company_number2") String company_number2,
+			@RequestParam("logo") String logo,
+			Model model,
+			HttpServletRequest request,
+			HttpSession session
+			) throws IOException{
+		
+		//update 결과값 저장하는 변수
+		int resultComLogo = -1;
+		//company객체 생성
+		CompanyVO company = null;
+		//파일 경로
+		String uploadFilePath = null;
+		
+		//basic : 로고를 변경하지 않고 업체에서 제공하는 기본로고를 사용함
+		if (logo.equals("basic")) {
+			
+			uploadFilePath = "resources/images/basic_logo.jpg";
+			try {
+				resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
+				company = appointedUIService.checkCompany();
+				session.setAttribute("companyLogo",company.getCompany_logo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}else {	// custom : 원하는 파일을 업로드하여 로고를 변경한다
+			
+			//업로드 경로 지정
+			String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
+			File file = null;
+			
+			//멀티파트파일이 비어있지 않다면-> 파일 생성해서 업로드
+			if(!multipartFile.isEmpty()){
+				//파일생성
+				file = new File(upload,multipartFile.getOriginalFilename());
+				//업로드한다!!
+				multipartFile.transferTo(file);
+			}
+			
+			try {
+				uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
+				resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, company_number2);
+				company = appointedUIService.checkCompany();
+				session.setAttribute("companyLogo",company.getCompany_logo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
 	}
 	
 	/**

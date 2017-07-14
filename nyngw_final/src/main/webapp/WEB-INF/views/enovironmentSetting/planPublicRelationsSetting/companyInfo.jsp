@@ -32,7 +32,7 @@
 	}
 	
 	function updateLogo_go(){
-		document.comLogo.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/multipartFile";
+		document.comLogo.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/updateLogoFile";
 		document.comLogo.method = "post";
 		document.comLogo.submit();
 	}
@@ -46,7 +46,7 @@
 		<tr>
 			<td colspan="2">
 				<label for="basic">기본 이미지 사용</label>
-				<input type="radio" name="logo" value="basic" id="basic"/> 
+				<input type="radio" name="logo" value="basic" id="basic" checked/> 
 				<label for="custom">업로드 로고(CI) 사용</label>
 				<input type="radio" name="logo" value="custom" id="basic"/> 
 				<span class="logoDesc">※ 업로드 로고(CI)를 사용할 경우 업로드할 로고화면의 배경부분을 투명하게 처리해야 합니다.</span>
