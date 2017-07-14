@@ -69,7 +69,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardUpdate(BoardVO board) {
 		Date dt = new Date();
-		board.setBoard_code_number("code7");
 		board.setBoard_date(dt);
 		boardDao.boardUpdate(board);
 	}

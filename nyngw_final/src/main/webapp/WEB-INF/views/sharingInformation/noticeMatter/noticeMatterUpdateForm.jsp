@@ -36,5 +36,6 @@
 			<button type="button"><a href="/sharingInformation/noticeMatter/nmList">취소</a></button>
 		</form>
 	</div>
+	
 </body>
 </html>
