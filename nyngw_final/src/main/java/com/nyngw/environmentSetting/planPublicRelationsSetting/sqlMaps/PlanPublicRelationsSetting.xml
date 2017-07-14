@@ -4,6 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDao">
 	
+	<!-- 회사정보(로고제외) 수정 -->
 	<update id="updateCompanyInfo" parameterType="com.nyngw.dto.CompanyVO">
 		update company set 
 			company_name=#{company_name}, 
@@ -14,15 +15,59 @@
 		where company_number = #{company_number}
 	</update>
 	
+	<!-- 회사로고경로 수정 -->
 	<update id="updateCompanyLogo" parameterType="map">
 		update company set 
 			company_logo=#{company_logo} 
 		where company_number = #{company_number}
 	</update>
 	
+	<!-- 회사정보(로고제외) 등록 -->
 	<update id="insertCompanyInfo" parameterType="com.nyngw.dto.CompanyVO">
 		insert into company (company_number,company_name,company_tel,company_zip,company_addr1,company_addr2)
 		values (com_seq.nextval, #{company_name},#{company_tel},#{company_zip},#{company_addr1},#{company_addr2})
 	</update>
-
+	
+	<!-- 직급정보(View) 조회 -->
+	<select id="esSelectDepartmentView" resultType="com.nyngw.dto.DepartmentViewVO">
+		select 
+		  dept_number,
+		  dept_name,
+		  dept_membernumber,
+		  dept_tel,
+		  dept_level,
+		  dept_addr,
+		  dept_parents,
+		  mem_number,
+		  mem_name,
+		  mem_position_number,
+		  position_number,
+		  position_name
+		from dept_view
+	</select>
+	
+	<select id="esSelectUpperMember" resultType="com.nyngw.dto.DepartmentViewVO">
+		select 
+			mem_number,
+			mem_name,
+			mem_position_number,
+			position_number,
+			position_name
+		from dept_view
+		where mem_position_number in ('position1', 'position2', 'position3')
+		order by position_number
+	</select>
+	
+	<!-- 직급정보 등록 -->
+	<update id="esInsertDepartment" parameterType="com.nyngw.dto.DepartmentVO">
+		insert into department (dept_number, dept_name, dept_membernumber, dept_tel, dept_level, dept_addr, dept_parents)
+		values ('dept'||dept_seq.nextval, #{dept_name},#{dept_membernumber},#{dept_tel},#{dept_level},#{dept_addr},#{dept_parents})
+	</update>
+	
+	<!-- 직급정보 수정 -->
+	<update id="esUpdateDepart" parameterType="com.nyngw.dto.DepartmentVO">
+		update company set 
+			company_logo=#{company_logo} 
+		where company_number = #{company_number}
+	</update>
 </mapper>

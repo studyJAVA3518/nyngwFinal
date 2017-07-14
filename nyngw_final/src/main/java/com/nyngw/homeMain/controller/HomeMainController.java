@@ -59,6 +59,7 @@ public class HomeMainController {
 		
 			//session에 회사 로고 경로를 저장해야 한다.
 			session.setAttribute("companyLogo",company.getCompany_logo());
+			session.setAttribute("companyNumber",company.getCompany_number());
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
