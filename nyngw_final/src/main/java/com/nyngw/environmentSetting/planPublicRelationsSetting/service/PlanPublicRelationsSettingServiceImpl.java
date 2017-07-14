@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
 
@@ -67,12 +68,23 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		
 		//회사 직급정보 
 		ArrayList<DepartmentViewVO> dvList = planPublicRelationsSettingDao.selectDepartmentView();
-		System.out.println("리스트 사이즈 : "+dvList.size());
-		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectDepartmentView();
-		System.out.println("리스트 사이즈 : "+upperMemList.size());
+		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectUpperMember();
 		
 		model.addAttribute("dvList",dvList);
 		model.addAttribute("upperMemList",upperMemList);
+	}
+	
+	/**
+	 * 부서 정보 등록하는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public void enrollDept(Model model, DepartmentVO dvo) throws SQLException {
+		int result = planPublicRelationsSettingDao.insertDepartment(dvo);
+		model.addAttribute("resultInserDept",result);
+		
 	}
 
 }

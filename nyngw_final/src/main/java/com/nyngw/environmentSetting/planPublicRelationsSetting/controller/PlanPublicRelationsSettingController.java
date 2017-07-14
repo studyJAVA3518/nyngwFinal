@@ -207,6 +207,18 @@ public class PlanPublicRelationsSettingController {
 	}
 	
 	/**
+	 * 회사 부서 등록 컨트롤러
+	 */
+//	@RequestMapping("/companyDepartInsert")
+//	public String companyDepartInsert(Model model){
+//		
+//		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+//		
+//		
+//		return url;
+//	}
+	
+	/**
 	 * 회사 직급 설정 화면으로 이동
 	 */
 	@RequestMapping("/companyPositionForm")

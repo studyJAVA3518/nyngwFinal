@@ -72,7 +72,7 @@
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<select name="dept_name">
+						<select name="dept_membernumber">
 							<c:forEach var="member" items="${upperMemList}">
 								<option value="${member.mem_number}">
 									${member.mem_number}&#09;${member.mem_name}&#09;${member.position_name}
@@ -104,8 +104,8 @@
 					<div class="form-group">
 						<select name="dept_parents">
 							<c:forEach var="dept" items="${dvList}">
-								<option value="${dept.dept_parents}">
-									${dept.}&#09;${member.mem_name}&#09;${member.position_name}
+								<option value="${dept.dept_number}">
+									${dept.dept_name}
 								</option>
 							</c:forEach>
 						</select>
