@@ -27,4 +27,8 @@ public class MeetingFacilitiesManagementDaoImpl implements
 	public void insertReservation(ReservationVO reservation) {
 		sqlSession.insert("insertReservation",reservation);
 	}
+
+	public void deleteReservation(String rv_number) {
+		sqlSession.delete("deleteReservation",rv_number);
+	}
 }
