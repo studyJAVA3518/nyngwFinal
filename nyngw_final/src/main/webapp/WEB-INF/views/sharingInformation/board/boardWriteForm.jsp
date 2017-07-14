@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	게시판등록폼
 	<div>
 		<form action="/sharingInformation/board/write" method="post">
 <%-- 			<label>게시글번호</label><input type="text" value="${board.board_number }" name="board_number" readonly="readonly"><br> --%>

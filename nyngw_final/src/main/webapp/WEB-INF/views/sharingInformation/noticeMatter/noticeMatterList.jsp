@@ -11,14 +11,15 @@
 </head>
 <body>
 	<h1>공지사항</h1>
-	<form action="/sharingInformation/board/list">
+	<form action="/sharingInformation/noticeMatter/nmList">
 		<select name="index">
 				<option value="board_mem_number" selected="selected">작성자</option>
 				<option value="board_title">제목</option>
 		</select>
-		<input type="text" name="val">
+		<input type="hidden" value="${select.index}">
+		<input type="text" name="val" value="${select.val}">
 		<input type="submit" value="검색">
-		<button type="button"><a href="/sharingInformation/noticeMatter/nmWriteForm">등록</a></button>
+		<button type="button"><a href="/sharingInformation/noticeMatter/nmWriteForm?page=${pageNumber }">등록</a></button>
 	</form>
 	<table class="table table-bordered">
 		<tr>
@@ -28,16 +29,30 @@
 			<th>작성자</th>
 			<th>기타</th>
 		</tr>
-		<tr>
-			<td>번호~~!@@@</td>
-			<td><a href="/sharingInformation/noticeMatter/nmDetail">$111</a></td>
-			<td>날짜~~~</td>
-			<td>작성자~</td>
-			<td>
-				<a href="/sharingInformation/noticeMatter/nmUpdateForm">삭제&nbsp;/</a> 
-				<a href="/sharingInformation/noticeMatter/nmUpdateForm">&nbsp;수정</a>
-			</td>
-		</tr>
+		<c:choose>
+			<c:when test="${viewData.boardTotalCount > 0 }">
+				<c:forEach items="${viewData.boardList }" var="board" varStatus="i">
+					<tr>
+						<td>${fn:substring(board.board_number,5,10077777)}</td>
+						<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
+						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
+						<td>${board.board_mem_number }</td>
+						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
+										&nbsp;수정</a></td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td style="text-align: center;" colspan="5">내용이 없습니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 	</table>
+	<div id="pageNum">
+		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
+			<a href="/sharingInformation/board/list?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+		</c:forEach>
+	</div>
 </body>
 </html>

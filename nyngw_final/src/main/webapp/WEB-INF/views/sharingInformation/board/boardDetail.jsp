@@ -57,17 +57,46 @@
             dataType : 'json' 
 		});
 	}
-	function aa() {
-	}
 	$(function(){
-		$('#btn').click(function(){
-// 			$('#content').attr("readonly",true);
-			$('#con').prop('readonly',!$('#con').prop('readonly'));
-			if($('#con').attr('readonly')==true){
-				alert($('#con').val());
-			}
-		});
+// 		$('#btn').click(function(){
+// // 			$('#content').attr("readonly",true);
+// 			var tf = $('#con').prop('readonly',!$('#con').prop('readonly'));
+// // 			alert($('#con').attr('readonly'));
+			
+// 			if($('#con').attr('readonly')=='readonly'){
+// 				alert(tf);
+// 			}
+// 			if($('#con').attr('readonly')=='undefined'){
+// 				alert(tf);
+// 			}
 	});
+	
+	function answerUpdateClick(board_number,comment_number,comment_mem_number,comment_content){
+		var aa = "#"+comment_number;
+		$(aa).prop('readonly',!$(aa).prop('readonly'));
+// 		$('#con').prop('readonly',!$('#con').prop('readonly'));
+// 		alert(board_number);
+// 		alert(comment_number);
+// 		alert(comment_mem_number);
+		comment_content = document.getElementById(comment_number).value;
+// 		alert(comment_content);
+		
+		if($(aa).attr('readonly')=='readonly'){
+// 			alert("ㅁㅁㅁㅁ");
+			$.ajax({
+	            type : "POST",
+	            url : "/sharingInformation/board/answerUpdate",
+	            data : {'comment_number' : comment_number , "board_number":board_number , 'comment_mem_number' : comment_mem_number , 'comment_content' : comment_content},
+	            success : function(result){
+	            	location.href=result.uri;
+		        }, 
+		        error : function(){
+		        },
+	            dataType : 'json' 
+			});
+		}
+	}
+// 			#con
 </script>
 <body>
 	<div>
@@ -112,10 +141,10 @@
 				<c:forEach items="${comment}" var="i">
 					<tr>
 						<td>${i.comment_mem_number }<input type="hidden" value="${i.comment_number }"></td>
-						<td colspan="2"><textarea  id="con" rows="2" cols="50" style="resize: none;" readonly>${i.comment_content }</textarea></td>
+						<td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;" readonly>${i.comment_content }</textarea></td>
 						<td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
 						<td>
-							<button id="btn"type="button" onclick="aa();">수정</button>
+							<button id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
 							<button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
 						</td>
 					</tr>

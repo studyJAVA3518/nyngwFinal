@@ -23,4 +23,6 @@ public interface BoardDao {
 	public void answerWrite(Board_CommentVO comment);
 	public List<Board_CommentVO> answerSelectList(String board_number);
 	public void answerDelete(String comment_number);
+	public void answerUpdate(Board_CommentVO comment);
+	public void updateBoardCountPlus(String board_number);
 }

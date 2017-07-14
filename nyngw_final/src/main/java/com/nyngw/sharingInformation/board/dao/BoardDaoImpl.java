@@ -110,4 +110,14 @@ public class BoardDaoImpl implements BoardDao {
 	public void answerDelete(String comment_number) {
 		sqlSession.delete("answerDelete", comment_number);
 	}
+
+	@Override
+	public void answerUpdate(Board_CommentVO comment) {
+		sqlSession.update("answerUpdate", comment);
+	}
+
+	@Override
+	public void updateBoardCountPlus(String board_number) {
+		sqlSession.update("updateBoardCountPlus", board_number);
+	}
 }
