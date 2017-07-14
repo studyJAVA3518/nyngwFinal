@@ -68,7 +68,7 @@
 				if (RList.size()==0){	//예약정보가 없을 시 모든시간 사용가능
 					for (int j = 9; j<18; j++){%>
 					<tr><td style="background:green;">
-						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?<%=mrList.get(i).getMr_number()%>&rv_time=<%=j%>">예약</a></button>
+						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button>
 					</td></tr>
 					<%}%>
 				<%}else{	//예약정보가 하나라도 있을 시
@@ -80,7 +80,7 @@
 								RListIndex++;
 							}
 						}else{%>
-							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?<%=mrList.get(i).getMr_number()%>&rv_time=<%=j%>">예약</a></button></td></tr>
+							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation&rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button></td></tr>
 						<%}
 					}
 				}%>
