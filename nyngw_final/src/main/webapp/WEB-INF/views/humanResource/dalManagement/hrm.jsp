@@ -57,7 +57,7 @@
 		</tr>
 	</c:forEach>
 </table>
-
+<div id="btngroup"></div>
 <table class="table table-bordered">
 	<tr>
 		<th colspan='5'>부서별현황</th>
@@ -77,7 +77,7 @@
 	</tr>
 	<c:forEach items="${countTotal}" var="mem">
 		<tr>
-			<td>${mem.dept_number }</td>
+			<td>${mem.dept_name }</td>
 			<td>${mem.dept_total }</td>
 			<td>${mem.dept_sf1 }</td>
 			<td>${mem.dept_sf2 }</td>

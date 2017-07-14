@@ -19,56 +19,61 @@ public class DalManagementController {
 
 	@Autowired
 	DalManagementServiceImpl dalManagementService;
-	
+
 	private List<Member_ViewVO> excelMemberList;
 	private List<FN_GETDALCNT> excelCountTotal;
-	
+
 	@RequestMapping("/hrm")
-	public String hrm(@DateTimeFormat(pattern="yyyy-MM-dd")String startdal_date,@DateTimeFormat(pattern="yyyy-MM-dd")String enddal_date,
-			String mem_name, Model model){
+	public String hrm(
+			@DateTimeFormat(pattern = "yyyy-MM-dd") String startdal_date,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") String enddal_date,
+			String mem_name, Model model) {
 		Member_ViewVO dil = new Member_ViewVO();
 		FN_GETDALCNT fncnt = new FN_GETDALCNT();
-		
-		if(startdal_date==null){
+
+		if (startdal_date == null) {
 			Date date = new Date();
-			startdal_date=date.getYear()+1900+"-"+(date.getMonth()+1)+"-"+date.getDate();
-			enddal_date= startdal_date;
+			startdal_date = date.getYear() + 1900 + "-" + (date.getMonth() + 1)
+					+ "-" + date.getDate();
+			enddal_date = startdal_date;
 		}
-		
+
 		dil.setMem_name(mem_name);
 		dil.setStartdal_date(startdal_date);
 		dil.setEnddal_date(enddal_date);
 		fncnt.setDept_startdate(startdal_date);
 		fncnt.setDept_enddate(enddal_date);
-		
-		List<Member_ViewVO> memdalList = dalManagementService.searchContent(dil);
-		List<FN_GETDALCNT> countTotal = dalManagementService.positionAllCount(fncnt);
-		
+
+		List<Member_ViewVO> memdalList = dalManagementService
+				.searchContent(dil);
+		List<FN_GETDALCNT> countTotal = dalManagementService
+				.positionAllCount(fncnt);
+
 		excelMemberList = memdalList;
 		excelCountTotal = countTotal;
-		
+
 		model.addAttribute("startdal_date", startdal_date);
 		model.addAttribute("enddal_date", enddal_date);
 		model.addAttribute("memdalList", memdalList);
 		model.addAttribute("countTotal", countTotal);
-		
+
 		return "humanResource/dalManagement/hrm";
 	}
-	
+
 	@RequestMapping("/excelMemberRank")
-	public String pageRank(Model model){
-		
+	public String pageRank(Model model) {
+
 		model.addAttribute("memberList", excelMemberList);
-		
+
 		return "memberExcelViewHR";
 	}
-	
+
 	@RequestMapping("/excelCountRank")
-	public String pageCountRank(Model model){
-		
+	public String pageCountRank(Model model) {
+
 		model.addAttribute("memberList", excelCountTotal);
-		
+
 		return "countExcelViewHR";
 	}
-	
+
 }
