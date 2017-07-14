@@ -170,8 +170,15 @@ public class BoardController {
 	@RequestMapping("/detail")
 	public String boardDetail(String board_number, Model model,String page){
 		BoardVO board = boardService.selectBoard(board_number);
-		
+		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		board.setMem_name(member.getMem_name());
 		List<Board_CommentVO> comment = boardService.answerSelectList(board_number);
+		
+		for(int i = 0; i < comment.size(); i++){
+			member = CommonService.findMemberByMemNumber(comment.get(i).getComment_mem_number());
+			comment.get(i).setComment_mem_name(member.getMem_name());
+		}
+		
 		if(page==null){
 			page = "1";
 		}
@@ -211,6 +218,7 @@ public class BoardController {
 	@RequestMapping("/answerWrite")
 	public @ResponseBody Map<String,String> answerWrite(String comment_content, String id, Principal principal ){
 		MemberVO member = basicSettingService.selectMember(principal.getName());
+		System.out.println(member.getMem_number());
 		System.out.println(id);
 		System.out.println(comment_content);
 		String board_number = id;
@@ -219,7 +227,7 @@ public class BoardController {
 		comment.setComment_board_number(id);
 		comment.setComment_content(comment_content);
 		comment.setComment_date(dt);
-		comment.setComment_mem_number(member.getMem_name());
+		comment.setComment_mem_number(member.getMem_number());
 		boardService.answerWrite(comment);
 //		return "redirect:/sharingInformation/board/list";
 		Map<String,String> resultMap = new HashMap<String, String>();

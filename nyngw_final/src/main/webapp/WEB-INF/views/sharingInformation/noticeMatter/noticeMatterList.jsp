@@ -34,9 +34,9 @@
 				<c:forEach items="${viewData.boardList }" var="board" varStatus="i">
 					<tr>
 						<td>${fn:substring(board.board_number,5,10077777)}</td>
-						<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
+						<td><a href="/sharingInformation/noticeMatter/nmDetail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
-						<td>${board.board_mem_number }</td>
+						<td>${board.mem_name }</td>
 						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
 										&nbsp;수정</a></td>
 					</tr>
@@ -51,7 +51,7 @@
 	</table>
 	<div id="pageNum">
 		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
-			<a href="/sharingInformation/board/list?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+			<a href="/sharingInformation/noticeMatter/nmList?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
 		</c:forEach>
 	</div>
 </body>

@@ -1,6 +1,8 @@
 package com.nyngw.sharingInformation.noticeMatter.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl;
 
 @Controller
@@ -20,6 +24,9 @@ import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl
 public class NoticeMatterController {
 	@Autowired
 	private NoticeMatterServiceImpl noticeMatterService;
+	
+	@Autowired
+	private CommonServiceImpl CommonService;
 	
 	/**
 	 * 공지사항 List를 보여주는 페이지의 url을 반환하는 메소드
@@ -34,7 +41,14 @@ public class NoticeMatterController {
 			select.setVal(val);
 		}
 		BoardListViewVO viewData = (BoardListViewVO) noticeMatterService.selectNoticeMatterList(pageNumber, select);
-		
+		MemberVO member = new MemberVO();
+		List<BoardVO> list = viewData.getBoardList();
+		for(int i = 0; i < list.size(); i++){
+			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
+			//			list.get(i).setMem_name();
+			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+			System.out.println(";lll"+member.getMem_name());
+		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		if(val!=null && !val.equals("")){
@@ -68,7 +82,9 @@ public class NoticeMatterController {
 	 * @return 등록한뒤 url 반환
 	 */
 	@RequestMapping("/nmWrite")
-	public String noticeMatterWrite(BoardVO board, String page){
+	public String noticeMatterWrite(BoardVO board, String page,Principal principal){
+		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		board.setBoard_mem_number(member.getMem_number());
 		noticeMatterService.noticeMatterInsert(board);
 		return "redirect:/sharingInformation/noticeMatter/nmList";
 	}
@@ -123,7 +139,9 @@ public class NoticeMatterController {
 	 */
 	@RequestMapping("/nmDetail")
 	public String noticeMatterDetail(String board_number, Model model, String page){
-		BoardVO board = null;
+		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
+		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		board.setMem_name(member.getMem_name());
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
 		return "sharingInformation/noticeMatter/noticeMatterDetail";
