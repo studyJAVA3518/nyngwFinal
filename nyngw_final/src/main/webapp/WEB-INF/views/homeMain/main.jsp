@@ -41,13 +41,13 @@
   									<th>조회수</th>
   								</tr>
   								<c:forEach items="${boardList}" var="board" begin="0" end="4" step="1">
+									
   									<tr>
-  										<a href="/sharingInformation/board/detail?board_number=${board.board_number}">
 		  									<td>${board.board_number.substring(5)}</td>
-		  									<td>${board.board_title}</td>
+		  									<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}">${board.board_title}</a></td>
 		  									<td>${board.board_count}</td>
-	  									</a>
 	  								</tr>
+  									
   								</c:forEach>
   								
   							</table>

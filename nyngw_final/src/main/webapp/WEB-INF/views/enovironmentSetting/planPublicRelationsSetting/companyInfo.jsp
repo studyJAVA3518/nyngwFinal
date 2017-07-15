@@ -40,8 +40,10 @@
 	/*  FileReader 라는 Javascript 객체가 생기면서 최신 브라우저에서는 서버에 이미지를 업로드 안해도 이미지 미리보기 기능을 구현할 수 있다.*/
 
 	$(function() {
+		$("#logoPre").css('visibility','hidden');
 	    $("#logoFile").on('change', function(){
-	        readURL(this);
+	    	$("#logoPre").css('visibility','visible');
+	    	readURL(this);
 	    });
 	});
 	
@@ -58,6 +60,11 @@
 	}
 	 
 </script>
+<style>
+	#logoPre {
+		height : 100px;
+	}
+</style>
 
 <h2>회사 정보 설정</h2>
 <h4>회사 로고 등록 및 변경</h4>

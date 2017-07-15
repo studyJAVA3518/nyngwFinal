@@ -3,6 +3,8 @@ package com.nyngw.environmentSetting.planPublicRelationsSetting.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nyngw.dto.CompanyVO;
+import com.nyngw.dto.DepartmentVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
 
@@ -36,6 +41,7 @@ public class PlanPublicRelationsSettingController {
 	@Autowired
 	PlanPublicRelationsSettingServiceImpl planPublicRelationsSettingService; 
 	
+	
 	/**
 	 * 근무일 및 출결정보 등록시간 설정 화면으로 이동
 	 */
@@ -44,6 +50,7 @@ public class PlanPublicRelationsSettingController {
 		String url = "enovironmentSetting/planPublicRelationsSetting/workingDay";
 		return url;
 	}
+	
 	
 	/**
 	 * 회사 정보 설정 화면으로 이동
@@ -108,7 +115,6 @@ public class PlanPublicRelationsSettingController {
 				//업로드한다!!
 				multipartFile.transferTo(file);
 				uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
-				System.out.println("로고 변경시!!!!!!!!!!!!!!");
 			}
 		}
 		
@@ -190,6 +196,7 @@ public class PlanPublicRelationsSettingController {
 		return url;
 	}
 	
+	
 	/**
 	 * 회사 부서 설정 화면으로 이동
 	 */
@@ -209,14 +216,92 @@ public class PlanPublicRelationsSettingController {
 	/**
 	 * 회사 부서 등록 컨트롤러
 	 */
-//	@RequestMapping("/companyDepartInsert")
-//	public String companyDepartInsert(Model model){
-//		
-//		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
-//		
-//		
-//		return url;
-//	}
+	@RequestMapping("/companyDepartInsert")
+	public String companyDepartInsert(Model model,
+			DepartmentVO deptVO){
+		
+		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+
+		try {
+			//부서등록
+			planPublicRelationsSettingService.enrollDept(model, deptVO);
+			//변경된 부서 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewDeptInfo(model);
+			//변경된 부서 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewDeptInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	/**
+	 * 부서하나의 정보를 가져오는 컨트롤러(ajax)
+	 */
+	@RequestMapping("/checkDeptOne")
+	public @ResponseBody Map<String,Object> selectDeptOne(String tmp_dept_number){
+		Map<String,Object> map = new HashMap<String, Object>();
+		DepartmentVO dvo = null;
+		try {
+			dvo = planPublicRelationsSettingService.getDeptOne(tmp_dept_number);
+			map.put("dept_name", dvo.getDept_name());
+			map.put("dept_membernumber", dvo.getDept_membernumber());
+			map.put("dept_tel", dvo.getDept_tel());
+			map.put("dept_addr", dvo.getDept_addr());
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	/**
+	 * 회사 부서 수정하는 컨트롤러
+	 */
+	@RequestMapping("/companyDepartmentUpdate")
+	public String companyDepartmentUpdate(Model model,
+			@RequestParam("up_dept_number") String up_dept_number,
+			@RequestParam("up_dept_name") String up_dept_name,
+			@RequestParam("up_dept_membernumber") String up_dept_membernumber,
+			@RequestParam("up_dept_tel") String up_dept_tel,
+			@RequestParam("up_dept_addr") String up_dept_addr ){
+		
+		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+		
+		try {
+			//부서 등록
+			planPublicRelationsSettingService
+				.modifyDept(model, up_dept_number, up_dept_name, up_dept_membernumber, up_dept_tel, up_dept_addr);
+			//변경된 부서 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewDeptInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	
+	/**
+	 * 회사 부서 삭제하는 컨트롤러
+	 */
+	@RequestMapping("/companyDepartDelete")
+	public String companyDepartDelete(Model model,
+			@RequestParam("deleteDeptNum") String deleteDeptNum){
+		
+		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+		
+		try {
+			//부서 삭제
+			planPublicRelationsSettingService.removeDept(model,deleteDeptNum);
+			//변경된 부서 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewDeptInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
 	
 	/**
 	 * 회사 직급 설정 화면으로 이동

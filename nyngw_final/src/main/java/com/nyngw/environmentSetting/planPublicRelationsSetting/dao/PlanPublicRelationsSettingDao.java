@@ -63,5 +63,38 @@ public interface PlanPublicRelationsSettingDao {
 	 * @throws SQLException
 	 */
 	public int insertDepartment(DepartmentVO dvo) throws SQLException;
+
+	/**
+	 * 등록하려는 부모부서의 레벨 가져오는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	public long selectDeptLevel(String dept_number) throws SQLException;
+	
+	/**
+	 * 하나 부서의 정보를 가져오는 메서드
+	 * @param dept_id
+	 * @return DepartmentVO
+	 * @throws SQLException
+	 */
+	DepartmentVO selectDepartOne(String dept_number) throws SQLException;
+	
+	/**
+	 * 회사 부서 수정하는 메서드
+	 * @param String deleteNumber
+	 * @return int
+	 * @throws SQLException
+	 */
+	int updateDepartment(DepartmentVO dvo) throws SQLException;
+
+	/**
+	 * 회사 부서 삭제하는 메서드
+	 * @param String deleteNumber
+	 * @return int
+	 * @throws SQLException
+	 */
+	int deleteDepartment(String deleteDeptNum) throws SQLException;
+
 	
 }
