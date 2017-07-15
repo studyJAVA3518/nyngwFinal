@@ -25,7 +25,7 @@
   					<!-- 로고 (이동시)-->
   					<div class="col-md-2">
   						<!-- image를 사용할 때에는 클래스에 img-responsive -->
-  						<a href="#">
+  						<a href="/homeMain/main">
   							<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive">
   						</a>
   					</div>
@@ -92,7 +92,6 @@
 						            <li class="topMenuTitle">회의 관리</li>
 									<li><a href="/businessSupport/meetingManagement/meetingCalendar">회의 일정</a></li>
 									<li><a href="/businessSupport/meetingManagement/meetingFile">회의록 관리</a></li>
-						            <li class="divider"></li>
 						          </ul>
 						        </div>
 						        
@@ -174,7 +173,7 @@
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">인사부부 설정</li>
 									<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>
-										<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">휴가 일수 설정</a></li>
+									<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">휴가 일수 설정</a></li>
 						          </ul>
 						        </div>
 							</div>
