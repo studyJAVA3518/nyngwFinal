@@ -50,7 +50,7 @@ th{
 			</tr>
 			<tr>
 				<th>파일이름</th>
-				<td colspan="5">${document.doc_file_name }<a href="">[다운로드]</a></td>
+				<td colspan="5">${document.doc_file_name }<a href="/documentManagement/documentManager/documentDownload?fileName=${document.doc_file_name}">[다운로드]</a></td>
 			</tr>
 		</table>
 	</div>

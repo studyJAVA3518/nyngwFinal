@@ -1,5 +1,7 @@
 package com.nyngw.sharingInformation.board.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,14 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.CommandBoardVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 import com.nyngw.sharingInformation.board.service.BoardServiceImpl;
@@ -108,13 +113,22 @@ public class BoardController {
 	 * 게시물에 대한 정보를 다 적은뒤 등록 버튼을 눌러 화면전환하는 url을 반환하는 메서드
 	 * @return 등록 url 반환
 	 */
-	@RequestMapping("/write")
-	public String boardWrite(BoardVO board,String page, Principal principal){//,Principal principal
-		MemberVO member = basicSettingService.selectMember(principal.getName());
-		System.out.println(principal.getName());
-		board.setBoard_mem_number(member.getMem_number());
-		boardService.boardInsert(board);
-		return "redirect:/sharingInformation/board/list";
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal) throws IOException{//,Principal principal
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
+		MultipartFile multipartFile = commandboard.getBoard_file_name();
+		if(!multipartFile.isEmpty()){
+			File file = new File(upload,multipartFile.getOriginalFilename());
+			multipartFile.transferTo(file);
+			BoardVO board = commandboard.toBoardVO();
+			MemberVO member = basicSettingService.selectMember(principal.getName());
+			System.out.println(principal.getName());
+			board.setBoard_mem_number(member.getMem_number());
+			board.setBoard_file_name(multipartFile.getOriginalFilename());
+			boardService.boardInsert(board);
+			return "redirect:/sharingInformation/board/list";
+		}
+		return "sharingInformation/board/writeForm";
 	}
 	
 	/**

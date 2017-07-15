@@ -90,9 +90,9 @@ public class DocumentManagerController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
-	public String documentInsertComplete(Model model , HttpServletRequest request, CommandDocumentVO document) throws IOException{
+	public String documentInsertComplete(Model model , CommandDocumentVO document) throws IOException{
 		
-		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload";
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document";
 		
 		MultipartFile multipartFile = document.getDoc_file_name();
 		
@@ -112,12 +112,11 @@ public class DocumentManagerController {
 				doc.setDoc_eadoc("y");
 			}
 			doc.setDoc_mem_number(mem_number);
-			doc.setDoc_file_name("D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/"+multipartFile.getOriginalFilename());
+			doc.setDoc_file_name(multipartFile.getOriginalFilename());
 			
 			model.addAttribute(doc);
 			
-			int result=0;
-			result = documentManagerService.documentInsertComplete(doc);
+			documentManagerService.documentInsertComplete(doc);
 			
 			return "redirect:/documentManagement/documentManager/documentSelect";
 		}
