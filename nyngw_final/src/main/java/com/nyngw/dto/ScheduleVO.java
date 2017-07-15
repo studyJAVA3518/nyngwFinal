@@ -11,11 +11,18 @@ public class ScheduleVO {
 	private String sc_number;		//일정관리번호
 	private String sc_title;		//제목
 	private String sc_content;		//내용
-	private Date sc_date;			//일정날짜
-	private Date sc_time;			//일정시간
+	private String sc_date;			//일정날짜
+	private String sc_time;			//일정시간
 	private String sc_aram;			//알람설정
 	private String sc_mem_number;	//사원번호
 	private String sc_code_number;	//일정관리구분번호
+	
+	public String getSc_time() {
+		return sc_time;
+	}
+	public void setSc_time(String sc_time) {
+		this.sc_time = sc_time;
+	}
 	public String getSc_number() {
 		return sc_number;
 	}
@@ -34,17 +41,11 @@ public class ScheduleVO {
 	public void setSc_content(String sc_content) {
 		this.sc_content = sc_content;
 	}
-	public Date getSc_date() {
+	public String getSc_date() {
 		return sc_date;
 	}
-	public void setSc_date(Date sc_date) {
+	public void setSc_date(String sc_date) {
 		this.sc_date = sc_date;
-	}
-	public Date getSc_time() {
-		return sc_time;
-	}
-	public void setSc_time(Date sc_time) {
-		this.sc_time = sc_time;
 	}
 	public String getSc_aram() {
 		return sc_aram;

@@ -1,16 +1,22 @@
 package com.nyngw.sharingInformation.memberInformation.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.memberInformation.service.MemberInformationServiceImpl;
 
 @Controller
 @RequestMapping("/sharingInformation/memberInformation")
 public class MemberInformationController {
 	@Autowired
-	private MemberInformationServiceImpl memberInformationServiceImpl;
+	private MemberInformationServiceImpl memberInformationService;
 
 	/**
 	 * 처음 주소록검색 버튼을 눌러 들어오면 빈 리스트 화면 url을 반환하는 메서드
@@ -42,6 +48,13 @@ public class MemberInformationController {
 	public String organizationChart(){
 
 		return "sharingInformation/memberInformation/organizationChart";
+	}
+	
+	@RequestMapping("/getTreeJsonDate")
+	@ResponseBody
+	public List<Map> getTreeJsonDate(){
+		List<Map> treeJsonDate = memberInformationService.getAllDepartment();
+		return treeJsonDate;
 	}
 	
 	/**
