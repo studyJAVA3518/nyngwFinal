@@ -36,6 +36,26 @@
 		document.comLogo.method = "post";
 		document.comLogo.submit();
 	}
+	
+	/*  FileReader 라는 Javascript 객체가 생기면서 최신 브라우저에서는 서버에 이미지를 업로드 안해도 이미지 미리보기 기능을 구현할 수 있다.*/
+
+	$(function() {
+	    $("#logoFile").on('change', function(){
+	        readURL(this);
+	    });
+	});
+	
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	
+	    reader.onload = function (e) {
+	            $('#logoPre').attr('src', e.target.result);
+	        }
+	
+	      reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	 
 </script>
 
@@ -61,7 +81,7 @@
 		</tr>
 		<tr>
 			<th>미리보기</th>
-			<td>들어갈것인가???...생각해보자</td>
+			<td><img id="logoPre" src="#" alt="your image" width="50%" height="50%"/></td>
 		</tr>
 		<tr>
 			<td colspan="2">

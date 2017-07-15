@@ -33,7 +33,7 @@
   					<!-- 공지사항 -->
   					<div class="row">
   						<div class="col-md-12">
-	  						<h2 class="tableTitle">공지사항<a href="#">more</a></h2>
+	  						<h2 class="tableTitle">공지사항<a href="/sharingInformation/noticeMatter/nmList">more</a></h2>
   							<table class="table">
   								<tr>
   									<th>번호</th>
@@ -42,9 +42,11 @@
   								</tr>
   								<c:forEach items="${boardList}" var="board" begin="0" end="4" step="1">
   									<tr>
-	  									<td>${board.board_number.substring(5)}</td>
-	  									<td>${board.board_title}</td>
-	  									<td>${board.board_count}</td>
+  										<a href="/sharingInformation/board/detail?board_number=${board.board_number}">
+		  									<td>${board.board_number.substring(5)}</td>
+		  									<td>${board.board_title}</td>
+		  									<td>${board.board_count}</td>
+	  									</a>
 	  								</tr>
   								</c:forEach>
   								
@@ -59,15 +61,6 @@
   									<th>제목</th>
   									<th>기안자</th>
   								</tr>
-  								
-<%--   								<c:forEach items="${boardList}" var="board" begin="0" end="4" step="1"> --%>
-<!--   									<tr> -->
-<%-- 	  									<td>${board.board_number.substring(5)}</td> --%>
-<%-- 	  									<td>${board.board_title}</td> --%>
-<%-- 	  									<td>${board.board_count}</td> --%>
-<!-- 	  								</tr> -->
-<%--   								</c:forEach> --%>
-  								
   								<tr>
   									<td>1</td>
   									<td>원자력 연구소 프로젝트 완료 보고</td>
