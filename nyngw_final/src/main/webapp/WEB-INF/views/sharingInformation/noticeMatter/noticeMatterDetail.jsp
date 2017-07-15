@@ -9,6 +9,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+function noticeMatterDelete(id){
+	var con_test = confirm("공지사항을 삭제하시겠습니까?");
+	if(con_test==true){
+		$.ajax({
+            type : "POST",
+            url : "/sharingInformation/noticeMatter/nmDelete",
+            data : {'id' : id},
+            success : function(result){
+            	location.href=result.uri;
+	        }, 
+	        error : function(){
+	        },
+            dataType : 'json' 
+		});
+	}
+}
+</script>
 <body>
 		<div>
 		<table class="table table-bordered">
@@ -35,8 +53,8 @@
 				<td colspan="3">${board.board_file_name }</td>
 			</tr>
 		</table>
-			<button><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
-			<button type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
+			<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
+			<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
 			<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 	</div>
 </body>

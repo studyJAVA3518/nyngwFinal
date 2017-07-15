@@ -13,4 +13,6 @@ public interface NoticeMatterDao {
 	public String NoticeMatterMax();
 	public BoardVO selectNoticeMatte(String board_number);
 	public void updateNoticeMatterCountPlus(String board_number);
+	public void noticeMatterUpdate(BoardVO board);
+	public void noticeMatterDelete(String board_number);
 }

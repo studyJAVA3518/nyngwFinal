@@ -95,9 +95,12 @@ public class NoticeMatterController {
 	 */
 	@RequestMapping("/nmUpdateForm")
 	public String noticeMatterUpdateForm(String board_number, Model model, String page){
-		BoardVO board = null;
-		model.addAttribute("board",board);
-		model.addAttribute("page", page);
+		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
+		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		board.setMem_name(member.getMem_name());
+		System.out.println(member.getMem_name());
+		model.addAttribute("board", board);
+		model.addAttribute("page",page);
 		return "sharingInformation/noticeMatter/noticeMatterUpdateForm";
 	}
 	
@@ -107,8 +110,17 @@ public class NoticeMatterController {
 	 */
 	@RequestMapping("/nmUpdate")
 	public String noticeMatterUpdate(BoardVO board){
-		
-		return "redirect:sharingInformation/noticeMatter/nmList";
+		board.setBoard_code_number("code11");
+		System.out.println(board.getBoard_code_number());
+		System.out.println(board.getBoard_content());
+		System.out.println(board.getBoard_count());
+		System.out.println(board.getBoard_file_name());
+		System.out.println(board.getBoard_mem_number());
+		System.out.println(board.getBoard_number());
+		System.out.println(board.getBoard_title());
+		System.out.println(board.getBoard_date());
+		noticeMatterService.noticeMatterUpdate(board);
+		return "redirect:/sharingInformation/noticeMatter/nmList";
 	}
 	
 	/**
@@ -127,9 +139,10 @@ public class NoticeMatterController {
 	 */
 	@RequestMapping("/nmDelete")
 	public @ResponseBody Map<String,String> noticeMatterDelete(String id){
-		
+		System.out.println(id+"오니?");
+		noticeMatterService.noticeMatterDelete(id);
 		Map<String,String> resultMap = new HashMap<String, String>();
-		resultMap.put("uri", "/sharingInformation/board/list");
+		resultMap.put("uri", "/sharingInformation/noticeMatter/nmList");
 		return resultMap;
 	}
 	

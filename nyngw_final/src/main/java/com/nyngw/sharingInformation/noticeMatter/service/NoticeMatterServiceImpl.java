@@ -59,4 +59,22 @@ public class NoticeMatterServiceImpl implements NoticeMatterService {
 		BoardVO board = noticeMatterDao.selectNoticeMatte(board_number);
 		return board;
 	}
+	@Override
+	public void noticeMatterUpdate(BoardVO board) {
+		Date dt = new Date();
+		board.setBoard_date(dt);
+		System.out.println(board.getBoard_code_number());
+		System.out.println(board.getBoard_content());
+		System.out.println(board.getBoard_count());
+		System.out.println(board.getBoard_file_name());
+		System.out.println(board.getBoard_mem_number());
+		System.out.println(board.getBoard_number());
+		System.out.println(board.getBoard_title());
+		System.out.println(board.getBoard_date());
+		noticeMatterDao.noticeMatterUpdate(board);
+	}
+	@Override
+	public void noticeMatterDelete(String board_number) {
+		noticeMatterDao.noticeMatterDelete(board_number);
+	}
 }

@@ -62,4 +62,21 @@
 		board_count = to_number(board_count)+1
 		where board_number = #{board_number}
 	</update>
+	
+	<update id="noticeMatterUpdate" parameterType="com.nyngw.dto.BoardVO">
+		update board 
+		set board_code_number=#{board_code_number},
+			board_title=#{board_title}, 
+			board_content=#{board_content},
+			board_file_name=#{board_file_name},
+<!-- 			board_count=#{board_count}, -->
+			board_date=#{board_date},
+			board_mem_number=#{board_mem_number}
+		where board_number=#{board_number}
+	</update>
+
+	<update id="noticeMatterDelete" parameterType="java.lang.String">
+		delete from board where
+		board_number = #{board_number}
+	</update>
 </mapper>

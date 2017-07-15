@@ -12,22 +12,22 @@
 <title>Insert title here</title>
 </head>
 <script>
-// 	function boardDelete(id){
-// 		var con_test = confirm("어떤 값이 나올까요. 확인을 눌러보세요.");
-// 		if(con_test==true){
-// 			$.ajax({
-// 	            type : "POST",
-// 	            url : "/sharingInformation/board/boardDelete",
-// 	            data : {'id' : id},
-// 	            success : function(result){
-// 	            	location.href=result.uri;
-// 		        }, 
-// 		        error : function(){
-// 		        },
-// 	            dataType : 'json' 
-// 			});
-// 		}
-// 	}
+	function boardDelete(id){
+		var con_test = confirm("게시물을 삭제하시겠습니까?");
+		if(con_test==true){
+			$.ajax({
+	            type : "POST",
+	            url : "/sharingInformation/board/boardDelete",
+	            data : {'id' : id},
+	            success : function(result){
+	            	location.href=result.uri;
+		        }, 
+		        error : function(){
+		        },
+	            dataType : 'json' 
+			});
+		}
+	}
 	function answerWriteClick(id,form){
 		var comment_content = document.getElementsByName('comment_content')[0].value;
 		alert(comment_content);

@@ -37,7 +37,7 @@
 						<td><a href="/sharingInformation/noticeMatter/nmDetail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 						<td>${board.mem_name }</td>
-						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
+						<td><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}&page=${pageNumber}">
 										&nbsp;수정</a></td>
 					</tr>
 				</c:forEach>

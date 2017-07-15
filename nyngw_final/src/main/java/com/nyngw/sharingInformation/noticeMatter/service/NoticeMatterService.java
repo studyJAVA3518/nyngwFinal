@@ -9,4 +9,6 @@ public interface NoticeMatterService {
 	public void noticeMatterInsert(BoardVO board);
 	public String noticeMatterMax();
 	public BoardVO selectNoticeMatte(String board_number);
+	public void noticeMatterUpdate(BoardVO board);
+	public void noticeMatterDelete(String board_number);
 }

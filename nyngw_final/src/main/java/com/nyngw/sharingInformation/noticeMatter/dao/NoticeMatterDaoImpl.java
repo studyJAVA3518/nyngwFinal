@@ -59,4 +59,14 @@ public class NoticeMatterDaoImpl implements NoticeMatterDao {
 	public void updateNoticeMatterCountPlus(String board_number) {
 		sqlSession.update("updateNoticeMatterCountPlus", board_number);
 	}
+
+	@Override
+	public void noticeMatterUpdate(BoardVO board) {
+		sqlSession.update("noticeMatterUpdate", board);
+	}
+
+	@Override
+	public void noticeMatterDelete(String board_number) {
+		sqlSession.delete("noticeMatterDelete", board_number);
+	}
 }
