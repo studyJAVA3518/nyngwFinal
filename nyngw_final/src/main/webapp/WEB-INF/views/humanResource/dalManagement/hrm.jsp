@@ -57,6 +57,11 @@
 		</tr>
 	</c:forEach>
 </table>
+<div >
+	<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+			<a href="/humanResource/dalManagement/hrm?page=${i}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">[${i}]</a>
+	</c:forEach>	
+</div>
 <div id="btngroup"></div>
 <table class="table table-bordered">
 	<tr>

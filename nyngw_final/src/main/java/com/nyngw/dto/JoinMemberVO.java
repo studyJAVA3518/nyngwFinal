@@ -22,7 +22,21 @@ public class JoinMemberVO {
 	private String mem_position_number;
 	private String dept_name;
 	private String position_name;	//직급명
+	private int startPage;
+	private int endPage;
 	
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
 	public String getDept_name() {
 		return dept_name;
 	}

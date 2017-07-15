@@ -16,13 +16,13 @@ public class JoinMemberListDaoImpl implements JoinMemberListDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<JoinMemberVO> getJoinMemberList_JM() {
-		return sqlSession.selectList("getJoinMemberList_JM");
+	public List<JoinMemberVO> getJoinMemberList_JM(JoinMemberVO member) {
+		return sqlSession.selectList("getJoinMemberList_JM",member);
 	}
 
 	@Override
-	public List<JoinMemberVO> getJoinMemberVOList_JM() {
-		return sqlSession.selectList("getJoinMemberVOList_JM");
+	public List<JoinMemberVO> getJoinMemberVOList_JM(JoinMemberVO member) {
+		return sqlSession.selectList("getJoinMemberVOList_JM",member);
 	}
 
 	@Override
@@ -48,6 +48,15 @@ public class JoinMemberListDaoImpl implements JoinMemberListDao {
 	@Override
 	public void modifyDeleteMembter(JoinMemberVO member) {
 		sqlSession.update("modifyDeleteMembter",member);
+	}
+
+	@Override
+	public int countTotalJoinMember() {
+		int result=0;
+		if(sqlSession.selectOne("countTotalJoinMember")!=null){
+			result = (int) sqlSession.selectOne("countTotalJoinMember");
+		}
+		return result;
 	}
 
 }

@@ -30,5 +30,8 @@
 		</c:forEach>
 			
 	</table>
+	<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+			<a href="/humanResource/joinMemberList/jlm?page=${i}">[${i}]</a>
+	</c:forEach>
 
 

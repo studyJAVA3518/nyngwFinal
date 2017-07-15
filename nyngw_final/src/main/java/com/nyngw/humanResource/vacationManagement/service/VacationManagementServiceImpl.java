@@ -24,5 +24,10 @@ public class VacationManagementServiceImpl implements VacationManagementService 
 		return vactionMangementDao.getDeptVactionList_VM(mvfg);
 	}
 
+	@Override
+	public int countTotalMember(Member_Vacation_FN_GETCNTVO mvfg) {
+		return vactionMangementDao.countTotalMember(mvfg);
+	}
+
 }
 

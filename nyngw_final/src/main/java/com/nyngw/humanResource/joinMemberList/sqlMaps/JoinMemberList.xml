@@ -5,22 +5,32 @@
 <mapper namespace="com.nyngw.humanResource.joinMemberList.dao.JoinMemberListDao">
 	
 	<select id="getJoinMemberList_JM" resultType="com.nyngw.dto.JoinMemberVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
 		select * 
 		from member,MEMBER_DETAIL_INFORMATION,POSITION,DEPARTMENT
 		where mdi_mem_number = mem_number 
 		and mem_position_number = position_number 
 		and mem_dept_number = dept_number 
 		and mem_retirement = '1'
-		order by mem_position_number
+		<![CDATA[
+		ORDER BY mem_position_number asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
 	</select>
 	
 	<select id="getJoinMemberVOList_JM" resultType="com.nyngw.dto.JoinMemberVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
 		select * 
 		from member,POSITION,DEPARTMENT
 		where mem_position_number = position_number 
 		and mem_dept_number = dept_number 
 		and mem_retirement = '1'
-		order by mem_position_number
+		<![CDATA[
+		ORDER BY mem_position_number asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
 	</select>
 	
 	<select id="getMemberDetail_JM" parameterType="String" resultType="com.nyngw.dto.JoinMemberVO">
@@ -58,5 +68,14 @@
 		set MEM_RETIREMENT = '0'
 		where mem_id = #{mem_id}
 	</update>
+	
+	<select id="countTotalJoinMember" resultType="Integer">
+		select count(*) 
+		from member,POSITION,DEPARTMENT
+		where mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '1'
+		order by mem_position_number
+	</select>
 	
 </mapper>

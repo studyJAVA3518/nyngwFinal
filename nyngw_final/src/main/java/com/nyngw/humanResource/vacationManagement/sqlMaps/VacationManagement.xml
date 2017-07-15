@@ -4,7 +4,36 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.humanResource.vacationManagement.dao.VacationManagementDao">
 	<select id="getMemberVactionList_VM" parameterType="com.nyngw.dto.Member_Vacation_FN_GETCNTVO" resultType="com.nyngw.dto.Member_Vacation_FN_GETCNTVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from(
 		SELECT *
+	    FROM MEMBER,DEPARTMENT,VACATION,VACATION_POLICY,position
+	    WHERE DEPT_NUMBER= MEM_DEPT_NUMBER
+	    AND VACATION_MEM_NUMBER = MEM_NUMBER
+	    AND VACATION_POLICY.VP_NUMBER = VACATION.VACATION_VP_NUMBER
+	    and position_number = MEMBER.MEM_POSITION_NUMBER
+	    and vacation_end between #{dept_startdate} and #{dept_enddate} 
+	    <if test="choice != null">
+			<choose>
+				<when test="choice == 'mem_name'">
+					AND mem_name like '%'||#{search}||'%'
+    			</when>
+				<when test="choice == 'vp_kind'">
+					AND vp_kind like '%'||#{search}||'%'
+    			</when>
+    			<otherwise>
+      				AND 1 = 1
+    			</otherwise>
+			</choose>
+		</if>
+		<![CDATA[
+		ORDER BY lpad(substr(mem_number,4,99999999),5,0)asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
+	</select>
+	
+	<select id="countTotalMember" parameterType="com.nyngw.dto.Member_Vacation_FN_GETCNTVO" resultType="Integer">
+		SELECT count(*)
 	    FROM MEMBER,DEPARTMENT,VACATION,VACATION_POLICY,position
 	    WHERE DEPT_NUMBER= MEM_DEPT_NUMBER
 	    AND VACATION_MEM_NUMBER = MEM_NUMBER

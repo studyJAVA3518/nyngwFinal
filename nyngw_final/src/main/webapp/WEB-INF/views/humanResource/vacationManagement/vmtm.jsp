@@ -54,6 +54,9 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+					<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
+			</c:forEach>
 		</div>
 
 		<div role="tabpanel" class="tab-pane fade" id="computer"
@@ -85,10 +88,10 @@
 						<td>${member.vp_payonoff }</td>
 					</tr>
 				</c:forEach>
-				
-				
-				
 			</table>
+				<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+					<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
+				</c:forEach>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="korean"
 			aria-labelledby="kor-tab">

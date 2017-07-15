@@ -29,8 +29,21 @@ public class Member_Vacation_FN_GETCNTVO {
 	private String position_name;	//직급명
 	private String choice; //선택목록
 	private String search; // 검색
+	private int startPage;
+	private int endPage;
 	
-	
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
 	public String getSearch() {
 		return search;
 	}
