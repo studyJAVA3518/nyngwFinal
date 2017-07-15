@@ -106,5 +106,54 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		int result = sqlSession.update("esInsertDepartment", dvo);
 		return result;
 	}
+
+	/**
+	 * 등록하려는 부모부서의 레벨 가져오는 메서드
+	 * @param dvVO
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public long selectDeptLevel(String dept_number) throws SQLException {
+		DepartmentVO vo = (DepartmentVO) sqlSession.selectOne("esSelectDeptLevel",dept_number);
+		long level = vo.getDept_level();
+		return level;
+	}
+	
+	/**
+	 * 하나 부서의 정보를 가져오는 메서드
+	 * @param dept_id
+	 * @return DepartmentVO
+	 * @throws SQLException
+	 */
+	@Override
+	public DepartmentVO selectDepartOne(String dept_id) throws SQLException {
+		DepartmentVO dvo = (DepartmentVO) sqlSession.selectOne("esSelectOneDept",dept_id);
+		return dvo;
+	}
+
+	/**
+	 * 회사 부서 수정하는 메서드
+	 * @param String deleteNumber
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int updateDepartment(DepartmentVO dvo) throws SQLException {
+		int result = sqlSession.update("esUpdateDepartment", dvo);
+		return result;
+	}
+	/**
+	 * 회사 부서 삭제하는 메서드
+	 * @param String deleteNumber
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int deleteDepartment(String deleteDeptNum) throws SQLException{
+		int result = sqlSession.update("esDeleteDepartment",deleteDeptNum);
+		return result;
+	}
+
 	
 }

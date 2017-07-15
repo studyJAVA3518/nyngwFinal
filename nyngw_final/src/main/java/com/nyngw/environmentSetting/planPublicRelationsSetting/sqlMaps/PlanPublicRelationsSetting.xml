@@ -65,10 +65,31 @@
 		values ('dept'||dept_seq.nextval, #{dept_name},#{dept_membernumber},#{dept_tel},#{dept_level},#{dept_addr},#{dept_parents})
 	</update>
 	
+	<!-- 직급레벨 정하기위한 상위직급레벨 가져오기 -->
+	<select id="esSelectDeptLevel" parameterType="java.lang.String" resultType="com.nyngw.dto.DepartmentVO">
+		select 
+			dept_level
+		from department
+		where dept_number=#{dept_number}
+	</select>
+	
+	<!-- 하나의 직급정보를 가져오기 -->
+	<select id="esSelectOneDept" parameterType="java.lang.String" resultType="com.nyngw.dto.DepartmentVO">
+		select
+			* 
+		from department
+		where dept_number=#{dept_number}
+	</select>
+	
 	<!-- 직급정보 수정 -->
 	<update id="esUpdateDepartment" parameterType="com.nyngw.dto.DepartmentVO">
 		update company set 
 			company_logo=#{company_logo} 
 		where company_number = #{company_number}
+	</update>
+	
+	<!-- 직급정보 삭제 -->
+	<update id="esDeleteDepartment" parameterType="java.lang.String">
+		delete from department where dept_number=#{deleteDeptNum}
 	</update>
 </mapper>

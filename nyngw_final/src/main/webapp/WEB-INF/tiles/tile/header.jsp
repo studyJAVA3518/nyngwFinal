@@ -8,7 +8,7 @@
   			<div class="container-fliud headerTopColor">
   				<div class="container textRight">
 	  				<p class="headerTop">
-						${member.mem_name} 사원님 안녕하세요. 
+						${memberName} 사원님 안녕하세요. 
 						<a href="/homeMain/main" class="btn btn-default btn-header">
 							<i class="fa-lg fa fa-home" aria-hidden="true"></i>홈으로
 						</a>
@@ -54,18 +54,17 @@
 									<li><a href="/sharingInformation/noticeMatter/nmList">공지사항조회</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">일정관리</li>
-									<li><a href="/sharingInformation/scheduleManagement/schedule">일정관리</a></li>
-									<li><a href="#">일정추가</a></li>
-									<li><a href="#">일정출력</a></li>
-									<li><a href="#">상세일정설정</a></li>
+									<li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code4">개인일정관리</a></li>
+                              		<li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code5">부서일정관리</a></li>
+                              		<li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code6">회사일정관리</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">게시판</li>
 						            <li><a href="/sharingInformation/board/list">게시판조회</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">직원정보</li>
 						            <li><a href="/sharingInformation/memberInformation/organizationChart">조직도조회</a></li>  
-									<li><a href="#">주소록조회</a></li>  
-									<li><a href="#">생일자확인</a></li>
+									<li><a href="/sharingInformation/memberInformation/addressBook">주소록조회</a></li>  
+                              		<li><a href="/sharingInformation/memberInformation/birthdayCheck">생일자확인</a></li>  
 						          </ul>
 						        </div>
 						        
