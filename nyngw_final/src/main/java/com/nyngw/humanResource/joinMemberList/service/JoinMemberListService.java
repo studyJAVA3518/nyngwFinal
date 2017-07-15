@@ -7,9 +7,10 @@ import com.nyngw.dto.MemberVO;
 
 public interface JoinMemberListService {
 	
-	public List<JoinMemberVO> getJoinMemberList();
+	public List<JoinMemberVO> getJoinMemberList(JoinMemberVO member);
 	public JoinMemberVO getMemberDetail(String mem_id);
 	public int modifyMember(JoinMemberVO member);
 	public void modifyDeleteMember(JoinMemberVO member);
+	public int countTotalJoinMember();
 	
 }

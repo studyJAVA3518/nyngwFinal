@@ -14,7 +14,7 @@ public class DalManagementDaoImpl implements DalManagementDao {
 
 	@Autowired
 	SqlSession sqlSession;
-	
+
 	@Override
 	public List<Member_ViewVO> searchContent(Member_ViewVO dil) {
 		return sqlSession.selectList("searchContent", dil);
@@ -25,5 +25,13 @@ public class DalManagementDaoImpl implements DalManagementDao {
 		return sqlSession.selectList("dateSearchList_HRDS", fncnt);
 	}
 
+	@Override
+	public int countContent(Member_ViewVO dil) {
+		int result = 0;
+		if (sqlSession.selectOne("countContent", dil) != null) {
+			result = (int) sqlSession.selectOne("countContent", dil);
+		}
+		return result;
+	}
 
 }

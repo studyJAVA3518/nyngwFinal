@@ -16,11 +16,11 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 	private JoinMemberListDaoImpl joinMemberListDao; 
 
 	@Override
-	public List<JoinMemberVO> getJoinMemberList() {
+	public List<JoinMemberVO> getJoinMemberList(JoinMemberVO member) {
 
-		List<JoinMemberVO> joinMemberlist = joinMemberListDao.getJoinMemberList_JM();
+		List<JoinMemberVO> joinMemberlist = joinMemberListDao.getJoinMemberList_JM(member);
 
-		List<JoinMemberVO> list = joinMemberListDao.getJoinMemberVOList_JM();
+		List<JoinMemberVO> list = joinMemberListDao.getJoinMemberVOList_JM(member);
 
 		if(joinMemberlist.size()<list.size()){
 			return list;
@@ -66,6 +66,11 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 	@Override
 	public void modifyDeleteMember(JoinMemberVO member) {
 		joinMemberListDao.modifyDeleteMembter(member);
+	}
+
+	@Override
+	public int countTotalJoinMember() {
+		return joinMemberListDao.countTotalJoinMember();
 	}
 
 

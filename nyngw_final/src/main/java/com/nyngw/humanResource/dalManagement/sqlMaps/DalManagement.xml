@@ -6,7 +6,9 @@
 
 	<select id="searchContent" parameterType="com.nyngw.dto.Member_ViewVO"
 		resultType="com.nyngw.dto.Member_ViewVO">
-		select mem_number,mem_id,mem_name,
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
+				select mem_number,mem_id,mem_name,
 			   position_name,
 			   dept_name,
 			   dal_date,dal_content,
@@ -17,11 +19,15 @@
 		  and MEM_NUMBER = DEPT_MEMBERNUMBER
 		  and mem_NUMBER = mdi_mem_number
 		  and DAL_DATE between to_date(#{startdal_date},'YYYY-MM-DD') and to_date(#{enddal_date}, 'YYYY-MM-DD')+0.99999
-		 <if test="mem_name != null">
+        <if test="mem_name != null">
 			<if test="mem_name != ''">
 				and mem_name = #{mem_name}
 			</if>
 		</if>
+		<![CDATA[
+		ORDER BY lpad(substr(mem_number,4,99999999),5,0)asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
 	</select>
 
 	<select id="dateSearchList_HRDS" parameterType="com.nyngw.dto.FN_GETDALCNT" resultType="com.nyngw.dto.FN_GETDALCNT">
@@ -34,6 +40,22 @@
 		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf4') dept_sf4
 		, FN_GETDALCNT(#{dept_startdate},#{dept_enddate},DEPT_NUMBER,'sf5') dept_sf5
 		FROM DEPARTMENT
+	</select>
+	
+	<select id="countContent" parameterType="com.nyngw.dto.Member_ViewVO"
+		resultType="Integer">
+		select count(*)
+		from   DILIGENCE_AND_LAZINESS,member,department,MEMBER_DETAIL_INFORMATION,position
+		where DAL_MEM_NUMBER=MEM_NUMBER
+		  and position_number = member.MEM_POSITION_NUMBER
+		  and MEM_NUMBER = DEPT_MEMBERNUMBER
+		  and mem_NUMBER = mdi_mem_number
+		  and DAL_DATE between to_date(#{startdal_date},'YYYY-MM-DD') and to_date(#{enddal_date}, 'YYYY-MM-DD')+0.99999
+		<if test="mem_name != null">
+			<if test="mem_name != ''">
+				and mem_name = #{mem_name}
+			</if>
+		</if>
 	</select>
 
 </mapper>

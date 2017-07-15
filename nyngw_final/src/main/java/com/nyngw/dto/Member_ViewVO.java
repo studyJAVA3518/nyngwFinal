@@ -14,7 +14,21 @@ public class Member_ViewVO {
 	private String mdi_bank;			//거래은행
 	private String mdi_bank_account;	//계좌번호
 	private String mdi_account_holder;	//예금주
+	private int startPage;
+	private int endPage;
 	
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
 	public String getPosition_name() {
 		return position_name;
 	}

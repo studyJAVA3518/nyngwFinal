@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.Paging;
 import com.nyngw.humanResource.joinMemberList.service.JoinMemberListServiceImpl;
 
 @Controller
@@ -24,10 +25,34 @@ public class JoinMemberListController {
 	private List<JoinMemberVO> joinMemberList;
 	
 	@RequestMapping("/jlm")
-	public String joinMain(Model model){
+	public String joinMain(Model model,String page){
+		JoinMemberVO vo = new JoinMemberVO();
+		int p=1;
+		if(page != null){
+			p=Integer.valueOf(page);
+			if(p<1){
+				p=1;
+			}
+		}
+		Paging paging = new Paging(p, 10);
+		paging.setNumberOfRecords(joinMemberListService.countTotalJoinMember());
 		
-		joinMemberList = joinMemberListService.getJoinMemberList();
+		int firstRow = 0;
+		int endRow = 0;
 		
+		paging.makePaging();
+		
+		System.out.println(paging);
+				
+		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
+		endRow = firstRow + paging.getRecordsPerPage() - 1;
+		
+		vo.setStartPage(firstRow-1);	
+		vo.setEndPage(endRow);
+		
+		joinMemberList = joinMemberListService.getJoinMemberList(vo);
+		
+		model.addAttribute("page", paging);
 		model.addAttribute("joinMemberList", joinMemberList);
 		return "humanResource/joinMemberList/jlm";
 	}
