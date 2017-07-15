@@ -34,7 +34,13 @@
                         <li>
                            <h3>일정관리</h3>
                            <ul>
-                              <li><a href="/sharingInformation/scheduleManagement/schedule">&nbsp;&nbsp;&nbsp;└ 일정관리</a></li>
+																						<!--SC_CODE_NUMBER
+																							code4	개인일정관리
+																							code5	부서일정관리
+																							code6	회사일정관리 -->
+                              <li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code4">&nbsp;&nbsp;&nbsp;└ 개인일정관리</a></li>
+                              <li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code5">&nbsp;&nbsp;&nbsp;└ 부서일정관리</a></li>
+                              <li><a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code6">&nbsp;&nbsp;&nbsp;└ 회사일정관리</a></li>
                            </ul>
                         </li>
                      

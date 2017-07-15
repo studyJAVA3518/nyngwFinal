@@ -49,6 +49,9 @@
     <link href="<%=request.getContextPath()%>/resources/css/mypage.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/sharingInformation.css" rel="stylesheet">
     
+    <!-- 조직도 트리를 위한 js -->
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/tree/zooTree.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/tree/zooTree.css">
     
     <!-- 프로젝트 메인화면 구성에 대한 js import -->
     <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
