@@ -14,9 +14,6 @@
    file = file.substring(str, file.length);
    document.getElementsByName('doc_file_name')[0].value=file;
 }
-   var checked = document.getElementById("doc_eadoc");
-   var checkedResult = checked.getAttribute("checked");
-   
 </script>
 <script type="text/javascript">
 	
