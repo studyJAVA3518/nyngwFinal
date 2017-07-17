@@ -51,10 +51,14 @@
             var imageMimeTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/tiff',
                 'image/gif', 'image/bmp', 'image/x-jg', 'image/ief', 'image/pict',
                 'jpg', 'bmp', 'gif', 'png'];
+            
+            var videoMimeTypes = ['video/mp4', 'video/mj2', 'video/mpeg', 'video/quicktime','video/x-msvideo','video/x-sgi-movie',
+                                  'video/vnd.mpegurl', 'video/x-flv', 'video/x-ms-asf', 'video/x-ms-asx', 'video/x-ms-wmv',
+                                  'jpg', 'bmp', 'gif', 'png'];
 
             if (imageMimeTypes.contains(mimeType)) {
                 return 'image';
-            }
+            }else if(imageMimeTypes.contains(mime))
             return 'file';
 		},
 		/**
