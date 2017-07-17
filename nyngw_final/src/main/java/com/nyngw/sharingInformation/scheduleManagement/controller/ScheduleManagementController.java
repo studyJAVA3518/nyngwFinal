@@ -1,10 +1,14 @@
 package com.nyngw.sharingInformation.scheduleManagement.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.ScheduleVO;
 import com.nyngw.sharingInformation.scheduleManagement.service.ScheduleManagementServiceImpl;
 
@@ -21,6 +25,8 @@ public class ScheduleManagementController {
 	@Autowired
 	private ScheduleManagementServiceImpl scheduleManagementService;
 	
+	@Autowired
+	private CommonServiceImpl commonService;
 	/**
 	 * 일정추가버튼을 누를시 데이터를 입력하는 url을 반환하는 메서드
 	 * @return 입력폼 url 반환
@@ -28,6 +34,7 @@ public class ScheduleManagementController {
 	@RequestMapping("/schedule")
 	public String scheduleCheck(Model model,String sc_code_number){
 		scheduleManagementService.getAllSchedule(model, sc_code_number);
+		model.addAttribute("sc_code_number",sc_code_number);
 		return "sharingInformation/scheduleManagement/schedule";
 	}
 
@@ -36,8 +43,8 @@ public class ScheduleManagementController {
 	 * @return 상세페이지 url 반환
 	 */
 	@RequestMapping("/scheduleDetail")
-	public String scheduleDetail(String sc_number,Model model){
-		scheduleManagementService.getSchedule(model, sc_number);
+	public String scheduleDetail(String sc_number,Model model,Principal principal){
+		scheduleManagementService.getSchedule(model, sc_number,principal);
 		return "sharingInformation/scheduleManagement/scheduleDetail";
 	}
 	
@@ -46,9 +53,9 @@ public class ScheduleManagementController {
 	 * 일정수정버튼을 누를시 데이터를 입력하는 url을 반환하는 메서드
 	 * @return 수정폼 url 반환
 	 */
-	@RequestMapping("scheduleEditForm")
-	public String scheduleEditForm(Model model,String sc_number){
-		scheduleManagementService.getSchedule(model, sc_number);
+	@RequestMapping("/scheduleEditForm")
+	public String scheduleEditForm(Model model,String sc_number,Principal principal){
+		scheduleManagementService.getSchedule(model, sc_number,principal);
 		return "sharingInformation/scheduleManagement/scheduleEditForm";
 	}
 	
@@ -56,7 +63,7 @@ public class ScheduleManagementController {
 	 * 정보를 입력한 뒤 수정 하는 버튼
 	 * @return 수정한 뒤 화면전환 url 반환
 	 */
-	@RequestMapping("scheduleEdit")
+	@RequestMapping("/scheduleEdit")
 	public String scheduleEdit(ScheduleVO schedule){
 		scheduleManagementService.editSchedule(schedule);
 		return "redirect:/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+schedule.getSc_number();
@@ -66,21 +73,20 @@ public class ScheduleManagementController {
 	 * 삭제 하는 버튼
 	 * @return 삭제시 화면전환 url 반환
 	 */
-	@RequestMapping("scheduleDelete")
+	@RequestMapping("/scheduleDelete")
 	public String scheduleDelete(String sc_number,String sc_code_number){
 		scheduleManagementService.deleteSchedule(sc_number);
 		return "redirect:/sharingInformation/scheduleManagement/schedule?sc_code_number="+sc_code_number;
 	}
 	
-	
-	
 	/**
 	 * 일정추가버튼을 누를시 데이터를 입력하는 url을 반환하는 메서드
 	 * @return 입력폼 url 반환
 	 */
-	@RequestMapping("scheduleWriteForm")
-	public String scheduleWriteForm(String sc_code_number){
-		return "sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number="+sc_code_number;
+	@RequestMapping("/scheduleWriteForm")
+	public String scheduleWriteForm(String sc_code_number, Model model){
+		model.addAttribute("sc_code_number",sc_code_number);
+		return "sharingInformation/scheduleManagement/scheduleWriteForm";
 	}
 	
 	
@@ -88,21 +94,14 @@ public class ScheduleManagementController {
 	 * 정보를 입력한 뒤 등록 하는 버튼
 	 * @return 등록한뒤 화면전환 url 반환
 	 */
-	@RequestMapping("scheduleWrite")
-	public String scheduleWrite(ScheduleVO schedule,String sc_code_number){
+	@RequestMapping("/scheduleWrite")
+	public String scheduleWrite(ScheduleVO schedule,String sc_code_number,Principal principal){
 		//xml의 알림항목은 '' 
+		String mem_id = principal.getName();
+		MemberVO member = commonService.findMemberByMemId(mem_id);
+		schedule.setSc_mem_number(member.getMem_number());
 		scheduleManagementService.writeSchedule(schedule);
 		return "redirect:/sharingInformation/scheduleManagement/schedule?sc_code_number="+sc_code_number;
-	}
-	
-	/**
-	 * 일정삭제버튼을 누를시 데이터를 입력하는 url을 반환하는 메서드
-	 * @return 삭제폼 url 반환
-	 */
-	@RequestMapping("4")
-	public String scheduleDeleteForm(){
-		
-		return null;
 	}
 	
 	/**
