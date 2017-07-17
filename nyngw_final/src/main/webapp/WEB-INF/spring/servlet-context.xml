@@ -74,9 +74,7 @@
 	<beans:bean id="joinExcelViewHR" class="com.nyngw.humanResource.joinMemberList.controller.JoinMember_ViewVOExcelView"/>
 	
 	<!-- document fileDownload -->
-	<beans:bean id="download" class="com.nyngw.documentManagement.documentManager.controller.DownloadView"/>
-	<beans:bean id="down" class="com.nyngw.documentManagement.documentManager.controller.DownloadController"/>
-	
+	<beans:bean id="download" class="com.nyngw.dto.DownloadView"/>
 	
 	<context:component-scan base-package="com.nyngw" />
 	

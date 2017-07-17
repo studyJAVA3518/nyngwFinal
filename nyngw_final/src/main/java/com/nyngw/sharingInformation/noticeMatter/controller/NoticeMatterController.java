@@ -1,27 +1,36 @@
 package com.nyngw.sharingInformation.noticeMatter.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.CommandBoardVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl;
 
 @Controller
 @RequestMapping("/sharingInformation/noticeMatter")
-public class NoticeMatterController {
+public class NoticeMatterController implements ApplicationContextAware {
 	@Autowired
 	private NoticeMatterServiceImpl noticeMatterService;
 	
@@ -80,13 +89,24 @@ public class NoticeMatterController {
 	/**
 	 * 정보를 입력한뒤 입력버튼을 눌러 화면을 전환해주는 url을 반환하는 메소드
 	 * @return 등록한뒤 url 반환
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
-	@RequestMapping("/nmWrite")
-	public String noticeMatterWrite(BoardVO board, String page,Principal principal){
-		MemberVO member = CommonService.findMemberByMemId(principal.getName());
-		board.setBoard_mem_number(member.getMem_number());
-		noticeMatterService.noticeMatterInsert(board);
-		return "redirect:/sharingInformation/noticeMatter/nmList";
+	@RequestMapping(value="/nmWrite", method=RequestMethod.POST)
+	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal) throws IOException{
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
+		MultipartFile multipartFile = commandboard.getBoard_file_name();
+		if(!multipartFile.isEmpty()){
+			File file = new File(upload,multipartFile.getOriginalFilename());
+			multipartFile.transferTo(file);
+			BoardVO board = commandboard.toBoardVO();
+			MemberVO member = CommonService.findMemberByMemId(principal.getName());
+			board.setBoard_mem_number(member.getMem_number());
+			board.setBoard_file_name(multipartFile.getOriginalFilename());
+			noticeMatterService.noticeMatterInsert(board);
+			return "redirect:/sharingInformation/noticeMatter/nmList";
+		}
+		return "redirect:/sharingInformation/noticeMatter/nmWriteForm";
 	}
 	
 	/**
@@ -158,6 +178,22 @@ public class NoticeMatterController {
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
 		return "sharingInformation/noticeMatter/noticeMatterDetail";
+	}
+	@RequestMapping("/noticeDownload")
+    public ModelAndView download(@RequestParam("fileName")String fileName){ // 가져올 파일이름을 넘겨받음.
+         
+    	//파일을 가져올 경로를 적어주고 + 가져올 파일 이름을 받아옴. 
+        String fullPath = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice/" + fileName;
+         
+        File file = new File(fullPath);
+         
+        return new ModelAndView("download", "downloadFile", file);
+    }
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**

@@ -10,7 +10,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.util.EncodingUtils;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
@@ -37,7 +41,7 @@ import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
  */
 @Controller
 @RequestMapping("documentManagement/documentManager")
-public class DocumentManagerController {
+public class DocumentManagerController implements ApplicationContextAware{
 	
 	@Autowired
 	private DocumentManagerServiceImpl documentManagerService;
@@ -174,6 +178,24 @@ public class DocumentManagerController {
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/documentManagement/documentManager/documentSelect");
 		return resultMap;
+	}
+	
+	@RequestMapping("/documentDownload")
+    public ModelAndView download(@RequestParam("fileName")String fileName){ // 가져올 파일이름을 넘겨받음.
+         
+    	//파일을 가져올 경로를 적어주고 + 가져올 파일 이름을 받아옴. 
+        String fullPath = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document/" + fileName;
+         
+        File file = new File(fullPath);
+         
+        return new ModelAndView("download", "downloadFile", file);
+    }
+	
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

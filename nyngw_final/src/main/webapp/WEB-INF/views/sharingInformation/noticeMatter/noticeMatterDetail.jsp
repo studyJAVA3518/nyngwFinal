@@ -3,12 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>      
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
 <script>
 function noticeMatterDelete(id){
 	var con_test = confirm("공지사항을 삭제하시겠습니까?");
@@ -27,7 +21,6 @@ function noticeMatterDelete(id){
 	}
 }
 </script>
-<body>
 		<div>
 		<table class="table table-bordered">
 			<tr>
@@ -50,12 +43,10 @@ function noticeMatterDelete(id){
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td colspan="3">${board.board_file_name }</td>
+				<td colspan="3"><a href="/sharingInformation/noticeMatter/noticeDownload?fileName=${board.board_file_name }">${board.board_file_name }</a></td>
 			</tr>
 		</table>
 			<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
 			<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
 			<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 	</div>
-</body>
-</html>

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	공지사항 등록폼
+<script type="text/javascript">
+   function file_change(file){
+   var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
+   file = file.substring(str, file.length);
+   document.getElementsByName('board_file_name')[0].value=file;
+}
+</script>
+	<h1>공지사항 등록폼</h1>
 	<div>
-		<form action="/sharingInformation/noticeMatter/nmWrite" method="post">
+		<form enctype="multipart/form-data" action="nmWrite" method="POST">
 			<table class="table table-bordered">
 				<tr>
 					<th>게시판종류</th>
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th>파일이름</th>
-					<td><input type="text" name="board_file_name"></td>
+					<td><input type="file" name="board_file_name"  onchange="javascript:file_change(this.value);"></td>
 				</tr>
 			</table>
 			<input type="hidden" value="${page}">
@@ -38,5 +38,3 @@
 			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
 		</form>
 	</div>
-</body>
-</html>

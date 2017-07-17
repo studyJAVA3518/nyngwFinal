@@ -1,4 +1,4 @@
-package com.nyngw.documentManagement.documentManager.controller;
+package com.nyngw.dto;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
