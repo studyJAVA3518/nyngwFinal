@@ -8,16 +8,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
-<script type="text/javascript">
-   
-</script>
-
 
 <form>
 <table class="table table-bordered">
 	<tr>
 		<th>사진</th>
-		<td><img src="/resources/images/${MemberVoDetail.mem_img }"></td>
+		<td><img src="/resources/memface/${MemberVoDetail.mem_img }"></td>
 	</tr>
 	<tr>
 		<th>사원이름</th>
@@ -41,7 +37,7 @@
 	</tr>
 	<tr>
 		<th>서  명</th>
-		<td><img src="/resources/images/${MemberVoDetail.mem_sign }"/></td>
+		<td><img src="/resources/memsign/${MemberVoDetail.mem_sign }"/></td>
 	</tr>
 	
 					

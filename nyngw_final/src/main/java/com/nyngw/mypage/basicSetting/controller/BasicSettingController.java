@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.MemberVOup;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 
@@ -84,22 +86,43 @@ public class BasicSettingController {
 		return "mypage/basicSetting/updateMemberForm";
 	}
 	
-	@RequestMapping("/updateMember")
-	public String updateMember(MemberVO vo,Principal principal,Model model,String mem_npwd){
+	@RequestMapping(value="/updateMember", method=RequestMethod.POST)
+	public String updateMember(MemberVO vo,Principal principal,Model model,String mem_npwd, MemberVOup voup) throws IOException{
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/memface";
+		String upload2 = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/memsign";
+		
+		MultipartFile multipartFile = voup.getMem_imgup();
+		MultipartFile multipartFile2 = voup.getMem_signup();
 		String mem_id = principal.getName();
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO mem = basicSettingServiceImpl.selectMember(user.getUsername());
-		System.out.println(vo.getMem_pwd());
-		System.out.println(mem.getMem_pwd());
+		MemberVO memup = voup.toMemberVO();
 		if(vo.getMem_pwd().equals(mem.getMem_pwd())){
-			vo.setMem_sign("");
+			if(!multipartFile.isEmpty()){
+				File file = new File(upload , URLEncoder.encode(multipartFile.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
+				multipartFile.transferTo(file);
+				memup.setMem_img(multipartFile.getOriginalFilename());
+			}else{
+				vo.setMem_img(mem.getMem_img());
+			}
+			
+			if(!multipartFile2.isEmpty()){
+				File file2 = new File(upload2 , URLEncoder.encode(multipartFile2.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
+				multipartFile2.transferTo(file2);
+				memup.setMem_sign(multipartFile2.getOriginalFilename());
+			}else{
+				vo.setMem_img(mem.getMem_sign());
+			}
+			vo.setMem_img(memup.getMem_img());
+			vo.setMem_sign(memup.getMem_sign());
 			vo.setMem_id(mem_id);
-			vo.setMem_pwd(mem_npwd);
-			vo.setMem_img("");
+			if(mem_npwd.isEmpty()){
+				vo.setMem_pwd(mem.getMem_pwd());
+			}else{
+				vo.setMem_pwd(mem_npwd);
+			}
 			basicSettingServiceImpl.updateMember(vo);
-			model.addAttribute("msg", "성공적");
 		}else{
-			model.addAttribute("msg", "기존 비밀번호가 틀립니다.");
 			return "redirect:/mypage/basicSetting/updateMemberForm";
 		}
 		
@@ -110,88 +133,6 @@ public class BasicSettingController {
 	 * 파일업로드 등록버튼
 	 * @return 파일 업로드
 	 */
-	static final Logger LOG = LoggerFactory.getLogger(BasicSettingController.class);
-
-	/**
-	 * @throws IOException
-	 * @throws JsonMappingException
-	 * @throws JsonGenerationException
-	 */
-	@RequestMapping("/dragUpload")
-	public @ResponseBody String uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files, @RequestParam("fileNames") String[] fileNames, HttpServletRequest request, HttpServletResponse reponse) throws JsonGenerationException, JsonMappingException, IOException {
-		System.out.println("마하반야바라2");
-		String fileName = "";
-		String uploadDir = "C:\\test";
-		BufferedOutputStream outputStream = null;
-		ObjectMapper objectMapper = new ObjectMapper();
-		HashMap<String, Object> resultItemList = new HashMap<String, Object>();
-		
-		/**
-		 * [참고] 
-		 * Client에서 http header에 UserDefine 속성명을 추가해서 전달할때 받는 방법
-		 * (예) xhr.setRequestHeader("X-File-Name", encodeURIComponent('요청관리3.jpg'));
-		 * 
-		 *  서버단에서는 다음과 같이 받아서 처리한다.
-		 *  -------------------------------------------------------
-		 *  String fileName = request.getHeader("X-File-Name");
-		 *  fileName = URLDecoder.decode(fileName, "UTF-8");
-		 *  -------------------------------------------------------
-		 */
-		
-		int fileCount = files.length;
-		
-		resultItemList.put("count", fileCount);
-		for (int inx = 0; inx < fileCount; inx++) {
-			HashMap<String, String> resultItem = new HashMap<String, String>();
-			MultipartFile file = files[inx];
-			try {
-				byte[] bytes = file.getBytes();
-
-				File dir = new File(uploadDir);
-				if (!dir.exists()) {
-					dir.mkdirs();
-				}
-
-				int jnx = 1;
-				/**
-				 * 업로드된 첨부파일명을 읽어들일 때 'file.getOriginalFilename()' 대신(한글이 깨짐!) 
-				 * fileNames[inx] 에 저장된 파일명(한글깨짐을 예방하기 위해 인코딩되어있음)을 사용한다.
-				 */
-				fileName = URLDecoder.decode(fileNames[inx], "UTF-8");
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-				System.out.println("fileNames[" + inx + "] : " + fileNames[inx]);
-				/**
-				 *  dir.getAbsolutePath()      => C:\\appdev8\\workspace\\html\\web\\upload
-				 *  File.separator             => \\ (사실은 역슬레쉬 한개)
-				 *  file.getOriginalFilename() => 파일명
-				 */
-				while (serverFile.exists()) {
-					serverFile = new File(dir.getAbsolutePath() + File.separator + FilenameUtils.getBaseName(fileName) + "[" + jnx + "]." + FilenameUtils.getExtension(fileName));
-					jnx++;
-				}
-
-				outputStream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				outputStream.write(bytes);
-
-				resultItem.put("result", "true");
-				resultItem.put("filename", URLEncoder.encode(serverFile.getName(),"UTF-8")); //encoding해서 Client에 전달해야 한글이 않깨진다.
-				resultItemList.put(inx + "", resultItem);
-
-			} catch (Exception e) {
-				resultItem.put("result", "false");
-				resultItem.put("error", e.getMessage());
-				resultItemList.put(inx + "", resultItem);
-			} finally {
-				try {
-					if (outputStream != null) {
-						outputStream.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return objectMapper.writeValueAsString(resultItemList);
-	}
+	
+	
 }

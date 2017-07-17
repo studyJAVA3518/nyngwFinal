@@ -2,6 +2,8 @@ package com.nyngw.dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * 사원 테이블
  * @author pc09
@@ -30,6 +32,7 @@ public class MemberVO {
 	//-->추가
 	private String dept_name;			//부서 이름
 	private String position_name;		//직급 이름
+	
 	
 	public String getDept_name() {
 		return dept_name;
