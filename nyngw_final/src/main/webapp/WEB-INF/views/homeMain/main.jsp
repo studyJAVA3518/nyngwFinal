@@ -90,38 +90,35 @@
   						</div>
   						
   						<div class="col-md-6">
-	  						<h2 class="tableTitle">공지사항<a href="#">more</a></h2>
+	  						<h2 class="tableTitle">Today 개인/부서일정<a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code4">more</a></h2>
   							<table class="table">
   								<tr>
-  									<th>순서</th>
-  									<th>제목</th>
-  									<th>기안자</th>
+  									<th>일정종류</th>
+  									<th>일정제목</th>
+  									<th>일정시간</th>
   								</tr>
-  								<tr>
-  									<td>1</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>2</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>3</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>4</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>5</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
+  								<c:choose>
+  									<c:when test="${size != 0 }">
+  										<c:forEach items="${scheduleList}" var="scheduleList" begin="0" end="4" step="1">
+		  									<tr>
+												<%--<td>${scheduleList.sc_number.substring(2)}</td> --%>
+			  									<c:choose>
+			  										<c:when test="${scheduleList.sc_code_number != 'code4' }">
+			  											<td>부서</td>
+			  										</c:when>
+			  										<c:otherwise>
+			  											<td>개인</td>
+			  										</c:otherwise>
+			  									</c:choose>
+			  									<td><a href="/sharingInformation/scheduleManagement/scheduleDetail?sc_number=${scheduleList.sc_number}">${scheduleList.sc_title}</a></td>
+												<td>${scheduleList.sc_time}</td>
+			  								</tr>
+		  								</c:forEach>
+  									</c:when>
+  									<c:otherwise>
+  										<tr><td colspan="3">오늘 일정이 없습니다.</td></tr>
+	  								</c:otherwise>
+  								</c:choose>
   							</table>
   						</div>
   					</div>

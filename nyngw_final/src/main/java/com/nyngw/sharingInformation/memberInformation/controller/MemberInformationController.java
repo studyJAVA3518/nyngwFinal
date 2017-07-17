@@ -1,5 +1,6 @@
 package com.nyngw.sharingInformation.memberInformation.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.memberInformation.service.MemberInformationServiceImpl;
 
 @Controller
@@ -25,8 +26,11 @@ public class MemberInformationController {
 	 * @return 빈 리스트 url 반환
 	 */
 	@RequestMapping("/addressBook")
-	public String addressBookList(){
-		
+	public String addressBookList(Model model, @RequestParam(value="page",defaultValue="1") int pageNumber,String mem_name){
+		if(mem_name==null){
+			mem_name="";
+		}
+		memberInformationService.getMemberInfo(pageNumber, model,mem_name);
 		return "sharingInformation/memberInformation/addressBook";
 	}
 	
@@ -72,9 +76,13 @@ public class MemberInformationController {
 	 * @return	생일확인페이지의 url 반환
 	 */
 	@RequestMapping("/birthdayCheck")
-	public String birthdayCheck(){
-		
-		return "sharingInformation/memberInformation/birthdayCheck";
+	public String birthday(Model model, @RequestParam(value="page",defaultValue="1") int pageNumber,String month){
+		if(month== null){
+			month = Calendar.getInstance().get(Calendar.MONTH)+1+"";
+		}
+		memberInformationService.getBirthdayMember(pageNumber, model, month);
+		model.addAttribute("month",month);
+		return "sharingInformation/memberInformation/birthday";
 	}
 	
 	

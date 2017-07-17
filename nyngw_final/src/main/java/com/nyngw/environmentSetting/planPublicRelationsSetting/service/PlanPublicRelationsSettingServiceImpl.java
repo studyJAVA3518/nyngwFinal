@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
 
 @Service
@@ -62,11 +63,14 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		int result = planPublicRelationsSettingDao.updateCompanyLogo(company_logo, company_number);
 		return result;
 	}
-
+	
+	/**
+	 * 회사 부서 정보를 불러오는 메서드
+	 */
 	@Override
 	public void viewDeptInfo(Model model) throws SQLException {
 		
-		//회사 직급정보 
+		//회사부서정보 
 		ArrayList<DepartmentViewVO> dvList = planPublicRelationsSettingDao.selectDepartmentView();
 		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectUpperMember();
 		int DeptCount = planPublicRelationsSettingDao.selectDeptCount();
@@ -136,6 +140,134 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		int result = planPublicRelationsSettingDao.deleteDepartment(deleteDeptNum);
 		model.addAttribute("resultDeleteDept",result);
 	}
+	
+	
+	/**
+	 * 회사 직급정보 등록하는 메서드
+	 * @param model
+	 * @throws SQLException
+	 */
+	@Override
+	public void viewPositionInfo(Model model) throws SQLException {
+		
+		//회사직급정보 
+		ArrayList<PositionVO> posList = planPublicRelationsSettingDao.selectPositionList();
+		int positionCount = planPublicRelationsSettingDao.selectPositionCount();
+		
+		model.addAttribute("posList",posList);
+		model.addAttribute("positionCount",positionCount);
+	}
+	
+	/**
+	 * 직급정보 등록하는 메서드
+	 * @param model
+	 * @param PositionVO pvo
+	 * @throws SQLException
+	 */
+	@Override
+	public void enrollPosition(Model model, PositionVO pvo) throws SQLException {
+		
+		int result = planPublicRelationsSettingDao.insertPosition(pvo);
+		model.addAttribute("resultInserPosition",result);
+		
+	}
+	
+	/**
+	 * 직급정보 업데이트 전 부서의 하나의 정보를 가져오는 메서드
+	 * @param up_dept_number
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public PositionVO getPositiontOne(String up_position_number) throws SQLException{
+		PositionVO pvo = planPublicRelationsSettingDao.selectOnePosition(up_position_number);
+		return pvo;
+	}
+	
+	/**
+	 * 직급 정보 수정하는 메서드
+	 * @param model
+	 * @param String up_position_number
+	 * @param String up_position_name
+	 * @param String up_position_level
+	 */
+	public void modifyPosition(Model model, 
+			String up_position_number, 
+			String up_position_name) throws SQLException {
+		
+		PositionVO pvo = new PositionVO();
+		
+		pvo.setPosition_name(up_position_name);
+		pvo.setPosition_number(up_position_number);
+		
+		int result = planPublicRelationsSettingDao.updatePosition(pvo);
+		model.addAttribute("resultUpdatePosition",result);
+	}
+	
+	/**
+	 * 직급 정보 레벨 상위로 수정하는 메서드
+	 * @param model
+	 * @param String tmp_position_number
+	 */
+	public void modifyPositionLevelUp(Model model,
+			String tmp_position_number) throws SQLException {
+		
+		//회사직급정보 
+		ArrayList<PositionVO> posList = planPublicRelationsSettingDao.selectPositionList();
+		String tmp = "";
+		for(int i = 0; i<posList.size();i++){
+			if(tmp_position_number.equals(posList.get(i).getPosition_number())){
+				tmp = posList.get(i-1).getPosition_number();
+			}
+		}
+		
+		PositionVO pvo = getPositiontOne(tmp);
+		int levelUp = pvo.getPosition_level()-1;
+		PositionVO vo = new PositionVO();
+		vo.setPosition_level(levelUp);
+		vo.setPosition_number(tmp_position_number);
+		int result = planPublicRelationsSettingDao.updatePositionLevel(vo);
+		model.addAttribute("updatePositionLevelUp",result);
+	}
+	
+	/**
+	 * 직급 정보 레벨 하위로 수정하는 메서드
+	 * @param model
+	 * @param String tmp_position_number
+	 */
+	public void modifyPositionLevelDown(Model model, 
+			String tmp_position_number) throws SQLException{
+		
+		//회사직급정보 
+		ArrayList<PositionVO> posList = planPublicRelationsSettingDao.selectPositionList();
+		String tmp = "";
+		for(int i = 0; i<posList.size();i++){
+			if(tmp_position_number.equals(posList.get(i).getPosition_number())){
+				tmp = posList.get(i+1).getPosition_number();
+			}
+		}
+		
+		PositionVO pvo = getPositiontOne(tmp);
+		int levelUp = pvo.getPosition_level()+1;
+		PositionVO vo = new PositionVO();
+		vo.setPosition_level(levelUp);
+		vo.setPosition_number(tmp_position_number);
+		int result = planPublicRelationsSettingDao.updatePositionLevel(vo);
+		model.addAttribute("updatePositionLevelUp",result);
+		
+	}
+	
+	/**
+	 * 직급 정보 삭제하는 메서드
+	 * @param model
+	 * @param deletePositionNum
+	 */
+	public void removePosition(Model model, String deletePositionNum) throws SQLException{
+		int result = planPublicRelationsSettingDao.deletePosition(deletePositionNum);
+		model.addAttribute("resultDeletePosition",result);
+	}
+
+	
 	
 	
 

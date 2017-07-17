@@ -45,5 +45,9 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
 	public void writeSchedule(ScheduleVO schedule) {
 		scheduleManagementDao.SI_insertSchedule(schedule);
 	}
+	
+	public List<ScheduleVO> SI_selectMemberSchedule(String sc_mem_number){
+		return scheduleManagementDao.SI_selectMemberSchedule(sc_mem_number);
+	}
 
 }

@@ -11,9 +11,9 @@
 </head>
 <body>
 	<h1>주소록조회</h1>
-	<form action="/sharingInformation/board/list">
+	<form action="/sharingInformation/memberInformation/addressBook">
 		<label>이름</label>
-		<input type="text" name="val">
+		<input type="text" name="mem_name">
 		<input type="submit" value="검색">
 	</form>
 	<table class="table table-bordered">
@@ -25,28 +25,29 @@
 			<th>연락처</th>
 			<th>주소</th>
 		</tr>
-		<tr>
-			<td>인사</td>
-			<td>박횬근</td>
-			<td>쫄개</td>
-			<td>대전역@ㄴㅔ이버</td>
-			<td>없음</td>
-			<td>대전역 동광장 3번출구 부근</td>
-		</tr>
-		<tr>
-			<td>홍보</td>
-			<td>김근우</td>
-			<td>쫄개</td>
-			<td>대전역@다음</td>
-			<td>없음</td>
-			<td>대전역 동광장 2번출구 부근</td>
-		</tr>
-
+		<c:choose>
+			<c:when test="${addressBookViewVO.memberTotalCount > 0 }">
+				<c:forEach items="${addressBookViewVO.addressBookList }" var="addressBook">
+					<tr>
+						<td>${addressBook.mem_dept_name }</td>
+						<td>${addressBook.mem_name }</td>
+						<td>${addressBook.mem_position_name }</td>
+						<td>${addressBook.mem_email }</td>
+						<td>${addressBook.mem_tel }</td>
+						<td>${addressBook.mem_addr1 } 부근</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td style="text-align: center;" colspan="6">내용이 없습니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 	</table>
 	<div id="pageNum">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"
-			var="i">
-			<a href="/sharingInformation/board/list?page=${i }">[${i}]</a>
+		<c:forEach begin="1" end="${addressBookViewVO.getPageTotalCount()}" step="1" var="i">
+			<a href="/sharingInformation/memberInformation/addressBook?page=${i }">[${i}]</a>
 		</c:forEach>
 	</div>
 	
