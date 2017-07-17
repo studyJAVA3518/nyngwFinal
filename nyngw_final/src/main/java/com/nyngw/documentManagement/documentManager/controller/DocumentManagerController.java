@@ -2,6 +2,7 @@ package com.nyngw.documentManagement.documentManager.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.util.EncodingUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,7 +99,7 @@ public class DocumentManagerController {
 		MultipartFile multipartFile = document.getDoc_file_name();
 		
 		if(!multipartFile.isEmpty()){
-			File file = new File(upload , multipartFile.getOriginalFilename());//+"$$"+System.currentTimeMillis()
+			File file = new File(upload , URLEncoder.encode(multipartFile.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
 			
 			multipartFile.transferTo(file);
 			
