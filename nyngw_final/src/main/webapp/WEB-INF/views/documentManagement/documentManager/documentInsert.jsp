@@ -49,7 +49,9 @@
 				</tr>
 				<tr>
 					<th>설명</th>
-					<td  colspan="3"><textarea rows="20" cols="100" id="doc_explanation" name="doc_explanation"></textarea></td>
+					<td  colspan="3">
+					<textarea rows="20" cols="100" id="doc_explanation" name="doc_explanation"></textarea>
+					</td>
 				</tr>
 				<tr>
 					<th>파일</th>

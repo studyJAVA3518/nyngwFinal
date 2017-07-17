@@ -19,8 +19,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.ScheduleVO;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
+import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 import com.nyngw.sharingInformation.board.service.BoardServiceImpl;
+import com.nyngw.sharingInformation.scheduleManagement.service.ScheduleManagementServiceImpl;
 
 @Controller
 @RequestMapping("/homeMain")
@@ -30,6 +33,10 @@ public class HomeMainController {
 	AppointedUIServiceImpl appointedUIService;
 	@Autowired
 	BoardServiceImpl boardService;
+	@Autowired
+	private ScheduleManagementServiceImpl shceculeManagementService;
+	@Autowired
+	private BasicSettingServiceImpl basicSettingService; 
 	
 	@RequestMapping("/main")
 	public String homeMain(
@@ -47,8 +54,10 @@ public class HomeMainController {
 		String mem_id = user.getUsername();
 		//공지사항 리스트
 		List<BoardVO> boardList = null;
-		
-		
+		//일정관리
+		List<ScheduleVO> scheduleList = null;
+		MemberVO mem = basicSettingService.selectMember(mem_id);
+		String mem_number = mem.getMem_number();
 		try {
 			company = appointedUIService.checkCompany();
 			model.addAttribute("company",company);
@@ -56,7 +65,10 @@ public class HomeMainController {
 			model.addAttribute("member",member);
 			boardList = boardService.selectList();
 			model.addAttribute("boardList", boardList);
-		
+			scheduleList = shceculeManagementService.SI_selectMemberSchedule(mem_number);
+			model.addAttribute("scheduleList",scheduleList);
+			int size = scheduleList.size();
+			model.addAttribute("size",size);
 			//session에 회사 로고 경로를 저장해야 한다.
 			session.setAttribute("companyLogo",company.getCompany_logo());
 			session.setAttribute("companyNumber",company.getCompany_number());

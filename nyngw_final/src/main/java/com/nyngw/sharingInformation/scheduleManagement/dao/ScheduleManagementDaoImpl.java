@@ -32,5 +32,9 @@ public class ScheduleManagementDaoImpl implements ScheduleManagementDao {
 	public void SI_insertSchedule(ScheduleVO schedule) {
 		sqlSession.delete("SI_insertSchedule",schedule);
 	}
+	
+	public List<ScheduleVO> SI_selectMemberSchedule(String sc_mem_number){
+		return sqlSession.selectList("SI_selectMemberSchedule", sc_mem_number);
+	}
 
 }
