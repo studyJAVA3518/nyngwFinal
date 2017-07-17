@@ -7,5 +7,44 @@
 	<select id="SI_selectDepartment" resultType="com.nyngw.dto.DepartmentVO">
 		select * from department
 	</select>
-
+		
+	<select id="SI_selectMemberCount" resultType="int">
+		select count(*) from member where mem_name = #{mem_name}
+	</select>
+		
+	<select id="SI_selectBirthdayMemberCount" resultType="int">
+		select count(*) from member where substr(mem_birthday,4,2) = #{month}
+	</select>
+		
+	<select id="SI_selectAllMemberCount" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<select id="SI_selectAllMember" parameterType="string" resultType="com.nyngw.dto.AddressBookVO">
+		<!-- 부서	이름	직위	메일주소	연락처	주소 -->
+		select to_number(substr(mem_dept_number,5)) dept_number,
+		(select d.dept_name from department d where m.mem_dept_number = d.dept_number) mem_dept_name, 
+		mem_name, 
+		(select p.position_name from position p where m.mem_position_number = p.position_number) mem_position_name, 
+		mem_email, 
+		mem_tel, 
+		mem_addr1 
+		from member m 
+		where mem_name like '%'||#{mem_name}||'%'
+		order by 1
+	</select>
+	
+	<select id="SI_selectBirthdayMember" parameterType="string" resultType="com.nyngw.dto.BirthdayVO">
+		<!-- 부서	이름	직위	메일주소	연락처	주소 -->
+		select to_number(substr(mem_dept_number,5)) dept_number,
+		mem_birthday,
+		(select d.dept_name from department d where m.mem_dept_number = d.dept_number) mem_dept_name, 
+		mem_name, 
+		(select p.position_name from position p where m.mem_position_number = p.position_number) mem_position_name, 
+		mem_email, 
+		mem_tel 
+		from member m 
+		where substr(mem_birthday,4,2) = #{month}
+		order by 1
+	</select>
 </mapper>
