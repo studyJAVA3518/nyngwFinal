@@ -9,6 +9,20 @@
 
 //부서 등록하기
 function insertDept_go(form){
+	
+	if(!document.getElementById("dept_name").value){
+		alert("부서 이름을 입력해야 합니다.");
+		return;
+	}
+	if(!document.getElementById("dept_tel").value){
+		alert("부서 연락처를 입력해야 합니다.");
+		return;
+	}
+	if(!document.getElementById("dept_addr").value){
+		alert("부서 위치를 입력해야 합니다.");
+		return;
+	}
+	
 	document.insertDeptForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyDepartInsert";
 	document.insertDeptForm.method = "post";
 	document.insertDeptForm.submit();
@@ -16,6 +30,20 @@ function insertDept_go(form){
 
 //부서 수정하기
 function updateDept_go(){
+	
+	if(!document.getElementById("up_dept_name").value){
+		alert("부서 이름을 입력해야 합니다.");
+		return;
+	}
+	if(!document.getElementById("up_dept_tel").value){
+		alert("부서 연락처를 입력해야 합니다.");
+		return;
+	}
+	if(!document.getElementById("up_dept_addr").value){
+		alert("부서 위치를 입력해야 합니다.");
+		return;
+	}
+	
 	document.updateDeptForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyDepartmentUpdate";
 	document.updateDeptForm.method = "post";
 	document.updateDeptForm.submit();

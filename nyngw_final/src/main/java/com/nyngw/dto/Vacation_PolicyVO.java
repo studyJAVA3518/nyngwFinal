@@ -34,4 +34,12 @@ public class Vacation_PolicyVO {
 	public void setVp_payonoff(String vp_payonoff) {
 		this.vp_payonoff = vp_payonoff;
 	}
+	@Override
+	public String toString() {
+		return "Vacation_PolicyVO [vp_number=" + vp_number + ", vp_kind="
+				+ vp_kind + ", vp_totalday=" + vp_totalday + ", vp_payonoff="
+				+ vp_payonoff + "]";
+	}
+	
+	
 }

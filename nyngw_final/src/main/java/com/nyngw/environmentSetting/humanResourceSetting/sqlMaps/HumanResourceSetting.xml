@@ -2,7 +2,45 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="humanResourceSetting">
+<mapper namespace="com.nyngw.environmentSetting.humanResourceSetting.dao.HumanResourceSettingDao">
+	
+	<select id="getVactionKind_HRS" resultType="com.nyngw.dto.Vacation_PolicyVO">
+		select *
+		from VACATION_POLICY
+	</select>
 
+	<update id="updateDateVacation_HRS" parameterType="com.nyngw.dto.Vacation_PolicyVO">
+		update VACATION_POLICY
+		set vp_totalday=#{vp_totalday},vp_payonoff=#{vp_payonoff}
+		where vp_number = #{vp_number}
+	</update>
+	
+	<insert id="insertVacation_HRS" parameterType="com.nyngw.dto.Vacation_PolicyVO">
+		insert into VACATION_POLICY values('vp'||vp_seq.nextval,#{vp_kind},#{vp_totalday},#{vp_payonoff})
+	</insert>
 
+	<delete id="deleteVacation_HRS" parameterType="com.nyngw.dto.Vacation_PolicyVO">
+		delete from VACATION_POLICY
+		where vp_number = #{vp_number}
+	</delete>
+	
+	<select id="getVacationYearSetting_HRS" resultType="com.nyngw.dto.Year_VacationVO"> 
+		select *
+		from Year_Vacation
+		order by 1
+	</select>
+	
+	<update id="setModifyVacationYearSetting_HRS" parameterType="com.nyngw.dto.Year_VacationVO">
+		update Year_Vacation
+		set yv_vacation_day =#{yv_vacation_day}
+		where yv_year =#{yv_year}
+	</update> 
+	
+	<insert id="setYearVacation_HRS" parameterType="com.nyngw.dto.Year_VacationVO">
+		insert into Year_Vacation values(#{yv_year},#{yv_vacation_day})
+	</insert>
+	
+	<delete id="deleteYearVacation_HRS" parameterType="com.nyngw.dto.Year_VacationVO">
+		delete from Year_Vacation where yv_year =#{yv_year}
+	</delete>
 </mapper>
