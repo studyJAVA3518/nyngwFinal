@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardListViewVO;
@@ -29,7 +33,7 @@ import com.nyngw.sharingInformation.board.service.BoardServiceImpl;
 
 @Controller
 @RequestMapping("/sharingInformation/board")
-public class BoardController {
+public class BoardController implements ApplicationContextAware{
 	@Autowired
 	private BoardServiceImpl boardService;
 	
@@ -122,7 +126,6 @@ public class BoardController {
 			multipartFile.transferTo(file);
 			BoardVO board = commandboard.toBoardVO();
 			MemberVO member = basicSettingService.selectMember(principal.getName());
-			System.out.println(principal.getName());
 			board.setBoard_mem_number(member.getMem_number());
 			board.setBoard_file_name(multipartFile.getOriginalFilename());
 			boardService.boardInsert(board);
@@ -306,6 +309,24 @@ public class BoardController {
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/sharingInformation/board/detail?board_number="+board_number);
 		return resultMap;
+	}
+	
+	@RequestMapping("/boardDownload")
+    public ModelAndView download(@RequestParam("fileName")String fileName){ // 가져올 파일이름을 넘겨받음.
+         
+    	//파일을 가져올 경로를 적어주고 + 가져올 파일 이름을 받아옴. 
+        String fullPath = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board/" + fileName;
+         
+        File file = new File(fullPath);
+         
+        return new ModelAndView("download", "downloadFile", file);
+    }
+	
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
