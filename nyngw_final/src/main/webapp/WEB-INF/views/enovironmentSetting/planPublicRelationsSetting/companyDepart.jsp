@@ -8,8 +8,8 @@
 <script>
 
 //부서 등록하기
-function insertDept_go(){
-	document.insertDeptForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyDepartmentInsert";
+function insertDept_go(form){
+	document.insertDeptForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyDepartInsert";
 	document.insertDeptForm.method = "post";
 	document.insertDeptForm.submit();
 }

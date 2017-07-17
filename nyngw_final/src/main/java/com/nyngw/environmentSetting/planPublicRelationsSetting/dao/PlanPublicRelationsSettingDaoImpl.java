@@ -203,6 +203,13 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		return result;
 	}
 	
+	@Override
+	public int updatePositionLevel(PositionVO vo) throws SQLException{
+		int result = sqlSession.update("esUpdatePositionLevel", vo);
+		return result;
+	}
+
+	
 	
 
 	

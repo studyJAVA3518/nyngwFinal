@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
 
@@ -99,7 +100,6 @@ public class PlanPublicRelationsSettingController {
 		if (logo.equals("basic")) {
 			
 			uploadFilePath = "resources/images/basic_logo.jpg";
-			System.out.println("기본로고!!!!!!!!!!!!!!");
 		
 		// custom : 원하는 파일을 업로드하여 로고를 변경한다
 		}else if(logo.equals("custom")){	
@@ -216,17 +216,15 @@ public class PlanPublicRelationsSettingController {
 	/**
 	 * 회사 부서 등록 컨트롤러
 	 */
-	@RequestMapping("/companyDepartInsert")
-	public String companyDepartInsert(Model model,
+	@RequestMapping(value="/companyDepartInsert",method=RequestMethod.POST)
+	public String companyDepartInsert(Model model, HttpServletRequest request, 
 			DepartmentVO deptVO){
-		
-		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+		System.out.println("부서 컨트롤러 진입!!");
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyDepartForm";
 
 		try {
 			//부서등록
 			planPublicRelationsSettingService.enrollDept(model, deptVO);
-			//변경된 부서 정보를 다시 가져온다~
-			planPublicRelationsSettingService.viewDeptInfo(model);
 			//변경된 부서 정보를 다시 가져온다~
 			planPublicRelationsSettingService.viewDeptInfo(model);
 		} catch (SQLException e) {
@@ -268,9 +266,10 @@ public class PlanPublicRelationsSettingController {
 			@RequestParam("up_dept_membernumber") String up_dept_membernumber,
 			@RequestParam("up_dept_membernumber_origin") String up_dept_membernumber_origin,
 			@RequestParam("up_dept_tel") String up_dept_tel,
-			@RequestParam("up_dept_addr") String up_dept_addr ){
+			@RequestParam("up_dept_addr") String up_dept_addr ,
+			HttpServletRequest request){
 		
-		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyDepartForm";
 		
 		try {
 			//수정할 멤버를 선택하지 않았다면~!!(셀렉트박스에서 선택하지 않았다면)
@@ -317,19 +316,163 @@ public class PlanPublicRelationsSettingController {
 	 * 회사 직급 설정 화면으로 이동
 	 */
 	@RequestMapping("/companyPositionForm")
-	public String companyPositionForm(){
+	public String companyPositionForm(Model model){
 		String url = "enovironmentSetting/planPublicRelationsSetting/companyPosition";
+		try {
+			//회사 직급 정보를 가져온다
+			planPublicRelationsSettingService.viewPositionInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return url;
 	}
 	
 	/**
-	 * 조직도 설정 화면으로 이동
+	 * 회사 직급 등록 컨트롤러
 	 */
-	@RequestMapping("/organizationForm")
-	public String organizationForm(){
-		String url = "enovironmentSetting/planPublicRelationsSetting/organization";
+	@RequestMapping("/companyPositionInsert")
+	public String companyDepartInsert(Model model, HttpServletRequest request,
+			PositionVO positionVO){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyPositionForm";
+
+		try {
+			//직급등록
+			planPublicRelationsSettingService.enrollPosition(model, positionVO);
+			//회사 직급 정보를 가져온다
+			planPublicRelationsSettingService.viewPositionInfo(model);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return url;
 	}
+	
+	
+	
+	/**
+	 * 직급하나의 정보를 가져오는 컨트롤러(ajax)
+	 */
+	@RequestMapping("/checkPositionOne")
+	public @ResponseBody Map<String,Object> selectPositionOne(String tmp_position_number){
+		Map<String,Object> map = new HashMap<String, Object>();
+		PositionVO pvo = null;
+		try {
+			pvo = planPublicRelationsSettingService.getPositiontOne(tmp_position_number);
+			map.put("position_number", pvo.getPosition_number());
+			map.put("position_name", pvo.getPosition_name());
+			map.put("position_level", pvo.getPosition_level());
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	/**
+	 * 직급 수정하는 컨트롤러
+	 */
+	@RequestMapping(value="/updateLevelUp")
+	public String companyPositionUpdateLevelUp(Model model,
+			@RequestParam("tmp_position_number") String tmp_position_number,
+			HttpServletRequest request
+			){
+		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyPositionForm";
+		
+		try {
+			//직급 수정
+			planPublicRelationsSettingService
+				.modifyPositionLevelUp(model, tmp_position_number);
+			//변경된 직급 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewPositionInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	/**
+	 * 직급 레벨 하위로 수정하는 컨트롤러
+	 */
+	@RequestMapping(value="/updateLevelDown")
+	public String companyPositionUpdateLevelDown(Model model,
+			@RequestParam("tmp_position_number") String tmp_position_number,
+			HttpServletRequest request
+			){
+		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyPositionForm";
+		
+		try {
+			//직급 수정
+			planPublicRelationsSettingService
+				.modifyPositionLevelDown(model, tmp_position_number);
+			//변경된 직급 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewPositionInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	/**
+	 * 직급 레벨 상위로 수정하는 컨트롤러
+	 */
+	@RequestMapping(value="/companyPositionUpdate",method=RequestMethod.POST)
+	public String companyPositionUpdate(Model model,
+			@RequestParam("up_position_number") String up_position_number,
+			@RequestParam("up_position_name") String up_position_name,
+			HttpServletRequest request
+			){
+		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyPositionForm";
+		
+		try {
+			//직급 수정
+			planPublicRelationsSettingService
+			.modifyPosition(model, up_position_number, up_position_name);
+			//변경된 직급 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewPositionInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	
+	/**
+	 * 회사 직급 삭제하는 컨트롤러
+	 */
+	@RequestMapping("/companyPositionDelete")
+	public String companyPositionDelete(Model model, HttpServletRequest request, 
+			@RequestParam("tmp_position_number") String deletePositionNum){
+		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyPositionForm";
+		
+		try {
+			//직급 삭제
+			planPublicRelationsSettingService.removePosition(model,deletePositionNum);
+			//변경된 직급 정보를 다시 가져온다~
+			planPublicRelationsSettingService.viewPositionInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	
+	
+	
+	/**
+	 * 조직도 설정 화면으로 이동
+	 */
+//	@RequestMapping("/organizationForm")
+//	public String organizationForm(){
+//		String url = "enovironmentSetting/planPublicRelationsSetting/organization";
+//		return url;
+//	}
 	
 	/**
 	 * 급여 정책 설정 화면으로 이동
