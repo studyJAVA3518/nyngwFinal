@@ -79,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardInsert(BoardVO board) {
 		Date dt = new Date();
-		board.setBoard_number(selectMax());
+//		board.setBoard_number(selectMax());
 		board.setBoard_code_number("code7");
 		board.setBoard_date(dt);
 		board.setBoard_count("0");

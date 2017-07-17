@@ -118,20 +118,22 @@ public class BoardController implements ApplicationContextAware{
 	 * @return 등록 url 반환
 	 */
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal) throws IOException{//,Principal principal
-		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
+	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal,@RequestParam( value="content") String board_content) throws IOException{//,Principal principal
+		System.out.println(board_content);
+		/*String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
 		if(!multipartFile.isEmpty()){
 			File file = new File(upload,multipartFile.getOriginalFilename());
-			multipartFile.transferTo(file);
+			multipartFile.transferTo(file);*/
 			BoardVO board = commandboard.toBoardVO();
 			MemberVO member = basicSettingService.selectMember(principal.getName());
 			board.setBoard_mem_number(member.getMem_number());
-			board.setBoard_file_name(multipartFile.getOriginalFilename());
+			board.setBoard_content(board_content);
+//			board.setBoard_file_name(multipartFile.getOriginalFilename());
 			boardService.boardInsert(board);
 			return "redirect:/sharingInformation/board/list";
-		}
-		return "sharingInformation/board/writeForm";
+		/*}*/
+//		return "sharingInformation/board/writeForm";
 	}
 	
 	/**
@@ -199,7 +201,7 @@ public class BoardController implements ApplicationContextAware{
 	@RequestMapping("/detail")
 	public String boardDetail(String board_number, Model model,String page){
 		BoardVO board = boardService.selectBoard(board_number);
-		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
 		List<Board_CommentVO> comment = boardService.answerSelectList(board_number);
 		
