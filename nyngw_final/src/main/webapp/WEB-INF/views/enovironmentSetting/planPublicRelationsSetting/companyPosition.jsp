@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 
-<!-- 환경설정관리 -> 기획홍보부 설정 ->회사 직급 설정
-에 대한 화면 -->
+<!-- 환경설정관리 -> 기획홍보부 설정 ->회사 직급 설정에 대한 화면 -->
+
+
+
 
 <h2>회사 직급 설정</h2>
 <p>
-	회사의 직급을 등록하거나 수정하실 수 있으며, 위 아래 버튼을 눌러 위치를 변경하실 수 있습니다.
+	회사의 직급을 등록하거나 수정하실 수 있으며, 위 아래 버튼을 눌러 위치를 변경하실 수 있습니다.<br/>
 	ex) 부장, 과장, 대리, 사원 등
 </p>
 <div class="row">
@@ -47,19 +49,7 @@
 						<input type="submit" value="▲아래로" class="btn btn-default" action="downPoNum_go();"/> 
 					</td>
 					<td>
-						<input type="submit" value="직급 수정" onclick="updatePosition_go();"/>
-						<input type="submit" value="직급 삭제" onclick="deletePosition_go();"/>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>부사장</td>
-					<td>
-						<input type="submit" value="▲위로" class="btn btn-default" action="upPoNum_go();"/> 
-						<input type="submit" value="▲아래로" class="btn btn-default" action="downPoNum_go();"/> 
-					</td>
-					<td>
-						<input type="submit" value="직급 수정" onclick="updatePosition_go();"/>
+						<input type="submit" value="직급 수정" id="updatePositionFormBtn"/>
 						<input type="submit" value="직급 삭제" onclick="deletePosition_go();"/>
 					</td>
 				</tr>
@@ -68,28 +58,73 @@
 	</div>
 </div>
 
-<script>
-	function updatePosition_go(){
-		alert("직급수정!!");
 
-		var url = "/enovironmentSetting/positionPopupForm";
-	    
-	    cw=screen.availWidth;     //화면 넓이
-	    ch=screen.availHeight;    //화면 높이
+<div class="updatePositionBox">
+	<h4>직급 수정하기</h4>
+	<table class="table">
+		<form action="updatePositionForm" method="post">
+			<tr>
+				<th>직급 이름</th>
+				<td>
+					<div class="form-group">
+						<input type="text" id="position_name" name="position_name"/>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="부서 수정"/>
+				</td>
+			</tr>
+		</form>
+	</table>
+</div>
+
+<script>
 	
-	    sw=600;    //띄울 창의 넓이
-	    sh=650;    //띄울 창의 높이
+	//직급 수정하는 팝업 열어주는 함수
+	//부서 수정 창 숨기기
+	$(function(){
 	
-	    ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
-	    mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+		//부서 수정 창 숨기기
+		$('.updatePositionBox').css('display', 'none');
+		
+		//부서 수정 보여주기
+		$(".updatePositionFormBtn").click(function(){
+			var tmp = $(this).siblings('input').val();
+			$.ajax({
+				url:'/enovironmentSetting/planPublicRelationsSetting/checkPositionOne',
+				type:'get',
+				data: {'해당 input태그 name 적기' : tmp},
+				success : function(res){
+					$('#up_position_number').val(res.dept_number);				
+					$('#up_position_name').val(res.dept_name);				
+				},
+				dataType : 'json'
+			})
+			
+			$('.updatePositionBox').dialog({
+				width: 700,
+				height: 500,
+				modal: true,
+				buttons: {
+			       "취소": function() {
+						$(this).dialog("close");
+					}
+				},
+				close: function() {
+				}
+			});
+		})
+	})
 	
-	    window.open(
-	       url,
-	       "_blank_1",
-	       "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width="
-	       +sw+",height="+sh+",top="+mt+",left="+ml
-	    );
+	//직급 수정하는 함수
+	function updatePosition_go(){
+		
 	}
+	
+	//직급 삭제하는 함수
 	function deletePosition_go(){
 		alert("직급삭제!!");
 	}

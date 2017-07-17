@@ -69,9 +69,11 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		//회사 직급정보 
 		ArrayList<DepartmentViewVO> dvList = planPublicRelationsSettingDao.selectDepartmentView();
 		ArrayList<DepartmentViewVO> upperMemList = planPublicRelationsSettingDao.selectUpperMember();
+		int DeptCount = planPublicRelationsSettingDao.selectDeptCount();
 		
 		model.addAttribute("dvList",dvList);
 		model.addAttribute("upperMemList",upperMemList);
+		model.addAttribute("DeptCount",DeptCount);
 	}
 	
 	/**
@@ -91,7 +93,18 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	}
 	
 	/**
-	 * 부서 정보 삭제하는 메서드
+	 * 부서정보 업데이트 전 부서의 하나의 정보를 가져오는 메서드
+	 * @param up_dept_number
+	 * @return
+	 * @throws SQLException
+	 */
+	public DepartmentVO getDeptOne(String up_dept_number) throws SQLException{
+		DepartmentVO dvo = planPublicRelationsSettingDao.selectDepartOne(up_dept_number);
+		return dvo;
+	}
+	
+	/**
+	 * 부서 정보 수정하는 메서드
 	 * @param model
 	 * @param DepartmentVO dvo
 	 */
@@ -123,10 +136,7 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		int result = planPublicRelationsSettingDao.deleteDepartment(deleteDeptNum);
 		model.addAttribute("resultDeleteDept",result);
 	}
-
-	public DepartmentVO getDeptOne(String up_dept_number) throws SQLException{
-		DepartmentVO dvo = planPublicRelationsSettingDao.selectDepartOne(up_dept_number);
-		return dvo;
-	}
+	
+	
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.PositionVO;
 
 public interface PlanPublicRelationsSettingDao {
 	
@@ -95,6 +96,25 @@ public interface PlanPublicRelationsSettingDao {
 	 * @throws SQLException
 	 */
 	int deleteDepartment(String deleteDeptNum) throws SQLException;
+	
+	/**
+	 * 회사 부서 개수 세주는 메서드
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int selectDeptCount() throws SQLException;
+
+	int selectPositionCount() throws SQLException;
+
+	ArrayList<PositionVO> selectPositionList() throws SQLException;
+
+	int insertPosition(PositionVO vo) throws SQLException;
+
+	PositionVO selectOnePosition(String position_number) throws SQLException;
+
+	int updatePosition(PositionVO vo) throws SQLException;
+
+	int deletePosition(String deletePositionNum) throws SQLException;
 
 	
 }

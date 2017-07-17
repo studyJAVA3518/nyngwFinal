@@ -28,7 +28,14 @@
 		values (com_seq.nextval, #{company_name},#{company_tel},#{company_zip},#{company_addr1},#{company_addr2})
 	</update>
 	
-	<!-- 직급정보(View) 조회 -->
+	<!-- 회사 부서 개수 조회 -->
+	<select id="esSelectDeptCount" resultType="java.lang.Integer">
+		select
+			count(*)
+		from department
+	</select>
+	
+	<!-- 회사 부서 정보(View) 조회 -->
 	<select id="esSelectDepartmentView" resultType="com.nyngw.dto.DepartmentViewVO">
 		select 
 		  dept_number,
@@ -47,19 +54,23 @@
 		order by dept_level, dept_name
 	</select>
 	
+	<!-- 부서장이 될 수 있는 상위 직급 가져오기 -->
 	<select id="esSelectUpperMember" resultType="com.nyngw.dto.DepartmentViewVO">
+		<![CDATA[
 		select 
 			mem_number,
 			mem_name,
 			mem_position_number,
 			position_number,
-			position_name
+			position_name,
+			position_level
 		from dept_view
-		where mem_position_number in ('position1', 'position2', 'position3')
-		order by position_number
+		where position_level < 40
+		order by position_number, mem_number
+		]]>
 	</select>
 	
-	<!-- 직급정보 등록 -->
+	<!-- 회사 부서 정보 등록 -->
 	<update id="esInsertDepartment" parameterType="com.nyngw.dto.DepartmentVO">
 		insert into department (dept_number, dept_name, dept_membernumber, dept_tel, dept_level, dept_addr, dept_parents)
 		values ('dept'||dept_seq.nextval, #{dept_name},#{dept_membernumber},#{dept_tel},#{dept_level},#{dept_addr},#{dept_parents})
@@ -73,7 +84,7 @@
 		where dept_number=#{dept_number}
 	</select>
 	
-	<!-- 하나의 직급정보를 가져오기 -->
+	<!-- 하나의 회사 부서 정보를 가져오기 -->
 	<select id="esSelectOneDept" parameterType="java.lang.String" resultType="com.nyngw.dto.DepartmentVO">
 		select
 			* 
@@ -81,15 +92,66 @@
 		where dept_number=#{dept_number}
 	</select>
 	
-	<!-- 직급정보 수정 -->
+	<!-- 회사 부서 정보 수정 -->
 	<update id="esUpdateDepartment" parameterType="com.nyngw.dto.DepartmentVO">
-		update company set 
-			company_logo=#{company_logo} 
-		where company_number = #{company_number}
+		update department set 
+			dept_name=#{dept_name},
+			dept_membernumber = #{dept_membernumber},
+			dept_tel = #{dept_tel},
+			dept_addr = #{dept_addr} 
+		where dept_number = #{dept_number}
 	</update>
 	
-	<!-- 직급정보 삭제 -->
+	<!-- 회사 부서 정보 삭제 -->
 	<update id="esDeleteDepartment" parameterType="java.lang.String">
 		delete from department where dept_number=#{deleteDeptNum}
+	</update>
+	
+	
+	
+	
+	
+	<!-- 회사 직급 개수 조회 -->
+	<select id="esSelectPositionCount" resultType="java.lang.Integer">
+		select
+			count(*) 
+		from position
+	</select>
+	
+	<!-- 회사 직급 정보 조회 -->
+	<select id="esSelectPosition" resultType="com.nyngw.dto.PositionVO">
+		select 
+			to_number(substr(position_number,9)),
+			position_name,
+			position_level
+		from position
+		order by position_level, to_number(substr(position_number,9))
+	</select>
+	
+	<!-- 회사 직급 정보 등록 -->
+	<update id="esInsertPosition" parameterType="com.nyngw.dto.PositionVO">
+		insert into position (position_number, position_name, position_level)
+		values ('position'||position_seq.nextval, #{position_name},#{position_level})
+	</update>
+	
+	<!-- 하나의 회사 직급 정보를 가져오기 -->
+	<select id="esSelectOnePosition" parameterType="java.lang.String" resultType="com.nyngw.dto.PositionVO">
+		select
+			* 
+		from position
+		where position_number=#{position_number}
+	</select>
+	
+	<!-- 회사 직급 정보 수정 -->
+	<update id="esUpdatePosition" parameterType="com.nyngw.dto.PositionVO">
+		update position set 
+			position_name=#{position_name},
+			position_level = #{position_level}
+		where position_number = #{position_number}
+	</update>
+	
+	<!-- 회사 직급 정보 삭제 -->
+	<update id="esDeletePosition" parameterType="java.lang.String">
+		delete from position where position_number=#{deletePositionNum}
 	</update>
 </mapper>
