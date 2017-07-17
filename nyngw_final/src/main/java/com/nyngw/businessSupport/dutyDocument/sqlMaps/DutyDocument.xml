@@ -3,6 +3,30 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDao">
+	<select id="selectDocumentCount_DD" resultType="java.lang.Integer">
+		select count(*) from duty_document where dd_public = 'n'
+	</select>
 
+	<select id="selectDocumentList_DD" parameterType="com.nyngw.dto.Board_SelectVO"
+		resultType="com.nyngw.dto.Duty_DocumentVO">
+		<!-- 우선 전체 출력이 되도록한다. -->
+		select * from duty_document where 1 = 1
+		and to_char(dd_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
+		AND dd_code_number like '%'||#{reportType}||'%'
+		AND dd_title like '%'||#{val}||'%'
+		<!-- 그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
+		and dd_public = 'n' order by 1 desc
+	</select>
 
+	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"
+		resultType="java.lang.Integer">
+		select count(*) from duty_document where dd_public = 'n'
+		AND dd_title like '%'||#{val}||'%'
+		and	to_char(dd_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
+		AND dd_code_number like '%'||#{reportType}||'%'
+	</select>
+	
+	<select id="documentSelectCodeName_DD" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
+		select code_name from common_code where code_number = #{reportType} 
+	</select>
 </mapper>

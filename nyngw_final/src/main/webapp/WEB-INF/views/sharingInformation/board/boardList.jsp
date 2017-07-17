@@ -16,8 +16,8 @@
 	
 	<form action="/sharingInformation/board/list">
 		<select name="index">
-				<option value="board_mem_number" selected="selected">작성자</option>
-				<option value="board_title">제목</option>
+				<option value="board_mem_number">작성자</option>
+				<option value="board_title" selected="selected">제목</option>
 		</select>
 		<input type="hidden" value="${select.index}">
 		<input type="text" name="val" value="${select.val}">

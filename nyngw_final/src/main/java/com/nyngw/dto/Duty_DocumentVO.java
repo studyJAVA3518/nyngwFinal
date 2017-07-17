@@ -15,7 +15,20 @@ public class Duty_DocumentVO {
 	private String dd_public;		//공개여부
 	private String dd_mem_number;	//작성자
 	private String dd_code_number;	//업무일지구분번호
-	
+	private String mem_name;//이름
+	private String dd_code_name; // 문서종류
+	public String getDd_code_name() {
+		return dd_code_name;
+	}
+	public void setDd_code_name(String dd_code_name) {
+		this.dd_code_name = dd_code_name;
+	}
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
 	public String getDd_public() {
 		return dd_public;
 	}
