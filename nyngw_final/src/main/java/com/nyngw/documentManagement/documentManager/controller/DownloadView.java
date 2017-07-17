@@ -35,19 +35,20 @@ public class DownloadView extends AbstractView {
         String userAgent = request.getHeader("User-Agent");
          
         boolean ie = userAgent.indexOf("MSIE") > -1;
-         
+        boolean chrome = userAgent.indexOf("Chrome") > -1;
+        boolean firefox = userAgent.indexOf("Firefox") > -1;
         String fileName = null;
          
         if(ie){
-             
-            fileName = URLEncoder.encode(file.getName(), "utf-8");
-                         
+        	fileName = URLEncoder.encode(file.getName(), "utf-8");
+        } else if(chrome){
+        	fileName = URLEncoder.encode(file.getName(), "utf-8");
+        } else if(firefox){
+        	fileName = URLEncoder.encode(file.getName(), "utf-8");
         } else {
-             
             fileName = new String(file.getName().getBytes("utf-8"));
-             
         }// end if;
- 
+        
          
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
          
