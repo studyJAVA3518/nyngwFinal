@@ -73,7 +73,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	}
 	
 	/**
-	 * 회사의 직급에 대한 모든 정보를 조회하는 메서드
+	 * 회사의 부서에 대한 모든 정보를 조회하는 메서드
 	 * @return ArrayList<DepartmentViewVO>
 	 * @throws SQLException
 	 */

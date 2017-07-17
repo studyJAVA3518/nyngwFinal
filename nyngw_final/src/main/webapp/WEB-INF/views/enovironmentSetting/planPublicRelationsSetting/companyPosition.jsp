@@ -110,6 +110,12 @@
 	
 	//직급 등록하는 함수
 	function insertPosition_go(){
+		
+		if(!document.getElementById("position_name").value){
+			alert("직급 이름을 입력해야 합니다.");
+			return;
+		}
+		
 		document.positionInsertForm.method="post";
 		document.positionInsertForm.action="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyPositionInsert";
 		document.positionInsertForm.submit();
@@ -153,6 +159,12 @@
 	
 	//직급 수정하는 함수
 	function updatePosition_go(){
+		
+		if(!document.getElementById("up_position_name").value){
+			alert("직급 이름을 입력해야 합니다.");
+			return;
+		}
+		
 		document.updatePositionForm.method="post";
 		document.updatePositionForm.action="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyPositionUpdate";
 		document.updatePositionForm.submit();

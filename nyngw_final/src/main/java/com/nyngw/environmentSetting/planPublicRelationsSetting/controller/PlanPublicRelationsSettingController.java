@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
@@ -50,6 +51,82 @@ public class PlanPublicRelationsSettingController {
 	public String workingDaysForm(){
 		String url = "enovironmentSetting/planPublicRelationsSetting/workingDay";
 		return url;
+	}
+	
+	/**
+	 * 출근정보가 입력된 엑셀파일을 업로드해서 엑셀파일을 읽어오는 메서드
+	 * @param multipartFile - 받아온 엑셀파일
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateExcelFile",method=RequestMethod.POST)
+	public String uploadlFile(
+			MultipartHttpServletRequest request,
+			Model model) throws IOException{
+		
+		MultipartFile excelFile = request.getFile("excelFile");
+		
+		System.out.println("엑셀 파일 업로드 컨트롤러");
+		
+		if(excelFile==null || excelFile.isEmpty()){
+            throw new RuntimeException("엑셀파일을 선택해 주세요.");
+        }
+        
+        File destFile = new File("D:\\"+excelFile.getOriginalFilename());
+        try{
+            excelFile.transferTo(destFile);
+        }catch(IllegalStateException | IOException e){
+            throw new RuntimeException(e.getMessage(),e);
+        }
+        
+        planPublicRelationsSettingService.excelUpload(destFile);
+
+		
+//		//update 결과값 저장하는 변수
+//		int resultComLogo = -1;
+//		//company객체 생성
+//		CompanyVO company = null;
+//		//파일 경로
+//		String uploadFilePath = null;
+//		//basic : 로고를 변경하지 않고 업체에서 제공하는 기본로고를 사용함
+//		if (logo.equals("basic")) {
+//			
+//			uploadFilePath = "resources/images/basic_logo.jpg";
+//		
+//		// custom : 원하는 파일을 업로드하여 로고를 변경한다
+//		}else if(logo.equals("custom")){	
+//			
+//			//업로드 경로 지정
+//			String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
+//			File file = null;
+//			
+//			//멀티파트파일이 비어있지 않다면-> 파일 생성해서 업로드
+//			if(!multipartFile.isEmpty()){
+//				//파일생성
+//				file = new File(upload,multipartFile.getOriginalFilename());
+//				//업로드한다!!
+//				multipartFile.transferTo(file);
+//				uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
+//			}
+//		}
+//		
+//		//파일 경로를 update한다
+//		try {
+//			//파일경로를 업데이트하고 결과값을 int로 저장
+//			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, session.getAttribute("companyNumber").toString());
+//			//company
+//			company = appointedUIService.checkCompany();
+//			//session에 logo경로 저장
+//			session.setAttribute("companyLogo",company.getCompany_logo());
+//			model.addAttribute("resultComLogo",resultComLogo);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
 	}
 	
 	
@@ -118,18 +195,14 @@ public class PlanPublicRelationsSettingController {
 			}
 		}
 		
-		System.out.println("파일패스: "+uploadFilePath);
-		System.out.println("회사번호: "+company_number2);
 		//파일 경로를 update한다
 		try {
 			//파일경로를 업데이트하고 결과값을 int로 저장
 			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, session.getAttribute("companyNumber").toString());
-			System.out.println("업데이트 결과값 : "+resultComLogo);
 			//company
 			company = appointedUIService.checkCompany();
 			//session에 logo경로 저장
 			session.setAttribute("companyLogo",company.getCompany_logo());
-			System.out.println("session에 저장된 값: "+company.getCompany_logo());
 			model.addAttribute("resultComLogo",resultComLogo);
 		} catch (SQLException e) {
 			e.printStackTrace();
