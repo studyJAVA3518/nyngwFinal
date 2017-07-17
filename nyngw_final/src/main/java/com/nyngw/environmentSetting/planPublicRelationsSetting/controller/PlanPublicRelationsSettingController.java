@@ -245,6 +245,8 @@ public class PlanPublicRelationsSettingController {
 		DepartmentVO dvo = null;
 		try {
 			dvo = planPublicRelationsSettingService.getDeptOne(tmp_dept_number);
+			System.out.println("업데이트할 부서 이름 : "+dvo.getDept_name());
+			map.put("dept_number", dvo.getDept_number());
 			map.put("dept_name", dvo.getDept_name());
 			map.put("dept_membernumber", dvo.getDept_membernumber());
 			map.put("dept_tel", dvo.getDept_tel());
@@ -264,15 +266,23 @@ public class PlanPublicRelationsSettingController {
 			@RequestParam("up_dept_number") String up_dept_number,
 			@RequestParam("up_dept_name") String up_dept_name,
 			@RequestParam("up_dept_membernumber") String up_dept_membernumber,
+			@RequestParam("up_dept_membernumber_origin") String up_dept_membernumber_origin,
 			@RequestParam("up_dept_tel") String up_dept_tel,
 			@RequestParam("up_dept_addr") String up_dept_addr ){
 		
 		String url = "enovironmentSetting/planPublicRelationsSetting/companyDepart";
 		
 		try {
-			//부서 등록
+			//수정할 멤버를 선택하지 않았다면~!!(셀렉트박스에서 선택하지 않았다면)
+			String inputMember = "";
+			if(up_dept_membernumber.equals("selectDept")){
+				inputMember = up_dept_membernumber_origin;
+			}else{
+				inputMember = up_dept_membernumber;
+			}
+			//부서 수정
 			planPublicRelationsSettingService
-				.modifyDept(model, up_dept_number, up_dept_name, up_dept_membernumber, up_dept_tel, up_dept_addr);
+				.modifyDept(model, up_dept_number, up_dept_name, inputMember, up_dept_tel, up_dept_addr);
 			//변경된 부서 정보를 다시 가져온다~
 			planPublicRelationsSettingService.viewDeptInfo(model);
 		} catch (SQLException e) {

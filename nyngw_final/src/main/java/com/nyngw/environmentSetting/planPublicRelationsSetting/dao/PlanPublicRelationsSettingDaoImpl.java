@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.PositionVO;
 
 @Repository
 public class PlanPublicRelationsSettingDaoImpl implements
@@ -154,6 +155,55 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		int result = sqlSession.update("esDeleteDepartment",deleteDeptNum);
 		return result;
 	}
+	
+	/**
+	 * 회사 부서 개수 세주는 메서드
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int selectDeptCount() throws SQLException {
+		int result = (int) sqlSession.selectOne("esSelectDeptCount","");
+		return result;
+	}
+	
+	@Override
+	public int selectPositionCount() throws SQLException {
+		int count = (int) sqlSession.selectOne("esSelectPositionCount", "");
+		return count;
+	}
+	
+	@Override
+	public ArrayList<PositionVO> selectPositionList() throws SQLException {
+		ArrayList<PositionVO> positionList = (ArrayList<PositionVO>) sqlSession.selectList("esSelectPosition", "");
+		return positionList;
+	}
+	
+	@Override
+	public int insertPosition(PositionVO vo) throws SQLException {
+		int result = sqlSession.update("esInsertPosition", vo);
+		return result;
+	}
+	
+	@Override
+	public PositionVO selectOnePosition(String position_number) throws SQLException {
+		PositionVO vo = (PositionVO) sqlSession.selectOne("esSelectOnePosition", position_number);
+		return vo;
+	}
+	
+	@Override
+	public int updatePosition(PositionVO vo) throws SQLException {
+		int result = sqlSession.update("esUpdatePosition", vo);
+		return result;
+	}
+	
+	@Override
+	public int deletePosition(String deletePositionNum) throws SQLException {
+		int result = sqlSession.update("esDeletePosition",deletePositionNum);
+		return result;
+	}
+	
+	
 
 	
 }

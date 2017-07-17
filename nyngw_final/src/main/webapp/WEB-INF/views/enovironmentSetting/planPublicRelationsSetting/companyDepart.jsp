@@ -21,28 +21,27 @@ function updateDept_go(){
 	document.updateDeptForm.submit();
 }
 
-//부서 삭제하기
-function deleteDept_go(){
-	
-}
 
 $(function(){
 	
 	//부서 수정 창 숨기기
 	$('.updateDeptBox').css('display', 'none');
-	 
+	
 	//부서 수정 보여주기
 	$(".updateDeptFormBtn").click(function(){
+		var tmp = $(this).siblings('input').val();
 		$.ajax({
 			url:'/enovironmentSetting/planPublicRelationsSetting/checkDeptOne',
 			type:'get',
-			data: {"tmp_dept_number":tmp_dept_number},
+			data: {'tmp_dept_number' : tmp},
 			success : function(res){
-		alert("!!!!");
+				$('#up_dept_number').val(res.dept_number);				
 				$('#up_dept_name').val(res.dept_name);				
-				$('#up_dept_membernumber').val(res.dept_membernumber);				
+				$('#up_dept_membernumber_origin').val(res.dept_membernumber);				
 				$('#up_dept_tel').val(res.dept_tel);				
-				$('#up_dept_addr').val(res.dept_addr);				
+				$('#up_dept_addr').val(res.dept_addr);	
+				$('').val
+			
 			},
 			dataType : 'json'
 		})
@@ -137,18 +136,22 @@ $(function(){
 </div>
 
 <div class="row">
-	<h4>부서 리스트 (총 n 개의 부서가 등록되어 있습니다.)</h4>
+	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	
-	<c:forEach var="depart" items="${dvList}">
-		<div class="row">
-			<div class="col-md-3">${depart.dept_name}</div>
-			<div class="col-md-9">
-				<input type="button" value="수정" class="btn btn-default updateDeptFormBtn" />
-				<input type="hidden" id="tmp_dept_number" name="tmp_dept_number" value="${depart.dept_number }"/>
-				<a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartDelete?deleteDeptNum=${depart.dept_number}" class="btn btn-default">삭제</a>
-			</div>
-		</div>
-	</c:forEach>
+		<form>
+			<table class="table">
+			<c:forEach var="depart" items="${dvList}">
+				<tr>
+					<th>${depart.dept_name}</th>
+					<td>
+						<input type="hidden" id="tmp_dept_number" name="tmp_dept_number" value="${depart.dept_number}"/>
+						<input type="button" value="수정" class="btn btn-default updateDeptFormBtn"/>
+						<a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartDelete?deleteDeptNum=${depart.dept_number}" class="btn btn-default">삭제</a>
+					</td>
+				</tr>
+			</c:forEach>
+			</table>
+		</form>
 </div>
 
 <div class="updateDeptBox">
@@ -168,10 +171,11 @@ $(function(){
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<input type="text" readonly/>
+						<input type="text" readonly name="up_dept_membernumber_origin" id="up_dept_membernumber_origin"/>
 						<br/>
 						수정하기  
 						<select name="up_dept_membernumber">
+							<option value="selectDept">선택하기</option>
 							<c:forEach var="member" items="${upperMemList}">
 								<option value="${member.mem_number}">
 									${member.mem_number}&#09;${member.mem_name}&#09;${member.position_name}
@@ -200,6 +204,7 @@ $(function(){
 			
 			<tr>
 				<td colspan="2">
+					<input type="hidden" id="up_dept_number" name="up_dept_number"/>
 					<input type="button" value="부서 수정" id="updateDeptBtn" onclick="updateDept_go();"/>
 				</td>
 			</tr>
