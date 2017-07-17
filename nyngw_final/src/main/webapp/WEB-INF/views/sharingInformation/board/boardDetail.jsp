@@ -28,6 +28,7 @@
 			});
 		}
 	}
+	
 	function answerWriteClick(id,form){
 		var comment_content = document.getElementsByName('comment_content')[0].value;
 		alert(comment_content);
@@ -125,7 +126,7 @@
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td colspan="3">${board.board_file_name }</td>
+				<td colspan="3"><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
 			</tr>
 		</table>
 			<button><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>

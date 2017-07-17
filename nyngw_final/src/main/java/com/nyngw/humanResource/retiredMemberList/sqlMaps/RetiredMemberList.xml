@@ -5,6 +5,8 @@
 <mapper namespace="com.nyngw.humanResource.retiredMemberList.dao.RetiredMemberListDao">
 	
 	<select id="getRetiredMemberList_RM" parameterType="com.nyngw.dto.JoinMemberVO" resultType="com.nyngw.dto.JoinMemberVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
 		select * 
 		from member,POSITION,DEPARTMENT
 		where mem_position_number = position_number 
@@ -20,6 +22,10 @@
 				and mem_dept_number = #{mem_dept_number}
 			</if>
 		</if>
+		<![CDATA[
+		ORDER BY mem_position_number asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
 	</select>
 	
 	<update id="saveMember_RM" parameterType="String">
@@ -27,5 +33,24 @@
 		set MEM_RETIREMENT = '1'
 		where mem_id = #{mem_id}
 	</update>
+
+	<select id="countTotalMember_RM" parameterType="com.nyngw.dto.JoinMemberVO" resultType="Integer">
+		select count(*) 
+		from member,POSITION,DEPARTMENT
+		where mem_position_number = position_number 
+		and mem_dept_number = dept_number 
+		and mem_retirement = '0'
+		<if test="mem_name != null">
+			<if test="mem_name != ''">
+ 				and mem_name = #{mem_name}
+			</if>
+		</if>
+		<if test="mem_dept_number != null">
+			<if test="mem_dept_number != ''">
+				and mem_dept_number = #{mem_dept_number}
+			</if>
+		</if>
+		order by mem_position_number asc
+	</select>
 
 </mapper>

@@ -72,6 +72,9 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+			<a href="/humanResource/retiredMemberList/rmm?page=${i}">[${i}]</a>
+	</c:forEach>
 	<input type="button" value="복직" onclick="saveMember();" class="btn btn-default" /> 
 	<input type="button" value="퇴사" name="" class="btn btn-default" />
 </form>

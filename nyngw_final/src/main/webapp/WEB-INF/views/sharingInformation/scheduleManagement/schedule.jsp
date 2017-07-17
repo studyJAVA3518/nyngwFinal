@@ -1,7 +1,8 @@
 <%@page import="com.nyngw.dto.ScheduleVO"%>
 <%@page import="java.util.List"%>
-<%@page session="false" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="apple-touch-icon" sizes="57x57" href="https://fullcalendar.io/apple-touch-icon-57x57.png">
@@ -67,7 +68,6 @@
 	});
 	</script>
 
-</head>
 <style>
 #calendar {
 	max-width: 900px;
@@ -75,12 +75,7 @@
 }
 </style>
 
-컨트롤러로 가야하는데 자꾸 경로에 /WEB-INF/views/ 가 붙어서 메핑을 못찾는다.
-등록 페이지를 필요한 데이터를 저장할 수 있는 형식으로 다시 꾸미고 컨트롤러 - 서비스와 연결해야한다.
-<a href="/sharingInformation/scheduleManagement/scheduleWriteForm"><button>일정등록</button></a>
-<a href="<%=request.getContextPath()%>/sharingInformation/scheduleManagement/scheduleWriteForm"><button>일정등록</button></a>
-<input type="button" onclick="location.href='/sharingInformation/scheduleManagement/scheduleWriteForm'" value="일정등록">
-<input type="button" onclick="location.href='<%=request.getContextPath()%>/sharingInformation/scheduleManagement/scheduleWriteForm'" value="일정등록">
+<a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button>일정등록</button></a>
 <div id='body' class='section'>
 	<div>
 		<div class='two-col'>
