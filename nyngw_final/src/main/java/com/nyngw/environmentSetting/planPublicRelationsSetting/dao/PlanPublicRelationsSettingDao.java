@@ -116,5 +116,6 @@ public interface PlanPublicRelationsSettingDao {
 
 	int deletePosition(String deletePositionNum) throws SQLException;
 
-	
+	int updatePositionLevel(PositionVO vo) throws SQLException;
+
 }

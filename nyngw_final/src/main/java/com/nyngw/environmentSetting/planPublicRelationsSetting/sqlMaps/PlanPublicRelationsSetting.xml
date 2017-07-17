@@ -122,6 +122,7 @@
 	<select id="esSelectPosition" resultType="com.nyngw.dto.PositionVO">
 		select 
 			to_number(substr(position_number,9)),
+			position_number,
 			position_name,
 			position_level
 		from position
@@ -145,11 +146,17 @@
 	<!-- 회사 직급 정보 수정 -->
 	<update id="esUpdatePosition" parameterType="com.nyngw.dto.PositionVO">
 		update position set 
-			position_name=#{position_name},
-			position_level = #{position_level}
+			position_name=#{position_name} 
 		where position_number = #{position_number}
 	</update>
 	
+	<!-- 회사 직급 정보 상위/하위 레벨로 수정 -->
+	<update id="esUpdatePositionLevel" parameterType="com.nyngw.dto.PositionVO">
+		update position set 
+			position_level=#{position_level} 
+		where position_number = #{position_number}
+	</update>
+
 	<!-- 회사 직급 정보 삭제 -->
 	<update id="esDeletePosition" parameterType="java.lang.String">
 		delete from position where position_number=#{deletePositionNum}

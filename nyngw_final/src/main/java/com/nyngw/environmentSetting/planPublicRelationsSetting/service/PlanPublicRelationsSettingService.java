@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.PositionVO;
 
 public interface PlanPublicRelationsSettingService {
 	
@@ -56,5 +57,11 @@ public interface PlanPublicRelationsSettingService {
 	 * @throws SQLException
 	 */
 	public void enrollDept(Model model, DepartmentVO dvo) throws SQLException;
+
+	void viewPositionInfo(Model model) throws SQLException;
+
+	void enrollPosition(Model model, PositionVO pvo) throws SQLException;
+
+	public PositionVO getPositiontOne(String up_position_number) throws SQLException;
 	
 }

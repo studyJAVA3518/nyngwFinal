@@ -8,6 +8,17 @@ package com.nyngw.dto;
 public class PositionVO {
 	private String position_number;	//직급번호
 	private String position_name;	//직급명
+	
+	//수정
+	private int position_level;
+	public int getPosition_level() {
+		return position_level;
+	}
+	public void setPosition_level(int position_level) {
+		this.position_level = position_level;
+	}
+	//수정완료
+	
 	public String getPosition_number() {
 		return position_number;
 	}
