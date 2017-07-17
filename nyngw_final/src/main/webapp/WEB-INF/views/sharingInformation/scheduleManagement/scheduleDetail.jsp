@@ -1,6 +1,9 @@
+<%@page import="com.nyngw.dto.ScheduleVO"%>
+<%@page import="com.nyngw.dto.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<table class="table">
 		<tr>
@@ -17,13 +20,15 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${schedule.sc_mem_number}</td>
+			<td>${member.mem_name}</td>
 		</tr>
 	</table>
 	<textarea rows="10" cols="100" readonly >
 ${schedule.sc_content}
 	</textarea>
-	작성자 본인일 때만 수정버튼이 보여야한다.
-	열어줄 때 controller에서 member정보 검색해서 담아주고 작성자(schedule.sc_mem_number)랑 비교하자.
-	<a href = "/sharingInformation/scheduleManagement/scheduleEditForm?sc_number=${schedule.sc_number }"><button>수정</button></a>
-	<a href = "/sharingInformation/scheduleManagement/scheduleDelete?sc_number=${schedule.sc_number }&sc_code_number=${schedule.sc_code_number}"><button>삭제</button></a>
+<%	MemberVO member = (MemberVO) request.getAttribute("member");
+	ScheduleVO schedule = (ScheduleVO) request.getAttribute("schedule");
+	if(member.getMem_number().equals(schedule.getSc_mem_number())){%>
+		<a href = "/sharingInformation/scheduleManagement/scheduleEditForm?sc_number=${schedule.sc_number }"><button>수정</button></a>
+		<a href = "/sharingInformation/scheduleManagement/scheduleDelete?sc_number=${schedule.sc_number }&sc_code_number=${schedule.sc_code_number}"><button>삭제</button></a>
+	<%}%>	

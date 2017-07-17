@@ -13,10 +13,10 @@
 		select * from Schedule where sc_number = #{sc_number}
 	</select>
 
-	<!-- <insert id="SI_insertSchedule" parameterType = "com.nyngw.dto.ScheduleVO">
+	<insert id="SI_insertSchedule" parameterType = "com.nyngw.dto.ScheduleVO">
 		insert into Schedule 
-		values ('sc'||sc_seq.nextVal, #{SC_TITLE},#{SC_CONTENT},#{SC_DATE}, #{SC_TIME},'',#{SC_MEM_NUMBER},#{SC_CODE_NUMBER});
-	</insert>-->
+		values ('sc'||sc_seq.nextVal, #{sc_title},#{sc_content},#{sc_date}, #{sc_time},'',#{sc_mem_number},#{sc_code_number})
+	</insert>
 	
 	<update id="SI_updateSchedule">
 		update Schedule set	
