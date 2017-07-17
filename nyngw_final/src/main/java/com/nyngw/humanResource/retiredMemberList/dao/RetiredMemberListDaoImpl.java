@@ -24,4 +24,14 @@ public class RetiredMemberListDaoImpl implements RetiredMemberListDao {
 		sqlSession.update("saveMember_RM", mem_id);
 	}
 
+	@Override
+	public int countTotalMember_RM(JoinMemberVO member) {
+		int result=0;
+		if(sqlSession.selectOne("countTotalMember_RM", member)!=null){
+			result=(int) sqlSession.selectOne("countTotalMember_RM", member);
+		}
+		System.out.println(result);
+		return result;
+	}
+
 }

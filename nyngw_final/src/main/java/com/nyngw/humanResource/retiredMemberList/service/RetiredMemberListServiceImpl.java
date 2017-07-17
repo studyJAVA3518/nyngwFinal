@@ -24,4 +24,9 @@ public class RetiredMemberListServiceImpl implements RetiredMemberListService {
 		retiredMemberListDao.saveMember_RM(mem_id);
 	}
 
+	@Override
+	public int countTotalMember(JoinMemberVO member) {
+		return retiredMemberListDao.countTotalMember_RM(member);
+	}
+
 }
