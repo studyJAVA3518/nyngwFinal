@@ -85,12 +85,23 @@ public class BasicSettingController {
 	}
 	
 	@RequestMapping("/updateMember")
-	public String updateMember(MemberVO vo,Principal principal){
+	public String updateMember(MemberVO vo,Principal principal,Model model,String mem_npwd){
 		String mem_id = principal.getName();
-		vo.setMem_sign("");
-//		vo.setMem_img("");
-		vo.setMem_id(mem_id);
-		basicSettingServiceImpl.updateMember(vo);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingServiceImpl.selectMember(user.getUsername());
+		System.out.println(vo.getMem_pwd());
+		System.out.println(mem.getMem_pwd());
+		if(vo.getMem_pwd().equals(mem.getMem_pwd())){
+			vo.setMem_sign("");
+			vo.setMem_id(mem_id);
+			vo.setMem_pwd(mem_npwd);
+			vo.setMem_img("");
+			basicSettingServiceImpl.updateMember(vo);
+			model.addAttribute("msg", "성공적");
+		}else{
+			model.addAttribute("msg", "기존 비밀번호가 틀립니다.");
+			return "redirect:/mypage/basicSetting/updateMemberForm";
+		}
 		
 		return "redirect:/mypage/basicSetting/sign";
 	}

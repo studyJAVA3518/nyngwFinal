@@ -12,6 +12,7 @@
 		update Member
 		set mem_img = #{mem_img},
 			mem_tel = #{mem_tel},
+			mem_pwd = #{mem_pwd},
 			mem_email = #{mem_email},
 			mem_addr1 = #{mem_addr1},
 			mem_addr2 = #{mem_addr2},

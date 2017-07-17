@@ -2,10 +2,13 @@
 <%@page import="org.springframework.security.core.userdetails.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
    User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
 <meta charset="UTF-8">
 <script type="text/javascript">
 	
@@ -148,7 +151,7 @@
 					event.dataTransfer.effectAllowed = "move";
 					event.dataTransfer.setData('delFileId', this.id) //this.id => 파일명 전달
 					dragged = event.target; //삭제할 객체의 레퍼런스
-				}
+				};
 				
 				//첨부된 파일의 확장자에 따라 적절한 파일 아이콘을 보여주기 위해 <div> 태그 생성 및 class 속성 설정
 				var div = document.createElement("div"); 
@@ -348,7 +351,16 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 }
 
 </script>
-
+<script type="text/javascript">
+	function chk(){
+		var pwd = ${MemberVoDetail.mem_pwd};
+		if(pwd==document.getElementsByName("mem_pwd")[0].value){
+			alert("성공!");
+		}else{
+			alert("기존 비밀번호가 맞지 않습니다.");
+		}
+	} 
+</script>
 
 <form action="/mypage/basicSetting/updateMember">
 <table class="table table-bordered">
@@ -366,7 +378,7 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 	</tr>
 	<tr>
 		<th>새 비밀번호</th>
-		<td><input type="password" name="mem_pwd" value=""/></td>
+		<td><input type="password" name="mem_npwd" value=""/></td>
 	</tr>
 	<tr>
 		<th>연락처</th>
@@ -413,5 +425,5 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 	<center><input type='button' onclick="fnAllClear();" value='전체삭제'/>
 	<input id="uploadBtn" type="button" value="업로드" onclick="fnUpload()"/></center>
 
-<input type="submit" value="수정">
+<input type="submit" value="수정" onclick="chk()">
 </form>
