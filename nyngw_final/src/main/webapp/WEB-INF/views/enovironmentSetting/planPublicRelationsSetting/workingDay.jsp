@@ -6,23 +6,50 @@
 에 대한 화면 -->
 
 <script>
-$(function(){
-	
-	
-// 	$("button").click(function(){
-// 		if($(this).children("ul").attr("style")=="display: block;"){
-// 			$(this).children("ul").slideUp();
-// 		}else{
-// 			$(this).children().slideDown();
-// 		}
-// 	})
-	
-})
-	
-	
 	function workingDaySetting_go(){
 		
+		$(function(){
+			var file = $("#excelFile").val();
+		    if (file == "" || file == null) {
+		        alert("파일을 선택해주세요.");
+		        return false;
+		    } else if (!checkFileType(file)) {
+		        alert("엑셀 파일만 업로드 가능합니다.");
+		        return false;
+		    }
+		
+		    if (confirm("업로드 하시겠습니까?")) {
+		        var options = {
+		            success : function(data) {
+		                alert("모든 데이터가 업로드 되었습니다.");
+		            },
+		            type : "POST"
+		        };
+		        $("#excelUploadForm").ajaxSubmit(options);
+		
+		    }
+			
+		})
+
 	}
+	$(function(){
+		
+		
+	})
+
+	function checkFileType(filePath) {
+	    var fileFormat = filePath.split(".");
+	    if (fileFormat.indexOf("xlsx") > -1||fileFormat.indexOf("xls") > -1) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	
+	}
+
+
+	
+	
 	function workingTimeSetting_go(){
 		
 	}
@@ -30,7 +57,7 @@ $(function(){
 
 <h2>근무일 및 출결정보 등록시간 설정</h2>
 <table class="table">
-	<form class="form-inline" >
+	<form class="form-inline" name="workingDaySettingForm">
 		<tr>
 			<th>업무 시간</th>
 			<td>
@@ -38,16 +65,6 @@ $(function(){
 					매일 
 					<input type="text" name="dal_attend_time" id="dal_attend_time"/> 시 
 					<input type="text" name="dal_off_time" id="dal_off_time"/> 분
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<th>출결정보 일괄등록 시간 설정</th>
-			<td>
-				<div class="form-group">
-					매일 
-					<input type="text" name="Enrollment_attend_time" id="Enrollment_attend_time"/> 시 
-					<input type="text" name="Enrollment_off_time" id="Enrollment_off_time"/> 분
 				</div>
 			</td>
 		</tr>
@@ -77,7 +94,9 @@ $(function(){
 
 <h2>출결정보 수동 등록</h2>
 <table class="table">
-	<form action="multipartFile" class="form-inline" method="POST" enctype="multipart/form-data">
+	<form name="workingDayForm" class="form-inline" enctype="multipart/form-data" 
+		action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/updateExcelFile" 
+		method="post">
 		<tr>
 			<td colspan="2">
 				출결정보는 기본적으로 매일 오전 12시에 자동 업데이트가 됩니다.<br/>
@@ -86,13 +105,12 @@ $(function(){
 		</tr>
 		<tr>
 			<th>등록할 엑셀 파일</th>
-			<td><input type="file" name="file"></td>
+			<td><input type="file" name="excelFile" id="excelFile"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><button type="submit" class="btn btn-default">수동 등록</button></td>
+			<td colspan="2"><input type="button" id="addExcelImportBtn" class="btn btn-default" onclick="workingDaySetting_go();" value="수동 등록"></td>
 		</tr>
-		${fileName}<br/>
-		${uploadPath}
+
 	</form>
 
 </table>

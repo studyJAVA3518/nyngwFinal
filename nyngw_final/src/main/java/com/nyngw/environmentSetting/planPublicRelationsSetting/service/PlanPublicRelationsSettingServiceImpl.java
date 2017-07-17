@@ -1,7 +1,10 @@
 package com.nyngw.environmentSetting.planPublicRelationsSetting.service;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,8 @@ import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.util.ExcelRead;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.util.ExcelReadOption;
 
 @Service
 public class PlanPublicRelationsSettingServiceImpl implements
@@ -265,6 +270,29 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	public void removePosition(Model model, String deletePositionNum) throws SQLException{
 		int result = planPublicRelationsSettingDao.deletePosition(deletePositionNum);
 		model.addAttribute("resultDeletePosition",result);
+	}
+	
+	/**
+	 * 엑셀파일을 업로드하는 메서드
+	 * @param destFile
+	 */
+	public void excelUpload(File destFile) {
+		ExcelReadOption excelReadOption = new ExcelReadOption();
+        excelReadOption.setFilePath(destFile.getAbsolutePath());
+        excelReadOption.setOutputColumns("A","B","C","D","E","F");
+        excelReadOption.setStartRow(2);
+        
+        List<Map<String, String>>excelContent =ExcelRead.read(excelReadOption);
+        
+        for(Map<String, String> article: excelContent){
+            System.out.println(article.get("A"));
+            System.out.println(article.get("B"));
+            System.out.println(article.get("C"));
+            System.out.println(article.get("D"));
+            System.out.println(article.get("E"));
+            System.out.println(article.get("F"));
+            
+        }
 	}
 
 	

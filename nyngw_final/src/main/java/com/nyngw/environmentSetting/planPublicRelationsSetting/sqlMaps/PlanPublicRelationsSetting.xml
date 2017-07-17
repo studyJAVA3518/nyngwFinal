@@ -65,7 +65,7 @@
 			position_name,
 			position_level
 		from dept_view
-		where position_level < 40
+		where position_level < 400
 		order by position_number, mem_number
 		]]>
 	</select>

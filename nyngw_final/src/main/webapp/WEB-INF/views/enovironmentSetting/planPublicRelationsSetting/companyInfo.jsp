@@ -26,6 +26,24 @@
 	}
 	
 	function comInfoUpdate(){
+		
+		if(!document.getElementById("company_name").value){
+			alert("회사 이름을 입력해야 합니다.");
+			return;
+		}
+		if(!document.getElementById("company_tel").value){
+			alert("회사 전화번호를 입력해야 합니다.");
+			return;
+		}
+		if(!document.getElementById("roadAddrPart1").value){
+			alert("회사 주소를 입력해야 합니다.");
+			return;
+		}
+		if(!document.getElementById("addrDetail").value){
+			alert("회사 상세주소를 입력해야 합니다.");
+			return;
+		}
+		
 		document.comInfo.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/companyInfo";
 		document.comInfo.method = "post";
 		document.comInfo.submit();
