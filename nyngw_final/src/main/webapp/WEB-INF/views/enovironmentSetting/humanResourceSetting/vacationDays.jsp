@@ -205,9 +205,15 @@ $(function(){
 					</tr>
 				</c:forEach>
 				</table>
-				<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+				<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+				<a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm?page=${i}&mem_dept_number=${dept_number}">이전</a>
+				</c:if>
+				<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"	var="i">
 					<a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm?page=${i}&mem_dept_number=${dept_number}">[${i}]</a>
 				</c:forEach>
+				<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+					<a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm?page=${i}&mem_dept_number=${dept_number}">다음</a>
+				</c:if>
 		    </div>
 		  </div>
 		

@@ -54,9 +54,15 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
-					<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
+			<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">이전</a>
+			</c:if>
+			<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"	var="i">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
 			</c:forEach>
+			<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">다음</a>
+			</c:if>
 		</div>
 
 		<div role="tabpanel" class="tab-pane fade" id="computer"
@@ -89,9 +95,15 @@
 					</tr>
 				</c:forEach>
 			</table>
-				<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
-					<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
-				</c:forEach>
+			<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">이전</a>
+			</c:if>
+			<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"	var="i">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
+			</c:forEach>
+			<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">다음</a>
+			</c:if>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="korean"
 			aria-labelledby="kor-tab">
