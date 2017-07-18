@@ -65,7 +65,13 @@
 		</table>
 	</div>
 	<div id="pageNum" style="text-align: center;">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
-			<a href="/documentManagement/documentManager/documentSelect?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${pno}&index=${select.index}&val=${select.val}"/>">[${pno}]</a>
 		</c:forEach>
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+		</c:if>
 	</div>

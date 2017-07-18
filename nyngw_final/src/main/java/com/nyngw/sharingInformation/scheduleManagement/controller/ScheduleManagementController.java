@@ -32,8 +32,11 @@ public class ScheduleManagementController {
 	 * @return 입력폼 url 반환
 	 */
 	@RequestMapping("/schedule")
-	public String scheduleCheck(Model model,String sc_code_number){
-		scheduleManagementService.getAllSchedule(model, sc_code_number);
+	public String scheduleCheck(Model model,String sc_code_number,Principal principal){
+		String mem_id = principal.getName();
+		MemberVO member = commonService.findMemberByMemId(mem_id);
+		
+		scheduleManagementService.getAllSchedule(model, sc_code_number,member.getMem_number());
 		model.addAttribute("sc_code_number",sc_code_number);
 		return "sharingInformation/scheduleManagement/schedule";
 	}

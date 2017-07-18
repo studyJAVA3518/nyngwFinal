@@ -25,4 +25,8 @@ public class CommonServiceImpl implements CommonService{
 	public MemberVO findMemberByMemNumber(String mem_number){
 		return codeManagerDao.common_selectMemberByMemNumber(mem_number);
 	} 
+	
+	public Common_CodeVO common_selectCodeNameByDocument(String code_number) {
+		return codeManagerDao.common_selectCodeNameByDocument(code_number);
+	}
 }

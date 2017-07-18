@@ -6,7 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.Member_Carear_VacationVO;
+import com.nyngw.dto.VacationVO;
 import com.nyngw.dto.Vacation_PolicyVO;
+import com.nyngw.dto.Vacation_TotalVO;
 import com.nyngw.dto.Year_VacationVO;
 
 @Repository
@@ -53,6 +56,44 @@ public class HumanResourceSettingDaoImpl implements HumanResourceSettingDao {
 	@Override
 	public void deleteYearVacation_HRS(Year_VacationVO vacation) {
 		sqlSession.delete("deleteYearVacation_HRS", vacation);
+	}
+
+	@Override
+	public List<Member_Carear_VacationVO> getCarearVacationSet_HRS(Member_Carear_VacationVO mcv) {
+		return sqlSession.selectList("getCarearVacationSet_HRS",mcv);
+	}
+
+	@Override
+	public List<Year_VacationVO> getCarearVacationAddSet_HRS(String str) {
+		return sqlSession.selectList("getCarearVacationAddSet_HRS", str);
+	}
+
+	@Override
+	public int countCarearVaction_HRS(Member_Carear_VacationVO mcv) {
+		int result=0;
+		if(sqlSession.selectOne("countCarearVaction_HRS", mcv)!=null){
+			result = (int) sqlSession.selectOne("countCarearVaction_HRS", mcv);
+		}
+		return result;
+	}
+
+	@Override
+	public int getcountUsingVacation_HRS(Member_Carear_VacationVO vo) {
+		int result=0;
+		if(sqlSession.selectOne("getcountUsingVacation_HRS", vo)!=null){
+			result = (int) sqlSession.selectOne("getcountUsingVacation_HRS", vo);
+		}
+		return result;
+	}
+
+	@Override
+	public Member_Carear_VacationVO getMemberMCV_HRS(String mem_number) {
+		return (Member_Carear_VacationVO) sqlSession.selectOne("getMemberMCV_HRS", mem_number);
+	}
+
+	@Override
+	public List<Vacation_TotalVO> getVacationList_HRS(Member_Carear_VacationVO member) {
+		return sqlSession.selectList("getVacationList_HRS", member);
 	}
 
 }

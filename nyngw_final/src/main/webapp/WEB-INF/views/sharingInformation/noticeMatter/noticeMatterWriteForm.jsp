@@ -9,7 +9,7 @@
 </script>
 	<h1>공지사항 등록폼</h1>
 	<div>
-		<form enctype="multipart/form-data" action="nmWrite" method="POST">
+		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="nmWrite" method="POST" accept-charset="utf-8">
 			<table class="table table-bordered">
 				<tr>
 					<th>게시판종류</th>
@@ -22,19 +22,17 @@
 				<tr>
 					<th colspan="2">내용</th>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<textarea rows="15" cols="97" name="board_content" style="resize: none;"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>파일이름</th>
-					<td><input type="file" name="board_file_name"  onchange="javascript:file_change(this.value);"></td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<th>파일이름</th> -->
+<!-- 					<td><input type="file" name="board_file_name"  onchange="javascript:file_change(this.value);"></td> -->
+<!-- 				</tr> -->
 			</table>
+			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 			<input type="hidden" value="${page}">
-			<input type="submit" value="등록" />
-			<input type="reset" value="초기화" />		
-			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
+			<div><button onclick='saveContent()'>등록</button></div>
+			<input type="reset" value="초기화" />	
+			<div style="text-align: center;">
+				<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
+			</div>
 		</form>
 	</div>

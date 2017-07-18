@@ -1,6 +1,7 @@
 package com.nyngw.businessSupport.dutyDocument.service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,40 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 	public Common_CodeVO documentSelectCodeName_DD(String reportType) {
 		Common_CodeVO result = dutyDocumentDao.documentSelectCodeName_DD(reportType);
 		return result;
+	}
+	@Override
+	public void dutyDocumentInsert_DD(Duty_DocumentVO dutyDocument) {
+		Date dt = new Date();
+		dutyDocument.setDd_date(dt);
+		if(dutyDocument.getDd_public()==null){
+			dutyDocument.setDd_public("n");
+		}
+		System.out.println(dutyDocument.getDd_number()); //시퀀스
+		System.out.println(dutyDocument.getDd_title());  //제목
+		System.out.println(dutyDocument.getDd_content());//내용
+		System.out.println(dutyDocument.getDd_date());//날짜
+		System.out.println(dutyDocument.getDd_public());//공개여부
+		System.out.println(dutyDocument.getDd_mem_number());//사용자아이디
+		System.out.println(dutyDocument.getDd_code_number());//코드종류
+		dutyDocumentDao.dutyDocumentInsert_DD(dutyDocument);
+	}
+	@Override
+	public void dutyDocumentDelete_DD(String dd_number) {
+		dutyDocumentDao.dutyDocumentDelete_DD(dd_number);
+	}
+	@Override
+	public Duty_DocumentVO documentSelect_DD(String dd_number) {
+		Duty_DocumentVO dutyDocument = dutyDocumentDao.documentSelect_DD(dd_number);
+		if(dutyDocument.getDd_public().equals("y")){
+			dutyDocument.setDd_select_name("부서일지");
+		}else{
+			dutyDocument.setDd_select_name("개인일지");
+		}
+		
+		return dutyDocument;
+	}
+	@Override
+	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument) {
+		dutyDocumentDao.dutyDocumentUpdate_DD(dutyDocument);
 	}
 }

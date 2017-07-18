@@ -7,27 +7,27 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	
 	<title>파일 첨부</title>
-	
+
 	<!-- 다음오픈에디터 라이브러리 --> 
-	<link rel="stylesheet" href="/cas/resources/daumeditor/css/popup.css" type="text/css"  charset="utf-8"/>
-	<script src="/cas/resources/daumeditor/js/popup.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="/resources/daumOpenEditor/css/popup.css" type="text/css"  charset="utf-8"/>
+	<script src="/resources/daumOpenEditor/js/popup.js" type="text/javascript" charset="utf-8"></script>
 	
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- jquery.form.js - ajaxSubmit() 사용 -->
 	<script type='text/javascript' src='http://malsup.github.com/jquery.form.js'></script>
-	
+
 	<script>
 		$(document).ready(function (){
 			// 등록버튼 클릭 이벤트
 			$('.submit a').on('click', function () {
-
+	
 			    var page = '${param.page}';    // 어디페이지에서 보냈는지 체크
 			    var form = $('#daumOpenEditorForm');
-
+	
 			    form.ajaxSubmit({
 			        type: 'POST',
-			        url: '${pageContext.request.contextPath}/daumeditor/singleUploadFileAjax',
+			        url: 'singleUploadFileAjax',
 			        dataType: 'JSON',    // 반환되는 데이타 타입
 			        data: {'page':page},
 			        beforeSubmit: function(){ },
@@ -40,7 +40,7 @@
 			             }
 			        }
 			   });
-
+	
 			});
 	
 		    // <input type=file> 태그 기능 구현
@@ -58,7 +58,7 @@
 			if (typeof (execAttach) == 'undefined') {
 				return;
 			}
-
+	
 			var _mockdata = {
 				'attachurl' : fileInfo.attachurl,
 				'filemime' : fileInfo.filemime,
@@ -68,7 +68,7 @@
 			execAttach(_mockdata); // 다음오픈에디터에 붙이기
 			closeWindow(); // 파일 팝업 종료
 		}
-
+	
 		//잘못된 경로로 접근할 때 호출되는 함수
 		function initUploader() {
 			var _opener = PopupUtil.getOpener();
@@ -76,66 +76,65 @@
 				alert('잘못된 경로로 접근하셨습니다.');
 				return;
 			}
-
+	
 			var _attacher = getAttacher('file', _opener);
 			registerAction(_attacher);
 		}
 	</script>
 	
 	<style>
-
-    /* css */
-    .header {
-        background-image: none;
-        background-color: #027dfc;
-    }
-
-    /* 파일첨부(.file) */
-    .file {
-        display: inline-block;
-        margin-top: 8px;
-        overflow: hidden;
-    }
-
-    .file .file-text {
-        display: inline-block;
-        padding: 6px 10px 8px 10px;
-        border : 1px solid #c7c7c7;
-        width: 179px;
-        font-size: 14px;
-        color: #8a8a8a;
-        float: left;
-    }
-
-    .file .file-text:FOCUS {
-        border-color: #54c4e5;
-        outline: 0;
-        -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.6);
-        box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.6);
-    }
-
-    .file .file-btn {
-        margin-left: 2px;
-        padding: 6px 8px 4px 8px;
-        height: 20px;
-        line-height: 20px;
-        font-size: 12px;
-        font-weight: bold;
-        background-color: #fff;
-        border: 1px solid #989898;
-        color: #989898;
-        cursor: pointer;
-        float: left;
-    }
-
-    .file .file-btn:HOVER {
-        background-color: #edfbff;
-        border: 1px solid #009bc8;
-        color: #009bc8;
-    }
-
-</style>
-
+	
+	   /* css */
+	   .header {
+	       background-image: none;
+	       background-color: #027dfc;
+	   }
+	
+	   /* 파일첨부(.file) */
+	   .file {
+	       display: inline-block;
+	       margin-top: 8px;
+	       overflow: hidden;
+	   }
+	
+	   .file .file-text {
+	       display: inline-block;
+	       padding: 6px 10px 8px 10px;
+	       border : 1px solid #c7c7c7;
+	       width: 179px;
+	       font-size: 14px;
+	       color: #8a8a8a;
+	       float: left;
+	   }
+	
+	   .file .file-text:FOCUS {
+	       border-color: #54c4e5;
+	       outline: 0;
+	       -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.6);
+	       box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.6);
+	   }
+	
+	   .file .file-btn {
+	       margin-left: 2px;
+	       padding: 6px 8px 4px 8px;
+	       height: 20px;
+	       line-height: 20px;
+	       font-size: 12px;
+	       font-weight: bold;
+	       background-color: #fff;
+	       border: 1px solid #989898;
+	       color: #989898;
+	       cursor: pointer;
+	       float: left;
+	   }
+	
+	   .file .file-btn:HOVER {
+	       background-color: #edfbff;
+	       border: 1px solid #009bc8;
+	       color: #009bc8;
+	   }
+	
+	</style>
 </head>
 
 <body onload="initUploader();">
@@ -148,14 +147,13 @@
 			<dl class=alert>
 				<dt>5MB이하만 가능합니다.</dt>
 				<dd>
-					<form id=daumOpenEditorForm encType=multipart/form-data method=post
-						action="">
+					<form id=daumOpenEditorForm encType=multipart/form-data method=post	action="">
 
 						<!-- 파일첨부 -->
 						<div class=file>
-							<input disabled class=file-text> <label class=file-btn
-								for=uploadInputBox>파일첨부</label> <input id=uploadInputBox
-								style="display: none" type=file name=Filedata>
+							<input disabled class=file-text> 
+							<label class=file-btn for=uploadInputBox>파일첨부</label> 
+							<input id=uploadInputBox style="display: none" type=file name=Filedata>
 							<!-- 버튼대체용(안보임) -->
 						</div>
 						<!-- //파일첨부 -->

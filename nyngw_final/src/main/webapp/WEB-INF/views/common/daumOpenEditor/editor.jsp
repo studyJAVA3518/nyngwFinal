@@ -4,14 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
-<!-- 다음에디터를 쓰기위한 링크 -->
-<link rel="stylesheet" href="<c:url value="/resources/daumOpenEditor/css/editor.css"/>" type="text/css" charset="utf-8"/>
-<script src="<c:url value="/resources/daumOpenEditor/js/editor_loader.js"/>" type="text/javascript" charset="utf-8"></script>
- 
 <!-- 에디터 시작 -->
 <!--
 	@decsription
 	등록하기 위한 Form으로 상황에 맞게 수정하여 사용한다. Form 이름은 에디터를 생성할 때 설정값으로 설정한다.
+	<form action="/sharingInformation/board/update" method="post">
 -->
 	<!-- 에디터 컨테이너 시작 -->
 	<div id="tx_trex_container" class="tx-editor-container">
@@ -354,7 +351,6 @@
 				<li class="tx-list">
 					<div id="tx_cellsoutline" unselectable="on" class="tx-btn-rbg tx-cellsoutline">
 						<a href="javascript:;" class="tx-icon2" title="테두리">테두리</a>
-
 					</div>
 					<div id="tx_cellsoutline_menu" class="tx-cellsoutline-menu tx-menu" unselectable="on"></div>
 				</li>
@@ -382,56 +378,55 @@
 		</div></div>
 		<!-- 툴바 - 더보기 끝 -->
 		<!-- 편집영역 시작 -->
-			<!-- 에디터 Start -->
-<div id="tx_canvas" class="tx-canvas">
-	<div id="tx_loading" class="tx-loading"><div><img src="<c:url value="/resources/daumOpenEditor/images/icon/editor/loading2.png"/>" width="113" height="21" align="absmiddle"/></div></div>
-	<div id="tx_canvas_wysiwyg_holder" class="tx-holder" style="display:block;">
-		<iframe id="tx_canvas_wysiwyg" name="tx_canvas_wysiwyg" allowtransparency="true" frameborder="0"></iframe>
-	</div>
-	<div class="tx-source-deco">
-		<div id="tx_canvas_source_holder" class="tx-holder">
-			<textarea id="tx_canvas_source" rows="30" cols="30"></textarea>
-		</div>
-	</div>
-	<div id="tx_canvas_text_holder" class="tx-holder">
-		<textarea id="tx_canvas_text" rows="30" cols="30"></textarea>
-	</div>
-</div>
-				<!-- 높이조절 Start -->
-<div id="tx_resizer" class="tx-resize-bar">
-	<div class="tx-resize-bar-bg"></div>
-	<img id="tx_resize_holder" src="<c:url value="/resources/daumOpenEditor/images/icon/editor/skin/01/btn_drag01.gif"/>" width="58" height="12" unselectable="on" alt="" />
-</div>
-				<div class="tx-side-bi" id="tx_side_bi">
-</div>
-			<!-- 편집영역 끝 -->
-		<!-- 첨부박스 시작 -->
-			<!-- 파일첨부박스 Start -->
-<div id="tx_attach_div" class="tx-attach-div">
-	<div id="tx_attach_txt" class="tx-attach-txt">파일 첨부</div>
-	<div id="tx_attach_box" class="tx-attach-box">
-		<div class="tx-attach-box-inner">
-			<div id="tx_attach_preview" class="tx-attach-preview"><p></p><img src="<c:url value="/resources/daumOpenEditor/images/icon/editor/pn_preview.gif"/>" width="147" height="108" unselectable="on"/></div>
-			<div class="tx-attach-main">
-				<div id="tx_upload_progress" class="tx-upload-progress"><div>0%</div><p>파일을 업로드하는 중입니다.</p></div>
-				<ul class="tx-attach-top">
-					<li id="tx_attach_delete" class="tx-attach-delete"><a>전체삭제</a></li>
-					<li id="tx_attach_size" class="tx-attach-size">
-						파일: <span id="tx_attach_up_size" class="tx-attach-size-up"></span>/<span id="tx_attach_max_size"></span>
-					</li>
-					<li id="tx_attach_tools" class="tx-attach-tools">
-					</li>
-				</ul>
-				<ul id="tx_attach_list" class="tx-attach-list"></ul>
+		<!-- 에디터 Start -->
+		<div id="tx_canvas" class="tx-canvas">
+			<div id="tx_loading" class="tx-loading"><div><img src="<c:url value="/resources/daumOpenEditor/images/icon/editor/loading2.png"/>" width="113" height="21" align="absmiddle"/></div></div>
+			<div id="tx_canvas_wysiwyg_holder" class="tx-holder" style="display:block;">
+				<iframe id="tx_canvas_wysiwyg" name="tx_canvas_wysiwyg" allowtransparency="true" frameborder="0"></iframe>
+			</div>
+			<div class="tx-source-deco">
+				<div id="tx_canvas_source_holder" class="tx-holder">
+					<textarea id="tx_canvas_source" rows="30" cols="30"></textarea>
+				</div>
+			</div>
+			<div id="tx_canvas_text_holder" class="tx-holder">
+				<textarea id="tx_canvas_text" rows="30" cols="30"></textarea>
 			</div>
 		</div>
-	</div>
-<!-- 첨부박스 끝 -->
-</div>
-	<!-- 에디터 컨테이너 끝 -->
-</div>
-
-<!-- 에디터 끝 -->
+		<!-- 높이조절 Start -->
+		<div id="tx_resizer" class="tx-resize-bar">
+			<div class="tx-resize-bar-bg"></div>
+			<img id="tx_resize_holder" src="<c:url value="/resources/daumOpenEditor/images/icon/editor/skin/01/btn_drag01.gif"/>" width="58" height="12" unselectable="on" alt="" />
+		</div>
+			<div class="tx-side-bi" id="tx_side_bi">
+		</div>
+		<!-- 편집영역 끝 -->
+		<!-- 첨부박스 시작 -->
+		<!-- 파일첨부박스 Start -->
+		<div id="tx_attach_div" class="tx-attach-div">
+			<div id="tx_attach_txt" class="tx-attach-txt">파일 첨부</div>
+			<div id="tx_attach_box" class="tx-attach-box">
+				<div class="tx-attach-box-inner">
+					<div id="tx_attach_preview" class="tx-attach-preview"><p></p><img src="<c:url value="/resources/daumOpenEditor/images/icon/editor/pn_preview.gif"/>" width="147" height="108" unselectable="on"/></div>
+					<div class="tx-attach-main">
+						<div id="tx_upload_progress" class="tx-upload-progress"><div>0%</div><p>파일을 업로드하는 중입니다.</p></div>
+						<ul class="tx-attach-top">
+							<li id="tx_attach_delete" class="tx-attach-delete"><a>전체삭제</a></li>
+							<li id="tx_attach_size" class="tx-attach-size">
+								파일: <span id="tx_attach_up_size" class="tx-attach-size-up"></span>/<span id="tx_attach_max_size"></span>
+							</li>
+							<li id="tx_attach_tools" class="tx-attach-tools">
+							</li>
+						</ul>
+						<ul id="tx_attach_list" class="tx-attach-list"></ul>
+					</div>
+				</div>
+			</div>
+		<!-- 첨부박스 끝 -->
+		</div>
+		<!-- 에디터 컨테이너 끝 -->
+		</div>
+		<!-- 에디터 끝 -->
 <script type="text/javascript">
 	var config = {
 		txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
@@ -466,11 +461,11 @@
 			attacher:{
 			    image:{
 			        features:{left:250,top:65,width:400,height:190,scrollbars:0}, //팝업창 사이즈
-			        popPageUrl:'${pageContext.request.contextPath}/resources/daumOpenEditor/imagePopup' //팝업창 주소
+			        popPageUrl:'${pageContext.request.contextPath}/common/daumOpenEditor/imagePopup' //팝업창 주소
 			    },
 				file:{ 
 					features:{left:250,top:65,width:400,height:190,scrollbars:0}, // 팝업창 사이즈 
-					popPageUrl:'${pageContext.request.contextPath}/resources/daumOpenEditor/filePopup' // 팝업창 주소 
+					popPageUrl:'${pageContext.request.contextPath}/common/daumOpenEditor/filePopup' // 팝업창 주소 
 				} 
 			},
 			capacity: { 

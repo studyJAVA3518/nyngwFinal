@@ -69,7 +69,6 @@ public class BoardController implements ApplicationContextAware{
 			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
 			//			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
-			System.out.println(";lll"+member.getMem_name());
 		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
@@ -94,7 +93,6 @@ public class BoardController implements ApplicationContextAware{
 			member = basicSettingService.selectMember(list.get(i).getBoard_mem_number());
 //			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
-			System.out.println(";lll"+member.getMem_name());
 		}
 		
 		model.addAttribute("viewData",viewData);
@@ -109,7 +107,6 @@ public class BoardController implements ApplicationContextAware{
 	@RequestMapping("/writeForm")
 	public String boardWriteForm(String page,Model model){
 		model.addAttribute("page",page);
-		System.out.println(page);
 		return "sharingInformation/board/boardWriteForm";
 	}
 	
@@ -119,7 +116,6 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal,@RequestParam( value="content") String board_content) throws IOException{//,Principal principal
-		System.out.println(board_content);
 		/*String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
 		if(!multipartFile.isEmpty()){
@@ -145,7 +141,6 @@ public class BoardController implements ApplicationContextAware{
 		BoardVO board = boardService.selectBoard(board_number);
 		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
-		System.out.println(member.getMem_name());
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
 		return "sharingInformation/board/boardUpdateForm";
@@ -156,16 +151,9 @@ public class BoardController implements ApplicationContextAware{
 	 * @return 수정 url 반환
 	 */
 	@RequestMapping("/update")
-	public String boardUpdate(BoardVO board){
+	public String boardUpdate(BoardVO board,@RequestParam( value="content") String board_content){
 		board.setBoard_code_number("code7");
-		System.out.println(board.getBoard_code_number());
-		System.out.println(board.getBoard_content());
-		System.out.println(board.getBoard_count());
-		System.out.println(board.getBoard_file_name());
-		System.out.println(board.getBoard_mem_number());
-		System.out.println(board.getBoard_number());
-		System.out.println(board.getBoard_title());
-		System.out.println(board.getBoard_date());
+		board.setBoard_content(board_content);
 		boardService.boardUpdate(board);
 		return "redirect:/sharingInformation/board/list";
 	}
@@ -186,7 +174,6 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping("/boardDelete")
 	public @ResponseBody Map<String,String> boardDelete(String id){
-		System.out.println(id+"오니?");
 		boardService.boardDelete(id);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/sharingInformation/board/list");
@@ -249,9 +236,6 @@ public class BoardController implements ApplicationContextAware{
 	@RequestMapping("/answerWrite")
 	public @ResponseBody Map<String,String> answerWrite(String comment_content, String id, Principal principal ){
 		MemberVO member = basicSettingService.selectMember(principal.getName());
-		System.out.println(member.getMem_number());
-		System.out.println(id);
-		System.out.println(comment_content);
 		String board_number = id;
 		Date dt = new Date();
 		Board_CommentVO comment = new Board_CommentVO();
@@ -272,8 +256,6 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping("/answerDelete")
 	public @ResponseBody Map<String,String> answerDelete(String id, String board_number){
-		System.out.println(id);
-		System.out.println(board_number);
 		boardService.answerDelete(id);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/sharingInformation/board/detail?board_number="+board_number);

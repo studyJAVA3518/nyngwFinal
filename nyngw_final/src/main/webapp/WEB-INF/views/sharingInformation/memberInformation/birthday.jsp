@@ -5,12 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>        
 
 <script>
-	var current_date = new Date();
-	var MM = current_date.getMonth()+1; // month
 	$(function(){  
 		$('#monthSelect option[value='+(${month})+']').prop('selected',true);
 	});
-	
 </script>
 
 <h1>생일자 조회</h1>

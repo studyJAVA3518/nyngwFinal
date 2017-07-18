@@ -43,4 +43,95 @@
 	<delete id="deleteYearVacation_HRS" parameterType="com.nyngw.dto.Year_VacationVO">
 		delete from Year_Vacation where yv_year =#{yv_year}
 	</delete>
+	
+	<select id="getCarearVacationSet_HRS" resultType="com.nyngw.dto.Member_Carear_VacationVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
+		select mem_number,mem_name,mem_id,dept_name,position_name,mdi_carear as mem_carear,vp_totalday
+		from member ,MEMBER_DETAIL_INFORMATION,VACATION_POLICY,department,position
+		where mem_number= mdi_mem_number
+		and dept_number = mem_dept_number
+		and mem_position_number = position_number
+		and mem_retirement = '1'
+		and vp_number='vp1'
+		<if test="mem_name != null">
+			<if test="mem_name != ''">
+ 				and mem_name = #{mem_name}
+			</if>
+		</if>
+		<if test="mem_dept_number != null">
+			<if test="mem_dept_number != ''">
+				and mem_dept_number = #{mem_dept_number}
+			</if>
+		</if>
+		<![CDATA[
+		order by position_number asc ) A)
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
+	</select>
+	
+	<select id="getCarearVacationAddSet_HRS" parameterType="String" resultType="com.nyngw.dto.Year_VacationVO">
+		select *
+		from year_vacation
+		where yv_year between 0 and #{str}
+	</select>
+	
+	<select id="countCarearVaction_HRS" parameterType="com.nyngw.dto.Member_Carear_VacationVO" resultType="Integer">
+		select count(*)
+		from member ,MEMBER_DETAIL_INFORMATION,VACATION_POLICY,department,position
+		where mem_number= mdi_mem_number
+		and dept_number = mem_dept_number
+		and mem_position_number = position_number
+		and mem_retirement = '1'
+		and vp_number='vp1'
+		<if test="mem_name != null">
+			<if test="mem_name != ''">
+ 				and mem_name = #{mem_name}
+			</if>
+		</if>
+		<if test="mem_dept_number != null">
+			<if test="mem_dept_number != ''">
+				and mem_dept_number = #{mem_dept_number}
+			</if>
+		</if>
+		order by position_number
+	</select>
+	
+	<select id="getcountUsingVacation_HRS" parameterType="com.nyngw.dto.Member_Carear_VacationVO" resultType="int">
+		select count(*)
+		from vacation
+		where vacation_mem_number = #{mem_number}
+		and to_char(vacation_start, 'YYYYMMDD') like #{year}||'%'
+		and VACATION_VP_NUMBER = 'vp1'
+	</select>
+	
+	<select id="getMemberMCV_HRS" parameterType="String" resultType="com.nyngw.dto.Member_Carear_VacationVO">
+		select mem_number,mem_name,mem_id,dept_name,position_name,mdi_carear as mem_carear,vp_totalday
+		from member ,MEMBER_DETAIL_INFORMATION,VACATION_POLICY,department,position
+		where mem_number= mdi_mem_number
+		and dept_number = mem_dept_number
+		and mem_position_number = position_number
+		and mem_retirement = '1'
+		and vp_number='vp1'
+		and mem_number=#{mem_number}
+	</select>
+	
+	<select id="getVacationList_HRS" parameterType="com.nyngw.dto.Member_Carear_VacationVO" resultType="com.nyngw.dto.Vacation_TotalVO">
+		select vp_number,
+		vp_kind,
+		vp_totalday ,
+		vp_payonoff ,
+		vacation_number ,
+		 to_char(vacation_start, 'YYYY-MM-DD') as vacation_start,
+		 to_char(vacation_end, 'YYYY-MM-DD') as vacation_end,
+		 to_char(vacation_end_duedate, 'YYYY-MM-DD') as vacation_end_duedate,
+		vacation_mem_number ,
+		vacation_vp_number ,
+		vacation_end-vacation_start as vacation_during
+		from vacation,VACATION_POLICY
+		where VACATION_VP_NUMBER = VP_NUMBER
+		and VACATION_MEM_NUMBER = #{mem_number}
+		and to_char(vacation_start, 'YYYYMMDD') like #{year}||'%'
+	</select>
+	
 </mapper>

@@ -36,16 +36,17 @@ function noticeMatterDelete(id){
 				<td>${board.board_count }</td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td colspan="3">
-					<textarea rows="20" cols="71" style="resize: none;" readonly="readonly">${board.board_content }</textarea>
-				</td>
+				<th colspan="4">내용</th>
 			</tr>
+		</table>
+		${board.board_content }
+		<table>
 			<tr>
 				<th>첨부파일</th>
 				<td colspan="3"><a href="/sharingInformation/noticeMatter/noticeDownload?fileName=${board.board_file_name }">${board.board_file_name }</a></td>
 			</tr>
 		</table>
+		
 			<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
 			<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
 			<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>

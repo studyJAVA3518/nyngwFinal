@@ -17,9 +17,7 @@
 			<td><input type="text" value="${schedule.sc_time }" name="sc_time"></td>
 		</tr>
 	</table>
-	<textarea rows="10" cols="100" name="sc_content">
-${schedule.sc_content}
-	</textarea>
+	<textarea rows="10" cols="100" name="sc_content">${schedule.sc_content}</textarea>
 	<button type="button" onclick="scheduleEdit_go(this.form)">확인</button>
 	<button type="button">취소</button>
 </form>
