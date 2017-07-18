@@ -9,7 +9,7 @@
 	</select>
 		
 	<select id="SI_selectMemberCount" resultType="int">
-		select count(*) from member where mem_name = #{mem_name}
+		select count(*) from member where mem_name like '%'||#{mem_name}||'%'
 	</select>
 		
 	<select id="SI_selectBirthdayMemberCount" resultType="int">
