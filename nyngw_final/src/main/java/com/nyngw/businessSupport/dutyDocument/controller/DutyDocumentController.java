@@ -36,18 +36,31 @@ public class DutyDocumentController {
 	 * 추가업무조회
 	 * @return
 	 */
-	@RequestMapping("/additional")
-	public String additionalselect(){
-		
-		return "businessSupport/dutyDocument/additional";
-	}
+//	@RequestMapping("/additional")
+//	public String additionalselect(){
+//		
+//		return "businessSupport/dutyDocument/additional";
+//	}
 	
 	/**
 	 * 부서업무조회?
 	 * @return
 	 */
 	@RequestMapping("/department")
-	public String departmentselect(){
+	public String departmentselect(String searchDate, String reportType, String titleType, String val,
+									Model model, Principal principal){
+		if(searchDate == null && reportType == null && titleType == null && val == null){
+			searchDate = "today";
+			reportType = "";
+			titleType = "";
+			val = "";
+		}
+		dutyDocumentService.departmentList(searchDate,reportType,titleType,val,model,principal);
+		
+		
+		
+		
+		
 		
 		return "businessSupport/dutyDocument/department";
 	}

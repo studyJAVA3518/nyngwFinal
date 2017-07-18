@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,37 +12,37 @@
 <body>
 업무지원 >> 업무일지 >> 부서업무조회
 	<div>
-		<form action="">
+		<form action="/businessSupport/dutyDocument/department">
 			<table class="table table-border">
 				<tr>
 					<th>검색기간</th>
 					<td>
-						<button type="button">당일</button>
-						<button type="button">1주일</button>
-						<button type="button">1개월</button>
-						<button type="button">3개월</button>
+						<select name="searchDate" id="searchDate">
+							<option value="today">금일</option>
+							<option value="week">1주일</option>
+							<option value="month">1개월</option>
+							<option value="trimester">3개월</option>
+						</select>
 					</td>
-				</tr>
-				<tr>
 					<th>보고유형</th>
 					<td>
-						<select name="">
-							<option value="">일일일지</option>
-							<option value="">주간일지</option>
-							<option value="">월간일지</option>
-							<option value="">기타일지</option>
+						<select name="reportType" id="reportType">
+							<option value="">전체</option>
+							<option value="code1">일일일지</option>
+							<option value="code2">주간일지</option>
+							<option value="code3">월간일지</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>검색입력</th>
-					<td>
-						<select name="">
+					<td colspan="3">
+						<select name="titleType">
 							<option value="">전체</option>
-							<option value="">제목</option>
-							<option value="">작성자</option>
+							<option value="dd_title">제목</option>
+							<option value="mem_name">작성자</option>
 						</select>
-						<input type="text">
+						<input type="text" name="val" value="">
 					</td>
 				</tr>
 			</table>

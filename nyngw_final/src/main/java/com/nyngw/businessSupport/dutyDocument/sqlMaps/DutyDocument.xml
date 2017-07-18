@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDao">
-<!-- 	개인업무 -->
+	<!-- 	개인업무 -->
 	<select id="selectDocumentCount_DD" resultType="java.lang.Integer">
 		select count(*) from duty_document where dd_public = 'n'
 	</select>
@@ -57,9 +57,39 @@
 			dd_public=#{dd_public}
 		where dd_number=#{dd_number}
 	</update>
+
+
+	<!-- 부서 -->
+<!-- 	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"> -->
+<!-- 		select * from Duty_document dd where  -->
+<!-- 				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) =  -->
+<!-- 						(select mm.mem_dept_number from member mm where mm.mem_number = #{}) and dd_public ='y' -->
+<!-- 				<if test="${titleType} == 'mem_name'"> -->
+<!-- 					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{})||'%' -->
+<!-- 				</if> -->
+<!-- 				and dd_mem_number like '%'||'mem1'||'%' -->
+<!-- 				<if test="${titleType} == 'dd_title'"> -->
+<!-- 					and dd_title like '%'||#{}||'%' -->
+<!-- 				</if> -->
+<!-- 				and dd_code_number = #{} -->
+<!-- 				and to_char(dd_date,'yyyy/MM/dd') between #{} and sysdate; -->
+<!-- 	</select> -->
 	
-	
-	
+<!-- 	갯수세는것 -->
+<!-- 	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"> -->
+<!-- 		select count(*) from Duty_document dd where  -->
+<!-- 				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) =  -->
+<!-- 						(select mm.mem_dept_number from member mm where mm.mem_number = #{}) and dd_public ='y' -->
+<!-- 				<if test="${titleType} == 'mem_name'"> -->
+<!-- 					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{})||'%' -->
+<!-- 				</if> -->
+<!-- 				and dd_mem_number like '%'||'mem1'||'%' -->
+<!-- 				<if test="${titleType} == 'dd_title'"> -->
+<!-- 					and dd_title like '%'||#{}||'%' -->
+<!-- 				</if> -->
+<!-- 				and dd_code_number = #{} -->
+<!-- 				and to_char(dd_date,'yyyy/MM/dd') between #{} and sysdate; -->
+<!-- 	</select> -->
 	
 	
 	

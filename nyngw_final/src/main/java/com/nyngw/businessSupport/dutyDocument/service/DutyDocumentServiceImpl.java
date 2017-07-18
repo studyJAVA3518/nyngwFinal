@@ -1,13 +1,17 @@
 package com.nyngw.businessSupport.dutyDocument.service;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDaoImpl;
+import com.nyngw.common.dao.CommonDaoImpl;
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_DocumentVO;
@@ -17,6 +21,7 @@ import com.nyngw.dto.Duty_Document_ListView;
 public class DutyDocumentServiceImpl implements DutyDocumentService {
 	@Autowired
 	private DutyDocumentDaoImpl dutyDocumentDao;
+
 	private static final int BOARD_COUNT_PER_PAGE = 5;
 	@Override
 	public Duty_Document_ListView selectDocumentList(int pageNumber,
@@ -83,5 +88,19 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 	@Override
 	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument) {
 		dutyDocumentDao.dutyDocumentUpdate_DD(dutyDocument);
+	}
+	
+	//부서
+	@Override
+	public void departmentList(String searchDate, String reportType,
+			String titleType, String val, Model model, Principal principal) {
+		String name = "";
+		if(titleType.equals("mem_name")){
+//			commonDao.common_selectCodeNameByDocument(code_number)
+		}else{
+			
+		}
+		
+		
 	}
 }
