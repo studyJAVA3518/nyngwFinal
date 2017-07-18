@@ -19,6 +19,7 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	private DocumentManagerDaoImpl documentManagerDao;
 	private static final int DOCUMENT_COUNT_PER_PAGE = 5;
 	
+	
 	@Override
 	public DocumentListView selectDocumentList(int pageNumber, Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
@@ -29,7 +30,7 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 		int firstRow = 0;
 		int endRow = 0;
 		if(documentTotalCount > 0){
-			firstRow = (pageNumber - 1) * DOCUMENT_COUNT_PER_PAGE + 1;
+			firstRow = (currentPageNumber - 1) * DOCUMENT_COUNT_PER_PAGE + 1;
 			endRow = firstRow + DOCUMENT_COUNT_PER_PAGE - 1;
 			documentList = documentManagerDao.selectDocumentManagerList(firstRow, endRow,select);
 			if(select.getVal()!=null && !select.getVal().equals("")){
@@ -39,7 +40,9 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 			currentPageNumber = 0;
 			documentList = Collections.emptyList();
 		}
+		
 		return new DocumentListView(documentList, documentTotalCount, currentPageNumber, DOCUMENT_COUNT_PER_PAGE, firstRow, endRow);
+	
 	}
 	
 	@Override

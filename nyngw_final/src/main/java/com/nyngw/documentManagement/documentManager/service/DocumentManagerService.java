@@ -2,6 +2,8 @@ package com.nyngw.documentManagement.documentManager.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
