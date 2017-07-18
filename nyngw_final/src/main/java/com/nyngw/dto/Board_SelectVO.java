@@ -5,7 +5,15 @@ public class Board_SelectVO {
 	private String val;
 	private String searchDate;
 	private String reportType;
+	private String mem_code;
 	
+	
+	public String getMem_code() {
+		return mem_code;
+	}
+	public void setMem_code(String mem_code) {
+		this.mem_code = mem_code;
+	}
 	public String getSearchDate() {
 		return searchDate;
 	}

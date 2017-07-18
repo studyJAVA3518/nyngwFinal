@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDao">
+<!-- 	개인업무 -->
 	<select id="selectDocumentCount_DD" resultType="java.lang.Integer">
 		select count(*) from duty_document where dd_public = 'n'
 	</select>
@@ -15,6 +16,7 @@
 		AND dd_code_number like '%'||#{reportType}||'%'
 		AND dd_title like '%'||#{val}||'%'
 		<!-- 그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
+		and dd_mem_number = #{mem_code}
 		and dd_public = 'n' order by 1 desc
 	</select>
 
@@ -24,9 +26,42 @@
 		AND dd_title like '%'||#{val}||'%'
 		and	to_char(dd_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
 		AND dd_code_number like '%'||#{reportType}||'%'
+		and dd_mem_number = #{mem_code}
 	</select>
 	
 	<select id="documentSelectCodeName_DD" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
 		select code_name from common_code where code_number = #{reportType} 
 	</select>
+
+	<update id="dutyDocumentInsert_DD" parameterType="com.nyngw.dto.Duty_DocumentVO">
+		insert into duty_document(dd_number, dd_title, dd_content, dd_date, dd_mem_number, dd_code_number, dd_public)
+		values('dd'||dd_seq.nextVal, #{dd_title}, #{dd_content}, #{dd_date}, #{dd_mem_number}, #{dd_code_number}, #{dd_public})
+	</update>
+
+	<update id="dutyDocumentDelete_DD" parameterType="java.lang.String">
+		delete from duty_document where
+		dd_number = #{dd_number}
+	</update>
+	
+	<select id="documentSelect_DD" parameterType="java.lang.String" resultType="com.nyngw.dto.Duty_DocumentVO">
+		select * from duty_document where dd_number = #{dd_number} 
+	</select>
+
+	<update id="dutyDocumentUpdate_DD" parameterType="com.nyngw.dto.Duty_DocumentVO">
+		update duty_document
+		set dd_title=#{dd_title},
+			dd_content=#{dd_content},
+			dd_date=#{dd_date},
+			dd_mem_number=#{dd_mem_number},
+			dd_code_number=#{dd_code_number},
+			dd_public=#{dd_public}
+		where dd_number=#{dd_number}
+	</update>
+	
+	
+	
+	
+	
+	
+	
 </mapper>

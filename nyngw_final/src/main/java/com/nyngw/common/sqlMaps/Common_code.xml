@@ -20,4 +20,10 @@
 		select * from member
 		where mem_number = #{mem_number}
 	</select>
+
+	<select id="common_selectCodeNameByDocument" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
+		select * from common_code
+		where code_number = #{code_number}
+	</select>
+	
 </mapper>
