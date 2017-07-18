@@ -4,5 +4,59 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.businessSupport.meetingManagement.dao.MeetingManagementDao">
 
-
+		<select id="meetingCalList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.MeetingVO">
+			select 
+				mt_number,
+				mt_date,
+				mt_rv_number,
+				mt_title,
+				mt_reader
+			from meeting where 1=1
+			<choose>
+				<when test='index == "mt_reader"'>
+					and mt_reader like '%'||#{val}||'%'
+				</when>
+				<when test='index == "mt_date"'>
+					and mt_date like '%'||#{val}||'%'
+				</when>
+				<when test='index == "mt_title"'>
+					and mt_title like '%'||#{val}||'%'
+				</when>
+			</choose>
+			order by 2 desc
+		</select>
+		
+		<select id="meetingSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.MeetingVO">
+			select * from meeting where mt_reader like #{mt_reader }
+		</select>
+		
+		<select id="selectMeetingCount" resultType="java.lang.Integer">
+		select count(*) from meeting 
+	</select>
+	
+	<select id="boardMeetingCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from meeting where 1=1
+		<choose>
+		    <when test='index == "mt_reader"'>
+		    	AND mt_reader like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "mt_date"'>
+		    	AND mt_date like '%'||#{val}||'%'
+		    </when>
+		    <when test='index == "mt_title"'>
+		    	AND mt_title like '%'||#{val}||'%'
+		    </when>
+	  	</choose>
+	</select>
+	
+	<select id="selectMeetingRoom2" resultType="com.nyngw.dto.MeetingRoomVO">
+		select * from meetingroom 
+	</select>
+	
+	<update id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO">
+		insert into meeting(mt_number, mt_date, mt_title, mt_content)
+		values('mt'||mt_seq.nextVal, #{mt_date}, #{mt_title}, #{mt_content})
+		
+	</update>
+	
 </mapper>

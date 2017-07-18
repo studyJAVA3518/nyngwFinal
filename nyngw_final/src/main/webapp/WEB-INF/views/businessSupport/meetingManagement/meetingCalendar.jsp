@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 회의 일정!!!!!!!!!!!!!!!
-<div>
-		<form action="">
 			<table class="table table-border">
 				<tr>
 					<th>검색기간</th>
-					<td>
+					<td colspan="4">
 						<button type="button">당일</button>
 						<button type="button">1주일</button>
 						<button type="button">1개월</button>
@@ -16,35 +15,49 @@
 				</tr>
 				<tr>
 					<th>검색입력</th>
-					<td>
-						<select name="">
-							<option value="">전체</option>
-							<option value="">제목</option>
-							<option value="">작성자</option>
+					<td colspan="4">
+					<form action="/businessSupport/meetingManagement/meetingCalendar">
+						<select name="index">
+							<option value="mt_reader">주최자</option>
+							<option value="mt_date">날짜</option>
+							<option value="mt_title">회의명</option>
 						</select>
-						<input type="text">
+					<input type="hidden" value="${select.index}">
+					<input type="text" name="val" value="${select.val}">
+					<input type="submit" value="검색">
+					</form> 
 					</td>
 				</tr>
-			</table>
-				<input type="submit" value="검색">
-		</form>
-		<br>
-		<br>
-		<table class="table table-border">
 			<tr>
 				<th>회의번호</th>
 				<th>회의일자</th>
-				<th>회의록명</th>
 				<th>회의장소</th>
+				<th>회의명</th>
 				<th>회의 주최자</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>2017.07.12</td>
-				<td><a href="/businessSupport/meetingManagement/meetingCalendar">회의하자우리</a></td>
-				<td>병현세미나실</td>
-				<td>꼬부기</td>
-			</tr>
-		</table>
-			<button><a href="/businessSupport/meetingManagement/addMeeting">글쓰기</button>
+			<c:choose>
+				<c:when test="${viewData.boardCountPerPage > 0}">
+				<c:forEach items="${viewData.meetingList}" var="board" >
+				<tr>
+					<td>${board.mt_number}</td>
+					<td><fmt:formatDate value="${board.mt_date}" pattern="yy'년'MM'월'dd'일'"/></td>
+					<td>${board.mt_rv_number }</td>
+					<td>${board.mt_title}</td>
+					<td>${board.mt_reader}</td>
+				</tr>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td style="text-align: center;">내용이 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+			</table>
+
+	<div id="pageNum">
+		<c:forEach begin="1" end="${viewData.boardTotalCount}" step="1" var="i">
+			<a href="/businessSupport/meetingManagement/meetingCalendar=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+		</c:forEach>
 	</div>
+			<button><a href="/businessSupport/meetingManagement/addMeetingForm">글쓰기</a></button>

@@ -7,7 +7,6 @@
    User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 
 <meta charset="UTF-8">
 <script>
