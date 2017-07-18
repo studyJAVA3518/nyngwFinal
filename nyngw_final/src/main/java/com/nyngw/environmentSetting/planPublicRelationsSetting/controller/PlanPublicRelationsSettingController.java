@@ -79,23 +79,57 @@ public class PlanPublicRelationsSettingController {
 
 	}
 	
-	@RequestMapping(value="/updateWorkingTime",method=RequestMethod.POST)
-	public String updateWorkingTime(HttpServletRequest request, Model model,
+	/**
+	 * 회사 기본 근무시간 수정하는 컨트롤러
+	 * @param request
+	 * @param model
+	 * @param wt_number
+	 * @param wt_attend_time_hour
+	 * @param wt_attend_time_minute
+	 * @param wt_end_time_hour
+	 * @param wt_end_time_minute
+	 * @return
+	 */
+	@RequestMapping("/updateWorkingTime")
+	public @ResponseBody Map<String,Object> updateWorkingTime(Model model,
 			String wt_number,
 			String wt_attend_time_hour,
 			String wt_attend_time_minute,
 			String wt_end_time_hour,
 			String wt_end_time_minute){
 		
+		Map<String, Object> map = new HashMap<String,Object>();
+		int result = -1;
 		try {
-			planPublicRelationsSettingService.modifyWorkingTime(model, wt_number,wt_attend_time_hour,wt_attend_time_minute,wt_end_time_hour,wt_end_time_minute);
+			result = planPublicRelationsSettingService.modifyWorkingTime(model, wt_number,wt_attend_time_hour,wt_attend_time_minute,wt_end_time_hour,wt_end_time_minute);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/workingDayForm";
 		
-		return url;
+		map.put("result", result);
+		return map;
 	}
+	
+//	@RequestMapping("/checkDeptOne")
+//	public @ResponseBody Map<String,Object> selectDeptOne(String tmp_dept_number){
+//		Map<String,Object> map = new HashMap<String, Object>();
+//		DepartmentVO dvo = null;
+//		try {
+//			dvo = planPublicRelationsSettingService.getDeptOne(tmp_dept_number);
+//			System.out.println("업데이트할 부서 이름 : "+dvo.getDept_name());
+//			map.put("dept_number", dvo.getDept_number());
+//			map.put("dept_name", dvo.getDept_name());
+//			map.put("dept_membernumber", dvo.getDept_membernumber());
+//			map.put("dept_tel", dvo.getDept_tel());
+//			map.put("dept_addr", dvo.getDept_addr());
+//		
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return map;
+//	}
+	
+	
 
 	
 	/**

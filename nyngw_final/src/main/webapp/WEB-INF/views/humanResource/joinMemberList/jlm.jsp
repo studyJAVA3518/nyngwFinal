@@ -28,8 +28,14 @@
 		</c:forEach>
 			
 	</table>
-	<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
-			<a href="/humanResource/joinMemberList/jlm?page=${i}">[${i}]</a>
-	</c:forEach>
-
+		<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+			<a href="/humanResource/joinMemberList/jlm?page=${page.startPageNo-1}">이전</a>
+		</c:if>
+		<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1" var="i">
+				<a href="/humanResource/joinMemberList/jlm?page=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+			<a href="/humanResource/joinMemberList/jlm?page=${page.endPageNo+1}">다음</a>
+		</c:if>
+	
 

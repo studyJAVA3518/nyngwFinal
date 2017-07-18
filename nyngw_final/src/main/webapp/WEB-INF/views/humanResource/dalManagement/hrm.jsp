@@ -58,9 +58,15 @@
 	</c:forEach>
 </table>
 <div >
-	<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
-			<a href="/humanResource/dalManagement/hrm?page=${i}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">[${i}]</a>
-	</c:forEach>	
+		<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+			<a href="/humanResource/dalManagement/hrm?page=${page.startPageNo-1}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">이전</a>
+		</c:if>
+		<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1" var="i">
+				<a href="/humanResource/dalManagement/hrm?page=${i}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+			<a href="/humanResource/dalManagement/hrm?page=${page.endPageNo+1}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">다음</a>
+		</c:if>
 </div>
 <div id="btngroup"></div>
 <table class="table table-bordered">

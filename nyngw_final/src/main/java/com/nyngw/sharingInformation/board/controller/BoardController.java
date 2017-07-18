@@ -42,7 +42,7 @@ public class BoardController implements ApplicationContextAware{
 	
 	@Autowired
 	private CommonServiceImpl CommonService;
-	
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	/**
 	 * 게시판 리스트 화면을 보여주는 url을 반환하는 메서드
 	 * @return 게시판 리스트화면 url 반환
@@ -69,6 +69,17 @@ public class BoardController implements ApplicationContextAware{
 			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
 			//			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
+		}
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getBoardList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
@@ -116,20 +127,20 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal,@RequestParam( value="content") String board_content) throws IOException{//,Principal principal
-		/*String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
 		if(!multipartFile.isEmpty()){
 			File file = new File(upload,multipartFile.getOriginalFilename());
-			multipartFile.transferTo(file);*/
+			multipartFile.transferTo(file);
 			BoardVO board = commandboard.toBoardVO();
 			MemberVO member = basicSettingService.selectMember(principal.getName());
 			board.setBoard_mem_number(member.getMem_number());
 			board.setBoard_content(board_content);
-//			board.setBoard_file_name(multipartFile.getOriginalFilename());
+			board.setBoard_file_name(multipartFile.getOriginalFilename());
 			boardService.boardInsert(board);
 			return "redirect:/sharingInformation/board/list";
-		/*}*/
-//		return "sharingInformation/board/writeForm";
+		}
+		return "sharingInformation/board/writeForm";
 	}
 	
 	/**

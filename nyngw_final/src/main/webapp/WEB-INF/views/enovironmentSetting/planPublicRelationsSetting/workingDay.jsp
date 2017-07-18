@@ -7,8 +7,9 @@
 에 대한 화면 -->
 
 <script>
+	
+	//근무 시간 엑셀파일을 업로드
 	function workingDaySetting_go(){
-		
 		$(function(){
 		
 			var file = $("#excelFile").val();
@@ -28,7 +29,8 @@
 		    }
 		})
 	}
-
+	
+	//엑셀파일인지 체크
 	function checkFileType(filePath) {
 	    var fileFormat = filePath.split(".");
 	    if (fileFormat.indexOf("xlsx") > -1||fileFormat.indexOf("xls") > -1) {
@@ -36,15 +38,43 @@
 	    } else {
 	        return false;
 	    }
-	
 	}
-
-	function workingTimeSetting_go(){
-    	document.workingTimeForm.method="post";
-		document.workingTimeForm.action="<%=request.getContextPath() %>/enovironmentSetting/planPublicRelationsSetting/updateWorkingTime";
-		document.workingTimeForm.submit();
+	
+	//근무시간 변경 클릭
+	$(function(){
+		$('.updateWorkingTimeBtn').click(function(){
+			var wt_number = $(this).parents().siblings().children('form').children().children('input#wt_number').val();
+			var wt_attend_time_hour = $(this).parents().siblings().children('form').children().children('input#wt_attend_time_hour').val();
+			var wt_attend_time_minute = $(this).parents().siblings().children('form').children().children('input#wt_attend_time_minute').val();
+			var wt_end_time_hour = $(this).parents().siblings().children('form').children().children('input#wt_end_time_hour').val();
+			var wt_end_time_minute = $(this).parents().siblings().children('form').children().children('input#wt_end_time_minute').val();
+			
+			$.ajax({
+				url:'/enovironmentSetting/planPublicRelationsSetting/updateWorkingTime',
+				type:'get',
+				data: {
+					'wt_number' : wt_number,
+					'wt_attend_time_hour' : wt_attend_time_hour,
+					'wt_attend_time_minute' : wt_attend_time_minute,
+					'wt_end_time_hour' : wt_end_time_hour,
+					'wt_end_time_minute' : wt_end_time_minute,
+				},
+				success : function(res){
+					if(res.result>0){
+						alert('시간 변경에 성공했습니다.');
+					}else{
+						alert('시간 변경에 실패했습니다.');
+					}
+				},
+				dataType : 'json'
+			})
+		})
+	})
+	
+	function checkParamNull(wt_number,wt_attend_time_hour,wt_attend_time_minute,wt_attend_time_minute,wt_end_time_minute){
 		
 	}
+	
 </script>
 
 <h2>근무일 및 출결정보 등록시간 설정</h2>
@@ -57,8 +87,7 @@
 			<p>시:0에서 23까지 입력 / 분:00~60까지 입력</p>
 		</th>
 	</tr>
-	<form class="form-inline" name="workingTimeForm">
-		<c:forEach items="${wtList}" var="working" varStatus="status">
+	<c:forEach items="${wtList}" var="working" varStatus="status">
 		
 		<tr>
 			<th>${status.count}</th>
@@ -84,19 +113,21 @@
 				 
 			</td>
 			<td>
-				<div class="form-group">
-					<input type="hidden" name="wt_number" id="wt_number" value="${working.wt_number}"/>
-					<input type="text" name="wt_attend_time_hour" id="wt_attend_time_hour" class="form-control inlineText" value="${working.wt_start_time.substring(0,2)}"/> 시 
-					<input type="text" name="wt_attend_time_minute" id="wt_attend_time_minute" class="form-control inlineText" value="${working.wt_start_time.substring(3,5)}"/> 분 ~  
-					<input type="text" name="wt_end_time_hour" id="wt_end_time_hour" class="form-control inlineText" value="${working.wt_end_time.substring(0,2)}"/> 시 
-					<input type="text" name="wt_end_time_minute" id="wt_end_time_minute" class="form-control inlineText" value="${working.wt_end_time.substring(3,5)}"/> 분
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</div>
+				<form class="form" name="workingTimeForm">
+					<div class="form-group">
+						<input type="hidden" name="wt_number" id="wt_number" value="${working.wt_number}"/>
+						<input type="text" name="wt_attend_time_hour" id="wt_attend_time_hour" class="form-control inlineText" value="${working.wt_start_time.substring(0,2)}"/> 시 
+						<input type="text" name="wt_attend_time_minute" id="wt_attend_time_minute" class="form-control inlineText" value="${working.wt_start_time.substring(3,5)}"/> 분 ~  
+						<input type="text" name="wt_end_time_hour" id="wt_end_time_hour" class="form-control inlineText" value="${working.wt_end_time.substring(0,2)}"/> 시 
+						<input type="text" name="wt_end_time_minute" id="wt_end_time_minute" class="form-control inlineText" value="${working.wt_end_time.substring(3,5)}"/> 분
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+				</form>
 			</td>
-			<td><input type="button" class="btn btn-default" onclick="workingTimeSetting_go();" value="수정"/></td>
+<!-- 			<td><input type="button" class="btn btn-default updateWorkingTimeBtn" onclick="workingTimeSetting_go(this.form);" value="수정"/></td> -->
+			<td><input type="button" class="btn btn-default updateWorkingTimeBtn" value="수정"/></td>
 		</tr>
-		</c:forEach>
-	</form>
+	</c:forEach>
 </table>
 
 <h2>출결정보 수동 등록</h2>
@@ -107,7 +138,7 @@
 				<!-- 출결정보는 기본적으로 매일 오전 12시에 자동 업데이트가 됩니다.<br/> -->
 					<span class="areaBlock textLeft">수동으로 출결정보를 업데이트 하려면 출결정보 엑셀파일을 선택하여 추가하세요.</span>
 					<span class="areaBlock textLeft">출결정보 양식을 다운로드받아 해당 양식에 맞게 입력해야 정보가 입력됩니다.</span>
-					<span class"areaBlock textRight"><a href="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/excelDownload" class="btn btn-default">출결정보 엑셀파일 다운로드</a></span>
+					<span class="areaBlock textRight"><a href="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/excelDownload" class="btn btn-default">출결정보 엑셀파일 다운로드</a></span>
 				</td>
 			</tr>
 			<tr>

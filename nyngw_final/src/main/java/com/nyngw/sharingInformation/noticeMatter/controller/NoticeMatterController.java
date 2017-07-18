@@ -118,6 +118,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 			board.setBoard_content(board_content);
 //			board.setBoard_file_name(multipartFile.getOriginalFilename());
 			noticeMatterService.noticeMatterInsert(board);
+			
 			return "redirect:/sharingInformation/noticeMatter/nmList";
 //		}
 //		return "redirect:/sharingInformation/noticeMatter/nmWriteForm";
