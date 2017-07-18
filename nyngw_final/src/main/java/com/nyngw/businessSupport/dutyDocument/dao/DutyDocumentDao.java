@@ -7,6 +7,7 @@ import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_DocumentVO;
 
 public interface DutyDocumentDao {
+	//개인
 	public int selectDocumentCount_DD();
 	public List<Duty_DocumentVO> selectDocumentList_DD(int firstRow, int endRow, Board_SelectVO select);
 	public int documentSelectCount_DD(Board_SelectVO select);
@@ -15,4 +16,6 @@ public interface DutyDocumentDao {
 	public void dutyDocumentDelete_DD(String dd_number);
 	public Duty_DocumentVO documentSelect_DD(String dd_number);
 	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument);
+	//부서
+	
 }
