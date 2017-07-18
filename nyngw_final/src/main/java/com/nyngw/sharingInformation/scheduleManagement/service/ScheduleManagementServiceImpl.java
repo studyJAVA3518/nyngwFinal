@@ -1,7 +1,9 @@
 package com.nyngw.sharingInformation.scheduleManagement.service;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,11 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
 	@Autowired
 	private CommonServiceImpl commonService;
 	
-	public void getAllSchedule(Model model,String sc_code_number) {
-		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_selectAllSchedule(sc_code_number); 
+	public void getAllSchedule(Model model,String sc_code_number,String mem_number) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("sc_code_number", sc_code_number);
+		paramMap.put("sc_mem_number", mem_number);
+		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_selectAllSchedule(paramMap); 
 		model.addAttribute("scheduleList",scheduleList );
 	}
 	

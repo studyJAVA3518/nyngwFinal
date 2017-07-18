@@ -27,7 +27,7 @@
 	
 			    form.ajaxSubmit({
 			        type: 'POST',
-			        url: '${pageContext.request.contextPath}/daumeditor/singleUploadFileAjax',
+			        url: 'singleUploadFileAjax',
 			        dataType: 'JSON',    // 반환되는 데이타 타입
 			        data: {'page':page},
 			        beforeSubmit: function(){ },

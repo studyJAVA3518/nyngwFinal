@@ -1,6 +1,7 @@
 package com.nyngw.sharingInformation.scheduleManagement.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ public class ScheduleManagementDaoImpl implements ScheduleManagementDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ScheduleVO> SI_selectAllSchedule(String sc_code_number) {
-		return sqlSession.selectList("SI_selectAllSchedule",sc_code_number);
+	public List<ScheduleVO> SI_selectAllSchedule(Map<String, String> paramMap) {
+		return sqlSession.selectList("SI_selectAllSchedule",paramMap);
 	}
 	
 	public ScheduleVO SI_selectSchedule(String sc_number) {
