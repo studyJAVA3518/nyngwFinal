@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <!-- 환경설정관리 -> 인사부 설정 -> 휴가 종류 설정
 에 대한 화면 -->
 

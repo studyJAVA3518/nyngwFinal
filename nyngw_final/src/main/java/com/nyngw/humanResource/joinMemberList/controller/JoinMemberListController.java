@@ -72,9 +72,7 @@ public class JoinMemberListController {
 	public @ResponseBody Map<String,Object> modifyMember(JoinMemberVO member){
 		Map<String,Object> map = new HashMap<String, Object>();
 		
-		//int result = joinMemberListService.modifyMember(member); 
-		
-		int result=1;
+		int result = joinMemberListService.modifyMember(member); 
 		
 		map.put("status", "no");
 		
