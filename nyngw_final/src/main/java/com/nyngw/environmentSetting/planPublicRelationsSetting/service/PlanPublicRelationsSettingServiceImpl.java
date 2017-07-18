@@ -326,7 +326,7 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	 * @param wt_end_time_hour
 	 * @param wt_end_time_minute
 	 */
-	public void modifyWorkingTime(Model model, String wt_number, String wt_attend_time_hour,
+	public int modifyWorkingTime(Model model, String wt_number, String wt_attend_time_hour,
 			String wt_attend_time_minute, String wt_end_time_hour,
 			String wt_end_time_minute) throws SQLException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -334,16 +334,20 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		String dateStr = sdf.format(date);
 		String startTime = dateStr+" "+wt_attend_time_hour+":"+wt_attend_time_minute+":00";
 		String endTime = dateStr+" "+wt_end_time_hour+":"+wt_end_time_minute+":00";
-
-		System.out.println("서비스에서 작업한 시작시간 : "+ startTime);
-		System.out.println("서비스에서 작업한 종료시간 : "+ endTime);
+		
+//		System.out.println("서비스에서 받아오는 매개변수 시작시간 : "+ wt_attend_time_hour);
+//		System.out.println("서비스에서 받아오는 매개변수 시작분 : "+ wt_attend_time_minute);
+//		System.out.println("서비스에서 받아오는 매개변수 종료시간 : "+ wt_end_time_hour);
+//		System.out.println("서비스에서 받아오는 매개변수 종료분 : "+ wt_end_time_minute);
+//		System.out.println("서비스에서 작업한 시작시간 : "+ startTime);
+//		System.out.println("서비스에서 작업한 종료시간 : "+ endTime);
 		
 		Work_TimeVO wtvo = new Work_TimeVO();
 		wtvo.setWt_number(wt_number);
 		wtvo.setWt_start_time(startTime);
 		wtvo.setWt_end_time(endTime);
-		planPublicRelationsSettingDao.updateWorkTime(wtvo);
-		
+		int result = planPublicRelationsSettingDao.updateWorkTime(wtvo);
+		return result;
 	}
 
 }
