@@ -3,15 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script type="text/javascript">
-   function file_change(file){
-   var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
-   file = file.substring(str, file.length);
-   document.getElementsByName('board_file_name')[0].value=file;
-}
+	function file_change(file){
+	var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
+	file = file.substring(str, file.length);
+	document.getElementsByName('board_file_name')[0].value=file;
+	
+	}
 </script>
 	<h1>게시판등록폼</h1>
 	<div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
+		<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
 			<table class="table table-bordered">
 				<tr>
 					<th>게시판종류</th>
@@ -26,9 +27,15 @@
 				</tr>
 			</table>	
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+			<table>
+				<tr>
+					<th>첨부파일</th>
+					<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	
+				</tr>
+			</table>
 		</form>
 		<input type="hidden" value="${page}">
-		<div><button onclick='saveContent()'>등록</button></div>
+		<button type="button" onclick="saveContent();">등록</button>
 		<input type="reset" value="초기화" />	
 		<button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
 	</div>
