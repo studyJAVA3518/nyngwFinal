@@ -42,9 +42,8 @@
 	
 	<update id="noticeMatterInsert" parameterType="com.nyngw.dto.BoardVO">
 		insert into board(board_number, board_code_number, board_title, board_content, 
-							board_file_name, board_count, board_date, board_mem_number)
-		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content},
-		       #{board_file_name}, #{board_count}, #{board_date}, #{board_mem_number})
+							board_count, board_date, board_mem_number)
+		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content}, #{board_count}, #{board_date}, #{board_mem_number})
 	</update>
 	
 	<select id="NoticeMatterMax" resultType="java.lang.String">

@@ -1,0 +1,20 @@
+오라클 서버에 접속 방법 3가지
+
+1. sql command Line
+ - 시작 -> 모든프로그램에서 찾아서 들어감
+ : conn sys /as sysdba
+ conn : connect 
+ sys : system 기본 id
+ /as : ~로써(자격)
+ sysdba : systemDataBase관리자
+
+ : select * from all_users; 모든 유저를 보여달라
+
+2. cmd
+ - window 설치하면 가능(경로부터 나온다.)
+ : sqlplus sys/java@localhost:1521 as sysdba *************
+  (sql 접속)
+ : select * from all_users; 모든 유저를 보여달라
+
+
+3. SQL Developer
