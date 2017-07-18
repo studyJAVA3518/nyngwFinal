@@ -50,20 +50,23 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 		JoinMemberVO mem = joinMemberListDao.getMemberDetailCommon_JM(member.getMem_id());
 		member.setMem_number(mem.getMem_number());
 		try{
-			if(member.getMdi_bank()!=null){
+			if(mem.getMdi_bank()!=null){
 				joinMemberListDao.modifyMemberBank(member);
+				System.out.println("<==================Modi");
 				result=1;
 			}else{
 				joinMemberListDao.modifyMemberBankinsert(member);
+				System.out.println("<==================inse");
 				result=1;
 			}
 		}catch(Exception e){
-
 		}
+
 		return result;
 	}
 
-	@Override
+
+		@Override
 	public void modifyDeleteMember(JoinMemberVO member) {
 		joinMemberListDao.modifyDeleteMembter(member);
 	}

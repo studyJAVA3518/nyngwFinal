@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script>
-$(function(){ //전체선택 체크박스 클릭
+$(function(){ 
+	$('#codeDialog').css('display', 'none');	
+	
+	//전체선택 체크박스 클릭
 	$("#allCheck").click(function() {
 			//만약 전체 선택 체크박스가 체크된상태일경우 
 			if ($("#allCheck").prop("checked")) {
@@ -102,6 +103,7 @@ $(function(){ //전체선택 체크박스 클릭
 	}
 	
 	
+	
 </script>
 <!-- 환경설정관리 -> 인사부 설정 -> 휴가 일수 설정에 대한 화면 -->
 
@@ -164,7 +166,48 @@ $(function(){ //전체선택 체크박스 클릭
 					</form> 
 					</div>
 		    <div role="tabpanel" class="tab-pane" id="profile">
-		    	프로필
+		    	<form action="vacationDaysForm">
+		    	<select name="mem_dept_number" class="btn btn-default">
+					<option value="all" selected= "selected">모든부서</option>
+					<option value="dept3" >인사부</option>
+					<option value="dept4" >기획홍보부</option>
+					<option value="dept5" >영업부</option>
+					<option value="dept6" >생산부</option>
+					<option value="dept7" >인사1팀</option>
+					<option value="dept8" >인사2팀</option>
+					<option value="dept9" >기획1팀</option>
+					<option value="dept10" >기획2팀</option>
+				</select>
+				<input type="text" name="mem_name" />
+				<button>검색</button>
+				</form>
+		    	<table class="table table-bordered">
+		    	<tr>
+		    		<th>사원 아이디</th>
+		    		<th>사원 명</th>
+		    		<th>부서 명</th>
+		    		<th>직급 명</th>
+		    		<th>연차</th>
+		    		<th>휴가</th>
+		    		<th>사용한 휴가</th>
+		    		<th>남은 휴가</th>
+		    		</tr>
+		    	<c:forEach items="${memberList }" var="member">
+			    	<tr onclick="location.href='/enovironmentSetting/humanResourceSetting/detailVacation?mem_number=${member.mem_number}'">
+						<td>${member.mem_id }</td>
+						<td>${member.mem_name }</td>
+						<td>${member.dept_name }</td>
+						<td>${member.position_name }</td>
+						<td>${member.mem_carear }</td>
+						<td>${member.vp_totalday }</td>
+						<td>${member.use_vacation }</td>
+						<td>${member.nouse_vacation }</td>
+					</tr>
+				</c:forEach>
+				</table>
+				<c:forEach begin="1" end="${page.finalPageNo}" step="1"	var="i">
+					<a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm?page=${i}&mem_dept_number=${dept_number}">[${i}]</a>
+				</c:forEach>
 		    </div>
 		  </div>
 		
@@ -172,11 +215,20 @@ $(function(){ //전체선택 체크박스 클릭
 	</div>
 </div>
 
+
+
+
+
+
+
+
 <script>
+
 $(function(){
 	$('#myTab a').click(function (e) {
 	  e.preventDefault()
 	  $(this).tab('show')
 	})
 })
+
 </script>

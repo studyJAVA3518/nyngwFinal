@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script>
 	function modifyMember() {
 		if (!($("#mdi_bank").val() && $("#mdi_bank_account").val())) {
@@ -23,7 +21,7 @@
 				}
 			},
 			error : function() {
-				alert("ㅈ 망이다.");
+				alert("ㅈ 망이다.??????");
 			},
 			dataType : 'json'
 		})

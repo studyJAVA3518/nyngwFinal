@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.dto.Member_Carear_VacationVO;
+import com.nyngw.dto.Paging;
 import com.nyngw.dto.Vacation_PolicyVO;
+import com.nyngw.dto.Vacation_TotalVO;
 import com.nyngw.dto.Year_VacationVO;
 import com.nyngw.environmentSetting.humanResourceSetting.service.HumanResourceSettingServiceImpl;
 
@@ -45,11 +48,44 @@ public class HumanResourceSettingController {
 	 * 휴가 종류 설정 화면으로 이동
 	 */
 	@RequestMapping("/vacationDaysForm")
-	public String vacationDaysForm(Model model){
+	public String vacationDaysForm(Model model,String page,Member_Carear_VacationVO mcv){
+		
+		if(mcv.getMem_dept_number()!=null){
+			if(mcv.getMem_dept_number().equals("all")){
+				mcv.setMem_dept_number(null);
+			}
+		}
+		
+		System.out.println(mcv.getMem_dept_number());
+		
+		int p=1;
+		if(page != null){
+			p=Integer.valueOf(page);
+			if(p<1){
+				p=1;
+			}
+		}
+		Paging paging = new Paging(p, 10);
+		paging.setNumberOfRecords(humanResurceSettingsService.countContent(mcv));
+		
+		int firstRow = 0;
+		int endRow = 0;
+		
+		paging.makePaging();
+		
+		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
+		endRow = firstRow + paging.getRecordsPerPage() - 1;
+		
+		mcv.setStartPage(firstRow-1);
+		mcv.setEndPage(endRow);
 		
 		List<Year_VacationVO> yearList = humanResurceSettingsService.getVacationYearSetting();
+		List<Member_Carear_VacationVO> memberVacationList = humanResurceSettingsService.getCarearVacationSet(mcv);
 		
+		model.addAttribute("dept_number", mcv.getMem_dept_number());
+		model.addAttribute("page", paging);
 		model.addAttribute("yearList",yearList );
+		model.addAttribute("memberList", memberVacationList);
 		String url = "enovironmentSetting/humanResourceSetting/vacationDays";
 		return url;
 	}
@@ -155,6 +191,18 @@ public class HumanResourceSettingController {
 			map.put("su", "no");
 		}
 		return map;
+	}
+	
+	@RequestMapping("/detailVacation")
+	public String detailVacation(String mem_number,Model model){
+		
+		Member_Carear_VacationVO member = humanResurceSettingsService.getMember(mem_number);
+		
+		List<Vacation_TotalVO> vacationList = humanResurceSettingsService.getVacationList(member);
+		
+		model.addAttribute("member", member);
+		model.addAttribute("vacationList", vacationList);
+		return "enovironmentSetting/humanResourceSetting/memberDetailVacation";
 	}
 	
 	
