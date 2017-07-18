@@ -11,4 +11,8 @@ public interface DutyDocumentDao {
 	public List<Duty_DocumentVO> selectDocumentList_DD(int firstRow, int endRow, Board_SelectVO select);
 	public int documentSelectCount_DD(Board_SelectVO select);
 	public Common_CodeVO documentSelectCodeName_DD(String reportType);
+	public void dutyDocumentInsert_DD(Duty_DocumentVO dutyDocument);
+	public void dutyDocumentDelete_DD(String dd_number);
+	public Duty_DocumentVO documentSelect_DD(String dd_number);
+	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument);
 }

@@ -27,5 +27,9 @@ public class CommonDaoImpl implements CommonDao {
 	public MemberVO common_selectMemberByMemNumber(String mem_number) {
 		return (MemberVO) sqlSession.selectOne("common_selectMemberByMemNumber", mem_number);
 	}
+	
+	public Common_CodeVO common_selectCodeNameByDocument(String code_number) {
+		return (Common_CodeVO) sqlSession.selectOne("common_selectCodeNameByDocument", code_number);
+	}
 
 }

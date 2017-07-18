@@ -17,6 +17,22 @@ public class Duty_DocumentVO {
 	private String dd_code_number;	//업무일지구분번호
 	private String mem_name;//이름
 	private String dd_code_name; // 문서종류
+	private String dd_select_name; //부서 또는 개인 일지 이름
+	private String dd_name; //code1,code2,code3 등의 이름을 저장하는 변수
+	
+	
+	public String getDd_name() {
+		return dd_name;
+	}
+	public void setDd_name(String dd_name) {
+		this.dd_name = dd_name;
+	}
+	public String getDd_select_name() {
+		return dd_select_name;
+	}
+	public void setDd_select_name(String dd_select_name) {
+		this.dd_select_name = dd_select_name;
+	}
 	public String getDd_code_name() {
 		return dd_code_name;
 	}
