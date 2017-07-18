@@ -80,7 +80,7 @@ public class CommandBoardVO {
 		board.setBoard_content(board_content);
 		board.setBoard_count(board_count);
 		board.setBoard_date(board_date);
-		board.setBoard_file_name(board_file_name.getName());
+//		board.setBoard_file_name(board_file_name.getName());
 		board.setBoard_mem_number(board_mem_number);
 		board.setBoard_number(board_number);
 		board.setBoard_title(board_title);

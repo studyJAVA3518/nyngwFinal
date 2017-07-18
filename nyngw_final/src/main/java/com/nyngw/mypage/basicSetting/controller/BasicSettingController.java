@@ -1,20 +1,12 @@
 package com.nyngw.mypage.basicSetting.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
-import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -22,13 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MemberVOup;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
@@ -97,30 +84,35 @@ public class BasicSettingController {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO mem = basicSettingServiceImpl.selectMember(user.getUsername());
 		MemberVO memup = voup.toMemberVO();
+		
 		if(vo.getMem_pwd().equals(mem.getMem_pwd())){
+			
 			if(!multipartFile.isEmpty()){
-				File file = new File(upload , URLEncoder.encode(multipartFile.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
+				File file = new File(upload , multipartFile.getOriginalFilename());//+"$$"+System.currentTimeMillis()
 				multipartFile.transferTo(file);
+				System.out.println(file);
 				memup.setMem_img(multipartFile.getOriginalFilename());
+				vo.setMem_img(memup.getMem_img());
 			}else{
 				vo.setMem_img(mem.getMem_img());
 			}
 			
 			if(!multipartFile2.isEmpty()){
-				File file2 = new File(upload2 , URLEncoder.encode(multipartFile2.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
+				File file2 = new File(upload2 , multipartFile2.getOriginalFilename());//+"$$"+System.currentTimeMillis()
 				multipartFile2.transferTo(file2);
 				memup.setMem_sign(multipartFile2.getOriginalFilename());
+				vo.setMem_sign(memup.getMem_sign());
 			}else{
-				vo.setMem_img(mem.getMem_sign());
+				vo.setMem_sign(mem.getMem_sign());
 			}
-			vo.setMem_img(memup.getMem_img());
-			vo.setMem_sign(memup.getMem_sign());
 			vo.setMem_id(mem_id);
+			
 			if(mem_npwd.isEmpty()){
 				vo.setMem_pwd(mem.getMem_pwd());
 			}else{
 				vo.setMem_pwd(mem_npwd);
 			}
+			
 			basicSettingServiceImpl.updateMember(vo);
 		}else{
 			return "redirect:/mypage/basicSetting/updateMemberForm";

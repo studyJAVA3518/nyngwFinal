@@ -86,8 +86,11 @@ $(function(){
 	</table>
 	
 	
-	
+	 <div id="PAGE_NAVI"></div>
+    <input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 
+
+	
 	<div id="pageNum">
 		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i">
 			<a href="/mypage/myDalManagement/attended?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
