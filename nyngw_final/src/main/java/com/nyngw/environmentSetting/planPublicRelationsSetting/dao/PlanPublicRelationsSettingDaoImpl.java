@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.Diligence_And_LazinessVO;
 import com.nyngw.dto.PositionVO;
+import com.nyngw.dto.Work_TimeVO;
 
 @Repository
 public class PlanPublicRelationsSettingDaoImpl implements
@@ -21,6 +23,26 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	/**
+	 * 회사의 기본적인 업무시간을 가져오는 메서드
+	 * @return wtList
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Work_TimeVO> selectWorkTime() throws SQLException{
+		ArrayList<Work_TimeVO> wtList = (ArrayList<Work_TimeVO>) sqlSession.selectList("esSelectWorking","");
+		return wtList;
+	}
+	
+	/**
+	 * 회사의 기본 업무시간을 수정하는 메서드
+	 */
+	@Override
+	public int updateWorkTime(Work_TimeVO vo) throws SQLException{
+		int result = sqlSession.update("esUpdateWorkingTime",vo);
+		return result;
+	}
 	
 	/**
 	 * 회사 정보를 입력하는 메서드
@@ -207,6 +229,17 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	public int updatePositionLevel(PositionVO vo) throws SQLException{
 		int result = sqlSession.update("esUpdatePositionLevel", vo);
 		return result;
+	}
+	
+	@Override
+	public int insertDAL(List<Diligence_And_LazinessVO> dalList) throws SQLException{
+		int count = 0;
+		for (Diligence_And_LazinessVO dalVO : dalList) {
+			sqlSession.update("esInsertDAL", dalVO);
+			count++;
+		}
+		return count;
+		
 	}
 
 	
