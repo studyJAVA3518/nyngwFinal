@@ -55,7 +55,7 @@
 	
 	<update id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO">
 		insert into meeting(mt_number, mt_reader, mt_date, mt_title, mt_content)
-		values('mt'||mt_seq.nextVal,#{mt_reader} #{mt_date}, #{mt_title}, #{mt_content})
+		values('mt'||mt_seq.nextVal,#{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content})
 		
 	</update>
 	

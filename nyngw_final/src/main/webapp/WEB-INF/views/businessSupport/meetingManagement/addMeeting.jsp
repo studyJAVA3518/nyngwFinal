@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<form action="/businessSupport/meetingManagement/meetingInsert" method="post">
+<form action="<%=request.getContextPath() %>/businessSupport/meetingManagement/meetingInsert" method="post">
 		<table class="table table-border">
 			<tr>
 				<th>회의제목</th>

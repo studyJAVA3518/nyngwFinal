@@ -1,6 +1,9 @@
 package com.nyngw.businessSupport.meetingManagement.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +63,28 @@ public class MeetingManagementController {
 	}
 	 
 	@RequestMapping(value="/meetingInsert", method=RequestMethod.POST)
-	public String addMeet(Model model, MeetingVO meeting){
+	public String addMeet(Model model, 
+			String mt_title,
+			String mt_date,
+			String mt_reader,
+			String mt_content
+			){
+		MeetingVO meeting = new MeetingVO();
+		meeting.setMt_title(mt_title);
+		meeting.setMt_reader(mt_reader);
+		meeting.setMt_content(mt_content);
+		try {
+			meeting.setMt_date(new SimpleDateFormat("YYYY-MM-DD").parse(mt_date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		meetingManagementService.meetingInsert(meeting);
-		return "redirect:businessSupport/meetingManagement/meetingCalendar";
+		System.out.println("컨트롤러 : "+meeting.getMt_content());
+		System.out.println("컨트롤러 : "+meeting.getMt_number());
+		System.out.println("컨트롤러 : "+meeting.getMt_reader());
+		System.out.println("컨트롤러 : "+meeting.getMt_title());
+		System.out.println("컨트롤러 : "+meeting.getMt_date());
+		return "redirect:/businessSupport/meetingManagement/meetingCalendar";
 	}
 	
 	
