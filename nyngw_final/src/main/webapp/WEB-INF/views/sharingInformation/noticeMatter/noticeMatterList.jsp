@@ -50,9 +50,15 @@
 		</c:choose>
 	</table>
 	<div id="pageNum">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"	var="i">
-			<a href="/sharingInformation/noticeMatter/nmList?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
 		</c:forEach>
+		<c:if test="${endPage < addressBookViewVO.getPageTotalCount()}">
+			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+		</c:if>
 	</div>
 </body>
 </html>
