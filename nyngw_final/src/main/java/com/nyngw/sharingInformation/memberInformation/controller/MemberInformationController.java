@@ -78,7 +78,7 @@ public class MemberInformationController {
 	@RequestMapping("/birthdayCheck")
 	public String birthday(Model model, @RequestParam(value="page",defaultValue="1") int pageNumber,String month){
 		if(month== null){
-			month = Calendar.getInstance().get(Calendar.MONTH)+1+"";
+			month = Calendar.getInstance().get(Calendar.MONTH)+1+"";	//현재 월
 		}
 		memberInformationService.getBirthdayMember(pageNumber, model, month);
 		model.addAttribute("month",month);

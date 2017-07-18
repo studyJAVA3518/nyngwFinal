@@ -46,10 +46,23 @@
 		</c:choose>
 	</table>
 	<div id="pageNum">
-		<c:forEach begin="1" end="${addressBookViewVO.getPageTotalCount()}" step="1" var="i">
-			<a href="/sharingInformation/memberInformation/addressBook?page=${i }">[${i}]</a>
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/sharingInformation/memberInformation/addressBook?page=${beginPage-1}&mem_name=${mem_name }"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/sharingInformation/memberInformation/addressBook?page=${pno}&mem_name=${mem_name }" />">[${pno}]</a>
 		</c:forEach>
+		<c:if test="${endPage < addressBookViewVO.getPageTotalCount()}">
+			<a href="<c:url value="/sharingInformation/memberInformation/addressBook?page=${endPage + 1}&mem_name=${mem_name }"/>">다음</a>
+		</c:if>
+		
+		<!-- 아래부분 지우시고 
+			 위에 부분 마지막 if 문 "addressBookViewVO.getPageTotalCount()" 부분하고
+			 검색어 url parameter로 넘겨주는 부분만 자기 것으로 수정하시면 되요~-->	
+			
+		<%-- <c:forEach begin="1" end="${addressBookViewVO.getPageTotalCount()}" step="1" var="i">
+			<a href="/sharingInformation/memberInformation/addressBook?page=${i }">[${i}]</a>
+		</c:forEach> --%>
 	</div>
-	
 </body>
 </html>
