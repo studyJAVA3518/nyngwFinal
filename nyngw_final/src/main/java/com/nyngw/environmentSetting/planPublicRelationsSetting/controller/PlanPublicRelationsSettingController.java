@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.util.ExcelRead;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.util.ExcelReadOption;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
 
 /**
@@ -48,10 +52,51 @@ public class PlanPublicRelationsSettingController {
 	 * 근무일 및 출결정보 등록시간 설정 화면으로 이동
 	 */
 	@RequestMapping("/workingDayForm")
-	public String workingDaysForm(){
+	public String workingDaysForm(Model model){
 		String url = "enovironmentSetting/planPublicRelationsSetting/workingDay";
+		try {
+			planPublicRelationsSettingService.viewWorkTime(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return url;
 	}
+
+	/**
+	 * 출결정보 예시 엑셀파일 다운로드
+	 */
+	@RequestMapping("/excelDownload")
+	public ModelAndView excelDownload(HttpServletRequest request){
+		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/workingDayForm";
+		//파일을 가져올 경로를 적어주고 + 가져올 파일 이름을 받아옴. 
+		String fullPath = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/download/worktimeExample.xls";
+		
+		 File file = new File(fullPath);
+         
+		 return new ModelAndView("download", "downloadFile", file);
+
+	}
+	
+	@RequestMapping(value="/updateWorkingTime",method=RequestMethod.POST)
+	public String updateWorkingTime(HttpServletRequest request, Model model,
+			String wt_number,
+			String wt_attend_time_hour,
+			String wt_attend_time_minute,
+			String wt_end_time_hour,
+			String wt_end_time_minute){
+		
+		try {
+			planPublicRelationsSettingService.modifyWorkingTime(model, wt_number,wt_attend_time_hour,wt_attend_time_minute,wt_end_time_hour,wt_end_time_minute);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/workingDayForm";
+		
+		return url;
+	}
+
 	
 	/**
 	 * 출근정보가 입력된 엑셀파일을 업로드해서 엑셀파일을 읽어오는 메서드
@@ -61,72 +106,42 @@ public class PlanPublicRelationsSettingController {
 	 * @return
 	 * @throws IOException
 	 */
-	@ResponseBody
-	@RequestMapping(value="/updateExcelFile",method=RequestMethod.POST)
+	@RequestMapping(value="/excelUpload",method=RequestMethod.POST)
 	public String uploadlFile(
 			MultipartHttpServletRequest request,
 			Model model) throws IOException{
 		
-		MultipartFile excelFile = request.getFile("excelFile");
-		
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/workingDayForm";
 		System.out.println("엑셀 파일 업로드 컨트롤러");
+
+		MultipartFile excelFile = request.getFile("excelFile");
 		
 		if(excelFile==null || excelFile.isEmpty()){
             throw new RuntimeException("엑셀파일을 선택해 주세요.");
         }
-        
-        File destFile = new File("D:\\"+excelFile.getOriginalFilename());
-        try{
-            excelFile.transferTo(destFile);
-        }catch(IllegalStateException | IOException e){
-            throw new RuntimeException(e.getMessage(),e);
-        }
-        
-        planPublicRelationsSettingService.excelUpload(destFile);
-
 		
-//		//update 결과값 저장하는 변수
-//		int resultComLogo = -1;
-//		//company객체 생성
-//		CompanyVO company = null;
-//		//파일 경로
-//		String uploadFilePath = null;
-//		//basic : 로고를 변경하지 않고 업체에서 제공하는 기본로고를 사용함
-//		if (logo.equals("basic")) {
-//			
-//			uploadFilePath = "resources/images/basic_logo.jpg";
-//		
-//		// custom : 원하는 파일을 업로드하여 로고를 변경한다
-//		}else if(logo.equals("custom")){	
-//			
-//			//업로드 경로 지정
-//			String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload";
-//			File file = null;
-//			
-//			//멀티파트파일이 비어있지 않다면-> 파일 생성해서 업로드
-//			if(!multipartFile.isEmpty()){
-//				//파일생성
-//				file = new File(upload,multipartFile.getOriginalFilename());
-//				//업로드한다!!
-//				multipartFile.transferTo(file);
-//				uploadFilePath = "resources/upload/"+multipartFile.getOriginalFilename();
-//			}
-//		}
-//		
-//		//파일 경로를 update한다
-//		try {
-//			//파일경로를 업데이트하고 결과값을 int로 저장
-//			resultComLogo = planPublicRelationsSettingService.modifyCompanyLogo(uploadFilePath, session.getAttribute("companyNumber").toString());
-//			//company
-//			company = appointedUIService.checkCompany();
-//			//session에 logo경로 저장
-//			session.setAttribute("companyLogo",company.getCompany_logo());
-//			model.addAttribute("resultComLogo",resultComLogo);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
+		//파일 경로
+		String uploadFilePath = null;
+		//업로드 경로 지정
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/upload/excel";
+		File destFile = null;
+		
+		//멀티파트파일이 비어있지 않다면-> 파일 생성해서 업로드
+		if(!excelFile.isEmpty()){
+			//파일생성
+			destFile = new File(upload,excelFile.getOriginalFilename());
+			//업로드한다!!
+			excelFile.transferTo(destFile);
+			uploadFilePath = "resources/upload/"+excelFile.getOriginalFilename();
+		}
+        
+        try {
+			planPublicRelationsSettingService.excelUpload(destFile, model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return url;
 	}
 	
 	

@@ -102,8 +102,8 @@
 						            <li><a href="/electronicApproval/draft/draft">기안하기</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">결재진행</li>
-						            <li><a href="/electronicApproval/approvalProgress/waitingApproval">미결제문서</a></li>
-						            <li><a href="/electronicApproval/approvalProgress/completeApproval">결제완료문서</a></li>
+						            <li><a href="/electronicApproval/approvalProgress/waitingApproval">미결재문서</a></li>
+						            <li><a href="/electronicApproval/approvalProgress/completeApproval">결재완료문서</a></li>
 						            <li><a href="/electronicApproval/approvalProgress/refusedApproval">반려문서</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">개인문서함</li>
@@ -167,7 +167,6 @@
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">회사 정보 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">회사 부서 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">회사 직급 설정</a></li>
-									<li><a href="/enovironmentSetting/planPublicRelationsSetting/organizationForm/">조직도 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/salaryForm">급여정책 설정</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">인사부부 설정</li>

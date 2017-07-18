@@ -7,7 +7,9 @@ import java.util.List;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.Diligence_And_LazinessVO;
 import com.nyngw.dto.PositionVO;
+import com.nyngw.dto.Work_TimeVO;
 
 public interface PlanPublicRelationsSettingDao {
 	
@@ -117,5 +119,11 @@ public interface PlanPublicRelationsSettingDao {
 	int deletePosition(String deletePositionNum) throws SQLException;
 
 	int updatePositionLevel(PositionVO vo) throws SQLException;
+
+	int insertDAL(List<Diligence_And_LazinessVO> dalList) throws SQLException;
+
+	ArrayList<Work_TimeVO> selectWorkTime() throws SQLException;
+
+	int updateWorkTime(Work_TimeVO vo) throws SQLException;
 
 }
