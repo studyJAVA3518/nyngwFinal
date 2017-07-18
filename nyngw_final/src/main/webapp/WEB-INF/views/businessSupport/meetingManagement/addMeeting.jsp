@@ -12,10 +12,6 @@
 				<td>
 					<input type="text" name="mt_title">
 				</td>
-				<th>회의번호</th>
-				<td>
-					<input type="text" name="mt_number" value="${meeting.mt_number }+1" readonly="readonly"/>
-				</td>
 			</tr>
 			<tr>
 				<th>회의장소</th>

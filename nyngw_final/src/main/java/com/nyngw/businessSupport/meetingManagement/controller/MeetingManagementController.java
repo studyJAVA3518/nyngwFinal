@@ -53,9 +53,7 @@ public class MeetingManagementController {
 		String mem_id = user.getUsername(); 
 		MemberVO meetingList2 = basicSettingService.selectMember(mem_id);
 		List<MeetingRoomVO> meetingroom = meetingManagementService.selectMeetingRoom();
-		MeetingVO meeting = (MeetingVO)meetingManagementService.meetingSelet(mem_id);
 		
-		model.addAttribute("meeting",meeting);
 		model.addAttribute("meetingroom",meetingroom);
 		model.addAttribute("meetingList2",meetingList2);
 		return "businessSupport/meetingManagement/addMeeting";

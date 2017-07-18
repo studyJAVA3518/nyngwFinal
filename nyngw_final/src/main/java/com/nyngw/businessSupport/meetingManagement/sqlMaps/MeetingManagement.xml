@@ -54,8 +54,8 @@
 	</select>
 	
 	<update id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO">
-		insert into meeting(mt_number, mt_date, mt_title, mt_content)
-		values('mt'||mt_seq.nextVal, #{mt_date}, #{mt_title}, #{mt_content})
+		insert into meeting(mt_number, mt_reader, mt_date, mt_title, mt_content)
+		values('mt'||mt_seq.nextVal,#{mt_reader} #{mt_date}, #{mt_title}, #{mt_content})
 		
 	</update>
 	
