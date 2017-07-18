@@ -21,9 +21,7 @@
 		<tr>
 			<th>내용</th>
 			<td>
-				<textarea name="sc_content" rows="10" cols="100" style="resize: none;">
-
-				</textarea>
+				<textarea name="sc_content" rows="10" cols="100" style="resize: none;"></textarea>
 			</td>
 		</tr>
 	<br>	

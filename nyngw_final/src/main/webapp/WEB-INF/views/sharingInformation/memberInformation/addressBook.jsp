@@ -60,9 +60,11 @@
 			 위에 부분 마지막 if 문 "addressBookViewVO.getPageTotalCount()" 부분하고
 			 검색어 url parameter로 넘겨주는 부분만 자기 것으로 수정하시면 되요~-->	
 			
-		<%-- <c:forEach begin="1" end="${addressBookViewVO.getPageTotalCount()}" step="1" var="i">
+		<%-- 
+		<c:forEach begin="1" end="${addressBookViewVO.getPageTotalCount()}" step="1" var="i">
 			<a href="/sharingInformation/memberInformation/addressBook?page=${i }">[${i}]</a>
-		</c:forEach> --%>
+		</c:forEach> 
+		--%>
 	</div>
 </body>
 </html>
