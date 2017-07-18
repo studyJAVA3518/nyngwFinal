@@ -42,7 +42,7 @@ import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 @Controller
 @RequestMapping("documentManagement/documentManager")
 public class DocumentManagerController implements ApplicationContextAware{
-	
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	@Autowired
 	private DocumentManagerServiceImpl documentManagerService;
 	
@@ -63,7 +63,17 @@ public class DocumentManagerController implements ApplicationContextAware{
 			select.setVal(val);
 		}
 		DocumentListView viewData = (DocumentListView) documentManagerService.selectDocumentList(pageNumber,select);
-
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getDocumentList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		if(val!=null && !val.equals("")){

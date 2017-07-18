@@ -22,16 +22,12 @@
 				<tr>
 					<th colspan="2">내용</th>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<textarea rows="15" cols="97" name="board_content" style="resize: none;"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>파일이름</th>
-					<td><input type="file" name="board_file_name"  onchange="javascript:file_change(this.value);"></td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<th>파일이름</th> -->
+<!-- 					<td><input type="file" name="board_file_name"  onchange="javascript:file_change(this.value);"></td> -->
+<!-- 				</tr> -->
 			</table>
+			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 			<input type="hidden" value="${page}">
 			<input type="submit" value="등록" />
 			<input type="reset" value="초기화" />		
