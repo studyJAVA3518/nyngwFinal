@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div>
-		<form action="/sharingInformation/noticeMatter/nmUpdate" method="post">
+		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/sharingInformation/noticeMatter/nmUpdate" method="post"  accept-charset="utf-8">
 			<table class="table table-bordered">
 				<tr>
 					<th>게시글번호</th>
@@ -29,6 +29,9 @@
 				<tr>
 					<th colspan="6">내용</th>
 				</tr>
+			</table>
+				<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+			<table>
 				<tr>
 					<td colspan="6"><textarea rows="15" cols="97" style="resize: none;" name="board_content">${board.board_content }</textarea></td>
 				</tr>

@@ -31,6 +31,7 @@ import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl
 @Controller
 @RequestMapping("/sharingInformation/noticeMatter")
 public class NoticeMatterController implements ApplicationContextAware {
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	@Autowired
 	private NoticeMatterServiceImpl noticeMatterService;
 	
@@ -57,6 +58,17 @@ public class NoticeMatterController implements ApplicationContextAware {
 			//			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
 			System.out.println(";lll"+member.getMem_name());
+		}
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getBoardList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
@@ -93,20 +105,22 @@ public class NoticeMatterController implements ApplicationContextAware {
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping(value="/nmWrite", method=RequestMethod.POST)
-	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal) throws IOException{
-		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
+	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal,
+			@RequestParam( value="content") String board_content) throws IOException{
+		/*String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
 		if(!multipartFile.isEmpty()){
 			File file = new File(upload,multipartFile.getOriginalFilename());
-			multipartFile.transferTo(file);
+			multipartFile.transferTo(file);*/
 			BoardVO board = commandboard.toBoardVO();
 			MemberVO member = CommonService.findMemberByMemId(principal.getName());
 			board.setBoard_mem_number(member.getMem_number());
-			board.setBoard_file_name(multipartFile.getOriginalFilename());
+			board.setBoard_content(board_content);
+//			board.setBoard_file_name(multipartFile.getOriginalFilename());
 			noticeMatterService.noticeMatterInsert(board);
 			return "redirect:/sharingInformation/noticeMatter/nmList";
-		}
-		return "redirect:/sharingInformation/noticeMatter/nmWriteForm";
+//		}
+//		return "redirect:/sharingInformation/noticeMatter/nmWriteForm";
 	}
 	
 	/**
@@ -129,16 +143,9 @@ public class NoticeMatterController implements ApplicationContextAware {
 	 * @return 공지사항수정페이지 url 반환
 	 */
 	@RequestMapping("/nmUpdate")
-	public String noticeMatterUpdate(BoardVO board){
+	public String noticeMatterUpdate(BoardVO board,@RequestParam( value="content") String board_content){
 		board.setBoard_code_number("code11");
-		System.out.println(board.getBoard_code_number());
-		System.out.println(board.getBoard_content());
-		System.out.println(board.getBoard_count());
-		System.out.println(board.getBoard_file_name());
-		System.out.println(board.getBoard_mem_number());
-		System.out.println(board.getBoard_number());
-		System.out.println(board.getBoard_title());
-		System.out.println(board.getBoard_date());
+		board.setBoard_content(board_content);
 		noticeMatterService.noticeMatterUpdate(board);
 		return "redirect:/sharingInformation/noticeMatter/nmList";
 	}
