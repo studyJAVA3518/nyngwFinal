@@ -11,16 +11,19 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>GroupWaare Solution - NYN GroupWare</title>
+    <title>GroupWare Solution - NYN GroupWare</title>
 
 	<!-- Bootstrap Core CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/simple-sidebar.css" rel="stylesheet">
     <!-- jQuery -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jquery.form.js - ajaxSubmit() 사용 -->
+	<script type='text/javascript' src='http://malsup.github.com/jquery.form.js'></script>
+	
     <!-- Bootstrap Core JavaScript -->
     <script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
     
@@ -49,6 +52,10 @@
     <link href="<%=request.getContextPath()%>/resources/css/mypage.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/sharingInformation.css" rel="stylesheet">
     
+    <!-- 다음에디터를 쓰기위한 링크 -->
+	<link rel="stylesheet" href="<c:url value="/resources/daumOpenEditor/css/editor.css"/>" type="text/css" charset="utf-8"/>
+	<script src="<c:url value="/resources/daumOpenEditor/js/editor_loader.js"/>" type="text/javascript" charset="utf-8"></script>
+	
     <!-- 조직도 트리를 위한 js -->
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/tree/zooTree.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/tree/zooTree.css">
@@ -130,7 +137,7 @@
 		}
 	</style>
   </head>
-  <body onload="printClock(); fnOnLoad()">
+  <body onload="printClock();">
   	
   	<!-- 화면 전체를 감싸는 div -->
   	<div class="container-fliud" id="wrapper">
