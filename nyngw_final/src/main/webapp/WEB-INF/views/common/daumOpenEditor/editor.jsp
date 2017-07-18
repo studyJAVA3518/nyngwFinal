@@ -4,14 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
-<!-- 다음에디터를 쓰기위한 링크 -->
-<link rel="stylesheet" href="<c:url value="/resources/daumOpenEditor/css/editor.css"/>" type="text/css" charset="utf-8"/>
-<script src="<c:url value="/resources/daumOpenEditor/js/editor_loader.js"/>" type="text/javascript" charset="utf-8"></script>
- 
 <!-- 에디터 시작 -->
 <!--
 	@decsription
 	등록하기 위한 Form으로 상황에 맞게 수정하여 사용한다. Form 이름은 에디터를 생성할 때 설정값으로 설정한다.
+	<form action="/sharingInformation/board/update" method="post">
 -->
 	<!-- 에디터 컨테이너 시작 -->
 	<div id="tx_trex_container" class="tx-editor-container">
@@ -464,11 +461,11 @@
 			attacher:{
 			    image:{
 			        features:{left:250,top:65,width:400,height:190,scrollbars:0}, //팝업창 사이즈
-			        popPageUrl:'${pageContext.request.contextPath}/resources/daumOpenEditor/imagePopup' //팝업창 주소
+			        popPageUrl:'${pageContext.request.contextPath}/common/daumOpenEditor/imagePopup' //팝업창 주소
 			    },
 				file:{ 
 					features:{left:250,top:65,width:400,height:190,scrollbars:0}, // 팝업창 사이즈 
-					popPageUrl:'${pageContext.request.contextPath}/resources/daumOpenEditor/filePopup' // 팝업창 주소 
+					popPageUrl:'${pageContext.request.contextPath}/common/daumOpenEditor/filePopup' // 팝업창 주소 
 				} 
 			},
 			capacity: { 

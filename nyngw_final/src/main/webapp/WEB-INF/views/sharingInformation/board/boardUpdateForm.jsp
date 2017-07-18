@@ -4,27 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<textarea id="text_content" style="display:none;">
-${board.board_content}
-</textarea>
-<script type="text/javascript">
-	function loadContent() {
-		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
-		Editor.modify({
-			"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
-				var allattachments = [];
-				for (var i in attachments) {
-					allattachments = allattachments.concat(attachments[i]);
-				}
-				return allattachments;
-			}(),
-			"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
-		});
-	}
-</script>
 게시판 수정폼
 <div>
-	<form action="/sharingInformation/board/update" method="post">
+	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/sharingInformation/board/update" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<th>게시글번호</th>
@@ -44,9 +26,7 @@ ${board.board_content}
 				<th colspan="6">내용</th>
 			</tr>
 		</table>
-		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false">
-			if('${board!=null}'=='true') Editor.modify({'content': '${board.board_content}'});
-		</jsp:include>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 		<table>
 			<tr>
 				<th>파일이름</th>
@@ -54,49 +34,31 @@ ${board.board_content}
 			</tr>
 		</table>	
 		<input type="hidden" value="${page}">
-		<input type="submit" value="수정" /> <input type="reset" value="초기화" />
+		<div><button onclick='saveContent()'>수정</button></div>
+		<input type="reset" value="초기화" />
 		<button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
 	</form>
 </div>
 
-<!-- Sample: Loading Contents -->
-
+<textarea id="text_content" style="display:none;">
+${board.board_content}
+</textarea>
 <script type="text/javascript">
-	function loadContent() {
-		var attachments = {};
-		attachments['image'] = [];
-		attachments['image'].push({
-			'attacher': 'image',
-			'data': {
-				'imageurl': 'http://cfile273.uf.daum.net/image/2064CD374EE1ACCB0F15C8',
-				'filename': 'github.gif',
-				'filesize': 59501,
-				'originalurl': 'http://cfile273.uf.daum.net/original/2064CD374EE1ACCB0F15C8',
-				'thumburl': 'http://cfile273.uf.daum.net/P150x100/2064CD374EE1ACCB0F15C8'
-			}
-		});
-		attachments['file'] = [];
-		attachments['file'].push({
-			'attacher': 'file',
-			'data': {
-				'attachurl': 'http://cfile297.uf.daum.net/attach/207C8C1B4AA4F5DC01A644',
-				'filemime': 'image/gif',
-				'filename': 'editor_bi.gif',
-				'filesize': 640
-			}
-		});
-		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
-		Editor.modify({
-			"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
-				var allattachments = [];
-				for (var i in attachments) {
-					allattachments = allattachments.concat(attachments[i]);
-				}
-				return allattachments;
-			}(),
-			"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
-		});
-	}
+	$(function(){   
+		var loadContent = function() {
+			/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+			Editor.modify({
+// 				"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+// 					var allattachments = [];
+// 					for (var i in attachments) {
+// 						allattachments = allattachments.concat(attachments[i]);
+// 					}
+// 					return allattachments;
+// 				}(),
+				"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+			});
+		};
+		
+		loadContent();
+	});
 </script>
-<div><button onclick='loadContent()'>SAMPLE - load contents to editor</button></div>
-<!-- End: Loading Contents -->
