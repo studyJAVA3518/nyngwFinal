@@ -16,6 +16,8 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyViewVO;
+import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.dto.Work_TimeVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
@@ -335,13 +337,6 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		String startTime = dateStr+" "+wt_attend_time_hour+":"+wt_attend_time_minute+":00";
 		String endTime = dateStr+" "+wt_end_time_hour+":"+wt_end_time_minute+":00";
 		
-//		System.out.println("서비스에서 받아오는 매개변수 시작시간 : "+ wt_attend_time_hour);
-//		System.out.println("서비스에서 받아오는 매개변수 시작분 : "+ wt_attend_time_minute);
-//		System.out.println("서비스에서 받아오는 매개변수 종료시간 : "+ wt_end_time_hour);
-//		System.out.println("서비스에서 받아오는 매개변수 종료분 : "+ wt_end_time_minute);
-//		System.out.println("서비스에서 작업한 시작시간 : "+ startTime);
-//		System.out.println("서비스에서 작업한 종료시간 : "+ endTime);
-		
 		Work_TimeVO wtvo = new Work_TimeVO();
 		wtvo.setWt_number(wt_number);
 		wtvo.setWt_start_time(startTime);
@@ -349,5 +344,18 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		int result = planPublicRelationsSettingDao.updateWorkTime(wtvo);
 		return result;
 	}
-
+	
+	public void viewPay(Model model) throws SQLException {
+		ArrayList<Pay_kindVO> payKindList = planPublicRelationsSettingDao.selectPayKindList();
+		ArrayList<Pay_PolicyViewVO> payViewList = planPublicRelationsSettingDao.selectPayInfoList();
+		ArrayList<Pay_PolicyViewVO> payViewHourList = planPublicRelationsSettingDao.selectPayInfoHourList();
+		ArrayList<Pay_PolicyViewVO> payViewBasicList = planPublicRelationsSettingDao.selectPayInfoBasicList();
+		ArrayList<Pay_PolicyViewVO> payViewPositionList = planPublicRelationsSettingDao.selectPayInfoPositionList();
+		
+		model.addAttribute("payKindList",payKindList);
+		model.addAttribute("payViewList",payViewList);
+		model.addAttribute("payViewHourList",payViewHourList);
+		model.addAttribute("payViewBasicList",payViewBasicList);
+		model.addAttribute("payViewPositionList",payViewPositionList);
+	}
 }
