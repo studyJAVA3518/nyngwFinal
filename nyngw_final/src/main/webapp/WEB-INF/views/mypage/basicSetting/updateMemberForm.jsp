@@ -99,7 +99,7 @@ function readURL2(input) {
 	</tr>
 	<tr>
 		<th>현재비밀번호</th>
-		<td><input type="password" name="mem_pwd" value=""/></td>
+		<td><input type="password" name="mem_pwd" value=""/><label>필수입력사항입니다.</label> </td>
 	</tr>
 	<tr>
 		<th>새 비밀번호</th>

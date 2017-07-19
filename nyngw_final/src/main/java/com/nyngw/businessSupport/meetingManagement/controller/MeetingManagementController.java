@@ -3,6 +3,7 @@ package com.nyngw.businessSupport.meetingManagement.controller;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.businessSupport.meetingManagement.service.MeetingManagementServiceImpl;
-import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
+import com.nyngw.dto.Meeting_DocumentVO;
+import com.nyngw.dto.Meeting_Document_ListViewVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
@@ -32,6 +34,7 @@ import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 public class MeetingManagementController {
 	@Autowired
 	private MeetingManagementServiceImpl meetingManagementService;
+	
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService;
 	
@@ -155,9 +158,59 @@ public class MeetingManagementController {
 		return resultMap;
 	}
 	
-	@RequestMapping("meetingFile")
-	public String file(){
+
+	
+	
+//	--------------------------------회의록 -----------------------------------------
+	
+	
+	@RequestMapping("/meetingFile")
+	public String meetingfileselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
+				Model model,String val, String index, String searchDate, String titleType,
+					String setSearchOption, String setTitleOption,Principal principal){ //업무종류 하나 더 스트링으로 추가
+		Board_SelectVO select = new Board_SelectVO();
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd"); 
+		if(searchDate==null){
+			System.out.println("여기들어오냐");
+			searchDate = "today";
+			searchDate = sdformat.format(new Date());
+			index = searchDate;
+		}
+		if(val==null){
+			val="";
+		}
+		if(setSearchOption==null){
+			setSearchOption = searchDate;
+		}
+		model.addAttribute("setSearchOption", setSearchOption);
 		
+		if(setTitleOption==null){
+			setTitleOption = titleType;
+		}
+		model.addAttribute("setReportOption", setSearchOption);
+		
+		System.out.println(searchDate+"dasdsa");
+		if(searchDate.equals("today")){
+			searchDate = sdformat.format(new Date());
+		}else if(searchDate.equals("week")){
+			cal.add(Calendar.DATE, -7);
+			searchDate = sdformat.format(cal.getTime());
+		}else if(searchDate.equals("month")){
+			cal.add(Calendar.MONTH, -1);
+			searchDate = sdformat.format(cal.getTime());
+		}else if(searchDate.equals("trimester")){
+			cal.add(Calendar.MONTH, -3);
+			searchDate = sdformat.format(cal.getTime());
+		}
+		select.setVal(val);
+		select.setSearchDate(searchDate);
+		select.setReportType(titleType);
+		Meeting_Document_ListViewVO viewData = (Meeting_Document_ListViewVO) meetingManagementService.meeting_DocumentList(pageNumber, select);
+		model.addAttribute("viewData",viewData);
+		model.addAttribute("pageNumber",pageNumber);
+		model.addAttribute("select",select);
 		return "businessSupport/meetingManagement/meetingFile";
 	}
+	
 }

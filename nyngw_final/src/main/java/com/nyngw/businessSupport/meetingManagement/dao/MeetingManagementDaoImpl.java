@@ -12,6 +12,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
+import com.nyngw.dto.Meeting_DocumentVO;
 
 @Repository
 public class MeetingManagementDaoImpl implements MeetingManagementDao {
@@ -74,5 +75,30 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	@Override
 	public void meetingDelete(String mt_number) {
 		sqlSession.delete("meetingDelete", mt_number);
+	}
+	
+//	----------------------------------------회의록 ---------------------
+	@Override
+	public int selectMeeting_DocumentCount() {
+		int result =(Integer) sqlSession.selectOne("selectMeeting_DocumentCount");
+		return result;
+	}
+
+	@Override
+	public List<Meeting_DocumentVO> meeting_DocumentList(int firstRow, int endRow,
+			Board_SelectVO select) {
+		int offset = firstRow - 1;
+		int limit = endRow - firstRow + 1;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Meeting_DocumentVO> documentList = (ArrayList<Meeting_DocumentVO>)sqlSession.selectList("meeting_DocumentList",select,rowBounds);
+		return documentList;
+	}
+
+	@Override
+	public int meeting_DocumentCount(Board_SelectVO select) {
+		System.out.println("val:"+select.getVal());
+		System.out.println("searchDate:"+select.getSearchDate());
+		int result =(Integer) sqlSession.selectOne("meeting_DocumentCount",select);
+		return result;
 	}
 }

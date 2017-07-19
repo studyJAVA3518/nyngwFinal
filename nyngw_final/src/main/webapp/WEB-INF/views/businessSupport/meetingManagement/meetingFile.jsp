@@ -2,58 +2,73 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 미팅파일!!!!!!!!!!!!!!!
-<table class="table table-border">
+<div>
+		<form action="/businessSupport/meetingManagement/meetingFile">
+			<table class="table table-border">
 				<tr>
-					<th>검색입력</th>
-					<td colspan="4">
-					<form action="/businessSupport/meetingManagement/meetingCalendar">
-						<select name="index">
-							<option value="mt_reader">주최자</option>
-							<option value="mt_date">날짜</option>
-							<option value="mt_title">회의명</option>
+					<th>검색기간</th>
+					<td>
+						<select name="searchDate" id="searchDate">
+							<option value="today">금일</option>
+							<option value="week">1주일</option>
+							<option value="month">1개월</option>
+							<option value="trimester">3개월</option>
 						</select>
-					<input type="hidden" value="${select.index}">
-					<input type="text" name="val" value="${select.val}">
-					<input type="submit" value="검색">
-					</form> 
 					</td>
 				</tr>
+				<tr>
+					<th>검색입력</th>
+					<td colspan="3">
+						<select name="titleType" id="titleType">
+							<option value="">전체</option>
+							<option value="md_name">제목</option>
+							<option value="md_writer">작성자</option>
+						</select>
+						<input type="text" name="val" value="${select.val}">
+					</td>
+				</tr>
+			</table>
+				<input type="submit" value="검색">
+		</form>
+		<br>
+		<br>
+		<table class="table table-border">
 			<tr>
-				<th>회의번호</th>
-				<th>회의일자</th>
-				<th>회의장소</th>
-				<th>회의명</th>
-				<th>회의 주최자</th>
+				<th>번호</th>
+				<th>회의록명</th>
+				<th>작성일</th>
+				<th>작성자</th>
 			</tr>
 			<c:choose>
-				<c:when test="${viewData.boardCountPerPage > 0}">
-				<c:forEach items="${viewData.meetingList}" var="board" >
-				<tr>
-					<td>${board.mt_number}</td>
-					<td><fmt:formatDate value="${board.mt_date}" pattern="yy'년'MM'월'dd'일'"/></td>
-					<td>${board.mt_mr_number }</td>
-					<td><a href="/businessSupport/meetingManagement/meetingDetail?mt_number=${board.mt_number}&page=${pageNumber}">${board.mt_title}</a></td>
-					<td>${board.mt_reader}</td>
-				</tr>
-				</c:forEach>
+				<c:when test="${viewData.documentTotalCount > 0 }">
+					<c:forEach items="${viewData.meeting_DocumentList }" var="board" >
+						<tr>
+							<td>${fn:substring(board.md_number,2,10077777)}</td>
+							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?dd_number=${board.md_number}&page=${pageNumber}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">${board.md_name}</a></td>
+							<td><fmt:formatDate value="${board.md_date}" pattern="yyyy/MM/dd"/></td>
+							<td>${board.md_writer }</td>
+						</tr>
+					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<tr>
-						<td style="text-align: center;">내용이 없습니다.</td>
+						<td style="text-align: center;" colspan="6">내용이 없습니다.</td>
 					</tr>
 				</c:otherwise>
 			</c:choose>
-			</table>
-
-	<div id="pageNum">
+		</table>
+		<div id="pageNum">
 		<c:if test="${beginPage > perPage}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>
 		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
 		</c:forEach>
 		<c:if test="${endPage < viewData.getPageTotalCount()}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
+		</div>
+	</div>

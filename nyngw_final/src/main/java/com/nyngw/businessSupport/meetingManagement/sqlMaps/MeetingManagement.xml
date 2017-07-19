@@ -79,4 +79,28 @@
 		mt_number = #{mt_number}
 	</update>
 	
+	
+	
+	
+	<select id="meeting_DocumentList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.Meeting_DocumentVO">
+			select * from meeting_document where 1 = 1
+			and to_char(md_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
+			AND md_name like '%'||#{val}||'%'
+			order by 1 desc
+	</select>
+	
+	<select id="selectMeeting_DocumentCount" resultType="java.lang.Integer">
+		select count(*) from meeting_document
+	</select>
+	
+	<select id="meeting_DocumentCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from meeting_document where md_name like '%'||#{val}||'%'
+		and	to_char(md_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
+	</select>
+	
+	<select id="selectMeeting_Document" parameterType="java.lang.String" resultType="com.nyngw.dto.Meeting_DocumentVO">
+		select * from meeting_document where md_number = #{md_number} 
+	</select>
+	
+	
 </mapper>

@@ -6,6 +6,7 @@ import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
+import com.nyngw.dto.Meeting_Document_ListViewVO;
 
 public interface MeetingManagementService {
 	public MeetingListViewVO selectMeetingList(int pageNumber, Board_SelectVO select);
@@ -21,4 +22,7 @@ public interface MeetingManagementService {
 	public void updateMeeting(MeetingVO mt_number);
 
 	public void meetingDelete(String mt_number);
+
+	public Meeting_Document_ListViewVO meeting_DocumentList(int pageNumber,
+			Board_SelectVO select);
 }

@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyngw.businessSupport.meetingManagement.dao.MeetingManagementDaoImpl;
-import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
+import com.nyngw.dto.Meeting_DocumentVO;
+import com.nyngw.dto.Meeting_Document_ListViewVO;
 
 @Service
 public class MeetingManagementServiceImpl implements MeetingManagementService {
@@ -75,5 +76,26 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	@Override
 	public void meetingDelete(String mt_number) {
 		meetingManagementDao.meetingDelete(mt_number);
+	}
+	
+//	--------------------------------------회의록------------------------
+	@Override
+	public Meeting_Document_ListViewVO meeting_DocumentList(int pageNumber,
+			Board_SelectVO select) {
+		int currentPageNumber = pageNumber;
+		int documentTotalCount =meetingManagementDao.meeting_DocumentCount(select); 
+			List<Meeting_DocumentVO> meeting_DocumentList = null;
+			int firstRow = 0;
+			int endRow = 0;
+			if (documentTotalCount > 0) {
+				firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
+				endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
+				meeting_DocumentList = meetingManagementDao.meeting_DocumentList(firstRow, endRow, select);
+			} else {
+				currentPageNumber = 0;
+				meeting_DocumentList = Collections.emptyList();
+			}
+			return  new Meeting_Document_ListViewVO(meeting_DocumentList, documentTotalCount,
+					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
 }
