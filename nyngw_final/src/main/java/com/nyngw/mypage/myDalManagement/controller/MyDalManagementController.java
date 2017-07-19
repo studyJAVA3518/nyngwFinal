@@ -20,6 +20,7 @@ public class MyDalManagementController {
 	@Autowired
 	private MyDalManagementServiceImpl myDalManagementService;
 	
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	
 	/**
 	 * 출결보기 버튼을 누를시 화면전환 url을 보내주는 메서드
@@ -41,6 +42,18 @@ public class MyDalManagementController {
 		model.addAttribute("pageNumber",pageNumber);
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
+		}
+		
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getAttendedList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
 		return "mypage/myDalManagement/attended";
 	}

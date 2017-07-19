@@ -5,15 +5,6 @@
 회의 일정!!!!!!!!!!!!!!!
 			<table class="table table-border">
 				<tr>
-					<th>검색기간</th>
-					<td colspan="4">
-						<button type="button">당일</button>
-						<button type="button">1주일</button>
-						<button type="button">1개월</button>
-						<button type="button">3개월</button>
-					</td>
-				</tr>
-				<tr>
 					<th>검색입력</th>
 					<td colspan="4">
 					<form action="/businessSupport/meetingManagement/meetingCalendar">
@@ -41,8 +32,8 @@
 				<tr>
 					<td>${board.mt_number}</td>
 					<td><fmt:formatDate value="${board.mt_date}" pattern="yy'년'MM'월'dd'일'"/></td>
-					<td>${board.mt_rv_number }</td>
-					<td>${board.mt_title}</td>
+					<td>${board.mt_mr_number }</td>
+					<td><a href="/businessSupport/meetingManagement/meetingDetail?mt_number=${board.mt_number}&page=${pageNumber}">${board.mt_title}</a></td>
 					<td>${board.mt_reader}</td>
 				</tr>
 				</c:forEach>
@@ -56,8 +47,20 @@
 			</table>
 
 	<div id="pageNum">
-		<c:forEach begin="1" end="${viewData.boardTotalCount}" step="1" var="i">
-			<a href="/businessSupport/meetingManagement/meetingCalendar=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
 		</c:forEach>
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/businessSupport/meetingManagement/meetingCalendar?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+		</c:if>
+	
+	
+	
 	</div>
 			<button><a href="/businessSupport/meetingManagement/addMeetingForm">글쓰기</a></button>
+			
+			
+			

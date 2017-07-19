@@ -21,4 +21,10 @@ public interface MeetingManagementDao {
 
 	public List<MeetingRoomVO> selectMeetingRoom();
 
+	public MeetingVO selectMeetingNumber(String mt_number);
+
+	public void updateMeeting(MeetingVO meeting);
+
+	public void meetingDelete(String mt_number);
+
 }

@@ -87,9 +87,20 @@ $(function(){
 
 	
 	<div id="pageNum">
-		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i">
-			<a href="/mypage/myDalManagement/attended?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a>
+			<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/mypage/myDalManagement/attended?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/mypage/myDalManagement/attended?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
 		</c:forEach>
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/mypage/myDalManagement/attended?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+		</c:if>
+	
+	
+<%-- 		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i"> --%>
+<%-- 			<a href="/mypage/myDalManagement/attended?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a> --%>
+<%-- 		</c:forEach> --%>
 	</div>
 	
 	

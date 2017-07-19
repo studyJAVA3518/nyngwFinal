@@ -55,8 +55,24 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	}
 	
 	@Override
+	public MeetingVO selectMeetingNumber(String mt_number){
+		MeetingVO meetingvo = (MeetingVO) sqlSession.selectOne("selectMeetingNumber",mt_number);
+		return meetingvo;
+	}
+	
+	@Override
 	public List<MeetingRoomVO> selectMeetingRoom(){
 		List<MeetingRoomVO> meetingRoom = sqlSession.selectList("selectMeetingRoom2");
 		return meetingRoom;
+	}
+	
+	@Override
+	public void updateMeeting(MeetingVO meeting) {
+		sqlSession.selectOne("meetingUpdate",meeting);
+	}
+	
+	@Override
+	public void meetingDelete(String mt_number) {
+		sqlSession.delete("meetingDelete", mt_number);
 	}
 }

@@ -56,10 +56,24 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 		List<MeetingVO> meetingList = meetingManagementDao.meetingSelect(mt_reader);
 		return meetingList;
 	}
+	@Override
+	public MeetingVO selectMeetingNumber(String mt_number){
+		MeetingVO meetingvo = meetingManagementDao.selectMeetingNumber(mt_number);
+		return meetingvo;
+	}
 	
 	@Override
 	public List<MeetingRoomVO> selectMeetingRoom(){
 		List<MeetingRoomVO> meetingRoom = meetingManagementDao.selectMeetingRoom();
 		return meetingRoom;
+	}
+	
+	@Override
+	public void updateMeeting(MeetingVO mt_number){
+		meetingManagementDao.updateMeeting(mt_number);
+	}
+	@Override
+	public void meetingDelete(String mt_number) {
+		meetingManagementDao.meetingDelete(mt_number);
 	}
 }

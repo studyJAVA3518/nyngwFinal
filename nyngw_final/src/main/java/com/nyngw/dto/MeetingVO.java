@@ -15,6 +15,7 @@ public class MeetingVO {
 	private Date mt_date;		//회의일자
 	private String mt_title;	//회의제목
 	private String mt_content;	//회의내용
+	private String mt_mr_number;//회의장소
 	public String getMt_number() {
 		return mt_number;
 	}
@@ -56,6 +57,12 @@ public class MeetingVO {
 	}
 	public void setMt_content(String mt_content) {
 		this.mt_content = mt_content;
+	}
+	public String getMt_mr_number() {
+		return mt_mr_number;
+	}
+	public void setMt_mr_number(String mt_mr_number) {
+		this.mt_mr_number = mt_mr_number;
 	}
 	
 }

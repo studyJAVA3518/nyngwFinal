@@ -15,4 +15,10 @@ public interface MeetingManagementService {
 	public List<MeetingVO> meetingSelet(String mt_reader);
 
 	public List<MeetingRoomVO> selectMeetingRoom();
+
+	public MeetingVO selectMeetingNumber(String mt_number);
+
+	public void updateMeeting(MeetingVO mt_number);
+
+	public void meetingDelete(String mt_number);
 }
