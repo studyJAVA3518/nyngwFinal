@@ -1,0 +1,29 @@
+1. @Controller / @Service / @Repository 붙이기
+
+2. 컨트롤러 리퀘스트 매핑 바꾸기
+controller의 requestMapping에 "/대분류/" 추가해야 한다
+예 ) businessSupport.dutyDocument.controller 안에 DutyDocumentController.java의
+@RequestMapping("/dutyDocument")  =>> @RequestMapping("/businessSupport/dutyDocument")
+
+3. 컨트롤러 안에 메서드의 리퀘스트 매핑
+화면 전환을 위한 단순한 return이면 열어주고자하는 jsp화면 이름으로 설정하자
+예) /WEB-INF/views/humanResource/dalManagement/hrm.jsp 를 열고자하는 메서드면
+"/hrm"
+
+4. 2번과 3번을 통해 jsp에서는 해당 메서드를 접근하려면 
+"/대분류/열고자하는 페이지 이름" (예) "/homeMain/main" )또는 
+"/대분류/중분류/열고자하는 페이지 이름" (예) "/humanResource/dalManagement/hrm")
+가 된다
+
+5. return은 위와 비슷하게 ( 거의 동일 ) 
+"/대분류/열고자하는 페이지 이름" (예) "homeMain/main" )또는 
+"/대분류/중분류/열고자하는 페이지 이름" (예) "humanResource/dalManagement/hrm")
+가 된다.
+위와 다른 점은 맨 처음에 "/"가 없다는 것 
+
+6. 타일즈에는 각각의 return 하는 String에 맞게 "대분류/*" 또는 "대분류/*/*"가 걸러지게 해 놓았다.
+6-1 타일즈는 크게 위 -> header, footer 고정,  대분류별로 side 고정이고
+6-2 밑에 대분류 별로 걸러서 그에 해당하는 side 고정된 거 extends 함
+
+7. web-inf.tile.submenu 안에 "sideHR", "sideHM" 처럼 "side+대분류약어대문자로" 각 페이지의 subMenu를 생성해야하는데
+이때 할 것은 sideHR을 참고해서 각각에 해당하는 이름만 바꿔주면 된다.

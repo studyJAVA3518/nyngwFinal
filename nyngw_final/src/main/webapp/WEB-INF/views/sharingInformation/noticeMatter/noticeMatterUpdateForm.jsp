@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	<div>
 		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/sharingInformation/noticeMatter/nmUpdate" method="post"  accept-charset="utf-8">
 			<table class="table table-bordered">
@@ -43,5 +36,25 @@
 			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
 		</form>
 	</div>
-</body>
-</html>
+<textarea id="text_content" style="display:none;">
+${board.board_content}
+</textarea>
+<script>
+$(function(){   
+	var loadContent = function() {
+		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+		Editor.modify({
+//				"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+//					var allattachments = [];
+//					for (var i in attachments) {
+//						allattachments = allattachments.concat(attachments[i]);
+//					}
+//					return allattachments;
+//				}(),
+			"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+		});
+	};
+	
+	loadContent();
+});
+</script>	

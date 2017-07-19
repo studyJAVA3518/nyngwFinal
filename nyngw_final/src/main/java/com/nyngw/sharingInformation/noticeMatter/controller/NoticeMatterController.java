@@ -11,6 +11,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.CommandBoardVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 import com.nyngw.sharingInformation.noticeMatter.service.NoticeMatterServiceImpl;
 
 @Controller
@@ -37,7 +40,8 @@ public class NoticeMatterController implements ApplicationContextAware {
 	
 	@Autowired
 	private CommonServiceImpl CommonService;
-	
+	@Autowired
+	private BasicSettingServiceImpl basicSettingService; 
 	/**
 	 * 공지사항 List를 보여주는 페이지의 url을 반환하는 메소드
 	 * @return  공지사항 url을 반환
@@ -181,8 +185,13 @@ public class NoticeMatterController implements ApplicationContextAware {
 	@RequestMapping("/nmDetail")
 	public String noticeMatterDetail(String board_number, Model model, String page){
 		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
-		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingService.selectMember(user.getUsername());
+
 		board.setMem_name(member.getMem_name());
+		
+		model.addAttribute("mem",mem);
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
 		return "sharingInformation/noticeMatter/noticeMatterDetail";

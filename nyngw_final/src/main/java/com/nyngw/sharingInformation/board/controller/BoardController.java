@@ -12,6 +12,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -203,6 +205,8 @@ public class BoardController implements ApplicationContextAware{
 		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
 		List<Board_CommentVO> comment = boardService.answerSelectList(board_number);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingService.selectMember(user.getUsername());
 		
 		for(int i = 0; i < comment.size(); i++){
 			member = CommonService.findMemberByMemNumber(comment.get(i).getComment_mem_number());
@@ -212,6 +216,7 @@ public class BoardController implements ApplicationContextAware{
 		if(page==null){
 			page = "1";
 		}
+		model.addAttribute("mem",mem);
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
 		model.addAttribute("comment",comment);

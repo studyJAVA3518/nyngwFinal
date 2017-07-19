@@ -9,20 +9,58 @@
 </style>
  수정페이지입니다.
 	 <div>
-		<form action="/documentManagement/documentManager/documentUpdate" method="post">
-			<label>문서구분번호</label><input type="text" value="${document.doc_code_number }" name="doc_code_number" readonly="readonly"><br>
-			<label>문서번호</label><input type="text" value="${document.doc_number }" name="doc_number" readonly="readonly"><br>
-			<label>문서명</label><input type="text" value="${document.doc_name }" name = "doc_name"><br>
-			<label>등록일자</label><input type="text" name="doc_date" value="<fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/>"readonly="readonly"><br>
-			<label>보존기간</label><input type="text" name="doc_date" value="<fmt:formatDate value="${document.doc_lifetime}" pattern="yyyy/MM/dd"/>"readonly="readonly"><br>
-			<label>등록자</label><input type="text" name="doc_mem_number" value="${document.doc_mem_number }" readonly="readonly"><br>
-			<label>설명</label><input type="text" name="doc_explanation" value="${document.doc_explanation }"><br>
-			<label>파일이름</label><input type="text" name="doc_file_name" value="${document.doc_file_name }"><br>
+		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/documentManagement/documentManager/documentUpdate" method="post">
+		<table class="table table-bordered">
+			<tr>
+				<th>문서구분번호</th><td>${document.doc_code_number }<input type="hidden" value="${document.doc_code_number}" name="doc_code_number" readonly="readonly"></td>
+				<th>문서번호</th><td>${document.doc_number }<input type="hidden" value="${document.doc_number}" name="doc_number" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>문서명</th><td><input type="text" value="${document.doc_name }" name="doc_name"></td>
+				<th>등록자</th><td>${document.doc_mem_number }<input type="hidden" value="${document.doc_mem_number}" name="doc_mem_number" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>등록일자</th><td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
+				<th>보존기간</th><td><fmt:formatDate value="${document.doc_lifetime}" pattern="yyyy/MM/dd"/></td>
+			</tr>
+			<tr>
+				<th colspan="4">설명</th>
+			</tr>
+		</table>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+		<table class="table table-bordered">
+			<tr>
+				<th>파일이름</th>
+				<td colspan="3">${document.doc_file_name }<input type="hidden" value="${document.doc_file_name}" name="doc_file_name" readonly="readonly"></td>
+			</tr>
+		</table>
+		
 			<input type="hidden" value="${page}">
 			<input type="submit" value="수정" />
 			<input type="reset" value="초기화" />		
 			<button type="button"><a href="/documentManagement/documentManager/documentSelect?page=${page }">취소</a></button>
 		</form>
 	</div> 
+<textarea id="text_content" style="display:none;">
+${document.doc_explanation}
+</textarea>
+<script>
+$(function(){   
+	var loadContent = function() {
+		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+		Editor.modify({
+//				"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+//					var allattachments = [];
+//					for (var i in attachments) {
+//						allattachments = allattachments.concat(attachments[i]);
+//					}
+//					return allattachments;
+//				}(),
+			"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+		});
+	};
 	
+	loadContent();
+});
+</script>	
 <!-- <button class="btn"><a href="/documentManagement/documentManager/documentSelect">저장</a></button> -->
