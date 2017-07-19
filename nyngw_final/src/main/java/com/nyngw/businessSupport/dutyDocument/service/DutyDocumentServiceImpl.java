@@ -17,9 +17,11 @@ import org.springframework.ui.Model;
 import com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDaoImpl;
 import com.nyngw.common.dao.CommonDaoImpl;
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_Document_CommentVO;
 import com.nyngw.dto.Duty_Document_ListView;
 import com.nyngw.dto.MemberVO;
 
@@ -164,6 +166,7 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		Map<String, Object> select = new HashMap<String, Object>();
 		Duty_DocumentVO dutyDocument = dutyDocumentDao.documentSelect_DD(dd_number);
 		MemberVO member = codeManagerDao.common_selectMemberByMemID(principal.getName());
+		System.out.println(principal.getName()+"22222222222222222222222222222222222222222");
 		dutyDocument.setMem_name(member.getMem_name());
 		Common_CodeVO common = codeManagerDao.common_selectCodeNameByDocument(dutyDocument.getDd_code_number());
 		dutyDocument.setDd_name(common.getCode_name());
@@ -173,6 +176,13 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		}else{
 			dutyDocument.setDd_select_name("개인일지");
 		}
+		//댓글용
+		List<Duty_Document_CommentVO> comment = dutyDocumentDao.selectDutyComment(dd_number);
+		MemberVO commentMember = null;
+		for (int i = 0; i < comment.size(); i++) {
+			commentMember = codeManagerDao.common_selectMemberByMemNumber(comment.get(i).getDdc_mem_number());
+			comment.get(i).setDdc_name(commentMember.getMem_name());
+		}
 		select.put("reportType", reportType);
 		select.put("titleType", titleType);
 		select.put("val", val);
@@ -180,8 +190,33 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		select.put("searchDate", searchDate);
 		model.addAttribute("dutyDocument",dutyDocument);
 		model.addAttribute("select",select);
+		model.addAttribute("comment",comment);
 	}
 	
-	
-	
+	@Override
+	public void departmentCommentWrite(String id, String comment_content, Principal principal) {
+		MemberVO member = codeManagerDao.common_selectMemberByMemID(principal.getName());
+		Date dt = new Date();
+		Duty_Document_CommentVO comment = new Duty_Document_CommentVO();
+		comment.setDdc_dd_number(id);
+		comment.setDdc_content(comment_content);
+		comment.setDdc_mem_number(member.getMem_number());
+		comment.setDdc_date(dt);
+		dutyDocumentDao.dutyCommentInsert_DD(comment);
+	}
+	@Override
+	public void departmentCommentDelete(String id) {
+		dutyDocumentDao.dutyCommentDelete_DD(id);
+	}
+	@Override
+	public void departmentCommentUpdate(String ddc_number, String ddc_mem_number, String ddc_content, String dd_number) {
+		Duty_Document_CommentVO comment = new Duty_Document_CommentVO();
+		Date dt = new Date();
+		comment.setDdc_number(ddc_number);
+		comment.setDdc_date(dt);
+		comment.setDdc_mem_number(ddc_mem_number);
+		comment.setDdc_content(ddc_content);
+		comment.setDdc_dd_number(dd_number);
+		dutyDocumentDao.dutyCommentUpdate_DD(comment);
+	}
 }

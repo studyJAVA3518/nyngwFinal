@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_Document_CommentVO;
 
 @Repository
 public class DutyDocumentDaoImpl implements DutyDocumentDao {
@@ -85,6 +86,27 @@ public class DutyDocumentDaoImpl implements DutyDocumentDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<Duty_DocumentVO> documentList = (ArrayList<Duty_DocumentVO>)sqlSession.selectList("selectDepartmentList_DD",select,rowBounds);
 		return documentList;
+	}
+
+	@Override
+	public List<Duty_Document_CommentVO> selectDutyComment(String dd_number) {
+		List<Duty_Document_CommentVO> comment = sqlSession.selectList("selectDutyComment",dd_number);
+		return comment;
+	}
+
+	@Override
+	public void dutyCommentInsert_DD(Duty_Document_CommentVO comment) {
+		sqlSession.insert("dutyCommentInsert_DD",comment);
+	}
+
+	@Override
+	public void dutyCommentDelete_DD(String ddc_number) {
+		sqlSession.delete("dutyCommentDelete_DD",ddc_number);
+	}
+
+	@Override
+	public void dutyCommentUpdate_DD(Duty_Document_CommentVO comment) {
+		sqlSession.update("dutyCommentUpdate_DD",comment);
 	}
 	
 	

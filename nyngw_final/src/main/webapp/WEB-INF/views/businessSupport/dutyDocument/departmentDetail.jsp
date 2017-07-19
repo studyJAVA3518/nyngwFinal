@@ -10,31 +10,11 @@
 <title>Insert title here</title>
 </head>
 <script>
-   function boardDelete(id){
-      var con_test = confirm("게시물을 삭제하시겠습니까?");
-      if(con_test==true){
-         $.ajax({
-               type : "POST",
-               url : "/sharingInformation/board/boardDelete",
-               data : {'id' : id},
-               success : function(result){
-                  location.href=result.uri;
-              }, 
-              error : function(){
-              },
-               dataType : 'json' 
-         });
-      }
-   }
-   
    function answerWriteClick(id,form){
       var comment_content = document.getElementsByName('comment_content')[0].value;
-      alert(comment_content);
-      alert(id);
-      
       $.ajax({
             type : "POST",
-            url : "/sharingInformation/board/answerWrite",
+            url : "/businessSupport/dutyDocument/departmentCommentWrite",
             data : {'id' : id ,'comment_content' : comment_content},
             success : function(result){
                location.href=result.uri;
@@ -44,13 +24,13 @@
             dataType : 'json' 
       });
    }
-   function answerDeleteClick(id,board_number){
+   function departmentCommentDelete(id,dd_number){
       var con_test = confirm("삭제할거에요?");
       if(con_test==true){
          $.ajax({
                type : "POST",
-               url : "/sharingInformation/board/answerDelete",
-               data : {'id' : id , "board_number":board_number},
+               url : "/businessSupport/dutyDocument/departmentCommentDelete",
+               data : {'id' : id , "dd_number":dd_number},
                success : function(result){
                   location.href=result.uri;
               }, 
@@ -74,22 +54,22 @@
 //          }
    });
    
-   function answerUpdateClick(board_number,comment_number,comment_mem_number,comment_content){
-      var aa = "#"+comment_number;
+   function answerUpdateClick(dd_number,ddc_number,ddc_mem_number,ddc_content){
+      var aa = "#"+ddc_number;
       $(aa).prop('readonly',!$(aa).prop('readonly'));
 //       $('#con').prop('readonly',!$('#con').prop('readonly'));
 //       alert(board_number);
 //       alert(comment_number);
 //       alert(comment_mem_number);
-      comment_content = document.getElementById(comment_number).value;
+      ddc_content = document.getElementById(ddc_number).value;
 //       alert(comment_content);
       
       if($(aa).attr('readonly')=='readonly'){
 //          alert("ㅁㅁㅁㅁ");
          $.ajax({
                type : "POST",
-               url : "/sharingInformation/board/answerUpdate",
-               data : {'comment_number' : comment_number , "board_number":board_number , 'comment_mem_number' : comment_mem_number , 'comment_content' : comment_content},
+               url : "/businessSupport/dutyDocument/departmentCommentUpdate",
+               data : {'dd_number' : dd_number , "ddc_number":ddc_number , 'ddc_mem_number' : ddc_mem_number , 'ddc_content' : ddc_content},
                success : function(result){
                   location.href=result.uri;
               }, 
@@ -141,40 +121,40 @@
 			</td>
 		</tr>
 	</table>
- <form action="/sharingInformation/board/answerUpdate">
-      <table class="table table-bordered">
-         <tr>
-            <th>작성자</th>
-            <th colspan="2">댓글</th>
-            <th>작성시간</th>
-            <th>기타</th>
-         </tr>
-         <c:forEach items="${comment}" var="i">
-            <tr>
-               <td><input id="${i.comment_mem_number}" type="hidden" value="${i.comment_mem_number }">${i.comment_mem_name }<input type="hidden" value="${i.comment_number }"></td>
-               <td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;" readonly>${i.comment_content }</textarea></td>
-               <td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
-               <td>
-                  <button id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
-                  <button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
-               </td>
-            </tr>
-         </c:forEach> 
-      </table>
-   </form>
+	<form action="/sharingInformation/board/answerUpdate">
+	     <table class="table table-bordered">
+	        <tr>
+	           <th>작성자</th>
+	           <th colspan="2">댓글</th>
+	           <th>작성시간</th>
+	           <th>기타</th>
+	        </tr>
+	        <c:forEach items="${comment}" var="i">
+				<tr>
+					<td><input id="${i.ddc_mem_number}" type="hidden" value="${i.ddc_mem_number }">${i.ddc_name }<input type="hidden" value="${i.ddc_number }"></td>
+					<td colspan="2"><textarea  id="${i.ddc_number}" rows="2" cols="70" style="resize: none;" readonly>${i.ddc_content }</textarea></td>
+					<td><fmt:formatDate value="${i.ddc_date }" pattern="yyyy/MM/dd"/></td>
+					<td>
+						<button id="btn" type="button" onclick="answerUpdateClick('${dutyDocument.dd_number}','${i.ddc_number}','${i.ddc_mem_number}','${i.ddc_content}');">수정</button>
+						<button type="button" onclick="departmentCommentDelete('${i.ddc_number}','${dutyDocument.dd_number}')">삭제</button>
+				   </td>
+				</tr>
+			</c:forEach> 
+	  	 </table>
+	</form>
       
-   <form action="/sharingInformation/board/answerWrite">
-      <table class="table table-bordered">
-         <tr>
-            <th colspan="4">
-               <textarea rows="5" cols="71" style="resize: none;" name="comment_content"></textarea>
-            </th>
-            <td>
-               <input type="hidden" name="board_number" value="${board.board_number}">
-               <button type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
-            </td>
-         </tr>
-      </table>
-   </form>
+	<form action="/sharingInformation/board/answerWrite">
+		<table class="table table-bordered">
+			<tr>
+				<th colspan="4">
+					<textarea rows="5" cols="71" style="resize: none;" name="comment_content"></textarea>
+				</th>
+				<td>
+					<input type="hidden" name="board_number" value="${dutyDocument.dd_number}">
+					<button type="button" onclick="answerWriteClick('${dutyDocument.dd_number}',this.form)">등록</button>
+				</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

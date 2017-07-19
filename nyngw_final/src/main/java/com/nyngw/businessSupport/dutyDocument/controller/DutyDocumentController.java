@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.businessSupport.dutyDocument.service.DutyDocumentServiceImpl;
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.Board_CommentVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_DocumentVO;
@@ -70,6 +71,30 @@ public class DutyDocumentController {
 		return "businessSupport/dutyDocument/departmentDetail";
 	}
 	
+	@RequestMapping("/departmentCommentWrite")
+	public @ResponseBody Map<String,String> departmentCommentWrite(String id, String comment_content, Principal principal){
+		dutyDocumentService.departmentCommentWrite(id, comment_content, principal);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/businessSupport/dutyDocument/departmentDetail?dd_number="+id);
+		return resultMap;
+	}
+	
+	@RequestMapping("/departmentCommentDelete")
+	public @ResponseBody Map<String,String> departmentCommentDelete(String id, String dd_number){
+		dutyDocumentService.departmentCommentDelete(id);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/businessSupport/dutyDocument/departmentDetail?dd_number="+dd_number);
+		return resultMap;
+	}
+
+	@RequestMapping("/departmentCommentUpdate")
+	public @ResponseBody Map<String,String> departmentCommentUpdate(String dd_number, String ddc_number, String ddc_mem_number, String ddc_content){
+		dutyDocumentService.departmentCommentUpdate(ddc_number, ddc_mem_number, ddc_content, dd_number);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/businessSupport/dutyDocument/departmentDetail?dd_number="+dd_number);
+		return resultMap;
+	}
+
 	
 	/**
 	 * 개인업무조회
