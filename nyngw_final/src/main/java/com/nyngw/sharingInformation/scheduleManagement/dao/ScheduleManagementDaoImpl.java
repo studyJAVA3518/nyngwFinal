@@ -38,4 +38,8 @@ public class ScheduleManagementDaoImpl implements ScheduleManagementDao {
 		return sqlSession.selectList("SI_selectMemberSchedule", sc_mem_number);
 	}
 
+	public List<ScheduleVO> todayMemberScheduling_SI(String mem_id) {
+		return sqlSession.selectList("todayMemberScheduling_SI", mem_id);
+	}
+
 }

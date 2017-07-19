@@ -11,16 +11,16 @@
 	
 	<!-- 검색어 분류와 기안문서함으로 검색-->
 	<select id= "selectDocumentListByDocName" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
-		select * from document where doc_name like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+		select * from document where doc_name like '%'||#{searchText}||'%' and doc_code_number like '%'||#{draftBoxOption}||'%'
 	</select>
 	<select id= "selectDocumentListByDocExplanation" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
-		select * from document where doc_explanation like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+		select * from document where doc_explanation like '%'||#{searchText}||'%' and doc_code_number like '%'||#{draftBoxOption}||'%'
 	</select>
 	<select id= "selectDocumentListByDocMemNumber" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
-		select * from document where doc_mem_number like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+		select * from document where doc_mem_number like '%'||#{searchText}||'%' and doc_code_number like '%'||#{draftBoxOption}||'%'
 	</select>
 	<select id= "selectDocumentListByDocDate" parameterType="com.nyngw.dto.DocumentSearchVO" resultType = "com.nyngw.dto.DocumentVO">
-		select * from document where doc_date like '%'||#{searchText}||'%' and doc_code_number = #{draftBoxOption}
+		select * from document where doc_date like '%'||#{searchText}||'%' and doc_code_number like '%'||#{draftBoxOption}||'%'
 	</select>
 	
 	<!-- 검색어 분류만으로 검색 -->
@@ -68,5 +68,15 @@
 				connect by prior  dept_number = dept_parents) A 
 				where a.dept_number <![CDATA[ <> ]]> 'dept0' 
 				order by A.order2
+	</select>
+	
+	<!-- 선택한 부서의 멤버검색 -->
+	<select id="dreat_selectMemberListByDepartment" resultType="com.nyngw.dto.MemberVO" parameterType="string">
+		select * from member_view where mem_dept_number = #{dept_number}
+	</select>
+	
+	<!-- 검색한 멤버와 부서의 멤버검색 -->
+	<select id="dreat_selectMemberListByDepartmentMemberName" resultType="com.nyngw.dto.MemberVO" parameterType="map">
+		select * from member_view where mem_dept_number like '%'||#{dept_number}||'%' and mem_name like '%'||#{searchText}||'%'
 	</select>
 </mapper>

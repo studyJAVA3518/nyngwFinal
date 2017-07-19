@@ -60,8 +60,11 @@ public class JoinMemberListController {
 	@RequestMapping("/detail")
 	public String memberDetail(Model model,String mem_id){
 		
+		System.out.println("<===== detail   "+mem_id);
 		
 		JoinMemberVO member = joinMemberListService.getMemberDetail(mem_id);
+		
+		System.out.println(member);
 		
 		model.addAttribute("member", member);
 		
@@ -76,8 +79,6 @@ public class JoinMemberListController {
 		
 		map.put("status", "no");
 		
-		map.put("member",member);
-		
 		if(result==1){
 			map.put("status", "ok");
 		}
@@ -91,7 +92,7 @@ public class JoinMemberListController {
 		
 		joinMemberListService.modifyDeleteMember(member);
 		
-		map.put("url", "/jlm");
+		map.put("url", "/humanResource/joinMemberList/jlm");
 		
 		return map;
 	}

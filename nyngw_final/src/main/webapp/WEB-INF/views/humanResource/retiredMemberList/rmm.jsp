@@ -27,13 +27,18 @@
 		})
 
 	}
+	
+	 $(function(){  
+	       $('#mem_dept_number option[value=${dept_number}]').prop('selected',true);
+	   });
+	
 </script>
 
 퇴사자 리스트
 <form action="rmm" method="post">
 	<table>
 		<tr>
-			<td><select name="mem_dept_number" class="btn btn-default">
+			<td><select id="mem_dept_number" name="mem_dept_number" class="btn btn-default">
 					<option value="all" selected="selected">모든부서</option>
 					<option value="dept3">인사부</option>
 					<option value="dept4">기획홍보부</option>

@@ -34,23 +34,25 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardListViewVO selectBoardList(int pageNumber, Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
+		
 		int boardTotalCount = boardDao.selectBoardCount();
-			List<BoardVO> boardList = null;
-			int firstRow = 0;
-			int endRow = 0;
-			if (boardTotalCount > 0) {
-				firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
-				endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
-				boardList = boardDao.selectBoardList(firstRow, endRow, select);
-				if(select.getVal()!=null && !select.getVal().equals("")){
-					boardTotalCount = boardDao.boardSelectCount(select);
-				}
-			} else {
-				currentPageNumber = 0;
-				boardList = Collections.emptyList();
+		
+		List<BoardVO> boardList = null;
+		int firstRow = 0;
+		int endRow = 0;
+		if (boardTotalCount > 0) {
+			firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
+			endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
+			boardList = boardDao.selectBoardList(firstRow, endRow, select);
+			if(select.getVal()!=null && !select.getVal().equals("")){
+				boardTotalCount = boardDao.boardSelectCount(select);
 			}
-			return  new BoardListViewVO(boardList, boardTotalCount,
-					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
+		} else {
+			currentPageNumber = 0;
+			boardList = Collections.emptyList();
+		}
+		return  new BoardListViewVO(boardList, boardTotalCount,
+				currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
 
 	/**

@@ -146,10 +146,17 @@
                <td><input id="${i.comment_mem_number}" type="hidden" value="${i.comment_mem_number }">${i.comment_mem_name }<input type="hidden" value="${i.comment_number }"></td>
                <td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;" readonly>${i.comment_content }</textarea></td>
                <td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
-               <td>
-                  <button id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
-                  <button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
-               </td>
+               <c:choose>
+					<c:when test="${mem.mem_number eq board.board_mem_number}">
+		               <td>
+		                  <button id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
+		                  <button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
+		               </td>
+               		</c:when>
+					<c:otherwise>
+						<td></td>
+					</c:otherwise>
+				</c:choose>
             </tr>
          </c:forEach> 
       </table>

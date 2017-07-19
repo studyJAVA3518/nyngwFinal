@@ -27,6 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.Pay_PolicyVO;
+import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.util.ExcelRead;
@@ -602,6 +604,83 @@ public class PlanPublicRelationsSettingController {
 		String url = "enovironmentSetting/planPublicRelationsSetting/salary";
 		try {
 			planPublicRelationsSettingService.viewPay(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	/**
+	 * 급여종류 등록 컨트롤러
+	 */
+	@RequestMapping(value="/insertPayKind",method=RequestMethod.POST)
+	public String insertPayKind(Model model, HttpServletRequest request,
+			Pay_kindVO vo){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		try {
+			planPublicRelationsSettingService.enrollPayKind(model, vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+
+	/**
+	 * 급여정책 등록 컨트롤러
+	 */
+	@RequestMapping(value="/insertPayPolicy",method=RequestMethod.POST)
+	public String insertPayPolicy(Model model, HttpServletRequest request,
+			Pay_PolicyVO vo){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		try {
+			planPublicRelationsSettingService.enrollPayPolicy(model, vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	/**
+	 * 급여종류하나의 정보를 가져오는 컨트롤러(ajax)
+	 */
+	@RequestMapping("/checkPayKindOne")
+	public @ResponseBody Map<String,Object> checkPayKindOne(String tmp_pk_number){
+		Map<String,Object> map = null;
+		try {
+			map = planPublicRelationsSettingService.getPayKindOne(tmp_pk_number);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	/**
+	 * 급여종류 수정 컨트롤러
+	 */
+	@RequestMapping(value="/updatePayKind",method=RequestMethod.POST)
+	public String updatePayKind(Model model, HttpServletRequest request,
+			String up_pk_number, String up_pk_name, String up_pk_tax){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		System.out.println(up_pk_number);
+		System.out.println(up_pk_name);
+		System.out.println(up_pk_tax);
+		try {
+			planPublicRelationsSettingService.modifyPayKind(model, up_pk_number, up_pk_name,up_pk_tax);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	/**
+	 * 급여종류 삭제 컨트롤러
+	 */
+	@RequestMapping("/deletePayKind")
+	public String deletePayKind(Model model, HttpServletRequest request,
+			String del_pk_number){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		try {
+			planPublicRelationsSettingService.removePayKind(model, del_pk_number);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

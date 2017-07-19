@@ -132,18 +132,20 @@ public class BoardController implements ApplicationContextAware{
 	public String boardWrite(CommandBoardVO commandboard,String page, Principal principal,@RequestParam( value="content") String board_content) throws IOException{//,Principal principal
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/board";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
+		BoardVO board = commandboard.toBoardVO();
+		MemberVO member = basicSettingService.selectMember(principal.getName());
+		board.setBoard_mem_number(member.getMem_number());
+		board.setBoard_content(board_content);
 		if(!multipartFile.isEmpty()){
 			File file = new File(upload,multipartFile.getOriginalFilename());
 			multipartFile.transferTo(file);
-			BoardVO board = commandboard.toBoardVO();
-			MemberVO member = basicSettingService.selectMember(principal.getName());
-			board.setBoard_mem_number(member.getMem_number());
-			board.setBoard_content(board_content);
 			board.setBoard_file_name(multipartFile.getOriginalFilename());
-			boardService.boardInsert(board);
-			return "redirect:/sharingInformation/board/list";
+		}else{
+			board.setBoard_file_name("");
 		}
-		return "sharingInformation/board/writeForm";
+		boardService.boardInsert(board);
+		return "redirect:/sharingInformation/board/list";
+//		return "sharingInformation/board/boardWriteForm";
 	}
 	
 	/**

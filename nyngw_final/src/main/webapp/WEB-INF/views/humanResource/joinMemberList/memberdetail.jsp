@@ -15,18 +15,23 @@
 			data : memdata,
 			success : function(res) {
 				if (res.status == "ok") {
+					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
+					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
 					alert("수정 성공");
 				} else {
+					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
+					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
 					alert("수정이 실패하였습니다.");
 				}
 			},
 			error : function() {
-				alert("ㅈ 망이다.??????");
+				location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
+				location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
+				alert("결과를 확인해주세요.");
 			},
 			dataType : 'json'
 		})
 	}
-
 	function modifyDeleteMember() {
 		if (confirm("퇴사?????") == true) {
 			
@@ -37,9 +42,11 @@
 				data : memdata,
 				success : function(res) {
 					alert("화면전환만들어야되는데...");
+					location.href=result.url;
 				},
 				error : function() {
 					alert("ㅈ 망이다.");
+					location.href="/humanResource/joinMemberList/detail";
 				},
 				dataType : 'json'
 			})

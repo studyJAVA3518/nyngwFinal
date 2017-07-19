@@ -14,6 +14,7 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyVO;
 import com.nyngw.dto.Pay_PolicyViewVO;
 import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
@@ -369,6 +370,17 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	}
 	
 	/**
+	 * 급여 정책 등록하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int insertPayPolicy(Pay_PolicyVO vo) throws SQLException{
+		int result = sqlSession.update("esInsertPayPolicy", vo);
+		return result;
+	}
+	
+	/**
 	 * 급여 종류 수정하는 메서드
 	 * @param PositionVO vo
 	 * @return int
@@ -391,4 +403,6 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		int result = sqlSession.update("esDeletePayKind", pk_number);
 		return result;
 	}
+	
+	
 }

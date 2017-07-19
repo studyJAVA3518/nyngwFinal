@@ -1,16 +1,20 @@
 package com.nyngw.electronicApproval.draft.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.draft.service.DraftServiceImpl;
 
 @Controller
@@ -47,8 +51,18 @@ public class DraftController {
 	 */
 	@RequestMapping("/searchDraftDocument")
 	public String searchDraft(String draftBoxOption, String searchOption, String searchText,Model model){
-			List<DocumentVO> documentList = draftService.searchDocument(draftBoxOption, searchOption, searchText);
-			model.addAttribute("documentList", documentList);
+		List<DocumentVO> documentList = draftService.searchDocument(draftBoxOption, searchOption, searchText);
+		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+
+		for (DocumentVO docVO : documentList) {
+			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(docVO.getDoc_number()));
+		}
+		model.addAttribute("draftBoxOption",draftBoxOption);
+		model.addAttribute("searchOption",searchOption);
+		model.addAttribute("searchText",searchText);
+		
+		model.addAttribute("documentList", documentList);
+		model.addAttribute("code_nameList",code_nameList );
 		return "electronicApproval/draft/draft";
 	}
 	
@@ -58,17 +72,14 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/approvalLineManager")
-	public String approvalLineManager(Model model){
+	@ResponseBody
+	public Map<String, String> approvalLineManager(Model model){
 		String sb = draftService.getMenuDepartmentString().toString();
-		model.addAttribute("sb",sb);
-		return "electronicApproval/draft/approvalLineManager";
-	}
-	
-	@RequestMapping("/searchMember")
-	public String searchMember(Model model,String searchText){
-//		List<MemberVO> memberList = approvalLineManagementService.searchMember(searchText);
-//		model.addAttribute("memberList",memberList);
-		return "electronicApproval/draft/approvalLineManagement";
+		Map<String,String> jsonDataMap = new HashMap<String, String>();
+		jsonDataMap.put("sb", sb);
+//		model.addAttribute("sb",sb);
+//		return "electronicApproval/draft/approvalLineManager";
+		return jsonDataMap;
 	}
 
 	//결재 상신
@@ -79,4 +90,19 @@ public class DraftController {
 		return "electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	
+
+	@RequestMapping("/findMemberByDepartment")
+	@ResponseBody
+	public List<Map> findMemberByDepartment(String dept_number,Model model){
+		List<Map> memberJsonData = draftService.findMemberByDepartment(dept_number,model);
+		return memberJsonData;
+	}
+	
+	@RequestMapping("/searchMember")
+	@ResponseBody
+	public List<Map> searchMember(Model model,String searchText, String dept_number){
+		List<Map> memberJsonData = draftService.searchMemberByMemberName(searchText,dept_number);
+		return memberJsonData;
+	}
+
 }

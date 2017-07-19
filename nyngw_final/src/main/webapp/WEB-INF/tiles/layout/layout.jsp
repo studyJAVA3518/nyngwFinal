@@ -1,3 +1,8 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.userdetails.User"%>
+<%@page import="com.nyngw.sharingInformation.scheduleManagement.service.ScheduleManagementServiceImpl"%>
+<%@page import="com.nyngw.dto.ScheduleVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
@@ -31,10 +36,13 @@
     <link href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" rel="stylesheet">
 	
 	<!-- 풀캘린드-->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/fullCalendar/fullcalendar.css"/>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/fullCalendar/fullcalendar.min.css"/>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fullCalendar/moment.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fullCalendar/fullcalendar.min.js"></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/jquery.min.js'></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
+	<!-- 캘린더 css -->
+	<link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
+	<link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
 	
     <!-- 초기화 css import -->
     <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
@@ -82,63 +90,89 @@
 	    	
 	    })
 	    
-	    $(document).ready(function(){
-			var date = new Date();
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
-			
-			var calendar = $('#calender').fullCalendar({
-				
-				header:{
-					left : 'prev,next today',
-					cneter : 'title',
-					right : 'month,agendaWeek,agendaDay'
-				},
-				
-				selectable: true,
-				selectHelper: true,
-				select: function(start, end, allDay){
-					var title = prompt('일정을 입력하셈.');
-					if(title){
-						calendar.fullCalendar('renderEvent',{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allday
-						},
-						true
-						);
-					}
-					calendar.fullCalendar('unselect');
-				},
-				editable: true,
-				events:[
-				  {
-					  title: '01 All Day Event',
-					  start: new Date(y, m, 1)
-				  },
-				  {
-					  title: '02 Long Event',
-					  start: new Date(y, m, d-5),
-					  end: new Date(y, m, d-2)
-				  }
-				        ]
-			})
-		})
-	    
+	 
+	 $(document).ready(function() {
+
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    $('#calendarmini').fullCalendar({
+        theme: true,
+        header: {
+            left: 'title',
+            center:'',	
+            right:'prev, today, next'
+        },
+        editable: true,
+        // add event name to title attribute on mouseover
+        eventMouseover: function(event, jsEvent, view) {
+            if (view.name !== 'agendaDay') {
+                $(jsEvent.target).attr('title', event.title);
+            }
+        }
+    });
+
+});
 	</script>
 	<style>
-		/*side bar*/
-		.sidebarBtnClick{
-			position : absolute;
-			top : 150px;
-			right :250px;	
-		}
-	</style>
+/*side bar*/
+.sidebarBtnClick {
+	position: absolute;
+	top: 150px;
+	right: 250px;
+}
+
+#calendarmini {
+    width: 250px;
+    margin: 0 0;
+    color:white;
+}
+#calendarmini .fc-header-title h2 {
+    font-size: 0.3em;
+    white-space: normal !important;
+}
+#calendarmini .fc-day-grid fc-unselectable{
+	height:250px;
+}
+#calendarmini .fc-scroller fc-day-grid-container{
+	height:300px;
+}
+#calendarmini .fc-day-top fc-sun fc-other-month fc-past{
+	height:23px;
+}
+#calendarmini .fc-day-number{
+	height:23px;
+}
+#calendarmini .fc-basic-view .fc-body .fc-row {
+    min-height: 0.8em;
+}
+#calendarmini .fc-bg{
+	height:23px;
+}
+#calendarmini .fc-view fc-month-view fc-basic-view{
+	line-height: 300px;
+}
+#calendarmini .fc-day ui-widget-content fc-sun fc-other-month fc-past{
+	padding: 0;
+}
+#calendarmini .fc-day-header ui-widget-header fc-sun{
+	height :100px;
+}
+#calendarmini .fc-content-skeleton{
+	padding : 0;
+}
+#caledarmini .fc-day-header ui-widget-heade{
+	height:20px;
+}
+
+
+</style>
+
   </head>
   <body onload="printClock();">
-  	
+
   	<!-- 화면 전체를 감싸는 div -->
   	<div class="container-fliud" id="wrapper">
   	
@@ -151,13 +185,17 @@
                 <li class="sidebar-brand">
                     <div class="clock" id="clock">
                 </li>
-                <li class="sidebar-brand">
-<!--                     <div id="calender"></div> -->
-                </li>
-                <li>
-                    
-                </li>
-            </ul>
+				<li>
+					<div id='calendarmini'></div>
+				</li>
+				<li><label style="color: white;">${memberName}님의 오늘
+						일정입니다.</label></li>
+				<c:forEach items="${scheduleList}" var="schedule">
+					<li>
+						<label style="color: white;">title :${schedule.sc_title }</label>
+					</li>
+				</c:forEach>
+			</ul>
         </div>
   		
   		<!-- 헤더 전체 부분 : 부트스트랩 클래스 이외에 
