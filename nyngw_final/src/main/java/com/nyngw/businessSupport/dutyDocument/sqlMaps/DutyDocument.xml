@@ -99,7 +99,26 @@
 				and to_char(dd_date,'yyyy/MM/dd') between #{date} and sysdate
 	</select>
 	
+	<select id="selectDutyComment" parameterType="java.lang.String" resultType="com.nyngw.dto.Duty_Document_CommentVO">
+		select * from duty_document_comment where ddc_dd_number = #{dd_number} order by to_number(substr(ddc_number,4)) 
+	</select>
 	
-	
+	<update id="dutyCommentInsert_DD" parameterType="com.nyngw.dto.Duty_Document_CommentVO">
+		insert into duty_document_comment(ddc_number, ddc_mem_number, ddc_dd_number, ddc_content, ddc_date)
+		values('ddc'||ddc_seq.nextVal, #{ddc_mem_number}, #{ddc_dd_number}, #{ddc_content}, #{ddc_date})
+	</update>
+
+	<update id="dutyCommentDelete_DD" parameterType="java.lang.String">
+		delete from duty_document_comment where ddc_number = #{ddc_number}
+	</update>
+
+	<update id="dutyCommentUpdate_DD" parameterType="com.nyngw.dto.Duty_Document_CommentVO">
+		update duty_document_comment
+		set ddc_mem_number=#{ddc_mem_number},
+			ddc_dd_number=#{ddc_dd_number},
+			ddc_content=#{ddc_content},
+			ddc_date=#{ddc_date}
+		where ddc_number=#{ddc_number}
+	</update>
 	
 </mapper>

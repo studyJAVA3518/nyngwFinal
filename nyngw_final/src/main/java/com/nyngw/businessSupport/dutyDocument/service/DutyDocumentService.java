@@ -21,4 +21,7 @@ public interface DutyDocumentService {
 	//부서
 	public void departmentList(String searchDate, String reportType, String titleType, String val, Model model, Principal principal, int pageNumber);
 	public void departmentDetail(int pageNumber, String searchDate, String reportType, String titleType, String val, Model model, Principal principal, String dd_number);
+	public void departmentCommentWrite(String id, String comment_content, Principal principal);
+	public void departmentCommentDelete(String id);
+	public void departmentCommentUpdate(String ddc_number, String ddc_mem_number, String ddc_content, String dd_number);
 }
