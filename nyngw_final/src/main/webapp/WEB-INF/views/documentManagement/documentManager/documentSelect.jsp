@@ -49,8 +49,8 @@
 						<td>${fn:substring(documentView.dv_doc_number,3,10077777)}</td>
 						<td>${documentView.dv_code_name }</td>
 						<td>${documentView.dv_doc_date }</td>
-						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_number }</a></td>
-						<td>${documentView.dv_doc_name }</td>
+						<td>${documentView.dv_doc_number }</td>
+						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_name }</a></td>
 						<td>${documentView.dv_mem_name }</td>
 					</tr>
 				</c:forEach>

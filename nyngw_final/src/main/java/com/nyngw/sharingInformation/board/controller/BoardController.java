@@ -117,6 +117,7 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping("/writeForm")
 	public String boardWriteForm(String page,Model model){
+		
 		model.addAttribute("page",page);
 		return "sharingInformation/board/boardWriteForm";
 	}
@@ -148,7 +149,7 @@ public class BoardController implements ApplicationContextAware{
 	 * @return 수정양식 폼 url 반환
 	 */
 	@RequestMapping("/updateForm")
-	public String boardUpdateForm(String board_number, Model model,String page){
+	public String boardUpdateForm(String board_number, Model model,String page,String board_file_name){
 		BoardVO board = boardService.selectBoard(board_number);
 		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());

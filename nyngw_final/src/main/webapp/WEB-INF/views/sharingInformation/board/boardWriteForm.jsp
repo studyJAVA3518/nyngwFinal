@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-	function file_change(file){
+function file_change(file){
 	var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
 	file = file.substring(str, file.length);
 	document.getElementsByName('board_file_name')[0].value=file;
-	
-	}
+}
+
 </script>
 	<h1>게시판등록폼</h1>
 	<div>
@@ -30,7 +29,9 @@
 			<table>
 				<tr>
 					<th>첨부파일</th>
-					<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	
+					<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);">
+					</td>
+						
 				</tr>
 			</table>
 		</form>
