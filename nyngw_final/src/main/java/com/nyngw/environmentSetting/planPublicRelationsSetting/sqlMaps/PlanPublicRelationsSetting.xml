@@ -136,8 +136,6 @@
 	
 	
 	
-	
-	
 	<!-- 회사 직급 개수 조회 -->
 	<select id="esSelectPositionCount" resultType="java.lang.Integer">
 		select
@@ -187,6 +185,63 @@
 	<!-- 회사 직급 정보 삭제 -->
 	<update id="esDeletePosition" parameterType="java.lang.String">
 		delete from position where position_number=#{deletePositionNum}
+	</update>
+	
+	
+	
+	<!-- 회사 급여종류 리스트 조회 -->
+	<select id="esSelectPayKindList" resultType="com.nyngw.dto.Pay_kindVO">
+		select * from pay_kind
+	</select>
+
+	<!-- 회사 급여종류 하나 조회 -->
+	<select id="esSelectPayKindOne" resultType="com.nyngw.dto.Pay_kindVO" parameterType="java.lang.String">
+		select * from pay_kind where pk_number = #{pk_number}
+	</select>
+	
+	<!-- 회사 급여관련 모든 정보 리스트 조회 -->
+	<select id="esSelectPayInfoList" resultType="com.nyngw.dto.Pay_PolicyViewVO">
+		select * from pay_policy_view
+		order by pk_number, position_level
+	</select>
+	
+	<!-- 회사 급여관련 모든 정보 중 시간당 시급 리스트 조회 -->
+	<select id="esSelectPayHourInfoList" resultType="com.nyngw.dto.Pay_PolicyViewVO">
+		select * from pay_policy_view 
+		where pk_number = 'pk1' 
+		order by pk_number, position_level 
+	</select>
+	
+	<!-- 회사 급여관련 모든 정보 중 기본급 리스트 조회 -->
+	<select id="esSelectPayInfoBasicList" resultType="com.nyngw.dto.Pay_PolicyViewVO">
+		select * from pay_policy_view
+		where pk_number = 'pk2'
+		order by pk_number, position_level
+	</select>
+	
+	<!-- 회사 급여관련 모든 정보 중 직책수당 리스트 조회 -->
+	<select id="esSelectPayInfoPositionList" resultType="com.nyngw.dto.Pay_PolicyViewVO">
+		select * from pay_policy_view
+		where pk_number = 'pk3'
+		order by pk_number, position_level
+	</select>
+	
+	<!-- 회사 급여종류 등록 -->
+	<update id="esInsertPayKind" parameterType="com.nyngw.dto.Pay_kindVO">
+		insert into pay_kind(pk_number, pk_name, pk_tax)
+		values ('pk'||pk_seq.nextval, #{pk_name}, #{pk_tax})
+	</update>
+	<!-- 회사 급여종류 수정 -->
+	<update id="esUpdatePayKind" parameterType="com.nyngw.dto.Pay_kindVO">
+		update pay_kind set
+		  pk_name = #{pk_name},
+		  pk_tax = #{pk_tax}
+		where pk_number = #{pk_number}
+	</update>
+	<!-- 회사 급여종류 삭제 -->
+	<update id="esDeletePayKind" parameterType="java.lang.String">
+		DELETE FROM pay_kind 
+		WHERE pk_number = #{pk_number}
 	</update>
 	
 </mapper>

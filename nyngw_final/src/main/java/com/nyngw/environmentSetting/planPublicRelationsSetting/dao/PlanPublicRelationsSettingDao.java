@@ -8,6 +8,8 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyViewVO;
+import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.dto.Work_TimeVO;
 
@@ -106,24 +108,43 @@ public interface PlanPublicRelationsSettingDao {
 	 */
 	public int selectDeptCount() throws SQLException;
 
-	int selectPositionCount() throws SQLException;
+	public int selectPositionCount() throws SQLException;
 
-	ArrayList<PositionVO> selectPositionList() throws SQLException;
+	public ArrayList<PositionVO> selectPositionList() throws SQLException;
 
-	int insertPosition(PositionVO vo) throws SQLException;
+	public int insertPosition(PositionVO vo) throws SQLException;
 
-	PositionVO selectOnePosition(String position_number) throws SQLException;
+	public PositionVO selectOnePosition(String position_number) throws SQLException;
 
-	int updatePosition(PositionVO vo) throws SQLException;
+	public int updatePosition(PositionVO vo) throws SQLException;
 
-	int deletePosition(String deletePositionNum) throws SQLException;
+	public int deletePosition(String deletePositionNum) throws SQLException;
 
-	int updatePositionLevel(PositionVO vo) throws SQLException;
+	public int updatePositionLevel(PositionVO vo) throws SQLException;
 
-	int insertDAL(List<Diligence_And_LazinessVO> dalList) throws SQLException;
+	public int insertDAL(List<Diligence_And_LazinessVO> dalList) throws SQLException;
 
-	ArrayList<Work_TimeVO> selectWorkTime() throws SQLException;
+	public ArrayList<Work_TimeVO> selectWorkTime() throws SQLException;
 
-	int updateWorkTime(Work_TimeVO vo) throws SQLException;
+	public int updateWorkTime(Work_TimeVO vo) throws SQLException;
+
+	public ArrayList<Pay_kindVO> selectPayKindList() throws SQLException;
+
+	public Pay_kindVO selectPayKindOne(String pk_number) throws SQLException;
+
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoList() throws SQLException;
+
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoHourList() throws SQLException;
+
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoBasicList() throws SQLException;
+
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoPositionList() throws SQLException;
+
+	public int insertPayKind(Pay_kindVO vo) throws SQLException;
+
+	public int updatePayKind(Pay_kindVO vo) throws SQLException;
+
+	public int deletePayKind(String pk_number) throws SQLException;
+
 
 }

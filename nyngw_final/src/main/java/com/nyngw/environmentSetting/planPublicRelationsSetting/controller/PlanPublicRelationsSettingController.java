@@ -583,9 +583,7 @@ public class PlanPublicRelationsSettingController {
 		}
 		return url;
 	}
-	
-	
-	
+
 	
 	/**
 	 * 조직도 설정 화면으로 이동
@@ -600,8 +598,13 @@ public class PlanPublicRelationsSettingController {
 	 * 급여 정책 설정 화면으로 이동
 	 */
 	@RequestMapping("/salaryForm")
-	public String salaryForm(){
+	public String salaryForm(Model model){
 		String url = "enovironmentSetting/planPublicRelationsSetting/salary";
+		try {
+			planPublicRelationsSettingService.viewPay(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return url;
 	}
 }

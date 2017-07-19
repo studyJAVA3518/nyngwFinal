@@ -28,7 +28,7 @@
 					<th>직급레벨</th>
 					<td>
 						<select name="position_level">
-							<c:forEach  var="posLevel" items="${posList}">
+							<c:forEach  var="posLevel" items="${posList}" begin="1" end="${posList.size()}" step="1">
 								<option value="${posLevel.position_level+5}" class="form-control">${posLevel.position_name}</option>
 							</c:forEach>
 						</select>
@@ -60,7 +60,7 @@
 					<th>위치변경</th>
 					<th>관리</th>
 				</tr>
-				<c:forEach var="position" items="${posList}" varStatus="status">
+				<c:forEach var="position" items="${posList}" begin="1" end="${posList.size()}" step="1" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
 						<td>${position.position_name}</td>

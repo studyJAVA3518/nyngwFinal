@@ -14,6 +14,8 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyViewVO;
+import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.dto.Work_TimeVO;
 
@@ -189,48 +191,94 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		return result;
 	}
 	
+	/**
+	 * 회사 직급 개수 세주는 메서드
+	 * @return int
+	 * @throws SQLException
+	 */
 	@Override
 	public int selectPositionCount() throws SQLException {
 		int count = (int) sqlSession.selectOne("esSelectPositionCount", "");
 		return count;
 	}
 	
+	/**
+	 * 회사 직급 정보 조회하는 메서드
+	 * @return ArrayList<PositionVO>
+	 * @throws SQLException
+	 */
 	@Override
 	public ArrayList<PositionVO> selectPositionList() throws SQLException {
 		ArrayList<PositionVO> positionList = (ArrayList<PositionVO>) sqlSession.selectList("esSelectPosition", "");
 		return positionList;
 	}
 	
+	/**
+	 * 회사 직급 정보 등록하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
 	@Override
 	public int insertPosition(PositionVO vo) throws SQLException {
 		int result = sqlSession.update("esInsertPosition", vo);
 		return result;
 	}
 	
+	/**
+	 * 회사 하나의 직급 정보 조회하는 메서드
+	 * @param String position_number
+	 * @return PositionVO vo
+	 * @throws SQLException
+	 */
 	@Override
 	public PositionVO selectOnePosition(String position_number) throws SQLException {
 		PositionVO vo = (PositionVO) sqlSession.selectOne("esSelectOnePosition", position_number);
 		return vo;
 	}
 	
+	/**
+	 * 회사 하나의 직급 정보 수정하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
 	@Override
 	public int updatePosition(PositionVO vo) throws SQLException {
 		int result = sqlSession.update("esUpdatePosition", vo);
 		return result;
 	}
 	
+	/**
+	 * 회사 하나의 직급 정보 삭제하는 메서드
+	 * @param String deletePositionNum
+	 * @return int
+	 * @throws SQLException
+	 */
 	@Override
 	public int deletePosition(String deletePositionNum) throws SQLException {
 		int result = sqlSession.update("esDeletePosition",deletePositionNum);
 		return result;
 	}
 	
+	/**
+	 * 회사 하나의 직급 레벨 수정하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
 	@Override
 	public int updatePositionLevel(PositionVO vo) throws SQLException{
 		int result = sqlSession.update("esUpdatePositionLevel", vo);
 		return result;
 	}
 	
+	/**
+	 * 회사 하나의 근무시간 등록하는 메서드
+	 * @param List<Diligence_And_LazinessVO> dalList
+	 * @return int 
+	 * @throws SQLException
+	 */
 	@Override
 	public int insertDAL(List<Diligence_And_LazinessVO> dalList) throws SQLException{
 		int count = 0;
@@ -239,11 +287,108 @@ public class PlanPublicRelationsSettingDaoImpl implements
 			count++;
 		}
 		return count;
-		
 	}
-
 	
 	
-
+	/**
+	 * 회사 급여종류 정보 리스트를 조회하는 메서드
+	 * @return ArrayList<Pay_kindVO> 
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Pay_kindVO> selectPayKindList() throws SQLException{
+		ArrayList<Pay_kindVO> payKindList = (ArrayList<Pay_kindVO>) sqlSession.selectList("esSelectPayKindList","");
+		return payKindList;
+	}
 	
+	/**
+	 * 회사 급여종류 정보 하나를 조회하는 메서드
+	 * @return Pay_kindVO 
+	 * @throws SQLException
+	 */
+	@Override
+	public Pay_kindVO selectPayKindOne(String pk_number) throws SQLException{
+		Pay_kindVO payKind = (Pay_kindVO) sqlSession.selectOne("esSelectPayKindOne",pk_number);
+		return payKind;
+	}
+	
+	/**
+	 * 회사 급여관련 모든 정보 리스트를 조회하는 메서드
+	 * @return ArrayList<Pay_PolicyViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoList() throws SQLException{
+		ArrayList<Pay_PolicyViewVO> payInfoList = (ArrayList<Pay_PolicyViewVO>) sqlSession.selectList("esSelectPayInfoList","");
+		return payInfoList;
+	}
+	
+	/**
+	 * 회사 급여관련 모든 정보 중 시간당시급 리스트를 조회하는 메서드
+	 * @return ArrayList<Pay_PolicyViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoHourList() throws SQLException{
+		ArrayList<Pay_PolicyViewVO> payInfoHourList = (ArrayList<Pay_PolicyViewVO>) sqlSession.selectList("esSelectPayHourInfoList","");
+		return payInfoHourList;
+	}
+	
+	/**
+	 * 회사 급여관련 모든 정보 중 기본급 리스트를 조회하는 메서드
+	 * @return ArrayList<Pay_PolicyViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoBasicList() throws SQLException{
+		ArrayList<Pay_PolicyViewVO> payInfoBasicList = (ArrayList<Pay_PolicyViewVO>) sqlSession.selectList("esSelectPayInfoBasicList","");
+		return payInfoBasicList;
+	}
+	
+	/**
+	 * 회사 급여관련 모든 정보 중 직책수당 리스트를 조회하는 메서드
+	 * @return ArrayList<Pay_PolicyViewVO>
+	 * @throws SQLException
+	 */
+	@Override
+	public ArrayList<Pay_PolicyViewVO> selectPayInfoPositionList() throws SQLException{
+		ArrayList<Pay_PolicyViewVO> payInfoPositionList = (ArrayList<Pay_PolicyViewVO>) sqlSession.selectList("esSelectPayInfoPositionList","");
+		return payInfoPositionList;
+	}
+	
+	/**
+	 * 급여 종류 등록하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int insertPayKind(Pay_kindVO vo) throws SQLException{
+		int result = sqlSession.update("esInsertPayKind", vo);
+		return result;
+	}
+	
+	/**
+	 * 급여 종류 수정하는 메서드
+	 * @param PositionVO vo
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int updatePayKind(Pay_kindVO vo) throws SQLException{
+		int result = sqlSession.update("esUpdatePayKind", vo);
+		return result;
+	}
+	
+	/**
+	 * 급여 종류 삭제하는 메서드
+	 * @param String pk_number
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int deletePayKind(String pk_number) throws SQLException{
+		int result = sqlSession.update("esDeletePayKind", pk_number);
+		return result;
+	}
 }
