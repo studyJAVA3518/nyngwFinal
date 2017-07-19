@@ -53,7 +53,7 @@
 			</tbody>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>파일</th>
 				<td colspan="3"><input type="file" name="doc_file_name" onchange="javascript:file_change(this.value);"></td>

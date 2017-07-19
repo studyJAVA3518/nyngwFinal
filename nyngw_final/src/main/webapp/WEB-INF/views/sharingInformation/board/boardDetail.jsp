@@ -120,9 +120,16 @@
          <td><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
       </tr>
    </table>   
-      <button class="btn"><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
-      <button class="btn" type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
-      <button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+	<c:choose>
+		<c:when test="${mem.mem_number eq board.board_mem_number}">
+	      	<button class="btn"><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
+	      	<button class="btn" type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
+	    	<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+		</c:when>
+		<c:otherwise>
+			<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+		</c:otherwise>
+	</c:choose>
 </div>
 <div>
    
