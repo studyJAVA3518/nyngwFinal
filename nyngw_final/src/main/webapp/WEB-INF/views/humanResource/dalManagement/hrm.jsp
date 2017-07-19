@@ -4,6 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+<script>
+	
+	
+</script>
+
 
 <form action="hrm" method="post">
 	<table class="table table-bordered">

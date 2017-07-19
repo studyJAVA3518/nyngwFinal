@@ -206,6 +206,26 @@ public class Member_Vacation_FN_GETCNTVO {
 	public void setChoice(String choice) {
 		this.choice = choice;
 	}
+	@Override
+	public String toString() {
+		return "Member_Vacation_FN_GETCNTVO [mem_number=" + mem_number
+				+ ", mem_id=" + mem_id + ", mem_pwd=" + mem_pwd + ", mem_name="
+				+ mem_name + ", dept_number=" + dept_number + ", dept_name="
+				+ dept_name + ", dept_total=" + dept_total
+				+ ", dept_startdate=" + dept_startdate + ", dept_enddate="
+				+ dept_enddate + ", dept_sf1=" + dept_sf1 + ", dept_sf2="
+				+ dept_sf2 + ", dept_sf3=" + dept_sf3 + ", dept_sf4="
+				+ dept_sf4 + ", dept_sf5=" + dept_sf5 + ", vacation_number="
+				+ vacation_number + ", vacation_start=" + vacation_start
+				+ ", vacation_end=" + vacation_end + ", vacation_end_duedate="
+				+ vacation_end_duedate + ", vacation_mem_number="
+				+ vacation_mem_number + ", vacation_vp_number="
+				+ vacation_vp_number + ", vp_number=" + vp_number
+				+ ", vp_kind=" + vp_kind + ", vp_totalday=" + vp_totalday
+				+ ", vp_payonoff=" + vp_payonoff + ", position_name="
+				+ position_name + ", choice=" + choice + ", search=" + search
+				+ ", startPage=" + startPage + ", endPage=" + endPage + "]";
+	}
 	
 	
 }

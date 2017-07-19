@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+ $(function(){  
+	       $('#list option[value=${list}]').prop('selected',true);
+	   });
+</script>
+
 <form action="vmtm" method="post">
 	<table class="table table-bordered">
 		<tr>
@@ -10,7 +16,7 @@
 			<td>
 				<input type=date name="startdate" /> 
 				<input type=date name="enddate" /> 
-				<select name="list" class="btn btn-default">
+				<select id="list" name="list" class="btn btn-default">
 					<option value="mem_name" selected= "selected">이름</option>
 					<option value="vp_kind">휴가종류</option>
 				</select>
@@ -55,13 +61,13 @@
 				</c:forEach>
 			</table>
 			<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
-				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">이전</a>
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}&list=${list}">이전</a>
 			</c:if>
 			<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"	var="i">
-				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">[${i}]</a>
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}&list=${list}">[${i}]</a>
 			</c:forEach>
 			<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
-				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">다음</a>
+				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}&list=${list}">다음</a>
 			</c:if>
 		</div>
 

@@ -106,7 +106,11 @@ $(function(){
 	
 </script>
 <!-- 환경설정관리 -> 인사부 설정 -> 휴가 일수 설정에 대한 화면 -->
-
+<script>
+   $(function(){  
+       $('#mem_dept_number option[value=${dept_number}]').prop('selected',true);
+   });
+</script>
 <h2>휴가 일수 설정</h2>
 <p>직원별로 휴가일수를 관리할 수 있으며, 휴가일수를 설정하면 직원들의 휴가 사용현황을 보다 정확하게 보실 수 있습니다.</p>
 <div class="row">
@@ -133,7 +137,7 @@ $(function(){
 								<th><input type="checkbox" name="checkYR" value="${year.yv_year }"/></th>	
 								<th>${year.yv_year }</th>
 								<td>${year.yv_vacation_day}</td>
-								<td><select name="yv_vacation_day" class="btn btn-default">
+								<td><select id="yv_vacation_day" name="yv_vacation_day" class="btn btn-default">
 										<option value="0">0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -167,8 +171,8 @@ $(function(){
 					</div>
 		    <div role="tabpanel" class="tab-pane" id="profile">
 		    	<form action="vacationDaysForm">
-		    	<select name="mem_dept_number" class="btn btn-default">
-					<option value="all" selected= "selected">모든부서</option>
+		    	<select name="mem_dept_number" id="mem_dept_number" class="btn btn-default">
+					<option value="all" >모든부서</option>
 					<option value="dept3" >인사부</option>
 					<option value="dept4" >기획홍보부</option>
 					<option value="dept5" >영업부</option>

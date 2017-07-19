@@ -1,6 +1,7 @@
 package com.nyngw.sharingInformation.scheduleManagement.service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,5 +55,9 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
 	public List<ScheduleVO> SI_selectMemberSchedule(String sc_mem_number){
 		return scheduleManagementDao.SI_selectMemberSchedule(sc_mem_number);
 	}
-
+	
+	public List<ScheduleVO> todayMemberSchedule(String mem_id){
+		return scheduleManagementDao.todayMemberScheduling_SI(mem_id);
+	}
+	
 }
