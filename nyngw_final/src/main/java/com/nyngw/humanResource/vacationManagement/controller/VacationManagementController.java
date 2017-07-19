@@ -33,6 +33,9 @@ public class VacationManagementController {
 			startdate = today;
 			enddate = today;
 		}
+		if(search==null){
+			search="";
+		}
 		mvfg.setChoice(list);
 		mvfg.setSearch(search);
 		mvfg.setDept_startdate(startdate);
@@ -64,6 +67,7 @@ public class VacationManagementController {
 		List<Member_Vacation_FN_GETCNTVO> deptVacation = vactionManagementService.getDeptVaction(mvfg);
 		List<Member_Vacation_FN_GETCNTVO> memberVacation = vactionManagementService.getMemberVacation(mvfg);		
 		
+		model.addAttribute("list", list);
 		model.addAttribute("startdate", startdate);
 		model.addAttribute("enddate", enddate);
 		model.addAttribute("page", paging);

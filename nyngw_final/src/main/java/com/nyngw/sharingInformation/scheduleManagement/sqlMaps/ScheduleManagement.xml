@@ -41,4 +41,11 @@
 		delete from Schedule 
 		where sc_number = #{sc_number}
 	</delete>
+	
+	<select id="todayMemberScheduling_SI" parameterType="String" resultType="com.nyngw.dto.ScheduleVO">
+		select * from Schedule 
+  	  where sc_mem_number = (select mem_number from member where mem_id=#{mem_id})
+  	  and sc_date= sysdate
+  	  order by sc_date
+	</select>
 </mapper>

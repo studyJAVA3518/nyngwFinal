@@ -56,6 +56,7 @@ public class RetiredMemberListController {
 		
 		List<JoinMemberVO> memberList = retireMemberListService.getRetiredMemberList(member);
 		
+		model.addAttribute("dept_number", member.getMem_dept_number());
 		model.addAttribute("page", paging);
 		model.addAttribute("memberList", memberList);		
 		

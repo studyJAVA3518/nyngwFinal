@@ -67,6 +67,8 @@ public class HomeMainController {
 			model.addAttribute("boardList", boardList);
 			scheduleList = shceculeManagementService.SI_selectMemberSchedule(mem_number);
 			model.addAttribute("scheduleList",scheduleList);
+			scheduleList= shceculeManagementService.todayMemberSchedule(mem_id);
+			model.addAttribute("scheduleList", scheduleList);
 			int size = scheduleList.size();
 			model.addAttribute("size",size);
 			//session에 회사 로고 경로를 저장해야 한다.

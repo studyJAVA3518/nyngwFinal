@@ -49,17 +49,21 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 		int result=0;
 		JoinMemberVO mem = joinMemberListDao.getMemberDetailCommon_JM(member.getMem_id());
 		member.setMem_number(mem.getMem_number());
+		System.out.println(mem);
+		System.out.println("<=========================");
 		try{
-			if(mem.getMdi_bank()!=null){
-				joinMemberListDao.modifyMemberBank(member);
-				System.out.println("<==================Modi");
-				result=1;
-			}else{
-				joinMemberListDao.modifyMemberBankinsert(member);
-				System.out.println("<==================inse");
-				result=1;
-			}
+			System.out.println("<==================Modi");
+			joinMemberListDao.modifyMemberBank(member);
+			result=1;
 		}catch(Exception e){
+			System.out.println("income <======== exception modify");
+		}
+		try{
+			System.out.println("<==================inse");
+			joinMemberListDao.modifyMemberBankinsert(member);
+			result=1;
+		}catch(Exception e1){
+			System.out.println("income <======== exception insert");
 		}
 
 		return result;

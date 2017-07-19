@@ -22,15 +22,6 @@
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="msapplication-TileImage" content="https://fullcalendar.io/mstile-144x144.png">
 
-<link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
-<link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
-
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/jquery.min.js'></script>
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
-
-
 <script>
 
 	$(function() {

@@ -1,5 +1,7 @@
 package com.nyngw.common.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +18,11 @@ public class ErrorController {
 		
 		System.out.println("Error page 404");
 		
-		model.addAttribute("message", "error 404");
-		model.addAttribute("url", "history.go(-1);");
+		model.addAttribute("title", "error 404");
+		model.addAttribute("error", "404");
+		model.addAttribute("message", "해당 페이지를 찾을수 없습니다. 페이지의 주소를 확인해주세요.");
 		
-		return "error/error";
+		return "error/pageError";
 	}
 	
 	@RequestMapping("/500")
@@ -27,10 +30,11 @@ public class ErrorController {
 		
 		System.out.println("Error page 500");
 		
-		model.addAttribute("message", "error 500");
-		model.addAttribute("url", "history.go(-1);");
+		model.addAttribute("title", "error 500");
+		model.addAttribute("error", "500");
+		model.addAttribute("message", ".");
 		
-		return "error/error";
+		return "error/pageError";
 	}
 	
 	@RequestMapping("/exception")

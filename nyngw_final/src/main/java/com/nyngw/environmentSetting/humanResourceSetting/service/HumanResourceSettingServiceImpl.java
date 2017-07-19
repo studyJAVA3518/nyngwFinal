@@ -71,9 +71,19 @@ public class HumanResourceSettingServiceImpl implements
 		for (int i = 0; i < search.size(); i++) {
 			vo = search.get(i);
 			vo.setYear(String.valueOf(1900+new Date().getYear()));
+			if(vo.getMem_carear()==null){
+				vo.setMem_carear(String.valueOf(1900+new Date().getYear()));
+			}
 			vo.setMem_carear(String.valueOf(1900+new Date().getYear()-Integer.valueOf(vo.getMem_carear())));
 			List<Year_VacationVO> yvyearList = humanResourceSettingDao.getCarearVacationAddSet_HRS(vo.getMem_carear());
-			String vp_totalday = String.valueOf(Integer.valueOf(vo.getVp_totalday())+Integer.valueOf(yvyearList.get(yvyearList.size()-1).getYv_vacation_day()));
+			
+			String vp_totalday = null;
+			if(yvyearList.size()>0){
+				vp_totalday = String.valueOf(Integer.valueOf(vo.getVp_totalday())+Integer.valueOf(yvyearList.get(yvyearList.size()-1).getYv_vacation_day()));
+			}else{
+				vp_totalday = vo.getVp_totalday();
+			}
+			
 			
 			int use_vacation = humanResourceSettingDao.getcountUsingVacation_HRS(vo);
 			
