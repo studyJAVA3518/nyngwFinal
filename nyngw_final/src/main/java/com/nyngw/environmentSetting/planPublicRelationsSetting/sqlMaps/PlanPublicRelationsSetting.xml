@@ -231,6 +231,13 @@
 		insert into pay_kind(pk_number, pk_name, pk_tax)
 		values ('pk'||pk_seq.nextval, #{pk_name}, #{pk_tax})
 	</update>
+
+	<!-- 회사 급여정책 등록 -->
+	<update id="esInsertPayPolicy" parameterType="com.nyngw.dto.Pay_kindVO">
+		insert into pay_policy (pp_number, pp_pk_number, pp_pay, pp_position_number, pp_wt_number)
+		values ('pp'||pp_seq.nextval, #{pp_pk_number} ,#{pp_pay}, #{pp_position_number}, #{pp_wt_number})
+	</update>
+	
 	<!-- 회사 급여종류 수정 -->
 	<update id="esUpdatePayKind" parameterType="com.nyngw.dto.Pay_kindVO">
 		update pay_kind set
@@ -238,6 +245,7 @@
 		  pk_tax = #{pk_tax}
 		where pk_number = #{pk_number}
 	</update>
+	
 	<!-- 회사 급여종류 삭제 -->
 	<update id="esDeletePayKind" parameterType="java.lang.String">
 		DELETE FROM pay_kind 

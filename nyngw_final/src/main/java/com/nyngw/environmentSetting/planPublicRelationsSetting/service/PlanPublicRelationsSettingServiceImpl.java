@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyVO;
 import com.nyngw.dto.Pay_PolicyViewVO;
 import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
@@ -345,17 +347,99 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		return result;
 	}
 	
+	/**
+	 * 급여정보설정 페이지에 필요한 정보 보여주기 위한 메서드
+	 * @param model
+	 * @throws SQLException
+	 */
 	public void viewPay(Model model) throws SQLException {
 		ArrayList<Pay_kindVO> payKindList = planPublicRelationsSettingDao.selectPayKindList();
 		ArrayList<Pay_PolicyViewVO> payViewList = planPublicRelationsSettingDao.selectPayInfoList();
 		ArrayList<Pay_PolicyViewVO> payViewHourList = planPublicRelationsSettingDao.selectPayInfoHourList();
 		ArrayList<Pay_PolicyViewVO> payViewBasicList = planPublicRelationsSettingDao.selectPayInfoBasicList();
 		ArrayList<Pay_PolicyViewVO> payViewPositionList = planPublicRelationsSettingDao.selectPayInfoPositionList();
+		ArrayList<PositionVO> positionList = planPublicRelationsSettingDao.selectPositionList();
+		ArrayList<Work_TimeVO> wtList = planPublicRelationsSettingDao.selectWorkTime();
+		
 		
 		model.addAttribute("payKindList",payKindList);
 		model.addAttribute("payViewList",payViewList);
 		model.addAttribute("payViewHourList",payViewHourList);
 		model.addAttribute("payViewBasicList",payViewBasicList);
 		model.addAttribute("payViewPositionList",payViewPositionList);
+		model.addAttribute("positionList",positionList);
+		model.addAttribute("wtList",wtList);
 	}
+	
+	/**
+	 * 급여종류 등록
+	 * @param model
+	 * @param vo
+	 * @throws SQLException
+	 */
+	public void enrollPayKind(Model model, Pay_kindVO vo) throws SQLException {
+		int result = planPublicRelationsSettingDao.insertPayKind(vo);
+		model.addAttribute("resultPKInsert",result);
+	}
+	
+	/**
+	 * 급여정책 등록
+	 * @param model
+	 * @param vo
+	 * @throws SQLException
+	 */
+	public void enrollPayPolicy(Model model, Pay_PolicyVO vo) throws SQLException {
+		int result = planPublicRelationsSettingDao.insertPayPolicy(vo);
+		model.addAttribute("resultPPInsert",result);
+		
+	}
+	
+	/**
+	 * 급여 종류 수정 전에 급여종류번호 하나 가져오는 메서드
+	 * @param pk_number
+	 * @return Pay_kindVO
+	 * @throws SQLException
+	 */
+	public Map getPayKindOne(String pk_number) throws SQLException {
+		
+		Pay_kindVO vo = planPublicRelationsSettingDao.selectPayKindOne(pk_number);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("pk_number", vo.getPk_number());
+		map.put("pk_name", vo.getPk_name());
+		map.put("pk_tax", vo.getPk_tax());
+		
+		return map;
+	}
+	
+	/**
+	 * 급여종류 수정
+	 * @param model
+	 * @param vo
+	 * @throws SQLException
+	 */
+	public void modifyPayKind(Model model, String up_pk_number, String up_pk_name, String up_pk_tax) throws SQLException {
+		Pay_kindVO vo = new Pay_kindVO();
+		vo.setPk_number(up_pk_number);
+		vo.setPk_name(up_pk_name);
+		vo.setPk_tax(up_pk_tax);
+		int result = planPublicRelationsSettingDao.updatePayKind(vo);
+		model.addAttribute("resultPKUpdate",result);
+	}
+	
+	/**
+	 * 급여종류 삭제
+	 * @param model
+	 * @param vo
+	 * @throws SQLException
+	 */
+	public void removePayKind(Model model, String pk_number) throws SQLException {
+		int result = planPublicRelationsSettingDao.deletePayKind(pk_number);
+		model.addAttribute("resultPKDelete",result);
+	}
+
+	
+
+	
 }
