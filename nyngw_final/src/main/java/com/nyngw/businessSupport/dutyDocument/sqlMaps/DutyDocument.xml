@@ -5,7 +5,7 @@
 <mapper namespace="com.nyngw.businessSupport.dutyDocument.dao.DutyDocumentDao">
 	<!-- 	개인업무 -->
 	<select id="selectDocumentCount_DD" resultType="java.lang.Integer">
-		select count(*) from duty_document where dd_public = 'n'
+		select count(*) from duty_document
 	</select>
 
 	<select id="selectDocumentList_DD" parameterType="com.nyngw.dto.Board_SelectVO"
@@ -17,13 +17,12 @@
 		AND dd_title like '%'||#{val}||'%'
 		<!-- 그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
 		and dd_mem_number = #{mem_code}
-		and dd_public = 'n' order by 1 desc
+		order by 1 desc
 	</select>
 
 	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"
 		resultType="java.lang.Integer">
-		select count(*) from duty_document where dd_public = 'n'
-		AND dd_title like '%'||#{val}||'%'
+		select count(*) from duty_document where dd_title like '%'||#{val}||'%'
 		and	to_char(dd_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
 		AND dd_code_number like '%'||#{reportType}||'%'
 		and dd_mem_number = #{mem_code}
@@ -34,8 +33,8 @@
 	</select>
 
 	<update id="dutyDocumentInsert_DD" parameterType="com.nyngw.dto.Duty_DocumentVO">
-		insert into duty_document(dd_number, dd_title, dd_content, dd_date, dd_mem_number, dd_code_number, dd_public)
-		values('dd'||dd_seq.nextVal, #{dd_title}, #{dd_content}, #{dd_date}, #{dd_mem_number}, #{dd_code_number}, #{dd_public})
+		insert into duty_document(dd_number, dd_title, dd_content, dd_date, dd_mem_number, dd_code_number, dd_public, dd_start_date)
+		values('dd'||dd_seq.nextVal, #{dd_title}, #{dd_content}, #{dd_date}, #{dd_mem_number}, #{dd_code_number}, #{dd_public}, #{dd_start_date})
 	</update>
 
 	<update id="dutyDocumentDelete_DD" parameterType="java.lang.String">
@@ -54,42 +53,51 @@
 			dd_date=#{dd_date},
 			dd_mem_number=#{dd_mem_number},
 			dd_code_number=#{dd_code_number},
-			dd_public=#{dd_public}
+			dd_public=#{dd_public},
+			dd_start_date=#{dd_start_date}
 		where dd_number=#{dd_number}
 	</update>
 
 
 	<!-- 부서 -->
-<!-- 	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"> -->
-<!-- 		select * from Duty_document dd where  -->
-<!-- 				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) =  -->
-<!-- 						(select mm.mem_dept_number from member mm where mm.mem_number = #{}) and dd_public ='y' -->
-<!-- 				<if test="${titleType} == 'mem_name'"> -->
-<!-- 					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{})||'%' -->
-<!-- 				</if> -->
+	<select id="selectDepartmentList_DD" parameterType="java.util.Map" resultType="com.nyngw.dto.Duty_DocumentVO">
+		select * from Duty_document dd where 
+				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) = 
+						(select mm.mem_dept_number from member mm where mm.mem_id = #{user}) and dd_public ='y'
+				<if test="titleType == 'mem_name'">
+					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+				</if>
 <!-- 				and dd_mem_number like '%'||'mem1'||'%' -->
-<!-- 				<if test="${titleType} == 'dd_title'"> -->
-<!-- 					and dd_title like '%'||#{}||'%' -->
-<!-- 				</if> -->
-<!-- 				and dd_code_number = #{} -->
-<!-- 				and to_char(dd_date,'yyyy/MM/dd') between #{} and sysdate; -->
-<!-- 	</select> -->
+				<if test="titleType == 'dd_title'">
+					and dd_title like '%'||#{val}||'%'
+				</if>
+				<if test="titleType == ''">
+					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+					and dd_title like '%'||#{val}||'%'
+				</if>
+				and dd_code_number like '%'||#{reportType}||'%'
+				and to_char(dd_date,'yyyy/MM/dd') between #{date} and sysdate
+	</select>
 	
 <!-- 	갯수세는것 -->
-<!-- 	<select id="documentSelectCount_DD" parameterType="com.nyngw.dto.Board_SelectVO"> -->
-<!-- 		select count(*) from Duty_document dd where  -->
-<!-- 				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) =  -->
-<!-- 						(select mm.mem_dept_number from member mm where mm.mem_number = #{}) and dd_public ='y' -->
-<!-- 				<if test="${titleType} == 'mem_name'"> -->
-<!-- 					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{})||'%' -->
-<!-- 				</if> -->
+	<select id="departmentCount_DD" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from Duty_document dd where 
+				(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) = 
+						(select mm.mem_dept_number from member mm where mm.mem_id = #{user}) and dd_public ='y'
+				<if test="titleType == 'mem_name'">
+					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+				</if>
 <!-- 				and dd_mem_number like '%'||'mem1'||'%' -->
-<!-- 				<if test="${titleType} == 'dd_title'"> -->
-<!-- 					and dd_title like '%'||#{}||'%' -->
-<!-- 				</if> -->
-<!-- 				and dd_code_number = #{} -->
-<!-- 				and to_char(dd_date,'yyyy/MM/dd') between #{} and sysdate; -->
-<!-- 	</select> -->
+				<if test="titleType == 'dd_title'">
+					and dd_title like '%'||#{val}||'%'
+				</if>
+				<if test="titleType == ''">
+					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+					and dd_title like '%'||#{val}||'%'
+				</if>
+				and dd_code_number like '%'||#{reportType}||'%'
+				and to_char(dd_date,'yyyy/MM/dd') between #{date} and sysdate
+	</select>
 	
 	
 	
