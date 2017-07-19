@@ -109,22 +109,31 @@ public class NoticeMatterController implements ApplicationContextAware {
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping(value="/nmWrite", method=RequestMethod.POST)
-	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal,
+	public String noticeMatterWrite(@RequestParam( value="board_file_name", defaultValue="")File board_file_name, String board_title, String page,Principal principal,
 			@RequestParam( value="content") String board_content) throws IOException{
-		/*String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
-		MultipartFile multipartFile = commandboard.getBoard_file_name();
+		System.out.println("등록하느부부누이ㅏㅓㅂ주여ㅑㅐㅈ부애ㅕㅜㅈ배ㅕㅑㅇㅈ부ㅐ");
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
+		if(board_file_name==null){
+			board_file_name = new File("");
+		}
+		CommandBoardVO commandBoard = new CommandBoardVO();
+		MultipartFile multipartFile = null;
+		if(board_file_name!=null){
+			multipartFile = commandBoard.getBoard_file_name();
+		}
+		BoardVO board = commandBoard.toBoardVO();
+		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		board.setBoard_mem_number(member.getMem_number());
+		board.setBoard_content(board_content);
 		if(!multipartFile.isEmpty()){
 			File file = new File(upload,multipartFile.getOriginalFilename());
-			multipartFile.transferTo(file);*/
-			BoardVO board = commandboard.toBoardVO();
-			MemberVO member = CommonService.findMemberByMemId(principal.getName());
-			board.setBoard_mem_number(member.getMem_number());
-			board.setBoard_content(board_content);
-//			board.setBoard_file_name(multipartFile.getOriginalFilename());
-			noticeMatterService.noticeMatterInsert(board);
-			
-			return "redirect:/sharingInformation/noticeMatter/nmList";
-//		}
+			multipartFile.transferTo(file);
+			board.setBoard_file_name(multipartFile.getOriginalFilename());
+		}else{
+			board.setBoard_file_name("");
+		}
+		noticeMatterService.noticeMatterInsert(board);
+		return "redirect:/sharingInformation/noticeMatter/nmList";
 //		return "redirect:/sharingInformation/noticeMatter/nmWriteForm";
 	}
 	

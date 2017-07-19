@@ -31,11 +31,12 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>첨부파일</th>
-					<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);">
+					<td colspan="3">
+						<input type="file" name="board_file_name" onchange="javascript:file_change(this.value);">
 					</td>
 				</tr>
 			</table>
-			<input type="hidden" value="${page}">
+			<input type="hidden" name = "page" value="${page}">
 			<div><button onclick='saveContent()'>등록</button></div>
 			<input type="reset" value="초기화" />	
 			<div style="text-align: center;">

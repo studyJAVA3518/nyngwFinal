@@ -30,7 +30,7 @@
 			<th>제목</th>
 			<th>등록일</th>
 			<th>작성자</th>
-			<th>기타</th>
+			<th>조회수</th>
 		</tr>
 		<c:choose>
 			<c:when test="${viewData.boardTotalCount > 0 }">
@@ -40,8 +40,7 @@
 						<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}&page=${pageNumber}">${board.board_title }</a></td>
 						<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 						<td>${board.mem_name }</td>
-						<td><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}&page=${pageNumber}">
-										&nbsp;수정</a></td>
+						<td>${board.board_count}</td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -59,7 +58,7 @@
 		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
 			<a href="<c:url value="/sharingInformation/board/list?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
 		</c:forEach>
-		<c:if test="${endPage < addressBookViewVO.getPageTotalCount()}">
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
 			<a href="<c:url value="/sharingInformation/board/list?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 	</div>
