@@ -23,21 +23,18 @@
 				<tr>
 					<th>제목</th>
 					<td colspan="3"><input type="text" name="board_title" value="${board.board_title}"></td>
-					<th>작성날자</th>
+					<th>작성일</th>
 					<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 				</tr>
 				<tr>
 					<th colspan="6">내용</th>
 				</tr>
 			</table>
-				<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-			<table>
-				<tr>
-					<td colspan="6"><textarea rows="15" cols="97" style="resize: none;" name="board_content">${board.board_content }</textarea></td>
-				</tr>
+			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+			<table class="table table-bordered">
 				<tr>
 					<th>파일이름</th>
-					<td colspan="5"><input type="hidden" name="board_file_name"></td>
+					<td>${board.board_file_name }</td>
 				</tr>
 			</table>
 			<input type="hidden" value="${page}">

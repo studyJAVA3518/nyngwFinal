@@ -38,12 +38,12 @@ function noticeMatterDelete(id){
 			<tr>
 				<th colspan="4">내용</th>
 			</tr>
-		</table>
-		${board.board_content }
-		<table>
+			<tr>
+				<td colspan="4">${board.board_content }</td>
+			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td colspan="3"><a href="/sharingInformation/noticeMatter/noticeDownload?fileName=${board.board_file_name }">${board.board_file_name }</a></td>
+				<td colspan="3"><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
 			</tr>
 		</table>
 		
