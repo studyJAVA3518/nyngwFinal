@@ -19,7 +19,7 @@
 			<tr>
 				<th>제목</th>
 				<td colspan="3"><input type="text" name="board_title" value="${board.board_title}"></td>
-				<th>작성날자</th>
+				<th>작성일</th>
 				<td><fmt:formatDate value="${board.board_date}" pattern="yyyy/MM/dd"/></td>
 			</tr>
 			<tr>
@@ -27,10 +27,10 @@
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>파일이름</th>
-				<td><input type="hidden" name="board_file_name"></td>
+				<td colspan="5">${board.board_file_name }</td>
 			</tr>
 		</table>	
 		<input type="hidden" value="${page}">
@@ -61,4 +61,13 @@ ${board.board_content}
 		
 		loadContent();
 	});
+	$(document).ready(function(){
+		$("a[name='delete']").on("click", function(e){ //삭제 버튼
+		    e.preventDefault();
+		    fn_deleteFile($(this));
+		});
+	});
+	function fn_deleteFile(obj){
+	    obj.parent().remove();
+	}
 </script>

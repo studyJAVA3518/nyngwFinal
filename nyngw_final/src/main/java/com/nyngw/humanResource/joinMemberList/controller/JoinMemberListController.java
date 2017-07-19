@@ -34,7 +34,7 @@ public class JoinMemberListController {
 				p=1;
 			}
 		}
-		Paging paging = new Paging(p, 4);
+		Paging paging = new Paging(p, 8);
 		paging.setNumberOfRecords(joinMemberListService.countTotalJoinMember());
 		
 		int firstRow = 0;

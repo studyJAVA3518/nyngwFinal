@@ -26,7 +26,7 @@
   						
   						<!-- UI 설정 -->
   						<div class="col-md-2 textRight">
-  							<a href="#" class="btn btn-default">UI 설정</a>
+  							<a href="/homeMain/appointedUI/appointedUI" class="btn btn-default">UI 설정</a>
   						</div>
   					</div>
   					

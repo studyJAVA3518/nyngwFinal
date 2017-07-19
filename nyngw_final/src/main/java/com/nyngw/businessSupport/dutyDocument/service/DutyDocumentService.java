@@ -19,5 +19,6 @@ public interface DutyDocumentService {
 	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument);
 	
 	//부서
-	public void departmentList(String searchDate, String reportType, String titleType, String val, Model model, Principal principal);
+	public void departmentList(String searchDate, String reportType, String titleType, String val, Model model, Principal principal, int pageNumber);
+	public void departmentDetail(int pageNumber, String searchDate, String reportType, String titleType, String val, Model model, Principal principal, String dd_number);
 }

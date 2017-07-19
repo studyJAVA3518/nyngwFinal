@@ -15,7 +15,7 @@
    document.getElementsByName('doc_file_name')[0].value=file;
 }
 </script>
-	<form enctype="multipart/form-data" action="documentInsertComplete" method="POST">
+	<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="documentInsertComplete" method="POST" accept-charset="utf-8">
 		<table class="table table-bordered">
 <!-- 			<colgroup> -->
 <!-- 				<col width="5%"/> -->
@@ -48,19 +48,20 @@
 					<td colspan="3"><input type="text" id="doc_name" name="doc_name"></td>
 				</tr>
 				<tr>
-					<th>설명</th>
-					<td  colspan="3">
-					<textarea rows="20" cols="100" id="doc_explanation" name="doc_explanation"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>파일</th>
-					<td colspan="3"><input type="file" name="doc_file_name" onchange="javascript:file_change(this.value);"></td>
+					<th colspan="4">설명</th>
 				</tr>
 			</tbody>
 		</table>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+		<table class="table table-bordered">
+			<tr>
+				<th>파일</th>
+				<td colspan="3"><input type="file" name="doc_file_name" onchange="javascript:file_change(this.value);"></td>
+			</tr>
+		</table>
+		
 		<div>
-			<input type="submit" value="등록" class="btn">
+			<button type="button" onclick="saveContent();" class="btn">등록</button>
 			<button class="btn"><a href="/documentManagement/documentManager/documentSelect" id="documentSelect">취소</a></button>
 		</div>
 	</form>

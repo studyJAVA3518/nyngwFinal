@@ -24,7 +24,7 @@ public class MemberInformationServiceImpl implements MemberInformationService {
 	private MemberInformationDaoImpl memberInformationDao;
 
 	private static final int ADDRESSBOOK_COUNT_PER_PAGE = 5;	//한 주소록에 보여줄 주소록 수
-	private static final int BIRTHDAY_COUNT_PER_PAGE = 20;		//한 생일정보에 보여줄 생일자 수
+	private static final int BIRTHDAY_COUNT_PER_PAGE = 5;		//한 생일정보에 보여줄 생일자 수
 	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;			//한 페이지에 보여줄 페이지 번호 수
 	
 	//조직도를 출력하기 위해 모든 부서를 검색해 맵 형식으로 (Json데이터 형식)으로 변환하여 리턴해주는 메서드
@@ -119,8 +119,21 @@ public class MemberInformationServiceImpl implements MemberInformationService {
 			currentPageNumber = 0;
 			birthdayList = Collections.emptyList();
 		}
-		model.addAttribute("birthdayViewVO", new BirthdayViewVO(birthdayList, memberTotalCount,
-				currentPageNumber, BIRTHDAY_COUNT_PER_PAGE, firstRow, endRow));
+		
+		BirthdayViewVO birthdayViewVO = new BirthdayViewVO(birthdayList, memberTotalCount,
+				currentPageNumber, BIRTHDAY_COUNT_PER_PAGE, firstRow, endRow);
+		model.addAttribute("birthdayViewVO", birthdayViewVO);
+		if(birthdayViewVO.getPageTotalCount()>0){
+			int beginPageNumber = (birthdayViewVO.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > birthdayViewVO.getPageTotalCount()){
+				endPageNumber = birthdayViewVO.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", birthdayViewVO.getBirthdayList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
 	}
 	
 	

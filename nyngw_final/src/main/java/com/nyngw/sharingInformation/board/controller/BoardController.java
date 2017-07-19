@@ -12,6 +12,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -117,6 +119,7 @@ public class BoardController implements ApplicationContextAware{
 	 */
 	@RequestMapping("/writeForm")
 	public String boardWriteForm(String page,Model model){
+		
 		model.addAttribute("page",page);
 		return "sharingInformation/board/boardWriteForm";
 	}
@@ -148,7 +151,7 @@ public class BoardController implements ApplicationContextAware{
 	 * @return 수정양식 폼 url 반환
 	 */
 	@RequestMapping("/updateForm")
-	public String boardUpdateForm(String board_number, Model model,String page){
+	public String boardUpdateForm(String board_number, Model model,String page,String board_file_name){
 		BoardVO board = boardService.selectBoard(board_number);
 		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
@@ -202,6 +205,8 @@ public class BoardController implements ApplicationContextAware{
 		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
 		List<Board_CommentVO> comment = boardService.answerSelectList(board_number);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingService.selectMember(user.getUsername());
 		
 		for(int i = 0; i < comment.size(); i++){
 			member = CommonService.findMemberByMemNumber(comment.get(i).getComment_mem_number());
@@ -211,6 +216,7 @@ public class BoardController implements ApplicationContextAware{
 		if(page==null){
 			page = "1";
 		}
+		model.addAttribute("mem",mem);
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
 		model.addAttribute("comment",comment);

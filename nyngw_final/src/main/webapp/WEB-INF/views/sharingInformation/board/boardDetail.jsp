@@ -110,19 +110,26 @@
          <td>${board.board_count }</td>
       </tr>
       <tr>
-         <th>내용</th>
+         <th colspan="4">내용</th>
       </tr>
    </table>
       ${board.board_content }
-   <table>
+   <table  class="table table-bordered">
       <tr>
          <th>첨부파일</th>
          <td><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
       </tr>
    </table>   
-      <button><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
-      <button type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
-      <button><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+	<c:choose>
+		<c:when test="${mem.mem_number eq board.board_mem_number}">
+	      	<button class="btn"><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
+	      	<button class="btn" type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
+	    	<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+		</c:when>
+		<c:otherwise>
+			<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+		</c:otherwise>
+	</c:choose>
 </div>
 <div>
    

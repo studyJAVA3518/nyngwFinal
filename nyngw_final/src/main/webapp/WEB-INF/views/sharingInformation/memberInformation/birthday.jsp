@@ -6,7 +6,7 @@
 
 <script>
 	$(function(){  
-		$('#monthSelect option[value='+(${month})+']').prop('selected',true);
+		$("#monthSelect option[value='${month}']").prop('selected',true);
 	});
 </script>
 
@@ -27,6 +27,7 @@
 		<option value="11">11</option>
 		<option value="12">12</option>
 	</select>
+	월&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="submit" value="검색">
 </form>
 <h1>${month} 월 생일자</h1>
@@ -61,8 +62,13 @@
 
 </table>
 <div id="pageNum">
-	<c:forEach begin="1" end="${birthdayViewVO.getPageTotalCount()}" step="1"
-		var="i">
-		<a href="/sharingInformation/memberInformation/birthday?page=${i }">[${i}]</a>
+	<c:if test="${beginPage > perPage}">
+		<a href="<c:url value="/sharingInformation/memberInformation/birthdayCheck?page=${beginPage-1}&month=${month }"/>">이전</a>
+	</c:if>
+	<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+		<a href="<c:url value="/sharingInformation/memberInformation/birthdayCheck?page=${pno}&month=${month }" />">[${pno}]</a>
 	</c:forEach>
+	<c:if test="${endPage < birthdayViewVO.getPageTotalCount()}">
+		<a href="<c:url value="/sharingInformation/memberInformation/birthdayCheck?page=${endPage + 1}&month=${month }"/>">다음</a>
+	</c:if>
 </div>

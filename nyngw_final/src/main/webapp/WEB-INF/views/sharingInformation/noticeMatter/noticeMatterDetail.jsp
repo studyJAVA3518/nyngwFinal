@@ -38,16 +38,22 @@ function noticeMatterDelete(id){
 			<tr>
 				<th colspan="4">내용</th>
 			</tr>
-		</table>
-		${board.board_content }
-		<table>
+			<tr>
+				<td colspan="4">${board.board_content }</td>
+			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td colspan="3"><a href="/sharingInformation/noticeMatter/noticeDownload?fileName=${board.board_file_name }">${board.board_file_name }</a></td>
+				<td colspan="3"><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
 			</tr>
 		</table>
-		
-			<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
-			<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
-			<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
+		<c:choose>
+			<c:when test="${mem.mem_number eq board.board_mem_number}">
+				<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
+				<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
+				<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
+			</c:when>
+			<c:otherwise>
+				<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
+			</c:otherwise>
+	</c:choose>
 	</div>
