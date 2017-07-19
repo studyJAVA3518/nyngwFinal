@@ -15,11 +15,15 @@
 		<table class="table table-bordered">
 			<tr>
 				<th >제목</th>
-				<td>${dutyDocument.dd_title}</td>
-				<th>작성자</th>
-				<td>${dutyDocument.mem_name}</td>
+				<td colspan="3">${dutyDocument.dd_title}</td>
 			</tr>
 			<tr>
+				<th>작성자</th>
+				<td>${dutyDocument.mem_name}</td>
+				<th>업무시작일</th>
+				<td><fmt:formatDate value="${dutyDocument.dd_start_date}" pattern="yyyy/MM/dd"/></td>
+			</tr>
+			<tr>	
 				<th>작성일자<input type="hidden" value="${page}"><input type="hidden" value="${reportType}"><input type="hidden" value="${searchDate}"></th>
 				<td><fmt:formatDate value="${dutyDocument.dd_date}" pattern="yyyy/MM/dd"/></td>
 				<th>공개여부</th>
@@ -38,9 +42,6 @@
 				<td>${dutyDocument.dd_select_name}</td>
 				<th>보고유형</th>
 				<td>${dutyDocument.dd_name}</td>
-			</tr>
-			<tr>
-				<th colspan="4">내용</th>
 			</tr>
 			<tr>
 				<td colspan="4">

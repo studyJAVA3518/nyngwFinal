@@ -1,6 +1,7 @@
 package com.nyngw.businessSupport.dutyDocument.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
@@ -17,5 +18,7 @@ public interface DutyDocumentDao {
 	public Duty_DocumentVO documentSelect_DD(String dd_number);
 	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument);
 	//부서
+	public int departmentCount_DD(Map<String, Object> select);
+	public List<Duty_DocumentVO> selectDepartmentList_DD(int firstRow, int endRow, Map<String, Object> select);
 	
 }

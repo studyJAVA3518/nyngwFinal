@@ -13,6 +13,7 @@
 	$(function(){  
 		$('#reportType option[value=${dutyDocument.dd_code_number}]').prop('selected',true);
 	});
+	alert('${dt}');
 </script>
 <body>
 	수정페이지
@@ -20,7 +21,9 @@
 		<table class="table table-bordered">
 			<tr>
 				<th >제목<input type="hidden" name="dd_number" value="${dutyDocument.dd_number}"></th>
-				<td colspan="3"><input type="text" name="dd_title" value="${dutyDocument.dd_title}"></td>
+				<td><input type="text" name="dd_title" value="${dutyDocument.dd_title}"></td>
+				<th >업무시작일</th>
+				<td><input type="date" name="dd_start_date" id="dd_start_date" value="${dt}"></td>
 			</tr>
 			<tr>
 				<th>업무일지</th>

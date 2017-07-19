@@ -19,8 +19,15 @@ public class Duty_DocumentVO {
 	private String dd_code_name; // 문서종류
 	private String dd_select_name; //부서 또는 개인 일지 이름
 	private String dd_name; //code1,code2,code3 등의 이름을 저장하는 변수
+	private Date dd_start_date; //업무시작일
 	
 	
+	public Date getDd_start_date() {
+		return dd_start_date;
+	}
+	public void setDd_start_date(Date dd_start_date) {
+		this.dd_start_date = dd_start_date;
+	}
 	public String getDd_name() {
 		return dd_name;
 	}

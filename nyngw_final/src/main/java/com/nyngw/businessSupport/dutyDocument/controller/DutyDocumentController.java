@@ -1,6 +1,7 @@
 package com.nyngw.businessSupport.dutyDocument.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,21 +48,15 @@ public class DutyDocumentController {
 	 * @return
 	 */
 	@RequestMapping("/department")
-	public String departmentselect(String searchDate, String reportType, String titleType, String val,
-									Model model, Principal principal){
+	public String departmentselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
+			String searchDate, String reportType, String titleType, String val, Model model, Principal principal){
 		if(searchDate == null && reportType == null && titleType == null && val == null){
 			searchDate = "today";
 			reportType = "";
 			titleType = "";
 			val = "";
 		}
-		dutyDocumentService.departmentList(searchDate,reportType,titleType,val,model,principal);
-		
-		
-		
-		
-		
-		
+		dutyDocumentService.departmentList(searchDate,reportType,titleType,val,model,principal,pageNumber);
 		return "businessSupport/dutyDocument/department";
 	}
 	/**
@@ -69,8 +64,9 @@ public class DutyDocumentController {
 	 * @return
 	 */
 	@RequestMapping("/departmentDetail")
-	public String departmentDetail(){
-		
+	public String departmentDetail(@RequestParam(value="page",defaultValue="1")int pageNumber,
+			String searchDate, String reportType, String titleType, String val, Model model, Principal principal, String dd_number){
+		dutyDocumentService.departmentDetail(pageNumber, searchDate, reportType, titleType, val, model, principal, dd_number);
 		return "businessSupport/dutyDocument/departmentDetail";
 	}
 	
@@ -194,8 +190,14 @@ public class DutyDocumentController {
 	}
 
 	@RequestMapping("/personalWrite")
-	public String personalWrite(Duty_DocumentVO dutyDocument, Principal principal){
+	public String personalWrite(Duty_DocumentVO dutyDocument, Principal principal,String start_date){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		System.out.println(start_date+"오늘이냐?");
+		try {
+			dutyDocument.setDd_start_date(new SimpleDateFormat("yyyy-MM-dd").parse(start_date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		dutyDocument.setDd_mem_number(member.getMem_number());
 		dutyDocumentService.dutyDocumentInsert_DD(dutyDocument);
 		return "redirect:/businessSupport/dutyDocument/personal";
@@ -205,15 +207,25 @@ public class DutyDocumentController {
 		Duty_DocumentVO dutyDocument = dutyDocumentService.documentSelect_DD(dd_number);		
 		Common_CodeVO common = CommonService.common_selectCodeNameByDocument(dutyDocument.getDd_code_number());
 		dutyDocument.setDd_name(common.getCode_name());
+		Date dbdt = dutyDocument.getDd_start_date();
+		String dt = dt = new SimpleDateFormat("yyyy-MM-dd").format(dbdt);
 		System.out.println(dutyDocument.getDd_code_number());
+		model.addAttribute("dt",dt);
 		model.addAttribute("dutyDocument", dutyDocument);
 		return "businessSupport/dutyDocument/personalUpdateForm";
 	}
 	
 	@RequestMapping("/personalUpdate")
-	public String personalUpdate(String reportType, String dd_title, String dd_public, String dd_content, Principal principal, String dd_number){
+	public String personalUpdate(String reportType, String dd_title, String dd_public, String dd_content, Principal principal, String dd_number,
+								 String dd_start_date){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
 		Duty_DocumentVO dutyDocument = new Duty_DocumentVO();
+		Date start_date = null;
+		try {
+			start_date = new SimpleDateFormat("yyyy-MM-dd").parse(dd_start_date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		Date dt = new Date();
 		String yAndN = "";
 		if(dd_public==null){
@@ -228,6 +240,7 @@ public class DutyDocumentController {
 		dutyDocument.setDd_code_number(reportType);
 		dutyDocument.setDd_date(dt);
 		dutyDocument.setDd_public(yAndN);
+		dutyDocument.setDd_start_date(start_date);
 		dutyDocumentService.dutyDocumentUpdate_DD(dutyDocument);
 		return "redirect:/businessSupport/dutyDocument/personal";
 	}
