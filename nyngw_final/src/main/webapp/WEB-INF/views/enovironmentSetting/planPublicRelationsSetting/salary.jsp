@@ -7,8 +7,50 @@
 <!-- 환경설정관리 -> 기획홍보부 설정 -> 급여 정책 설정에 대한 화면 -->
 
 <script>
+	//급여종류 등록
 	function insert_payKind_go(){
-		alert("페이종류 등록 고!!");
+		
+		if(!document.getElementById("pk_name").value){
+			alert("급여 이름을 입력해야 합니다.");
+			return;
+		}
+		
+		document.payKindInsertForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/insertPayKind";
+		document.payKindInsertForm.method = "post";
+		document.payKindInsertForm.submit();
+	}
+
+	//급여정책 등록
+	function insert_payPolicy_go(){
+		
+		if(!document.getElementById("pp_pay").value){
+			alert("금액 또는 비율을 입력해야 합니다.");
+			return;
+		}
+		
+		document.payPolicyInsertForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/insertPayPolicy";
+		document.payPolicyInsertForm.method = "post";
+		document.payPolicyInsertForm.submit();
+	}
+	
+	function update_payKind_go(){
+		
+		if(!document.getElementById("up_pk_number").value){
+			alert("급여 이름을 입력해야 합니다.");
+			return;
+		}
+		if(!document.getElementById("up_pk_name").value){
+			alert("급여 이름을 입력해야 합니다.");
+			return;
+		}
+		if(!document.getElementById("up_pk_tax").value){
+			alert("급여 이름을 입력해야 합니다.");
+			return;
+		}
+		
+		document.payKindUpdateForm.action= "<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/updatePayKind";
+		document.payKindUpdateForm.method = "post";
+		document.payKindUpdateForm.submit();
 	}
 	
 	$(function(){
@@ -18,22 +60,22 @@
 		
 		//부서 수정 보여주기
 		$(".payKindPopupBtn").click(function(){
-// 			var tmp = $(this).siblings('input').val();
-// 			$.ajax({
-// 				url:'/enovironmentSetting/planPublicRelationsSetting/checkDeptOne',
-// 				type:'get',
-// 				data: {'tmp_dept_number' : tmp},
-// 				success : function(res){
-// 					$('#up_dept_number').val(res.dept_number);				
-// 					$('#up_dept_name').val(res.dept_name);				
-// 					$('#up_dept_membernumber_origin').val(res.dept_membernumber);				
-// 					$('#up_dept_tel').val(res.dept_tel);				
-// 					$('#up_dept_addr').val(res.dept_addr);	
-// 					$('').val
-				
-// 				},
-// 				dataType : 'json'
-// 			})
+			var tmp = $(this).siblings('input').val();
+			$.ajax({
+				url:'/enovironmentSetting/planPublicRelationsSetting/checkPayKindOne',
+				type:'get',
+				data: {'tmp_pk_number' : tmp},
+				success : function(res){
+					$('#up_pk_number').val(res.pk_number);				
+					$('#up_pk_name').val(res.pk_name);				
+					$('#up_pk_tax').children().each(function(){
+						if($(this).val()==res.pk_tax){
+							$(this).prop('selected','selected');
+						}
+					});
+				},
+				dataType : 'json'
+			})
 			
 			$('#updatePayKindBox').dialog({
 				width: 700,
@@ -49,6 +91,39 @@
 				}
 			});
 		})
+		
+		
+		//근무시간 변경 클릭
+// 		$('.updateWorkingTimeBtn').click(function(){
+// 			var wt_number = $(this).parents().siblings().children('form').children().children('input#wt_number').val();
+// 			var wt_attend_time_hour = $(this).parents().siblings().children('form').children().children('input#wt_attend_time_hour').val();
+// 			var wt_attend_time_minute = $(this).parents().siblings().children('form').children().children('input#wt_attend_time_minute').val();
+// 			var wt_end_time_hour = $(this).parents().siblings().children('form').children().children('input#wt_end_time_hour').val();
+// 			var wt_end_time_minute = $(this).parents().siblings().children('form').children().children('input#wt_end_time_minute').val();
+			
+// 			$.ajax({
+// 				url:'/enovironmentSetting/planPublicRelationsSetting/updateWorkingTime',
+// 				type:'get',
+// 				data: {
+// 					'wt_number' : wt_number,
+// 					'wt_attend_time_hour' : wt_attend_time_hour,
+// 					'wt_attend_time_minute' : wt_attend_time_minute,
+// 					'wt_end_time_hour' : wt_end_time_hour,
+// 					'wt_end_time_minute' : wt_end_time_minute,
+// 				},
+// 				success : function(res){
+// 					if(res.result>0){
+// 						alert('시간 변경에 성공했습니다.');
+// 					}else{
+// 						alert('시간 변경에 실패했습니다.');
+// 					}
+// 				},
+// 				dataType : 'json'
+// 			})
+// 		})
+		
+		
+		
 	})
 </script>
 
@@ -56,24 +131,29 @@
 <div class="row" id="updatePayKindBox">
 	<h4>급여 종류 수정하기</h4>
 	<table class="table">
-		<tr>
-			<th>급여 종류</th>
-			<td>??</td>
-		</tr>
-		<tr>
-			<th>공제여부</th>
-			<td>
-				<select name="">
-					<option value="n">공제안함(급여에 더해주는 경우)</option>
-					<option value="y">공제함(세금인 경우)</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="button" class="btn btn-default" onclick="" value="수정하기"/>
-			</td>
-		</tr>
+		<form class="form-inline" name="payKindUpdateForm">
+			<tr>
+				<th>급여 종류</th>
+				<td>
+					<input type="hidden" id="up_pk_number" name="up_pk_number" class="form-control"/>
+					<input type="text" id="up_pk_name" name="up_pk_name" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<th>공제여부</th>
+				<td>
+					<select name="up_pk_tax" id="up_pk_tax" class="form-control">
+						<option value="n">공제 X(급여인 경우)</option>
+						<option value="y">공제 O(세금인 경우)</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" class="btn btn-default" onclick="update_payKind_go();" value="수정하기"/>
+				</td>
+			</tr>
+		</form>
 	</table>
 </div>
 
@@ -81,6 +161,7 @@
 
 <div class="row">
 	<div class="col-md-6">
+		
 		<h4>급여 종류 설정</h4>
 		<table class="table">
 			<tr>
@@ -110,6 +191,7 @@
 							<c:otherwise>
 								<input type="hidden" name="pk_number" value="${payKind.pk_number}"/>
 								<input type="button" value="수정" class="btn btn-default payKindPopupBtn">
+								<a href="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/deletePayKind?del_pk_number=${payKind.pk_number}" class="btn btn-default">삭제</a>
 							</c:otherwise>
 							</c:choose>
 						</td>
@@ -118,18 +200,71 @@
 			</c:forEach>
 		</table>
 	</div>
+	
+	
 	<div class="col-md-6">
 		<h5>급여 종류 추가하기</h5>
 		<form class="form-inline" name="payKindInsertForm">
 			<div class="form-group">
-				<input type="text" name="" id="" class="form-control inlinePayText"/>
-				<select name="pk_name" class="form-control">
-					<option value="y">공제 O</option>
-					<option value="n">공제 X</option>
+				<input type="text" name="pk_name" id="pk_name" class="form-control inlinePayText"/>
+				<select name="pk_tax" class="form-control">
+					<option value="y">공제 X(급여인 경우)</option>
+					<option value="n">공제 O(세금인 경우)</option>
 				</select>
 				<input type="button" class="btn btn-default" onclick="insert_payKind_go();" value="등록"/>		
 			</div>
 		</form>
+		
+		<h5>급여 정책 추가하기</h5>
+		<table class="table">
+			<form class="form-inline" name="payPolicyInsertForm">
+				<tr>
+					<th>급여 종류 선택</th>
+					<td>
+						<select name="pp_pk_number" class="form-control">
+							<c:forEach var="payKind" items="${payKindList}">
+								<option value="${payKind.pk_number}">${payKind.pk_name}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>직책 선택</th>
+					<td>
+						<select name="pp_position_number" class="form-control">
+							<c:forEach var="position" items="${positionList}">
+								<option value="${position.position_number}">${position.position_name}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>근무시간 선택</th>
+					<td>
+						<select name="pp_wt_number" class="form-control">
+							<c:forEach var="wt" items="${wtList}">
+								<option value="${wt.wt_number}">${wt.wt_name}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						금액 or 비율 입력<br/>
+						금액 : ex)10000<br/>
+						비율 : ex)0.5
+					</th>
+					<td>
+						<input type="text" name="pp_pay" id="pp_pay" class="form-control"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" class="btn btn-default" onclick="insert_payPolicy_go();" value="등록"/>		
+					</td>
+				</tr>
+			</form>
+		</table>
 	</div>
 </div>
 <div class="row">
@@ -172,9 +307,7 @@
 						<td>${payBasicView.position_name}</td>
 						<td>
 							<fmt:formatNumber value="${payBasicView.pp_pay}" type="currency" currencySymbol="￦"/>
-							
 						</td>
-
 					</form>
 				</tr>
 			</c:forEach>
@@ -249,7 +382,6 @@
 							<td>${payView.pk_name }</td>
 							<td>
 								<fmt:formatNumber value="${payView.pp_pay}" pattern="##0.000%" />
-								
 							</td>
 						</tr>
 					</form>

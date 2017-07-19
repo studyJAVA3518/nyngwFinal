@@ -65,8 +65,6 @@
 						<td>${status.count}</td>
 						<td>${position.position_name}</td>
 						<td>
-<!-- 							<input type="submit" value="▲ 위로" class="btn btn-default" onclick="upPosLevel_go();"/>  -->
-<!-- 							<input type="submit" value="▼ 아래로" class="btn btn-default" onclick="downPosLevel_go();"/>  -->
 							<a href="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/updateLevelUp?tmp_position_number=${position.position_number}" class="btn btn-default">▲ 위로</a>
 							<a href="<%=request.getContextPath()%>/enovironmentSetting/planPublicRelationsSetting/updateLevelDown?tmp_position_number=${position.position_number}" class="btn btn-default">▼ 아래로</a>
 						</td>
