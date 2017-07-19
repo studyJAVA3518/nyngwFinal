@@ -11,5 +11,12 @@
 	<select id="selectMember" resultType="com.nyngw.dto.MemberVO" parameterType="java.lang.String">
 		select * from member_view where mem_id=#{mem_id}
 	</select>
-
+	
+	<select id="selectBigMenu" resultType="com.nyngw.dto.BigMenuVO">
+		select * from bigmenu
+	</select>
+	<select id="selectMiddleMenu" resultType="com.nyngw.dto.MiddleMenuVO" parameterType="java.lang.String">
+		select * from middlemenu where mid_big_number = #{big_number}
+	</select>
+	
 </mapper>

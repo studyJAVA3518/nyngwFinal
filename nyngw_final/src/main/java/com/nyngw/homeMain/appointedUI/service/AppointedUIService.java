@@ -1,9 +1,12 @@
 package com.nyngw.homeMain.appointedUI.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.MiddleMenuVO;
 
 public interface AppointedUIService {
 	/**
@@ -20,4 +23,6 @@ public interface AppointedUIService {
 	 * @throws SQLException
 	 */
 	public MemberVO checkMember(String mem_id) throws SQLException;
+	public List<BigMenuVO> selectBigMenu();
+	public List<MiddleMenuVO> selectMiddleMenu(String select);
 }
