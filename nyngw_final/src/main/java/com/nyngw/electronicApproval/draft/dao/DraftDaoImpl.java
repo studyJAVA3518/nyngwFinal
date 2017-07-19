@@ -1,6 +1,7 @@
 package com.nyngw.electronicApproval.draft.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
 import com.nyngw.dto.DocumentVO;
+import com.nyngw.dto.MemberVO;
 
 @Repository
 public class DraftDaoImpl implements DraftDao {
@@ -80,6 +82,14 @@ public class DraftDaoImpl implements DraftDao {
 
 	public List<DepartmentVO> draft_selectDepartmentList() {
 		return sqlSession.selectList("draft_selectDepartmentList");
+	}
+
+	public List<MemberVO> dreat_selectMemberListByDepartment(String dept_number) {
+		return sqlSession.selectList("dreat_selectMemberListByDepartment", dept_number);
+	}
+
+	public List<MemberVO> dreat_selectMemberListByDepartmentMemberName(Map paramMap) {
+		return sqlSession.selectList("dreat_selectMemberListByDepartmentMemberName", paramMap);
 	}
 
 }

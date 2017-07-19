@@ -9,16 +9,22 @@
 
 //근태신청서는 조직원이 개별적으로 휴가, 출장, 훈련, 조퇴 등을 신청하는 메뉴입니다. 
 
+<script>
+$(function(){  
+	$('#draftBoxOption option[value="${draftBoxOption}"]').prop('selected',true);
+	$('#searchOption option[value="${searchOption}"]').prop('selected',true);
+});
+</script>
 <form>
 	<table class="table">
 		<tr>
 			<td>기안문서함</td>
 			<td>
-				<select name="draftBoxOption">
-					<option>--선택--</option>
-					<option value="code8">기안문서A</option>
-					<option value="code9">기안문서B</option>
-					<option value="code10">기안문서C</option>
+				<select name="draftBoxOption" id="draftBoxOption">
+					<option value="">--선택--</option>
+					<option value="code8">총무문서</option>
+					<option value="code9">기획문서</option>
+					<option value="code10">대외문서</option>
 				</select>
 			</td>
 			
@@ -26,11 +32,10 @@
 		<tr>
 			<td>검색어</td>
 			<td>
-				<select name="searchOption">
-					<option>--선택--</option>
+				<select name="searchOption" id="searchOption">
+					<option value="">--선택--</option>
 					<option value="doc_name">문서명</option>
 					<option value="doc_explanation">문서설명</option>
-					<option value="doc_mem_number">문서등록자</option>
 				</select>
 			</td>
 			<td>
@@ -46,7 +51,6 @@
 		<th>기안문서함</th>
 		<th>문서명</th>
 		<th>문서설명</th>
-		<th>문서등록자</th>
 		<th>문서등록일</th>
 	</tr>
 	
@@ -55,7 +59,6 @@
 			<td>${code_nameList[status.index].code_name }</td>
 			<td><a href="/electronicApproval/draft/createDraftForm?doc_number=${document.doc_number }">${document.doc_name }</a></td>
 			<td>${document.doc_explanation }</td>
-			<td>${document.doc_mem_number }</td>
 			<td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
 		</tr>
 	</c:forEach>
