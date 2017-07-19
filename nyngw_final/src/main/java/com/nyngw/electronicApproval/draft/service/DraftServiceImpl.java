@@ -1,13 +1,18 @@
 package com.nyngw.electronicApproval.draft.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
 import com.nyngw.dto.DocumentVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.draft.dao.DraftDaoImpl;
 
 @Service
@@ -42,7 +47,7 @@ public class DraftServiceImpl implements DraftService {
 		}
 		//문서함구분에 따라 draftBoxOption을 DB가 알아들을 수 있도록 설정해준다.
 		//기안문서A~ 등도 DB에 있는 column이기는 하지만 document 테이블에는 fk로 code8~ 등이 참조되어 있다.
-		if (draftBoxOption==null&&draftBoxOption.equals("")){
+		if (draftBoxOption==null||draftBoxOption.equals("")){
 			documentSearchVO.setDraftBoxOption("");
 			whatToRun+=1;
 		}else{
@@ -50,7 +55,7 @@ public class DraftServiceImpl implements DraftService {
 		}
 		
 		//검색어 분류를 선택하지 않았을 시
-		if (searchOption.equals("--선택--")){
+		if (searchOption.equals("")){
 			whatToRun +=2;
 		}
 		
@@ -191,6 +196,48 @@ public class DraftServiceImpl implements DraftService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	//부서번호로 해당 부서의 직원을 선택하는 메서드 // 결재라인 선택에서 사용
+	public List<Map> findMemberByDepartment(String dept_number,Model model) {
+		List<MemberVO> memberList = draftDao.dreat_selectMemberListByDepartment(dept_number);
+		
+		List<Map> memberJsonList = new ArrayList<Map>();
+		
+		for (MemberVO member : memberList) {
+			Map<String,String> memberjsonMap = new HashMap<String,String>();
+			memberjsonMap.put("mem_dept_name", member.getDept_name());
+			memberjsonMap.put("mem_position_number", member.getPosition_name());
+			memberjsonMap.put("mem_name", member.getMem_name());
+			memberjsonMap.put("mem_number", member.getMem_number());
+			memberjsonMap.put("mem_dept_number", member.getMem_dept_number());
+			
+			memberJsonList.add(memberjsonMap);
+		}
+		System.out.println(dept_number);
+		model.addAttribute("dept_number",dept_number);
+		return memberJsonList;
+	}
+	
+	public List<Map> searchMemberByMemberName(String searchText,String dept_number) {
+		Map<String, String> paramMap = new HashMap<String,String>();
+		paramMap.put("searchText", searchText);
+		paramMap.put("dept_number", dept_number);
+		
+		List<MemberVO> memberList = draftDao.dreat_selectMemberListByDepartmentMemberName(paramMap);
+		
+		List<Map> memberJsonList = new ArrayList<Map>();
+		
+		for (MemberVO member : memberList) {
+			Map<String,String> memberjsonMap = new HashMap<String,String>();
+			memberjsonMap.put("mem_dept_name", member.getDept_name());
+			memberjsonMap.put("mem_position_number", member.getPosition_name());
+			memberjsonMap.put("mem_name", member.getMem_name());
+			memberjsonMap.put("mem_number", member.getMem_number());
+			
+			memberJsonList.add(memberjsonMap);
+		}
+		return memberJsonList;
 	}
 
 }

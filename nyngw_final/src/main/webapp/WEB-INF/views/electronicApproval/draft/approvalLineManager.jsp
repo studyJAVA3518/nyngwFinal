@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 %>
-기안하기>결재라인설정
 <style type="text/css">
 a:link {
 	text-decoration: none;
@@ -54,7 +52,216 @@ td {
 }
 </style>
 
-<script language="JavaScript">
+<script>
+	var goThereCall=null;
+	var goThereCall2=null;
+	
+	$(function(){
+		//부서 선택시 회원 띄워주기//
+		function goThereAjax(str){
+			$.ajax({
+				url: 'findMemberByDepartment',
+				data: 'dept_number='+str,
+				type: 'get',
+				success : function(result){
+					var code="";
+					code+="";
+				},
+				success:function(result){
+					var code='<tr><th><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th>부서</th><th>직급(직책)</th><th>사원명</th></tr>';
+					var codeInput='';
+					$.each(result, function(i, value){
+// 						if (i==0){
+// 							code="";
+// 						}
+						code+='<tr><td><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
+						code+='<td>'+value.mem_dept_name+'</td>';
+						code+='<td>'+value.mem_position_number+'</td>';
+						code+='<td>'+value.mem_name+'</td></tr>';
+						codeInput = value.mem_dept_number;
+					});
+					$("#memberTable").html(code);
+					$("#searchInput").attr("value",codeInput);
+				},
+				dataType : 'json'
+			});
+		};
+		goThereCall = goThereAjax;
+		
+		//회원 검색하기//
+		function goThereAjax2(){
+			$.ajax({
+				url: '/electronicApproval/draft/searchMember',
+				data: $('form#search').serialize(),
+				type: 'get',
+				success:function(result){
+					var code='<tr><th><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th>부서</th><th>직급(직책)</th><th>사원명</th></tr>';
+					var codeInput='';
+					$.each(result, function(i, value){
+						code+='<tr><td><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
+						code+='<td>'+value.mem_dept_name+'</td>';
+						code+='<td>'+value.mem_position_number+'</td>';
+						code+='<td>'+value.mem_name+'</td></tr>';
+						codeInput = value.mem_dept_number;
+					});
+					$("#memberTable").html(code);
+					$("#searchInput").attr("value",codeInput);
+				},
+				dataType : 'json'
+			});
+		}	
+		goThereCall2 = goThereAjax2;
+		
+		//모두 체크하기//
+		$.allCheck = function(){
+			//만약 전체 선택 체크박스가 체크된상태일경우 
+			if ($("#allCheck").prop("checked")) {
+			   //해당화면에 전체 checkbox들을 체크해준다 
+			   $("input[type=checkbox]").prop("checked", true);
+			   // 전체선택 체크박스가 해제된 경우
+			} else {
+			   //해당화면에 모든 checkbox들의 체크를해제시킨다. 
+			   $("input[type=checkbox]").prop("checked", false);
+			}
+		} 
+		
+		//라인으로 이동시키기//
+		/////////////////////////////////////////////////////////
+		$("#addToApproval").click(function(){	
+			$('input[type=checkbox]:checked').each(function(){
+				if($(this).attr('id')!='allCheck'){
+					if($("#approval").find("#"+$(this).attr('id')+"").val()===undefined){
+						$('#approval').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					}else{
+						alert("이미 추가되었습니다.");
+					}
+				}
+				$(this).prop("checked",false);
+			});
+		});
+		$("#addToAgreement").click(function(){	
+			$('input[type=checkbox]:checked').each(function(){
+				if($(this).attr('id')!='allCheck'){
+					if($("#agreement").find("#"+$(this).attr('id')+"").val()===undefined){
+						$('#agreement').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					}else{
+						alert("이미 추가되었습니다.");
+					}
+				}
+				$(this).prop("checked",false);
+			});
+		});
+		$("#addToImplement").click(function(){	
+			$('input[type=checkbox]:checked').each(function(){
+				if($(this).attr('id')!='allCheck'){
+					if($("#implement").find("#"+$(this).attr('id')+"").val()===undefined){
+						$('#implement').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					}else{
+						alert("이미 추가되었습니다.");
+					}
+				}
+				$(this).prop("checked",false);
+			});
+		});
+		$("#addToReference").click(function(){	
+			$('input[type=checkbox]:checked').each(function(){
+				if($(this).attr('id')!='allCheck'){
+					if($("#reference").find("#"+$(this).attr('id')+"").val()===undefined){
+						$('#reference').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					}else{
+						alert("이미 추가되었습니다.");
+					}
+				}
+				$(this).prop("checked",false);
+			});
+		});
+		/////////////////////////////////////////////////////////
+		
+		//위로 올리기//
+		/////////////////////////////////////////////////////////
+		$('#moveUpA').click(function(){
+			moveUpItemA();
+		});
+		function moveUpItemA(){
+			$('#approval option:selected').each(function(){
+				$(this).insertBefore($(this).prev());
+			});
+		}
+		$('#moveUpB').click(function(){
+			moveUpItemB();
+		});
+		function moveUpItemB(){
+			$('#agreement option:selected').each(function(){
+				$(this).insertBefore($(this).prev());
+			});
+		}
+		$('#moveUpC').click(function(){
+			moveUpItemC();
+		});
+		function moveUpItemC(){
+			$('#implement option:selected').each(function(){
+				$(this).insertBefore($(this).prev());
+			});
+		}
+		$('#moveUpD').click(function(){
+			moveUpItemD();
+		});
+		function moveUpItemD(){
+			$('#reference option:selected').each(function(){
+				$(this).insertBefore($(this).prev());
+			});
+		}
+		/////////////////////////////////////////////////////////
+		
+		//아래로 내리기//
+		/////////////////////////////////////////////////////////
+		$('#moveDownA').click(function(){
+			moveDownItemA();
+		});
+		function moveDownItemA(){
+			$('#approval option:selected').each(function(){
+				$(this).insertAfter($(this).next());
+			});
+		}
+		$('#moveDownB').click(function(){
+			moveDownItemB();
+		});
+		function moveDownItemB(){
+			$('#agreement option:selected').each(function(){
+				$(this).insertAfter($(this).next());
+			});
+		}
+		$('#moveDownC').click(function(){
+			moveDownItemC();
+		});
+		function moveDownItemC(){
+			$('#implement option:selected').each(function(){
+				$(this).insertAfter($(this).next());
+			});
+		}
+		$('#moveDownD').click(function(){
+			moveDownItemD();
+		});
+		function moveDownItemD(){
+			$('#reference option:selected').each(function(){
+				$(this).insertAfter($(this).next());
+			});
+		}
+		/////////////////////////////////////////////////////////
+		
+		//결재라인 등록하기//
+		$("#submitLine").click(function(){
+			$("#approval")	//select Option 이름을
+			$("#agreement")
+			$("#implement")
+			$("#reference")
+			
+			
+			
+		});
+	});
+	
+	
 	var PrivSeq = 0;
 	var fldblue = '000000';
 	var fldred = 'cf102f';
@@ -95,99 +302,110 @@ td {
 
 	function goThere(str) {
 		if (str != '') {
-
-			eval("document.codeform.action='org_code.jsp'");
-			eval("document.codeform.code.value=str");
-			eval("document.codeform.target='bottom'");
-			eval("document.codeform.submit()");
-
-			eval("document.codeform.action='org_base_inform.jsp'");
-			eval("document.codeform.code.value=str");
-			eval("document.codeform.target='top'");
-			eval("document.codeform.submit()");
-			alert(str);
+			goThereCall(str);
 		}
 	}
-</script>
-<div id="treeWrap" class="row" style="height:100%;">
 
-	<div id="treeSide" class="col-md-3" style="overflow:auto;">
-		<form method='post' name='codeform'>
-			<input name='code' type='hidden' />
-		</form>
+	function goThere2() {
+		goThereCall2();
+	}
 	
-		${sb }
+</script>
+
+<!-- 다이얼로그 전체 -->
+<div id="treeDialog" style="width:900px;height:600px;">
+	기안하기>결재라인설정
 	
-	</div>
-	
-	<div id="treeMain" class="col-md-9">
-		<div id="treeMainTop" class="row" style="height:200px;overflow:auto;border:1px solid black;">
-			<form>
-				사원명 <input name="searchText"> <button type="button" onclick="searchMember_go(this.form)">검색</button>
+	<!-- 트리 디브 전체 -->
+	<div id="treeWrap" class="row">
+		
+		<!-- 1. 트리 사이드 -->
+		<div id="treeSide" class="col-md-3" style="overflow:auto;">
+			<form method='post' name='codeform'>
+				<input name='code' type='hidden' />
+				<div id="tree"></div>
 			</form>
-			<table class="table">
-				<tr>
-					<th><input type="checkbox" id="selectAll"></th>
-					<th>회사</th>
-					<th>부서</th>
-					<th>직급(직책)</th>
-					<th>사원명</th>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="아이디" value="값"></td>
-					<td>회사이름</td>
-					<td>부서이름</td>
-					<td>직책이름</td>
-					<td>사원이름</td>
-				</tr>
-			</table>
 		</div>
-		<div id="treeMainBottom" class="row" style="border:1px solid black;">
-			<div id="treeMainBottomTop" class="row">
-				<div id="treeMainBottomA" class="col-md-6" style="height:150px;">
-					결재자
-					<select id="결재자" size="5" style="width:300px;height:90px;">
-						<option>최시영</option>
-						<option>송지효</option>
-						<option>김병현</option>
-					</select>
-				</div>
-				<div id="treeMainBottomB" class="col-md-6" style="height:150px;">
-					합의자
-					<select id="합의자" size="5" style="width:300px;height:90px;">
-						<option>최시영</option>
-						<option>송지효</option>
-						<option>김병현</option>
-					</select>
-				</div>
+		
+		<!-- 2. 트리 메인 -->
+		<div id="treeMain" class="col-md-9">
+			<!-- 2.1 트리 메인 탑 -->
+			<div id="treeMainTop" class="row" style="height:200px;overflow:auto;border:1px solid black;">
+				<form id="search">
+					사원명 <input name="searchText"> <a href="javascript:goThere2()"><button type="button">검색</button></a>
+					<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
+				</form>
+				<table class="table" id="memberTable">
+					<tr>
+						<th><input type="checkbox" id="allCheck"></th>
+						<th>부서</th>
+						<th>직급(직책)</th>
+						<th>사원명</th>
+					</tr>
+				</table>
 			</div>
-			<div id="treeMainBottomBottom" class="row">
-				<div id="treeMainBottomC" class="col-md-6" style="height:150px;">
-					시행자
-					<select id="시행자" size="5" style="width:300px;height:90px;">
-						<option>최시영</option>
-						<option>송지효</option>
-						<option>김병현</option>
-					</select>
+			
+			<!-- 2.2 트리 메인 미들 -->
+			<div id="treeMainMiddle">
+				<button type="button" id="addToApproval">결재</button>
+				<button type="button" id="addToAgreement">합의</button>
+				<button type="button" id="addToImplement">시행</button>
+				<button type="button" id="addToReference">참조</button>
+			</div>	
+			
+			<!-- 2.3 트리 메인 바텀 -->
+			<div id="treeMainBottom" class="row" style="border:1px solid black;">
+				<div id="treeMainBottomTop" class="row">
+					<div id="treeMainBottomA" class="col-md-6" style="height:150px;">
+						결재자
+						<div>
+							<select id="approval" name="approval" size="5" style="width:300px;height:90px;">
+							</select>
+						</div>
+						<div id ="but">
+							<p><input type = "button" value="▲" id="moveUpA"></p>
+							<p><input type = "button" value="▼" id="moveDownA"></p>
+						</div>
+					</div>
+					<div id="treeMainBottomB" class="col-md-6" style="height:150px;">
+						합의자
+						<div>
+							<select id="agreement" size="5" style="width:300px;height:90px;">
+							</select>
+						</div>
+						<div id ="but">
+							<p><input type = "button" value="▲" id="moveUpB"></p>
+							<p><input type = "button" value="▼" id="moveDownB"></p>
+						</div>	
+					</div>
 				</div>
-				<div id="treeMainBottomD" class="col-md-6" style="height:150px;">
-					수신참조자
-					<select id="수신참조자" size="5" style="width:300px;height:90px;">
-						<option>최시영</option>
-						<option>송지효</option>
-						<option>김병현</option>
-					</select>
+				<div id="treeMainBottomBottom" class="row">
+					<div id="treeMainBottomC" class="col-md-6" style="height:150px;">
+						시행자
+						<div>
+							<select id="implement" size="5" style="width:300px;height:90px;">
+							</select>
+						</div>
+						<div id ="but">
+							<p><input type = "button" value="▲" id="moveUpC"></p>
+							<p><input type = "button" value="▼" id="moveDownC"></p>
+						</div>	
+					</div>
+					<div id="treeMainBottomD" class="col-md-6" style="height:150px;">
+						수신참조자
+						<div>
+							<select id="reference" size="5" style="width:300px;height:90px;">
+							</select>
+						</div>
+						<div id ="but">
+							<p><input type = "button" value="▲" id="moveUpD"></p>
+							<p><input type = "button" value="▼" id="moveDownD"></p>
+						</div>	
+					</div>
 				</div>
+				<button type="button" id="submitLine">등록</button>
+				<button type="button">취소</button>
 			</div>
 		</div>
 	</div>
-
 </div>
-
-<script>
-	function searchMember_go(form){
-		form.method="get";
-		form.action="/electronicApproval/draft/searchMember";
-		form.submit();
-	} 
-</script>
