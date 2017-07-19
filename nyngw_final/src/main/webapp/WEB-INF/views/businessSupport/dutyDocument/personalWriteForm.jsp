@@ -28,7 +28,9 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td colspan="5"><input type="text" name="dd_title"></td>
+				<td colspan="3"><input type="text" name="dd_title"></td>
+				<th>업무시작일</th>
+				<td><input type="date" name="start_date"></td>
 			</tr>
 			<tr>
 				<td colspan="6">

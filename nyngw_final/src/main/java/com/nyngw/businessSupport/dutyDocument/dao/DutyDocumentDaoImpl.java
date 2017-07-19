@@ -2,6 +2,7 @@ package com.nyngw.businessSupport.dutyDocument.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -68,6 +69,22 @@ public class DutyDocumentDaoImpl implements DutyDocumentDao {
 	@Override
 	public void dutyDocumentUpdate_DD(Duty_DocumentVO dutyDocument) {
 		sqlSession.delete("dutyDocumentUpdate_DD", dutyDocument);
+	}
+
+	//////////부서
+	@Override
+	public int departmentCount_DD(Map<String, Object> select) {
+		int result =(Integer) sqlSession.selectOne("departmentCount_DD",select);
+		return result;
+	}
+
+	@Override
+	public List<Duty_DocumentVO> selectDepartmentList_DD(int firstRow, int endRow, Map<String, Object> select) {
+		int offset = firstRow - 1;
+		int limit = endRow - firstRow + 1;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Duty_DocumentVO> documentList = (ArrayList<Duty_DocumentVO>)sqlSession.selectList("selectDepartmentList_DD",select,rowBounds);
+		return documentList;
 	}
 	
 	
