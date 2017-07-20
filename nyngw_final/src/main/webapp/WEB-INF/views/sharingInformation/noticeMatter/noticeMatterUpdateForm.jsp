@@ -31,7 +31,7 @@
 				</tr>
 			</table>
 			<input type="hidden" value="${page}">
-			<input type="submit" value="수정" />
+			<button type="button" onclick="saveContent();" class="btn">수정</button>
 			<input type="reset" value="초기화" />
 			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
 		</form>

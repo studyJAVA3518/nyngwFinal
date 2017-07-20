@@ -106,7 +106,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
-	public String documentInsertComplete(Model model , CommandDocumentVO document) throws IOException{
+	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_explanation) throws IOException{
 		
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document";
 		
@@ -127,6 +127,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 			if(document.getDoc_eadoc() != null){
 				doc.setDoc_eadoc("y");
 			}
+			doc.setDoc_explanation(doc_explanation);
 			doc.setDoc_mem_number(mem_number);
 			doc.setDoc_file_name(multipartFile.getOriginalFilename());
 			
@@ -159,7 +160,8 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @return 문서 수정을 완료하고 목록을 보여줌
 	 */
 	@RequestMapping("/documentUpdate")
-	public String documentUpdate(DocumentVO document){
+	public String documentUpdate(DocumentVO document,@RequestParam( value="content") String doc_explanation){
+		document.setDoc_explanation(doc_explanation);	
 		documentManagerService.documentManagerUpdate(document);
 		return "redirect:/documentManagement/documentManager/documentSelect";
 	}

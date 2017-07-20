@@ -36,7 +36,7 @@
 		</table>
 		
 			<input type="hidden" value="${page}">
-			<input type="submit" value="수정" />
+			<button type="button" onclick="saveContent();" class="btn">수정</button>
 			<input type="reset" value="초기화" />		
 			<button type="button"><a href="/documentManagement/documentManager/documentSelect?page=${page }">취소</a></button>
 		</form>
@@ -49,13 +49,6 @@ $(function(){
 	var loadContent = function() {
 		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
 		Editor.modify({
-//				"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
-//					var allattachments = [];
-//					for (var i in attachments) {
-//						allattachments = allattachments.concat(attachments[i]);
-//					}
-//					return allattachments;
-//				}(),
 			"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
 		});
 	};
@@ -63,4 +56,3 @@ $(function(){
 	loadContent();
 });
 </script>	
-<!-- <button class="btn"><a href="/documentManagement/documentManager/documentSelect">저장</a></button> -->
