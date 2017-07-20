@@ -79,11 +79,10 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	
 //	----------------------------------------회의록 ---------------------
 	@Override
-	public int selectMeeting_DocumentCount() {
-		int result =(Integer) sqlSession.selectOne("selectMeeting_DocumentCount");
+	public int selectMeeting_DocumentCount(String mem_id) {
+		int result =(Integer) sqlSession.selectOne("selectMeeting_DocumentCount",mem_id);
 		return result;
 	}
-
 	
 	@Override
 	public List<Meeting_DocumentVO> meeting_DocumentList(int firstRow, int endRow,
@@ -95,12 +94,15 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 		return meetingDocumentList;
 	}
 
-	
-	
 	@Override
 	public int boardMeetingMeetingCount(Board_SelectVO select) {
 		int result =(Integer) sqlSession.selectOne("boardMeeting_DocumentCount",select);
 		return result;
+	}
+	
+	@Override
+	public void meetingFileInsert(Meeting_DocumentVO meetingFile) {
+		sqlSession.insert("meetingFileInsert", meetingFile);
 	}
 	
 }

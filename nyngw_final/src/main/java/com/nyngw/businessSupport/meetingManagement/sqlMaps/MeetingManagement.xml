@@ -37,7 +37,7 @@
 			select * from meeting where mt_reader like #{mt_reader }
 		</select>
 		
-		<select id="selectMeetingCount" resultType="java.lang.Integer">
+		<select id="selectMeetingCount" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) from meeting m where (select ad_mem_number from attendance a 
 			where a.ad_mt_number = m.mt_number) = #{mem_id}
 	</select>
@@ -96,42 +96,58 @@
 	
 	<select id="meeting_DocumentList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.Meeting_DocumentVO">
 			select 
-				md_number,
-				md_name,
-				md_content,
+				to_number(substr(md_number,3,9999999)) md_number, 
+				md_name, 
+				md_content, 
 				md_date,
 				md_writer
-			from meeting_document where 1 = 1
-			<choose>
-				<when test='index == "md_name"'>
-					and md_name like '%'||#{val}||'%'
-				</when>
-				<when test='index == "mt_writer"'>
-					and mt_writer like '%'||#{val}||'%'
-				</when>
-			</choose>
-			order by 1 desc
+				from meeting,meeting_document,attendance,member
+				where 1=1
+				<choose>
+					<when test='index == "md_name"'>
+						and md_name like '%'||#{val}||'%'
+					</when>
+					<when test='index == "md_writer"'>
+						and md_writer like '%'||#{val}||'%'
+					</when>
+				</choose>
+				and mt_md_number = md_number 
+				and ad_mt_number = mt_number
+				and ad_mem_number = mem_number
+				and mem_number = #{mem_number}
+				order by 1 desc
 	</select>
 	
-	<select id="selectMeeting_DocumentCount" resultType="java.lang.Integer">
-		select count(*) from meeting_document
+	<select id="selectMeeting_DocumentCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from meeting,meeting_document,attendance,member 
+		where 	mt_md_number = md_number 
+				and ad_mt_number = mt_number
+				and ad_mem_number = mem_number
+				and mem_id = #{mem_id}
 	</select>
 	
 	<select id="boardMeeting_DocumentCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting_document where 1=1
-		<choose>
-				<when test='index == "md_name"'>
-					and md_name like '%'||#{val}||'%'
-				</when>
-				<when test='index == "mt_writer"'>
-					and mt_writer like '%'||#{val}||'%'
-				</when>
-			</choose>
+		select count(*) from meeting,meeting_document,attendance,member where 1=1 
+				<choose>
+					<when test='index == "md_name"'>
+						and md_name like '%'||#{val}||'%'
+					</when>
+					<when test='index == "md_writer"'>
+						and md_writer like '%'||#{val}||'%'
+					</when>
+				</choose>
+				and mt_md_number = md_number 
+				and ad_mt_number = mt_number
+				and ad_mem_number = mem_number
+				and mem_id = #{mem_id}
 	</select>
 	
 	<select id="selectMeeting_Document" parameterType="java.lang.String" resultType="com.nyngw.dto.Meeting_DocumentVO">
 		select * from meeting_document where md_number = #{md_number} 
 	</select>
 	
-	
+	<insert id="meetingFileInsert" parameterType="com.nyngw.dto.Meeting_DocumentVO">
+		insert into meeting_document(md_number, md_name, md_date, md_content, md_writer)
+		values('md'||md_seq.nextVal,#{md_name},to_date(to_char(#{md_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{md_content}, #{md_writer})
+	</insert>
 </mapper>

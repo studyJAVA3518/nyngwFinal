@@ -34,7 +34,10 @@ public interface MeetingManagementDao {
 
 	public int boardMeetingMeetingCount(Board_SelectVO select);
 
-	public int selectMeeting_DocumentCount();
+	public int selectMeeting_DocumentCount(String mem_id);
+
+	public void meetingFileInsert(Meeting_DocumentVO meetingFile);
+
 
 
 }
