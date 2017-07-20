@@ -20,85 +20,198 @@
 }
 </style>
 <script>
-// $(function(){
-//     $.ajax({
-//        url : 'appointedUI',
-//        type : 'get',
-//        success : function(res){
-//           var code = "";
-//           $.each(res,function(i, bigMenu){
-//              code += "<option value='" + ${bigMenu.big_number} + "'>" + ${bigMenu.big_name} +"</option>";
-//           });
-//           $('#bigMenu').html(code);
-//           $('#bigMenu').trigger('change');
-//        },
-//        dataType : 'json'
-//     });
-//     ////////////////////////////////
-//     $('#bigMenu').change(function(){
-//        var guid = $(this).val();
-//        $.ajax({
-//           url : 'appointedUI' ,
-//           type : 'post' ,
-//           data : 'big_number=' + guid , 
-//           success : function(res){
-//              var code = "";
-//              $.each(res,function(i, middleMenu){
-//                 code += "<option value='" + ${middleMenu.mid_number} + "'>" + ${middleMenu.mid_name} +"</option>";
-//              });
-//              $('#middleMenu').html(code);
-//              $('#middleMenu').trigger('change');
-//           },
-//           dataType : 'json'
-//        });
-//     });
-// });
+$(function(){
+/////////////////////////////////////////////////////////화면1용
+// 		대분류 갖고오기
+	$.ajax({
+		url : '/homeMain/appointedUI/bigMenu',
+		type : 'get',
+		success : function(res){
+			var code = "";
+			$.each(res,function(i, v){
+				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
+			});
+			$('#big_number').html(code);
+			$('#big_number').trigger('change');
+		},
+		dataType : 'json'
+	});
+// 중분류가져오기
+	$('#big_number').change(function(){
+		var big_num = $(this).val();
+		$.ajax({
+			url : '/homeMain/appointedUI/middleMenu' ,
+			type : 'post' ,
+			data : 'big_num=' + big_num , 
+			success : function(res){
+				var code = "";
+				$.each(res,function(i, v){
+					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
+				});
+				$('#middleMenu').html(code);
+			},
+			dataType : 'json'
+		});
+	});
+
+///////////////////////////////////화면2용
+// 		대분류 갖고오기
+	$.ajax({
+		url : '/homeMain/appointedUI/bigMenu1',
+		type : 'get',
+		success : function(res){
+			var code = "";
+			$.each(res,function(i, v){
+				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
+			});
+			$('#big_number1').html(code);
+			$('#big_number1').trigger('change');
+		},
+		dataType : 'json'
+	});
+// 중분류가져오기
+	$('#big_number1').change(function(){
+		var big_num = $(this).val();
+		$.ajax({
+			url : '/homeMain/appointedUI/middleMenu1' ,
+			type : 'post' ,
+			data : 'big_num=' + big_num , 
+			success : function(res){
+				var code = "";
+				$.each(res,function(i, v){
+					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
+				});
+				$('#middleMenu1').html(code);
+			},
+			dataType : 'json'
+		});
+	});
+
+
+
+//////////////////////////////////////////////////화면3용
+//		대분류 갖고오기
+	$.ajax({
+		url : '/homeMain/appointedUI/bigMenu2',
+		type : 'get',
+		success : function(res){
+			var code = "";
+			$.each(res,function(i, v){
+				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
+			});
+			$('#big_number2').html(code);
+			$('#big_number2').trigger('change');
+		},
+		dataType : 'json'
+	});
+// 중분류가져오기
+	$('#big_number2').change(function(){
+		var big_num = $(this).val();
+		$.ajax({
+			url : '/homeMain/appointedUI/middleMenu2' ,
+			type : 'post' ,
+			data : 'big_num=' + big_num , 
+			success : function(res){
+				var code = "";
+				$.each(res,function(i, v){
+					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
+				});
+				$('#middleMenu2').html(code);
+			},
+			dataType : 'json'
+		});
+	});
+	
+	
+	
+// 	체크박스로 선택하는 부분
+	$("#autoAndUser").on('click', function() {
+	      if ( $(this).prop('checked') ) {
+	        $('#uiSelect').addClass("userInterFaceSetting");
+	        $('#userInterFaceButton').attr('disabled',true);
+	        $('#big_number').attr('disabled', 'true');
+	        $('#middleMenu').attr('disabled', 'true');
+	        $('#big_number1').attr('disabled', 'true');
+	        $('#middleMenu1').attr('disabled', 'true');
+	        $('#big_number2').attr('disabled', 'true');
+	        $('#middleMenu2').attr('disabled', 'true');
+
+	      } else {
+	        $('#userInterFaceButton').removeAttr('disabled'); 
+	        $('#big_number').removeAttr('disabled'); 
+	        $('#middleMenu').removeAttr('disabled'); 
+	        $('#big_number1').removeAttr('disabled'); 
+	        $('#middleMenu1').removeAttr('disabled'); 
+	        $('#big_number2').removeAttr('disabled'); 
+	        $('#middleMenu2').removeAttr('disabled'); 
+	        $('#uiSelect').removeClass("userInterFaceSetting");
+	      }
+	});
+})
+	function userUiSave(){
+		$.ajax({
+			url : '/homeMain/appointedUI/userUiSave' ,
+			type : 'post' ,
+			data : $('#userUi').serialize() , 
+			success : function(res){
+				alert('저장됬시유 ㅎ');
+				location.href=res.uri;
+			},
+			dataType : 'json'
+		});
+	}
 </script>
+<style>
+	.userInterFaceSetting{
+		background-color: rgba( 0, 0, 0, 0.5 );
+	}
+</style>
 <div id="allDiv">
-	<div id="topDiv">
+	<div id="topDiv" style="height: 50px;">
 		<button class="btn">자동</button>이 버튼을 누르면 밑에 화면1,2,3이 자주들어간 곳으로 설정됨.
+		<br>
+		<input type="checkbox" id="autoAndUser"> 체크시 자동 미체크시 UI선택
 	</div>
-	<div id="bodyDiv">
-		<div style="width: 100%; height: 50%;">
-			<div style="width: 100%;">
-				<select name="big_number">
-				<c:forEach items="${bigMenu }" var="bigMenu">
-					<option value="${bigMenu.big_number }">${bigMenu.big_name }</option>
-				</c:forEach>
-				</select>
-<!-- 				<select name="bigMenu" id="bigMenu"> -->
-<!-- 				</select> -->
-				<select name="select2">
-				<c:forEach items="${middleMenu }" var="middleMenu">
-					<option value="${middleMenu.mid_number }">${middleMenu.mid_name }</option>
-				</c:forEach>
-				</select>
-				<select name="middleMenu" id="middleMenu">
-				</select>
-			</div>
-			<h1>화면1</h1>
+<!-- 	<div id="bodyDiv"> -->
+	<div id="uiSelect">
+		<div style="height:60px;">
+			<form id="userUi">
+				<div style="float: left; margin: 0 30px;">
+					<h1>화면1</h1>
+					<div style="width: 100%;">
+						<select name="big_number" id="big_number"></select>
+						<select name="middleMenu" id="middleMenu"></select>
+					</div>
+				</div>
+			
+				<div style="float: left; margin: 0px 30px;">
+					<h1>화면2</h1>
+					<div style="width: 100%;">
+						<select name="big_number1" id="big_number1"></select>
+						<select name="middleMenu1" id="middleMenu1"></select>
+					</div>
+				</div>
+	
+				<div style="float: left; margin: 0px 30px;">
+					<h1>화면3</h1>
+					<div style="width: 100%;">
+						<select name="big_number2" id="big_number2"></select>
+						<select name="middleMenu2" id="middleMenu2"></select>
+					</div>
+				</div>
+				<button type="button" id="userInterFaceButton" onclick="userUiSave()">저장</button>
+			</form>
 		</div>
-		<div style="width: 50%; height: 50%; float: left;">
-			<div style="width: 100%;">
-				<select name="select">
-					<option>대분류목록</option>
-				</select>
-				<select name="select2">
-					<option>중분류목록</option>
-				</select>
+		<div style="height: 400px;">
+			<div style="height: 50%; width: 100%; border: 2px solid black; text-align: center;">
+				<h1>화면 1</h1> 
 			</div>
-			<h1>화면2</h1>
-		</div>
-		<div style="width: 50%; height: 50%; float: left;">
-			<div style="width: 100%;">
-				<select name="select">
-					<option>대분류목록</option>
-				</select>
-				<select name="select2">
-					<option>중분류목록</option>
-				</select>
+			<div style="height: 40%; width: 46%; border: 2px solid black; float: left; margin: 2% 2%; text-align: center; vertical-align: middle;">
+				<h1>화면 2</h1> 
 			</div>
-			<h1>화면3</h1>
+			<div style="height: 40%; width: 46%; border: 2px solid black; float: left; margin: 2% 2%; text-align: center; vertical-align: middle;">
+				<h1>화면 3</h1> 
+			</div>
 		</div>
 	</div>
 	<div style="width: 100%;">
