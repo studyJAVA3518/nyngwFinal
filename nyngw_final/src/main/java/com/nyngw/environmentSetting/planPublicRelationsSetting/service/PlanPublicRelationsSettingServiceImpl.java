@@ -431,15 +431,93 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	/**
 	 * 급여종류 삭제
 	 * @param model
-	 * @param vo
+	 * @param String pk_number
 	 * @throws SQLException
 	 */
 	public void removePayKind(Model model, String pk_number) throws SQLException {
 		int result = planPublicRelationsSettingDao.deletePayKind(pk_number);
 		model.addAttribute("resultPKDelete",result);
 	}
-
 	
+	/**
+	 * 급여정책 삭제
+	 * @param model
+	 * @param String del_pp_number
+	 * @throws SQLException
+	 */
+	public void removePayPolicy(Model model, String del_pp_number) throws SQLException {
+		int result = planPublicRelationsSettingDao.deletePayPolicy(del_pp_number);
+		model.addAttribute("resultPPDelete",result);
+	}
+	
+	/**
+	 * 시간당급여 및 기본급 수정~!!
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	public int modifyPayPolicyHourBasic(Model model, String pp_number,
+			String pp_pay) throws SQLException{
+		Pay_PolicyVO ppOriginvo = new Pay_PolicyVO();
+		ppOriginvo.setPp_number(pp_number);
+		ppOriginvo.setPp_pay(Float.parseFloat(pp_pay));
+		//시간당 급여 수정
+		planPublicRelationsSettingDao.updatePayPolicyPrice(ppOriginvo);
+		//수정된 시간당급여 정보 조회
+		Pay_PolicyVO ppUpdatedvo = planPublicRelationsSettingDao.selectPayPolicyOne(pp_number);
+		//위에서 해당 vo의 position_number 가져오기
+		String updatePosition = ppUpdatedvo.getPp_position_number();
+		//가져온 position_number로 기본급중 같은 직책 찾기
+		Pay_PolicyViewVO ppViewUpBasicvo = planPublicRelationsSettingDao.selectPayPolicyViewOne(updatePosition);
+		//가져온 기본급정보에서 급여번호 가져오기
+		String updateBasictNum = ppViewUpBasicvo.getPp_number();
+		//급여정보 이용하고 기본급계산(시간당급여*209시간)
+		Float updateBasicPay = ppUpdatedvo.getPp_pay()*209;
+		//PayPolicyVO 생성하여 값 넣고 vo 넘겨서 기본급 update
+		Pay_PolicyVO updateBasicvo = new Pay_PolicyVO();
+		updateBasicvo.setPp_number(updateBasictNum);
+		updateBasicvo.setPp_pay(updateBasicPay);
+		int result = planPublicRelationsSettingDao.updatePayPolicyPrice(updateBasicvo);
+		model.addAttribute("resultPPPrice",result);
+		return result;
+	}
+	
+	/**
+	 * 직책수당 수정~!!
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	public int modifyPayPolicyPos(Model model, String pp_number, String pp_pay) throws SQLException{
+		Pay_PolicyVO ppOriginvo = new Pay_PolicyVO();
+		ppOriginvo.setPp_number(pp_number);
+		ppOriginvo.setPp_pay(Float.parseFloat(pp_pay));
+		//시간당 급여 수정
+		int result = planPublicRelationsSettingDao.updatePayPolicyPrice(ppOriginvo);
+		model.addAttribute("resultPPPricePos",result);
+		return result;
+	}
+
+	/**
+	 * 모든 직급에 적용되는 급여정책 금액 수정~!!
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	public int modifyPayPolicyAllPos(Model model, String pp_number, String pp_pay) throws SQLException{
+		Pay_PolicyVO ppOriginvo = new Pay_PolicyVO();
+		ppOriginvo.setPp_number(pp_number);
+		ppOriginvo.setPp_pay(Float.parseFloat(pp_pay));
+		System.out.println("서비스 : "+pp_number);
+		System.out.println("서비스 : "+pp_pay);
+		//시간당 급여 수정
+		int result = planPublicRelationsSettingDao.updatePayPolicyPrice(ppOriginvo);
+		model.addAttribute("resultPPPricePos",result);
+		return result;
+	}
 
 	
 }
