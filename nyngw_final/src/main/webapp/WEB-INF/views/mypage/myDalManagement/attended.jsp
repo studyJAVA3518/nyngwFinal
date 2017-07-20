@@ -10,7 +10,8 @@
 마이페이지 >> 나의 근태 관리 >> 출결관리
 <script type="text/javascript">
 $(function(){
-	 $('#dialog').css('display', 'none');
+	
+	 $('#dialogg').css('display', 'none');
 		$("#company_in").click(function(){
 		$('#dialogg').dialog({
 			width: 700,

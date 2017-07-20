@@ -11,6 +11,34 @@
    document.getElementsByName('board_file_name')[0].value=file;
 }
 </script>
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		url:'approvalLineManager',
+		type:'get',
+		success : function(result){
+			$("#tree").html(result.sb);
+		},
+		dataType : 'json'
+	})
+	 $('#linePopup').css('display', 'none');
+	 $("#linePopup_go").click(function(){
+			$('#linePopup').dialog({
+				width:950,
+				height: 700,
+				modal: true,
+				buttons: {
+			       "취소": function() {
+						$(this).dialog("close");
+					}
+				},
+				close: function() {
+					
+				}
+			});
+		})
+})
+</script>
 <div>
 		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="meetingInsert" method="POST" accept-charset="utf-8">
 			<table class="table table-border">
@@ -18,6 +46,10 @@
 				<th>회의제목</th>
 				<td>
 					<input type="text" name="mt_title">
+				</td>
+				<th>회의일</th>
+				<td>
+					<input type="date" name="mt_date">
 				</td>
 			</tr>
 			<tr>
@@ -29,16 +61,13 @@
 						</c:forEach>
 						</select>
 					</td>
-				<th>회의일</th>
-				<td>
-					<input type="date" name="mt_date">
-				</td>
+				<th>회의참여자</th>
+				<td><button type="button" id="linePopup_go">검색</button></td>
 			</tr>
 			<tr>
 				<th>회의주최자</th>
 				<td><input type="text" name="mt_reader" value="${meetingList2.mem_name }" readonly="readonly"></td>
-				<th>회의참여자</th>
-				<td></td>
+				<td id="approvalMember1"></td><td id="approvalMember2"></td><td id="approvalMember3"></td><td id="approvalMember4"></td>
 			</tr>
 		</table>
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/meetingeditor.jsp" flush="false"/>
@@ -50,38 +79,7 @@
 			</div>
 		</form>
 	</div>
-<%-- <form action="<%=request.getContextPath() %>/businessSupport/meetingManagement/meetingInsert" method="post"> --%>
-<!-- 		<table class="table table-border"> -->
-<!-- 			<tr> -->
-<!-- 				<th>회의제목</th> -->
-<!-- 				<td> -->
-<!-- 					<input type="text" name="mt_title"> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<th>회의장소</th> -->
-<!-- 					<td> -->
-<!-- 						<select name="rv_mr_number"> -->
-<%-- 						<c:forEach items="${meetingroom }" var="meetingroom"> --%>
-<%-- 							<option value="${meetingroom.mr_number }">${meetingroom.mr_name }</option> --%>
-<%-- 						</c:forEach> --%>
-<!-- 						</select> -->
-<!-- 					</td> -->
-<!-- 				<th>회의일</th> -->
-<!-- 				<td> -->
-<!-- 					<input type="date" name="mt_date"> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<th>회의주최자</th> -->
-<%-- 				<td><input type="text" name="mt_reader" value="${meetingList2.mem_name }" readonly="readonly"></td> --%>
-<!-- 			</tr> -->
-			
-<!-- 		</table> -->
-<!-- 		<textarea rows="20" cols="100" style="resize: none;" name="mt_content"></textarea> -->
-<!-- 			<input type="submit" value="작성 완료"/> -->
-		
-<!-- 			<button><a href="/businessSupport/meetingManagement/meetingCalendar">취소</a></button> -->
-<!-- 	</form> -->
-			
+<div id="linePopup" style="height:100%;width:100%;">
+	<jsp:include page="approvalLineManager.jsp" flush="false"/>
+</div>
 		

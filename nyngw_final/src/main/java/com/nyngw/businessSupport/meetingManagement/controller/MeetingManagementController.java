@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.businessSupport.meetingManagement.service.MeetingManagementServiceImpl;
+import com.nyngw.dto.AttendanceVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
-import com.nyngw.dto.Meeting_DocumentVO;
 import com.nyngw.dto.Meeting_Document_ListViewVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.electronicApproval.draft.service.DraftServiceImpl;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 @Controller
@@ -34,6 +35,9 @@ import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 public class MeetingManagementController {
 	@Autowired
 	private MeetingManagementServiceImpl meetingManagementService;
+	
+	@Autowired
+	private DraftServiceImpl draftService;
 	
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService;
@@ -92,8 +96,8 @@ public class MeetingManagementController {
 			String mt_date,
 			String mt_reader,
 			String mt_mr_number,
-			@RequestParam( value="content") String mt_content
-			){
+			@RequestParam( value="content") String mt_content,
+			String mt_members){
 		MeetingVO meeting = new MeetingVO();
 		
 		meeting.setMt_title(mt_title);
@@ -105,12 +109,10 @@ public class MeetingManagementController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		AttendanceVO attend = new AttendanceVO();
+		attend.setAd_mem_number(mt_members);
+		attend.setAd_mt_number(mt_members);
 		meetingManagementService.meetingInsert(meeting);
-		System.out.println("컨트롤러 : "+meeting.getMt_content());
-		System.out.println("컨트롤러 : "+meeting.getMt_number());
-		System.out.println("컨트롤러 : "+meeting.getMt_reader());
-		System.out.println("컨트롤러 : "+meeting.getMt_title());
-		System.out.println("컨트롤러 : "+meeting.getMt_date());
 		return "redirect:/businessSupport/meetingManagement/meetingCalendar";
 	}
 	
@@ -162,7 +164,29 @@ public class MeetingManagementController {
 	}
 	
 
+	@RequestMapping("/approvalLineManager")
+	@ResponseBody
+	public Map<String, String> approvalLineManager(Model model){
+		String sb = draftService.getMenuDepartmentString().toString();
+		Map<String,String> jsonDataMap = new HashMap<String, String>();
+		jsonDataMap.put("sb", sb);
+//		model.addAttribute("sb",sb);
+//		return "electronicApproval/draft/approvalLineManager";
+		return jsonDataMap;
+	}
+	@RequestMapping("/findMemberByDepartment")
+	@ResponseBody
+	public List<Map> findMemberByDepartment(String dept_number,Model model){
+		List<Map> memberJsonData = draftService.findMemberByDepartment(dept_number,model);
+		return memberJsonData;
+	}
 	
+	@RequestMapping("/searchMember")
+	@ResponseBody
+	public List<Map> searchMember(Model model,String searchText, String dept_number){
+		List<Map> memberJsonData = draftService.searchMemberByMemberName(searchText,dept_number);
+		return memberJsonData;
+	}
 	
 //	--------------------------------회의록 -----------------------------------------
 	

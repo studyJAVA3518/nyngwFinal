@@ -2,6 +2,8 @@ package com.nyngw.mypage.myDalManagement.controller;
 
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Board_SelectVO;
-import com.nyngw.dto.DalListViewVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.myDalManagement.MyAttendedListView;
 import com.nyngw.mypage.myDalManagement.MyVacationListView;
@@ -26,6 +27,8 @@ public class MyDalManagementController {
 	
 	@Autowired
 	private CommonServiceImpl commonService;
+	
+	
 	
 	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	

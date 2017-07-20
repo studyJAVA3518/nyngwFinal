@@ -65,8 +65,17 @@
 	<insert id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO">
 		insert into meeting(mt_number, mt_reader, mt_date, mt_title, mt_content, mt_mr_number)
 		values('mt'||mt_seq.nextVal,#{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content}, #{mt_mr_number})
-		
 	</insert>
+	
+<!-- 	<insert id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO"> -->
+<!-- 		insert all  -->
+<!-- 		into meeting(mt_number, mt_reader, mt_date, mt_title, mt_content, mt_mr_number) -->
+<!-- 		values('mt'||mt_seq.nextVal,#{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content}, #{mt_mr_number}) -->
+<!-- 		into attendance(ad_mem_number, ad_mt_number) -->
+<!-- 		values(#{mt_members}, #{mt_number}) -->
+<!-- 	</insert> -->
+	
+	
 	<update id="meetingUpdate" parameterType="com.nyngw.dto.MeetingVO">
 		update meeting 
 		set mt_title=#{mt_title},
@@ -83,7 +92,7 @@
 	</update>
 	
 	
-	
+<!-- ======================= 회으록 ================================ -->
 	
 	<select id="meeting_DocumentList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.Meeting_DocumentVO">
 			select 
