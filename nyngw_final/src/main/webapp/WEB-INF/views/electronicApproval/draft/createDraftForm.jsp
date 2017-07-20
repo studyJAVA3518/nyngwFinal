@@ -77,7 +77,7 @@
 				code +=$(this).val();
 				addReferenceMemberNumbers += $(this).attr('id');
 			});
-			code += '<input type="hidden" name="implementMembers" value="'+addImplementMemberNumbers+'">';
+			code += '<input type="hidden" name="referenceMembers" value="'+addReferenceMemberNumbers+'">';
 			$('#referenceMembers').html(code);
 		}
 		submitLineCall=submitLine;
@@ -110,30 +110,28 @@
 
 기안하기>결재상신페이지
 <button type="button" id="linePopup_go">결재라인</button>
-<button type="button" onclick="submitApproval_go()">상신하기</button>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
+<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
+	<input type="hidden" name="ea_doc_number" value="${doc_number }">
 	<table class="table table-bordered">
 		<tr>
 			<th>품의번호</th>
-			<td colspan="5">"새로 생성되는 번호"(ea_number)</td>
-			<input type="hidden" name="" value="ea_number">
+			<td colspan="5">${ea_number }</td>
+			<input type="hidden" name="ea_number" value="${param_ea_number }">
+			<input type="hidden" name="param_ea_number" value="${ea_number }">
 		</tr>
-		
-		<input type="hidden" name="ea_doc_number" value="ea_number">
 		<tr>
 			<th>작성일자</th>
-			<td colspan="5">sysdate</td>
-			<input type="hidden" name="" value="ea_enddate">
+			<td colspan="5">${ea_writedate }</td>
+			<input type="hidden" name="param_ea_writedate" value="${ea_writedate }">
 		</tr>
 		<tr>
 			<th>기안부서</th>
-			<td colspan="5">"작성자의 부서"</td>
-			<input type="hidden" name="" value="ea_mem_number->mem_dept_number->mem_dept_name">
+			<td colspan="5">${member.dept_name }</td>
 		</tr>
 		<tr>
 			<th>기안자</th>
-			<td colspan="5">"작성자의 이름"</td>
-			<input type="hidden" name="ea_mem_number">
+			<td colspan="5">${member.mem_name }</td>
+			<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
 		</tr>
 		<tr id="approvalMember">
 			<th rowspan="2">결재</th>
@@ -175,7 +173,7 @@
 		</tr>
 		<tr>
 			<th>시행일자</th>
-			<td colspan="5"><input type="date" name="ea_startdate">~<input type="date" name="ea_enddate"></td>
+			<td colspan="5"><input type="date" name="param_ea_startdate">~<input type="date" name="param_ea_enddate"></td>
 		</tr>
 		<tr>
 			<th>제목</th>

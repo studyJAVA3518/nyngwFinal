@@ -82,6 +82,22 @@
 	
 	<!-- 로그인한 맴버 검색 -->
 	<select id="draft_selectMemberByMemberId" resultType="com.nyngw.dto.MemberVO" parameterType="string">
-		select * from member_view where mem_id = ${mem_id}
+		select * from member_view where mem_id = #{mem_id}
 	</select>
+	
+	<!-- 로그인한 맴버 검색 -->
+	<select id="draft_selectSeqNumber" resultType="int">
+		select last_number from user_sequences where sequence_name= 'EA_SEQ'
+	</select>
+	
+	<insert id="draft_insertApproval" parameterType="com.nyngw.dto.Electronic_ApprovalVO">
+		insert into electronic_approval 
+		values (#{ea_number}||ea_seq.nextval,#{ea_title},#{ea_content},#{ea_startdate},#{ea_enddate},#{ea_doc_number},#{ea_mem_number},#{ea_writedate})
+	</insert>
+	
+	<insert id="draft_insertApprovalStep" parameterType="map">
+		insert into approval_step 
+		values (#{ast_number},#{ast_ea_number},#{ast_priority},#{ast_al_number},#{ast_mem_number})
+	</insert>
+	
 </mapper>
