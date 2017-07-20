@@ -12,11 +12,55 @@
 		select * from member_view where mem_id=#{mem_id}
 	</select>
 	
+	
+	
+	
+	
+<!-- 	대분류 -->
 	<select id="selectBigMenu" resultType="com.nyngw.dto.BigMenuVO">
 		select * from bigmenu
 	</select>
+<!-- 	중분류 -->
 	<select id="selectMiddleMenu" resultType="com.nyngw.dto.MiddleMenuVO" parameterType="java.lang.String">
 		select * from middlemenu where mid_big_number = #{big_number}
 	</select>
 	
+<!-- 	Ui저장 -->
+	<update id="userUiInsert_UI" parameterType="com.nyngw.dto.UserInterfaceVO">
+		insert into userinterface(ui_mem_number, ui_user1, ui_user2, ui_user3, ui_autouse)
+		values(#{ui_mem_number}, #{ui_user1}, #{ui_user2}, #{ui_user3}, #{ui_autouse})
+	</update>	
+	
+	<select id="userUiSelect_UI" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from userinterface where ui_mem_number = #{mem_number}
+	</select>
+	
+	<update id="userUiUpdate_UI" parameterType="com.nyngw.dto.UserInterfaceVO">
+		update userinterface
+		set    ui_user1 = #{ui_user1},
+			   ui_user2 = #{ui_user2},
+			   ui_user3 = #{ui_user3},
+			   ui_autouse = #{ui_autouse}
+		where  ui_mem_number = #{ui_mem_number} 
+	</update>	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
