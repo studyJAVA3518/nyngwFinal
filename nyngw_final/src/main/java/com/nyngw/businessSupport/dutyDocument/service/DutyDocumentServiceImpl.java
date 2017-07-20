@@ -32,7 +32,7 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 	
 	@Autowired
 	private CommonDaoImpl codeManagerDao;
-
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	private static final int BOARD_COUNT_PER_PAGE = 5;
 	@Override
 	public Duty_Document_ListView selectDocumentList(int pageNumber,
@@ -146,7 +146,17 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		}
 		Duty_Document_ListView viewData = new Duty_Document_ListView(documentList, documentTotalCount,
 				currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
-			
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getDocumentList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}	
 		List<Duty_DocumentVO> list = viewData.getDocumentList();
 		for(int i = 0; i < list.size(); i++){
 			Common_CodeVO comm = codeManagerDao.common_selectCodeNameByDocument(list.get(i).getDd_code_number());  
@@ -170,7 +180,6 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		dutyDocument.setMem_name(member.getMem_name());
 		Common_CodeVO common = codeManagerDao.common_selectCodeNameByDocument(dutyDocument.getDd_code_number());
 		dutyDocument.setDd_name(common.getCode_name());
-		String user = principal.getName();
 		if(dutyDocument.getDd_public().equals("y")){
 			dutyDocument.setDd_select_name("부서일지");
 		}else{
@@ -188,6 +197,7 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		select.put("val", val);
 		select.put("pageNumber", pageNumber);
 		select.put("searchDate", searchDate);
+		model.addAttribute("user", member.getMem_number());
 		model.addAttribute("dutyDocument",dutyDocument);
 		model.addAttribute("select",select);
 		model.addAttribute("comment",comment);
