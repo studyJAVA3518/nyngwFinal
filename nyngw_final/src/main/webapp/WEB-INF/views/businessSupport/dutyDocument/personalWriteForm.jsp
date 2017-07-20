@@ -8,7 +8,7 @@
 </head>
 <body>
 	글쓰기페이지
-	<form action="/businessSupport/dutyDocument/personalWrite">
+	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalWrite"  method="post" accept-charset="utf-8">
 		<table class="table table-bordered">
 			<tr>
 				<th>보고유형</th>
@@ -33,12 +33,11 @@
 				<td><input type="date" name="start_date"></td>
 			</tr>
 			<tr>
-				<td colspan="6">
-					<textarea rows="10" cols="99"  style="resize: none;" name="dd_content"></textarea>
-				</td>
+				<th colspan="6">내용</th>
 			</tr>
 		</table>
-		<input type="submit" value="등록">
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+		<button type="button" onclick="saveContent();">등록</button>
 		<button><a href="/businessSupport/dutyDocument/personal">취소</a></button>
 	</form>
 </body>

@@ -76,14 +76,10 @@
 						            <li class="topMenuTitle">업무일지</li>
 									<li><a href="/businessSupport/dutyDocument/department">부서 업무 조회</a></li>
 									<li><a href="/businessSupport/dutyDocument/personal">개인 업무 조회</a></li>
-									<li><a href="/businessSupport/dutyDocument/additional">추가 업무 조회</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">업무보고상신</li>
-									<li><a href="/businessSupport/dutyReport/dutyReport">업무 보고 상신</a></li>
-						            <li class="divider"></li>
-						            <li class="topMenuTitle">업무 상태</li>
-									<li><a href="/businessSupport/dutyStatusReport/completeDuty">완료업무함</a></li>
-									<li><a href="/businessSupport/dutyStatusReport/incompleteDuty">미완료업무함</a></li>
+									<li><a href="/businessSupport/dutyReport/dutyReport">내 업무 보고</a></li>
+									<li><a href="/businessSupport/dutyReport/getDutyReportselect">받은 업무 보고</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">회의 시설 정보</li>
 									<li><a href="/businessSupport/meetingFacilitiesManagement/meetingRoomBooking">회의실 관리</a></li>

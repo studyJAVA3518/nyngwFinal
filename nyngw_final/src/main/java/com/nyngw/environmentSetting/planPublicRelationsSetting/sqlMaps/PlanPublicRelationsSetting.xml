@@ -252,4 +252,40 @@
 		WHERE pk_number = #{pk_number}
 	</update>
 	
+	<!-- 회사 급여정책 삭제 -->
+	<update id="esDeletePayPolicy" parameterType="java.lang.String">
+		DELETE FROM pay_policy 
+		WHERE pp_number = #{pp_number}
+	</update>
+	
+	<!-- 정책 금액 수정 -->
+	<update id="esUpdatePayPolicyPrice" parameterType="com.nyngw.dto.Pay_PolicyVO">
+		update pay_policy set
+		  pp_pay = #{pp_pay}
+		where pp_number = #{pp_number}
+	</update>
+	
+	<!-- 업데이트한 시간당급여의 직책을 조회 -->
+	<select id="esSelectPayPolicyOne" resultType="com.nyngw.dto.Pay_PolicyVO" parameterType="java.lang.String">
+		select * from pay_policy
+		where pp_number = #{pp_number}
+	</select>
+
+	<!-- 업데이트한 시간당급여의 직책을 조회하여 기본급 중 같은 직책의 데이터 하나를 조회 -->
+	<select id="esSelectPayPolicyViewOne" resultType="com.nyngw.dto.Pay_PolicyViewVO" parameterType="java.lang.String">
+		select * from pay_policy_view
+		where pk_number = 'pk2'
+		and position_number = #{up_pp_position_number}
+	</select>
+	
+	<!-- 회사 급여정책 삭제 -->
+	<update id="esUpdatePayPolicyHour" parameterType="java.lang.String">
+		DELETE FROM pay_policy 
+		WHERE pp_number = #{pp_number}
+	</update>
+	
+	
+	
+	
+	
 </mapper>

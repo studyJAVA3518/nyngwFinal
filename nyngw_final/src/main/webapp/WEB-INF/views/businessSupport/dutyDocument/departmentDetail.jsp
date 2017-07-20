@@ -116,12 +116,22 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				<textarea rows="20" cols="110" style="resize: none;" readonly="readonly">
-				</textarea>
+				${dutyDocument.dd_content}
 			</td>
 		</tr>
 	</table>
-	<form action="/sharingInformation/board/answerUpdate">
+	<!-- 		select.put("reportType", reportType); -->
+<!-- 		select.put("titleType", titleType); -->
+<!-- 		select.put("val", val); -->
+<!-- 		select.put("pageNumber", pageNumber); -->
+<!-- 		select.put("searchDate", searchDate); -->
+	<input type="hidden" value="${select.reportType}">
+	<input type="hidden" value="${select.titleType}">
+	<input type="hidden" value="${select.val}">
+	<input type="hidden" value="${select.pageNumber}">
+	<input type="hidden" value="${select.searchDate}">
+	<button><a href="/businessSupport/dutyDocument/department?page=${select.pageNumber}&reportType=${select.reportType}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">취소</a></button>
+	<form>
 	     <table class="table table-bordered">
 	        <tr>
 	           <th>작성자</th>
@@ -135,15 +145,17 @@
 					<td colspan="2"><textarea  id="${i.ddc_number}" rows="2" cols="70" style="resize: none;" readonly>${i.ddc_content }</textarea></td>
 					<td><fmt:formatDate value="${i.ddc_date }" pattern="yyyy/MM/dd"/></td>
 					<td>
-						<button id="btn" type="button" onclick="answerUpdateClick('${dutyDocument.dd_number}','${i.ddc_number}','${i.ddc_mem_number}','${i.ddc_content}');">수정</button>
-						<button type="button" onclick="departmentCommentDelete('${i.ddc_number}','${dutyDocument.dd_number}')">삭제</button>
+						<c:if test="${user eq i.ddc_mem_number}">
+							<button id="btn" type="button" onclick="answerUpdateClick('${dutyDocument.dd_number}','${i.ddc_number}','${i.ddc_mem_number}','${i.ddc_content}');">수정</button>
+							<button type="button" onclick="departmentCommentDelete('${i.ddc_number}','${dutyDocument.dd_number}')">삭제</button>
+						</c:if>
 				   </td>
 				</tr>
 			</c:forEach> 
 	  	 </table>
 	</form>
       
-	<form action="/sharingInformation/board/answerWrite">
+	<form>
 		<table class="table table-bordered">
 			<tr>
 				<th colspan="4">

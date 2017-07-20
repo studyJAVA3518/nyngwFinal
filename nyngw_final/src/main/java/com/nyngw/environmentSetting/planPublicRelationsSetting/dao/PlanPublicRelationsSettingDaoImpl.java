@@ -404,5 +404,47 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		return result;
 	}
 	
+	/**
+	 * 급여 정책 삭제하는 메서드
+	 * @param String pp_number
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int deletePayPolicy(String pp_number) throws SQLException{
+		int result = sqlSession.update("esDeletePayPolicy", pp_number);
+		return result;
+	}
+	
+	/**
+	 * 급여정책 금액 수정
+	 */
+	@Override
+	public int updatePayPolicyPrice(Pay_PolicyVO ppOriginvo) throws SQLException{
+		int result = sqlSession.update("esUpdatePayPolicyPrice",ppOriginvo);
+		return result;
+		
+	}
+	
+	/**
+	 * 업데이트한 시간당급여의 직책을 조회
+	 * @param pp_number
+	 * @return
+	 */
+	public Pay_PolicyVO selectPayPolicyOne(String pp_number) {
+		Pay_PolicyVO vo = (Pay_PolicyVO) sqlSession.selectOne("esSelectPayPolicyOne",pp_number);
+		return vo;
+	}
+	
+	/**
+	 * 업데이트한 시간당급여의 직책을 조회하여 기본급 중 같은 직책의 데이터 하나를 조회
+	 */
+	@Override
+	public Pay_PolicyViewVO selectPayPolicyViewOne(String up_pp_position_number) throws SQLException {
+		Pay_PolicyViewVO vo = (Pay_PolicyViewVO) sqlSession.selectOne("esSelectPayPolicyViewOne",up_pp_position_number);
+		return vo;
+		
+	}
+
 	
 }
