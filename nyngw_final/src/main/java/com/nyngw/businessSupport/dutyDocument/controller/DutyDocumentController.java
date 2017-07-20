@@ -51,6 +51,8 @@ public class DutyDocumentController {
 	@RequestMapping("/department")
 	public String departmentselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
 			String searchDate, String reportType, String titleType, String val, Model model, Principal principal){
+		System.out.println("여기는 컨트롤러다 reportType"+reportType);
+		System.out.println("여기는 컨트롤러다 titleType"+titleType);
 		if(searchDate == null && reportType == null && titleType == null && val == null){
 			searchDate = "today";
 			reportType = "";

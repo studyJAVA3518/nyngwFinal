@@ -10,7 +10,21 @@ public class Duty_ReportVO {
 	private String dr_title;
 	private String dr_content;
 	private Date dr_date;
+	private Date dr_writedate;
+	private String dr_code_name; // 문서종류
 	
+	public String getDr_code_name() {
+		return dr_code_name;
+	}
+	public void setDr_code_name(String dr_code_name) {
+		this.dr_code_name = dr_code_name;
+	}
+	public Date getDr_writedate() {
+		return dr_writedate;
+	}
+	public void setDr_writedate(Date dr_writedate) {
+		this.dr_writedate = dr_writedate;
+	}
 	public String getDr_number() {
 		return dr_number;
 	}
@@ -53,4 +67,13 @@ public class Duty_ReportVO {
 	public void setDr_date(Date dr_date) {
 		this.dr_date = dr_date;
 	}
+	@Override
+	public String toString() {
+		return "Duty_ReportVO [dr_number=" + dr_number + ", dr_code_number="
+				+ dr_code_number + ", dr_mem_number=" + dr_mem_number
+				+ ", dr_yesno=" + dr_yesno + ", dr_title=" + dr_title
+				+ ", dr_content=" + dr_content + ", dr_date=" + dr_date
+				+ ", dr_writedate=" + dr_writedate + "]";
+	}
+	
 }
