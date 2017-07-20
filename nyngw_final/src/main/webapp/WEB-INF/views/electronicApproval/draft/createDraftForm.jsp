@@ -22,17 +22,67 @@
 				width:950,
 				height: 700,
 				modal: true,
-				buttons: {
-			       "취소": function() {
-						$(this).dialog("close");
+				buttons: [{
+					text: "등록",
+					icon: "ui-icon-heart",
+					click: function() {
+						submitLineCall();
+						$( this ).dialog( "close" );
 					}
-				},
+				},{
+					text: "취소",
+					icon: "ui-icon-heart",
+					click: function() {
+						$( this ).dialog( "close" );
+					}
+				}],
 				close: function() {
 					
 				}
 			});
-		})
-	})
+		});
+		
+		var submitLineCall = null;
+		//결재라인 등록하기//
+		function submitLine(){
+			$('#approval option').each(function(i){
+				$('#approvalMember'+(i+1)).html($(this).val()+'<input type="hidden" name="approvalMember'+(i+1)+'" value="'+$(this).attr('id')+'">');
+			});
+			$('#agreement option').each(function(i){
+				$('#agreementMember'+(i+1)).html($(this).val()+'<input type="hidden" name="agreementMember'+(i+1)+'" value="'+$(this).attr('id')+'">');
+			});
+			
+			//시행자
+			var addImplementMemberNumbers = "";	//시행자의 아이디를 담아주기 위한 변수
+			var code = "";
+			$('#implement option').each(function(i){
+				if(i>0){
+					code +=",";
+					addImplementMemberNumbers+=',';
+				}
+				code +=$(this).val();
+				addImplementMemberNumbers+=$(this).attr('id');
+			});
+			code += '<input type="hidden" name="implementMembers" value="'+addImplementMemberNumbers+'">';
+			$('#implementMembers').html(code);
+			
+			//참조자
+			var addReferenceMemberNumbers = "";
+			code = "";
+			$('#reference option').each(function(i){
+				if(i>0){
+					code +=",";
+					addReferenceMemberNumbers+=',';
+				}
+				code +=$(this).val();
+				addReferenceMemberNumbers += $(this).attr('id');
+			});
+			code += '<input type="hidden" name="referenceMembers" value="'+addReferenceMemberNumbers+'">';
+			$('#referenceMembers').html(code);
+		}
+		submitLineCall=submitLine;
+		
+	});
 </script>
 
 <script type="text/javascript">
@@ -60,68 +110,70 @@
 
 기안하기>결재상신페이지
 <button type="button" id="linePopup_go">결재라인</button>
-<button type="button" onclick="submitApproval_go()">상신하기</button>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
+<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
+	<input type="hidden" name="ea_doc_number" value="${doc_number }">
 	<table class="table table-bordered">
 		<tr>
 			<th>품의번호</th>
-			<td colspan="5">"새로 생성되는 번호"(ea_number)</td>
-			<input type="hidden" name="" value="ea_number">
+			<td colspan="5">${ea_number }</td>
+			<input type="hidden" name="ea_number" value="${param_ea_number }">
+			<input type="hidden" name="param_ea_number" value="${ea_number }">
 		</tr>
-		
-		<input type="hidden" name="ea_doc_number" value="ea_number">
 		<tr>
 			<th>작성일자</th>
-			<td colspan="5">sysdate</td>
-			<input type="hidden" name="" value="ea_enddate">
+			<td colspan="5">${ea_writedate }</td>
+			<input type="hidden" name="param_ea_writedate" value="${ea_writedate }">
 		</tr>
 		<tr>
 			<th>기안부서</th>
-			<td colspan="5">"작성자의 부서"</td>
-			<input type="hidden" name="" value="ea_mem_number->mem_dept_number->mem_dept_name">
+			<td colspan="5">${member.dept_name }</td>
 		</tr>
 		<tr>
 			<th>기안자</th>
-			<td colspan="5">"작성자의 이름"</td>
-			<input type="hidden" name="ea_mem_number">
+			<td colspan="5">${member.mem_name }</td>
+			<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
 		</tr>
 		<tr id="approvalMember">
 			<th rowspan="2">결재</th>
-			<td><input type="hidden" id="approvalMember1" name="approvalMember1"></td>
-			<td><input type="hidden" id="approvalMember2" name="approvalMember2"></td>
-			<td><input type="hidden" id="approvalMember3" name="approvalMember3"></td>
-			<td><input type="hidden" id="approvalMember4" name="approvalMember4"></td>
-			<td><input type="hidden" id="approvalMember5" name="approvalMember5"></td>
+			<th id="approvalMember1"></th>
+			<th id="approvalMember2"></th>
+			<th id="approvalMember3"></th>
+			<th id="approvalMember4"></th>
+			<th id="approvalMember5"></th>
 		</tr>                                
 		<tr id="approvalStatus">                                 
-			<td><input type="hidden" id="approvalStatus1" name="approvalStatus1"></td>
-			<td><input type="hidden" id="approvalStatus2" name="approvalStatus2"></td>
-			<td><input type="hidden" id="approvalStatus3" name="approvalStatus3"></td>
-			<td><input type="hidden" id="approvalStatus4" name="approvalStatus4"></td>
-			<td><input type="hidden" id="approvalStatus5" name="approvalStatus5"></td>
+			<td id="approvalStatus1"></td>
+			<td id="approvalStatus2"></td>
+			<td id="approvalStatus3"></td>
+			<td id="approvalStatus4"></td>
+			<td id="approvalStatus5"></td>
 		</tr>                                
 		<tr id="agreementMember">                                 
 			<th rowspan="2">합의</th>        
-			<td><input type="hidden" id="agreementMember1" name="agreementMember1"></td>
-			<td><input type="hidden" id="agreementMember2" name="agreementMember2"></td>
-			<td><input type="hidden" id="agreementMember3" name="agreementMember3"></td>
-			<td><input type="hidden" id="agreementMember4" name="agreementMember4"></td>
-			<td><input type="hidden" id="agreementMember5" name="agreementMember5"></td>
+			<th id="agreementMember1"></th>
+			<th id="agreementMember2"></th>
+			<th id="agreementMember3"></th>
+			<th id="agreementMember4"></th>
+			<th id="agreementMember5"></th>
 		</tr>                                
 		<tr id="agreementStatus">                               
-			<td><input type="hidden" id="agreementStatus1" name="agreementStatus1"></td>
-			<td><input type="hidden" id="agreementStatus2" name="agreementStatus2"></td>
-			<td><input type="hidden" id="agreementStatus3" name="agreementStatus3"></td>
-			<td><input type="hidden" id="agreementStatus4" name="agreementStatus4"></td>
-			<td><input type="hidden" id="agreementStatus5" name="agreementStatus5"></td>
+			<td id="agreementStatus1"><input type="hidden" name="agreementStatus1"></td>
+			<td id="agreementStatus2"><input type="hidden" name="agreementStatus2"></td>
+			<td id="agreementStatus3"><input type="hidden" name="agreementStatus3"></td>
+			<td id="agreementStatus4"><input type="hidden" name="agreementStatus4"></td>
+			<td id="agreementStatus5"><input type="hidden" name="agreementStatus5"></td>
+		</tr>
+		<tr>
+			<th>시행자</th>
+			<td id="implementMembers" colspan="5"></td>
 		</tr>
 		<tr>
 			<th>수신 및 참조</th>
-			<td colspan="5"><input type="hidden" name="" value=""></td>
+			<td id="referenceMembers" colspan="5"></td>
 		</tr>
 		<tr>
 			<th>시행일자</th>
-			<td colspan="5"><input type="date" name="ea_startdate">~<input type="date" name="ea_enddate"></td>
+			<td colspan="5"><input type="date" name="param_ea_startdate">~<input type="date" name="param_ea_enddate"></td>
 		</tr>
 		<tr>
 			<th>제목</th>

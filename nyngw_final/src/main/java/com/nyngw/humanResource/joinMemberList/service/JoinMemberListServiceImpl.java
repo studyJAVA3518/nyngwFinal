@@ -53,24 +53,25 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 		System.out.println("<=========================");
 		try{
 			System.out.println("<==================Modi");
-			joinMemberListDao.modifyMemberBank(member);
+//			joinMemberListDao.modifyMemberBank(member);
+			joinMemberListDao.modifyMemberPosDeps(member);
 			result=1;
 		}catch(Exception e){
 			System.out.println("income <======== exception modify");
 		}
-		try{
-			System.out.println("<==================inse");
-			joinMemberListDao.modifyMemberBankinsert(member);
-			result=1;
-		}catch(Exception e1){
-			System.out.println("income <======== exception insert");
-		}
+//		try{
+//			System.out.println("<==================inse");
+//			joinMemberListDao.modifyMemberBankinsert(member);
+//			result=1;
+//		}catch(Exception e1){
+//			System.out.println("income <======== exception insert");
+//		}
 
 		return result;
 	}
 
 
-		@Override
+	@Override
 	public void modifyDeleteMember(JoinMemberVO member) {
 		joinMemberListDao.modifyDeleteMembter(member);
 	}

@@ -1,5 +1,6 @@
 package com.nyngw.electronicApproval.draft.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.ApprovalParamVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
-import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.electronicApproval.draft.service.DraftServiceImpl;
 
 @Controller
@@ -26,7 +29,6 @@ public class DraftController {
 	
 	@Autowired
 	private CommonServiceImpl commonServiceImpl;
-	
 	
 	@RequestMapping("/draft")
 	public String draft(Model model){
@@ -67,7 +69,9 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/createDraftForm")
-	public String createDraftForm(String doc_number,Model model){
+	public String createDraftForm(String doc_number,Model model,Principal principal){
+		String mem_id = principal.getName();
+		draftService.searchMemberByMemberId(mem_id,model,doc_number);
 		return "electronicApproval/draft/createDraftForm";
 	}
 	
@@ -84,9 +88,11 @@ public class DraftController {
 
 	//결재 상신
 	@RequestMapping("/submitApproval")
-	public String submitApproval(Model model){
-//		List<MemberVO> memberList = approvalLineManagementService.searchMember(searchText);
-//		model.addAttribute("memberList",memberList);
+	public String submitApproval(Model model,Electronic_ApprovalVO eaVO, 
+			@RequestParam(value="content") String ea_content,
+			String param_ea_number,
+			ApprovalParamVO apVO){
+		draftService.submitApproval(model,eaVO,ea_content,apVO,param_ea_number);
 		return "electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	

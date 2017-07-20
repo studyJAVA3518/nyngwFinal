@@ -15,29 +15,13 @@ public class Electronic_ApprovalVO {
 	private Date ea_enddate;		//마감일
 	private String ea_doc_number;	//문서번호
 	private String ea_mem_number;	//시행자
-	private String ea_al_number;	//결재라인번호
-	private String ea_status;	//결재라인번호
-	private Date ea_approvaldate;	//결재일
-	private Date ea_refusaldate;	//반려일
+	private Date ea_writedate;		//기안일
 	
-	
-	public Date getEa_refusaldate() {
-		return ea_refusaldate;
+	public Date getEa_writedate() {
+		return ea_writedate;
 	}
-	public void setEa_refusaldate(Date ea_refusaldate) {
-		this.ea_refusaldate = ea_refusaldate;
-	}
-	public Date getEa_approvaldate() {
-		return ea_approvaldate;
-	}
-	public void setEa_approvaldate(Date ea_approvaldate) {
-		this.ea_approvaldate = ea_approvaldate;
-	}
-	public String getEa_status() {
-		return ea_status;
-	}
-	public void setEa_status(String ea_status) {
-		this.ea_status = ea_status;
+	public void setEa_writedate(Date ea_writedate) {
+		this.ea_writedate = ea_writedate;
 	}
 	public String getEa_number() {
 		return ea_number;
@@ -80,11 +64,5 @@ public class Electronic_ApprovalVO {
 	}
 	public void setEa_mem_number(String ea_mem_number) {
 		this.ea_mem_number = ea_mem_number;
-	}
-	public String getEa_al_number() {
-		return ea_al_number;
-	}
-	public void setEa_al_number(String ea_al_number) {
-		this.ea_al_number = ea_al_number;
 	}
 }

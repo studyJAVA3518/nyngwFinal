@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
 import com.nyngw.dto.DocumentVO;
+import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.MemberVO;
 
 @Repository
@@ -90,6 +91,22 @@ public class DraftDaoImpl implements DraftDao {
 
 	public List<MemberVO> dreat_selectMemberListByDepartmentMemberName(Map paramMap) {
 		return sqlSession.selectList("dreat_selectMemberListByDepartmentMemberName", paramMap);
+	}
+
+	public MemberVO draft_selectMemberByMemberId(String mem_id) {
+		return (MemberVO) sqlSession.selectOne("draft_selectMemberByMemberId", mem_id);
+	}
+
+	public int draft_selectSeqNumber() {
+		return (int) sqlSession.selectOne("draft_selectSeqNumber");
+	}
+	
+	public void draft_insertApproval(Electronic_ApprovalVO eaVO) {
+		sqlSession.selectOne("draft_insertApproval",eaVO);
+	}
+
+	public void draft_insertApprovalStep(Map<String, String> paramMap) {
+		sqlSession.selectOne("draft_insertApprovalStep",paramMap);
 	}
 
 }

@@ -11,6 +11,8 @@ import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
+import com.nyngw.dto.UserInterfaceVO;
+import com.nyngw.dto.UserUiVO;
 
 @Repository
 public class AppointedUIDaoImpl implements AppointedUIDao {
@@ -45,6 +47,12 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	}
 
 
+	
+	
+	
+	
+	
+	///////////UI설정
 	@Override
 	public List<BigMenuVO> selectBigMenu() {
 		List<BigMenuVO> bigMenu = sqlSession.selectList("selectBigMenu");
@@ -56,6 +64,23 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	public List<MiddleMenuVO> selectMiddleMenu(String big_number) {
 		List<MiddleMenuVO> middleMenu = sqlSession.selectList("selectMiddleMenu",big_number);
 		return middleMenu;
+	}
+
+
+	@Override
+	public void userUiInsert_UI(UserInterfaceVO ui) {
+		sqlSession.insert("userUiInsert_UI", ui);
+	}
+
+	@Override
+	public int userUiSelect_UI(String mem_number) {
+		int result = (int) sqlSession.selectOne("userUiSelect_UI", mem_number);
+		return result;
+	}
+
+	@Override
+	public void userUiUpdate_UI(UserInterfaceVO ui) {
+		sqlSession.insert("userUiUpdate_UI", ui);
 	}
 	
 	
