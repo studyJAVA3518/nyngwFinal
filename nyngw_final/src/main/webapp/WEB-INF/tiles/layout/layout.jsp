@@ -71,6 +71,10 @@
     <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
     <script>
 	    $(function(){
+	    	
+	    	 $('#codeDialog').css('display', 'none');
+	    	 $('#memoDialog').css('display', 'none');
+	    	
 	    	//사이드바
 	    	$("#menu-toggle").click(function(e) {
 		        e.preventDefault();
@@ -119,16 +123,29 @@
 			success : function(res) {
 				if(res.su=="ok"){
 					
-					var code="";
+					var code="<tr><th>번호</th><th>제목</th><th>시간</th></tr>";
 					var list= res.sc;
 	                 
 	                $.each(list, function( index, list ) {
-	                  code+=index + " : " + list.sc_title+"<br>";
+	                  code+="<tr onclick=location.href='/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+list.sc_number+"'>"
+	                  +"<td>"+(index+1)+"</td><td>"+list.sc_title+"</td>"
+	                  +"<td>"+list.sc_time+"</td></tr>";
 	                });
-					
-					$('#todayschdule').html(code);
-					
-					
+	                
+	                $('#schduleList').html(code);
+					$('#codeDialog').dialog({
+						width: 500,
+						height: 300,
+						modal: true,
+						buttons: {
+					       "취소": function() {
+								$(this).dialog("close");
+							}
+						},
+						close: function() {
+												
+						}
+			   	  });
 				}else{
 					if(confirm(day+" -> 일정을 등록?")){
 						location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
@@ -217,15 +234,18 @@
   		<div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <div class="clock" id="clock">
+                    <div class="clock" id="clock"></div>
                 </li>
 				<li>
 					<div id='calendarmini'></div>
 				</li>
-				<li><label style="color: white;">${memberName}님의 오늘
-						일정입니다.</label></li>
+				<li><label style="color: white;">${memberName}님의 일정</label></li>
 				<li>
-					<div id='todayschdule'/>
+					<div id='todayschdule'></div>
+				</li>
+				<li><a href=""></a></li>
+				<li>
+					<div id='memo'></div>
 				</li>
 			</ul>
         </div>
@@ -261,5 +281,20 @@
 			<tiles:insertAttribute name="footer" />
 		</div>  		
   	</div>
-  </body>
+
+	<div id="codeDialog">
+		<div class="title" title="일정">
+			<strong>일정</strong>
+		</div>
+		<table id="schduleList" class="table table-bordered"></table>
+	</div>
+	
+	<div id="memoDialog">
+		<div class="title" title="메모">
+			<strong>메모</strong>
+		</div>
+		<table id="memoList" class="table table-bordered"></table>
+	</div>
+
+</body>
 </html>
