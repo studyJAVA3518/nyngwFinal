@@ -1,14 +1,18 @@
 package com.nyngw.mypage.myDalManagement.controller;
 
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.DalListViewVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.myDalManagement.MyAttendedListView;
 import com.nyngw.mypage.myDalManagement.MyVacationListView;
 import com.nyngw.mypage.myDalManagement.service.MyDalManagementServiceImpl;
@@ -20,6 +24,9 @@ public class MyDalManagementController {
 	@Autowired
 	private MyDalManagementServiceImpl myDalManagementService;
 	
+	@Autowired
+	private CommonServiceImpl commonService;
+	
 	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	
 	/**
@@ -30,12 +37,16 @@ public class MyDalManagementController {
 	
 	@RequestMapping("/attended")
 	public String boardList1(@RequestParam(value="page",defaultValue="1")int pageNumber,
-			Model model,String val, String index){
+			Model model,String val, String index, Principal principal){
+		String user = principal.getName();
+		MemberVO member = commonService.findMemberByMemId(user);
+		
 		Board_SelectVO select = new Board_SelectVO();
 		if(val!=null && !val.equals("")){
 			select.setIndex(index);
 			select.setVal(val);
 		}
+		select.setMem_number(member.getMem_number());
 		MyAttendedListView viewData = (MyAttendedListView) myDalManagementService.selectAttendList(pageNumber, select);
 	
 		model.addAttribute("viewData",viewData);

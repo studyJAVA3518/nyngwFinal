@@ -68,7 +68,7 @@ $(function(){
 				<c:when test="${viewData.boardCountPerPage > 0}">
 				<c:forEach items="${viewData.attendedList}" var="board" >
 				<tr>
-					<td>${fn:substring(board.dalview_number,3,10077777)}</td>
+					<td>${board.dalview_number}</td>
 					<td>${board.dalview_date}</td>
 					<td>${board.dalview_attend_time}</td>
 					<td>${board.dalview_off_time}</td>

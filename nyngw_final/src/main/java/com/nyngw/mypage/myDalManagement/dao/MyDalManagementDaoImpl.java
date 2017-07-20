@@ -42,8 +42,8 @@ public class MyDalManagementDaoImpl implements MyDalManagementDao {
 	}
 	
 	@Override
-	public int selectBoardCount() {
-		int result =(Integer) sqlSession.selectOne("selectAttendCount");
+	public int selectBoardCount(String mem_number) {
+		int result =(Integer) sqlSession.selectOne("selectAttendCount", mem_number);
 		return result;
 	}
 

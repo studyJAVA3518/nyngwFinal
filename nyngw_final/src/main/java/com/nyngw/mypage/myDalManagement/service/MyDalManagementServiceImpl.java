@@ -31,7 +31,7 @@ public class MyDalManagementServiceImpl implements MyDalManagementService {
 	public MyAttendedListView selectAttendList(int pageNumber,Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
 		
-		int boardTotalCount = myDalManagementDaoImpl.selectBoardCount();
+		int boardTotalCount = myDalManagementDaoImpl.selectBoardCount(select.getMem_number());
 		
 		List<DalViewVO> boardList= null;
 		int firstRow = 0;

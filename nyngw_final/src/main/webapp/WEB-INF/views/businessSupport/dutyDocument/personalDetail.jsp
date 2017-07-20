@@ -45,7 +45,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<textarea rows="20" cols="110" style="resize: none;" readonly="readonly">${dutyDocument.dd_content}</textarea>
+					${dutyDocument.dd_content}
 				</td>
 			</tr>
 		</table>

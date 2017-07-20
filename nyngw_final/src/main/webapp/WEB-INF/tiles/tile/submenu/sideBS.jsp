@@ -30,7 +30,6 @@
 									<ul>
 										<li><a href="/businessSupport/dutyDocument/department">&nbsp;&nbsp;&nbsp;└ 부서 업무 조회</a></li>
 										<li><a href="/businessSupport/dutyDocument/personal">&nbsp;&nbsp;&nbsp;└ 개인 업무 조회</a></li>
-										<li><a href="/businessSupport/dutyDocument/additional">&nbsp;&nbsp;&nbsp;└ 추가 업무 조회</a></li>
 									</ul>
 								</li>
 							

@@ -13,7 +13,7 @@ public interface MyDalManagementDao {
 	public List<DalViewVO> selectAttendList();
 	public List<DalViewVO> selectBoardList(int firstRow, int endRow,
 			Board_SelectVO select);
-	public int selectBoardCount();
+	public int selectBoardCount(String mem_number);
 	public int dalSelectCount(Board_SelectVO select);
 
 	//휴가

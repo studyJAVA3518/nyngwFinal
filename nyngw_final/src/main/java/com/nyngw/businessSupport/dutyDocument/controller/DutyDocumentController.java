@@ -33,7 +33,7 @@ public class DutyDocumentController {
 	
 	@Autowired
 	private CommonServiceImpl CommonService;
-	
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	/**
 	 * 추가업무조회
 	 * @return
@@ -166,6 +166,17 @@ public class DutyDocumentController {
 			viewData.getDocumentList().get(i).setDd_code_name(common.getCode_name());
 			System.out.println(";lll"+common.getCode_name());
 		}
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getDocumentList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("select",select);
@@ -215,7 +226,7 @@ public class DutyDocumentController {
 	}
 
 	@RequestMapping("/personalWrite")
-	public String personalWrite(Duty_DocumentVO dutyDocument, Principal principal,String start_date){
+	public String personalWrite(Duty_DocumentVO dutyDocument, Principal principal,String start_date, @RequestParam( value="content") String dd_content){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
 		System.out.println(start_date+"오늘이냐?");
 		try {
@@ -223,10 +234,12 @@ public class DutyDocumentController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		dutyDocument.setDd_content(dd_content);
 		dutyDocument.setDd_mem_number(member.getMem_number());
 		dutyDocumentService.dutyDocumentInsert_DD(dutyDocument);
 		return "redirect:/businessSupport/dutyDocument/personal";
 	}
+	
 	@RequestMapping("/personalUpdateForm")
 	public String personalUpdateForm(String dd_number, Model model){
 		Duty_DocumentVO dutyDocument = dutyDocumentService.documentSelect_DD(dd_number);		
@@ -241,8 +254,8 @@ public class DutyDocumentController {
 	}
 	
 	@RequestMapping("/personalUpdate")
-	public String personalUpdate(String reportType, String dd_title, String dd_public, String dd_content, Principal principal, String dd_number,
-								 String dd_start_date){
+	public String personalUpdate(String reportType, String dd_title, String dd_public, Principal principal, String dd_number,
+								 String dd_start_date,@RequestParam( value="content") String dd_content){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
 		Duty_DocumentVO dutyDocument = new Duty_DocumentVO();
 		Date start_date = null;

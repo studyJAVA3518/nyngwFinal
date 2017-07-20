@@ -72,11 +72,12 @@
 					and dd_title like '%'||#{val}||'%'
 				</if>
 				<if test="titleType == ''">
-					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
-					and dd_title like '%'||#{val}||'%'
+					and (dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+					or dd_title like '%'||#{val}||'%')
 				</if>
 				and dd_code_number like '%'||#{reportType}||'%'
 				and to_char(dd_date,'yyyy/MM/dd') between #{date} and sysdate
+				order by 1 desc
 	</select>
 	
 <!-- 	갯수세는것 -->
@@ -92,8 +93,8 @@
 					and dd_title like '%'||#{val}||'%'
 				</if>
 				<if test="titleType == ''">
-					and dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
-					and dd_title like '%'||#{val}||'%'
+					and (dd_mem_number like '%'||(select mem_number from member where mem_name = #{val})||'%'
+					or dd_title like '%'||#{val}||'%')
 				</if>
 				and dd_code_number like '%'||#{reportType}||'%'
 				and to_char(dd_date,'yyyy/MM/dd') between #{date} and sysdate

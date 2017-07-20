@@ -5,13 +5,21 @@
 <mapper namespace="com.nyngw.mypage.myDalManagement.dao.MyDalManagementDao">
 
 	
-	<select id="selectAttendCount" resultType="java.lang.Integer">
-		select count(*) from Diligence_And_Laziness
+	<select id="selectAttendCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from Diligence_And_Laziness where dal_mem_number = #{mem_number}
 	</select>
 
 	<select id="selectAttendList" parameterType="java.lang.String" resultType="com.nyngw.dto.DalViewVO">
-		select * from DalView 
-		where 1=1
+		select 
+			to_number(substr(dalview_number,4,9999999)) dalview_number,
+			dalview_date,
+			dalview_attend_time,
+			dalview_off_time,
+			dalview_content,
+			dalview_mem_number,
+			dalview_sf_number
+		 from DalView 
+		where dalview_mem_number = #{mem_number}
 		<choose>
 <!--          index는 작성자로 검색할 것인지, 제목으로 검색할 것인지 담겨있는 String 이며
             담겨있는값이 뭐냐에 따라 검색이 된다.
@@ -24,12 +32,12 @@
           </when>
            
         </choose>
-		order by 2 desc
+		order by 1 desc
 		
 	</select>
 	
 	<select id="dalSelectCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-      select count(*) from DalView where 1=1
+      select count(*) from DalView where dalview_mem_number = #{mem_number}
       <choose>
           <when test='index == "dalview_date"'>
              AND dalview_date like '%'||#{val}||'%'
