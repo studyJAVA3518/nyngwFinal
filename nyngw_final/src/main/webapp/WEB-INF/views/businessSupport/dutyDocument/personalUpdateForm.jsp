@@ -17,7 +17,7 @@
 </script>
 <body>
 	수정페이지
-	<form action="/businessSupport/dutyDocument/personalUpdate">
+	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalUpdate" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<th >제목<input type="hidden" name="dd_number" value="${dutyDocument.dd_number}"></th>
@@ -53,13 +53,25 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
-					<textarea rows="20" cols="110" style="resize: none;" name="dd_content">${dutyDocument.dd_content}</textarea>
-				</td>
+				<th colspan="4">내용</th>
 			</tr>
 		</table>
-		<input type="submit" value="수정">
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+		<div><button onclick='saveContent()'>수정</button></div>
 		<button><a href="/businessSupport/dutyDocument/personal">취소</a></button>
 	</form>
-</body>
-</html>
+<textarea id="text_content" style="display:none;">
+${dutyDocument.dd_content}
+</textarea>
+<script type="text/javascript">
+	$(function(){   
+		var loadContent = function() {
+			/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+			Editor.modify({
+				"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+			});
+		};
+		
+		loadContent();
+	});
+</script>

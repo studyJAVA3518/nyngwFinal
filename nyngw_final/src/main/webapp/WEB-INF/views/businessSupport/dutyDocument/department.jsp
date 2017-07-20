@@ -87,11 +87,19 @@
 			</c:choose>
 		</table>
 		<div id="pageNum">
-			<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1"
-				var="i">
-				<a
-					href="/businessSupport/dutyDocument/department?page=${i}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}">[${i}]</a>
+<%-- 			<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i">  --%>
+<%-- 				<a href="/businessSupport/dutyDocument/department?page=${i}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}">[${i}]</a>  --%>
+<%--  			</c:forEach>  --%>
+ 			
+			<c:if test="${beginPage > perPage}">
+				<a href="<c:url value="/businessSupport/dutyDocument/department?page=${beginPage-1}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}"/>">이전</a>
+			</c:if>
+			<c:forEach var="i" begin="${beginPage}" end="${endPage}">
+				<a href="/businessSupport/dutyDocument/department?page=${i}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}">[${i}]</a>
 			</c:forEach>
+			<c:if test="${endPage < viewData.getPageTotalCount()}">
+				<a href="<c:url value="/businessSupport/dutyDocument/department?page=${endPage + 1}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}"/>">다음</a>
+			</c:if>			
 		</div>
 	</div>
 </body>
