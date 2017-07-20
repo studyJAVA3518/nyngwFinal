@@ -163,7 +163,8 @@
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">회사 정보 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">회사 부서 설정</a></li>
 									<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">회사 직급 설정</a></li>
-									<li><a href="/enovironmentSetting/planPublicRelationsSetting/salaryForm">급여정책 설정</a></li>
+									<li><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm">급여종류 및 퇴직금 설정</a></li>
+									<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm">급여정책 설정</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">인사부부 설정</li>
 									<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>
