@@ -1,5 +1,6 @@
 package com.nyngw.sharingInformation.scheduleManagement.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +39,8 @@ public class ScheduleManagementDaoImpl implements ScheduleManagementDao {
 		return sqlSession.selectList("SI_selectMemberSchedule", sc_mem_number);
 	}
 
-	public List<ScheduleVO> todayMemberScheduling_SI(String mem_id) {
-		return sqlSession.selectList("todayMemberScheduling_SI", mem_id);
+	public List<ScheduleVO> todayMemberScheduling_SI(Map<String,String> map) {
+		return sqlSession.selectList("todayMemberScheduling_SI",map);
 	}
 
 }

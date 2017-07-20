@@ -42,10 +42,10 @@ public class NoticeMatterServiceImpl implements NoticeMatterService {
 	@Override
 	public void noticeMatterInsert(BoardVO board) {
 		Date dt = new Date();
-		board.setBoard_number(noticeMatterMax());
+//		board.setBoard_number(noticeMatterMax());
 		board.setBoard_code_number("code11");
 		board.setBoard_date(dt);
-		board.setBoard_count("1");
+		board.setBoard_count("0");
 		noticeMatterDao.noticeMatterInsert(board);
 	}
 	@Override
@@ -63,14 +63,6 @@ public class NoticeMatterServiceImpl implements NoticeMatterService {
 	public void noticeMatterUpdate(BoardVO board) {
 		Date dt = new Date();
 		board.setBoard_date(dt);
-		System.out.println(board.getBoard_code_number());
-		System.out.println(board.getBoard_content());
-		System.out.println(board.getBoard_count());
-		System.out.println(board.getBoard_file_name());
-		System.out.println(board.getBoard_mem_number());
-		System.out.println(board.getBoard_number());
-		System.out.println(board.getBoard_title());
-		System.out.println(board.getBoard_date());
 		noticeMatterDao.noticeMatterUpdate(board);
 	}
 	@Override

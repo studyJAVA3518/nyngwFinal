@@ -16,7 +16,7 @@
 		select count(*) from board where board_code_number = 'code7'
 		<choose>
 		    <when test='index == "board_mem_number"'>
-		    	AND board_mem_number like '%'||#{val}||'%'
+		    	AND board_mem_number = (select mem_number from member where mem_name = #{val})
 		    </when>
 		    <when test='index == "board_title"'>
 		    	AND board_title like '%'||#{val}||'%'
@@ -34,7 +34,7 @@
 				담겨있는값이 뭐냐에 따라 검색이 된다.
  -->
 		    <when test='index == "board_mem_number"'>
-		    	AND board_mem_number like '%'||#{val}||'%'
+		    	AND board_mem_number = (select mem_number from member where mem_name = #{val})
 		    </when>
 		    <when test='index == "board_title"'>
 		    	AND board_title like '%'||#{val}||'%'
@@ -54,14 +54,10 @@
 	
 	<update id="boardUpdate" parameterType="com.nyngw.dto.BoardVO">
 		update board 
-		set board_code_number=#{board_code_number},
-			board_title=#{board_title}, 
-			board_content=#{board_content},
-			board_file_name=#{board_file_name},
+		set board_title = #{board_title}, 
+			board_content = #{board_content}
 <!-- 			board_count=#{board_count}, -->
-			board_date=#{board_date},
-			board_mem_number=#{board_mem_number}
-		where board_number=#{board_number}
+		where board_number = #{board_number}
 	</update>
 
 	<update id="updateBoardCountPlus" parameterType="com.nyngw.dto.BoardVO">

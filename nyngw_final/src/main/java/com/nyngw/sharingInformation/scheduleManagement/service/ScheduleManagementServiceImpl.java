@@ -56,8 +56,8 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
 		return scheduleManagementDao.SI_selectMemberSchedule(sc_mem_number);
 	}
 	
-	public List<ScheduleVO> todayMemberSchedule(String mem_id){
-		return scheduleManagementDao.todayMemberScheduling_SI(mem_id);
+	public List<ScheduleVO> todayMemberSchedule(Map<String,String> param){
+		return scheduleManagementDao.todayMemberScheduling_SI(param);
 	}
 	
 }

@@ -14,7 +14,7 @@
 				담겨있는값이 뭐냐에 따라 검색이 된다.
  -->
 		    <when test='index == "board_mem_number"'>
-		    	AND board_mem_number like '%'||#{val}||'%'
+		    	AND board_mem_number = (select mem_number from member where mem_name = #{val})
 		    </when>
 		    <when test='index == "board_title"'>
 		    	AND board_title like '%'||#{val}||'%'
@@ -32,7 +32,7 @@
 		select count(*) from board where board_code_number = 'code11'
 		<choose>
 		    <when test='index == "board_mem_number"'>
-		    	AND board_mem_number like '%'||#{val}||'%'
+		    	AND board_mem_number = (select mem_number from member where mem_name = #{val})
 		    </when>
 		    <when test='index == "board_title"'>
 		    	AND board_title like '%'||#{val}||'%'
@@ -42,8 +42,9 @@
 	
 	<update id="noticeMatterInsert" parameterType="com.nyngw.dto.BoardVO">
 		insert into board(board_number, board_code_number, board_title, board_content, 
-							board_count, board_date, board_mem_number)
-		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content}, #{board_count}, #{board_date}, #{board_mem_number})
+							board_count, board_date, board_mem_number, board_file_name)
+		values('board'||board_seq.nextVal, #{board_code_number}, #{board_title}, #{board_content},
+		 #{board_count}, #{board_date}, #{board_mem_number}, #{board_file_name})
 	</update>
 	
 	<select id="NoticeMatterMax" resultType="java.lang.String">
@@ -64,13 +65,9 @@
 	
 	<update id="noticeMatterUpdate" parameterType="com.nyngw.dto.BoardVO">
 		update board 
-		set board_code_number=#{board_code_number},
+		set
 			board_title=#{board_title}, 
-			board_content=#{board_content},
-			board_file_name=#{board_file_name},
-<!-- 			board_count=#{board_count}, -->
-			board_date=#{board_date},
-			board_mem_number=#{board_mem_number}
+			board_content=#{board_content}
 		where board_number=#{board_number}
 	</update>
 
