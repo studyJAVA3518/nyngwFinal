@@ -42,7 +42,7 @@ public class NoticeMatterServiceImpl implements NoticeMatterService {
 	@Override
 	public void noticeMatterInsert(BoardVO board) {
 		Date dt = new Date();
-		board.setBoard_number(noticeMatterMax());
+//		board.setBoard_number(noticeMatterMax());
 		board.setBoard_code_number("code11");
 		board.setBoard_date(dt);
 		board.setBoard_count("1");

@@ -39,7 +39,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 	private NoticeMatterServiceImpl noticeMatterService;
 	
 	@Autowired
-	private CommonServiceImpl CommonService;
+	private CommonServiceImpl commonService;
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService; 
 	/**
@@ -58,7 +58,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 		MemberVO member = new MemberVO();
 		List<BoardVO> list = viewData.getBoardList();
 		for(int i = 0; i < list.size(); i++){
-			member = CommonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
+			member = commonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
 			//			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
 			System.out.println(";lll"+member.getMem_name());
@@ -109,20 +109,13 @@ public class NoticeMatterController implements ApplicationContextAware {
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping(value="/nmWrite", method=RequestMethod.POST)
-	public String noticeMatterWrite(@RequestParam( value="board_file_name", defaultValue="")File board_file_name, String board_title, String page,Principal principal,
+	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal,
 			@RequestParam( value="content") String board_content) throws IOException{
 		System.out.println("등록하느부부누이ㅏㅓㅂ주여ㅑㅐㅈ부애ㅕㅜㅈ배ㅕㅑㅇㅈ부ㅐ");
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
-		if(board_file_name==null){
-			board_file_name = new File("");
-		}
-		CommandBoardVO commandBoard = new CommandBoardVO();
-		MultipartFile multipartFile = null;
-		if(board_file_name!=null){
-			multipartFile = commandBoard.getBoard_file_name();
-		}
-		BoardVO board = commandBoard.toBoardVO();
-		MemberVO member = CommonService.findMemberByMemId(principal.getName());
+		MultipartFile multipartFile = commandboard.getBoard_file_name();
+		BoardVO board = commandboard.toBoardVO();
+		MemberVO member = commonService.findMemberByMemId(principal.getName());
 		board.setBoard_mem_number(member.getMem_number());
 		board.setBoard_content(board_content);
 		if(!multipartFile.isEmpty()){
@@ -144,7 +137,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 	@RequestMapping("/nmUpdateForm")
 	public String noticeMatterUpdateForm(String board_number, Model model, String page){
 		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
-		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		MemberVO member = commonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
 		System.out.println(member.getMem_name());
 		model.addAttribute("board", board);
@@ -194,7 +187,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 	@RequestMapping("/nmDetail")
 	public String noticeMatterDetail(String board_number, Model model, String page){
 		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
-		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		MemberVO member = commonService.findMemberByMemNumber(board.getBoard_mem_number());
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO mem = basicSettingService.selectMember(user.getUsername());
 

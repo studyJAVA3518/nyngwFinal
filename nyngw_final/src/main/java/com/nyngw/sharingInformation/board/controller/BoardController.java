@@ -155,7 +155,7 @@ public class BoardController implements ApplicationContextAware{
 	@RequestMapping("/updateForm")
 	public String boardUpdateForm(String board_number, Model model,String page,String board_file_name){
 		BoardVO board = boardService.selectBoard(board_number);
-		MemberVO member = member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
+		MemberVO member = CommonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
