@@ -8,6 +8,7 @@ import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DepartmentViewVO;
 import com.nyngw.dto.Diligence_And_LazinessVO;
+import com.nyngw.dto.Pay_PolicyVO;
 import com.nyngw.dto.Pay_PolicyViewVO;
 import com.nyngw.dto.Pay_kindVO;
 import com.nyngw.dto.PositionVO;
@@ -145,6 +146,13 @@ public interface PlanPublicRelationsSettingDao {
 	public int updatePayKind(Pay_kindVO vo) throws SQLException;
 
 	public int deletePayKind(String pk_number) throws SQLException;
+
+	public int deletePayPolicy(String pp_number) throws SQLException;
+
+	public int updatePayPolicyPrice(Pay_PolicyVO ppOriginvo) throws SQLException;
+
+	public Pay_PolicyViewVO selectPayPolicyViewOne(String up_pp_position_number)
+			throws SQLException;
 
 
 }

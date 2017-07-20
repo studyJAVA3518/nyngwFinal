@@ -112,28 +112,6 @@ public class PlanPublicRelationsSettingController {
 		return map;
 	}
 	
-//	@RequestMapping("/checkDeptOne")
-//	public @ResponseBody Map<String,Object> selectDeptOne(String tmp_dept_number){
-//		Map<String,Object> map = new HashMap<String, Object>();
-//		DepartmentVO dvo = null;
-//		try {
-//			dvo = planPublicRelationsSettingService.getDeptOne(tmp_dept_number);
-//			System.out.println("업데이트할 부서 이름 : "+dvo.getDept_name());
-//			map.put("dept_number", dvo.getDept_number());
-//			map.put("dept_name", dvo.getDept_name());
-//			map.put("dept_membernumber", dvo.getDept_membernumber());
-//			map.put("dept_tel", dvo.getDept_tel());
-//			map.put("dept_addr", dvo.getDept_addr());
-//		
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return map;
-//	}
-	
-	
-
-	
 	/**
 	 * 출근정보가 입력된 엑셀파일을 업로드해서 엑셀파일을 읽어오는 메서드
 	 * @param multipartFile - 받아온 엑셀파일
@@ -597,11 +575,25 @@ public class PlanPublicRelationsSettingController {
 //	}
 	
 	/**
-	 * 급여 정책 설정 화면으로 이동
+	 * 급여 종류 설정 화면으로 이동
 	 */
-	@RequestMapping("/salaryForm")
-	public String salaryForm(Model model){
-		String url = "enovironmentSetting/planPublicRelationsSetting/salary";
+	@RequestMapping("/payKindForm")
+	public String payKindForm(Model model){
+		String url = "enovironmentSetting/planPublicRelationsSetting/payKind";
+		try {
+			planPublicRelationsSettingService.viewPay(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	/**
+	 * 급여 종류 설정 화면으로 이동
+	 */
+	@RequestMapping("/payPolicyForm")
+	public String payPolicyForm(Model model){
+		String url = "enovironmentSetting/planPublicRelationsSetting/payPolicy";
 		try {
 			planPublicRelationsSettingService.viewPay(model);
 		} catch (SQLException e) {
@@ -616,7 +608,7 @@ public class PlanPublicRelationsSettingController {
 	@RequestMapping(value="/insertPayKind",method=RequestMethod.POST)
 	public String insertPayKind(Model model, HttpServletRequest request,
 			Pay_kindVO vo){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
 		try {
 			planPublicRelationsSettingService.enrollPayKind(model, vo);
 		} catch (SQLException e) {
@@ -631,7 +623,7 @@ public class PlanPublicRelationsSettingController {
 	@RequestMapping(value="/insertPayPolicy",method=RequestMethod.POST)
 	public String insertPayPolicy(Model model, HttpServletRequest request,
 			Pay_PolicyVO vo){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
 		try {
 			planPublicRelationsSettingService.enrollPayPolicy(model, vo);
 		} catch (SQLException e) {
@@ -660,7 +652,7 @@ public class PlanPublicRelationsSettingController {
 	@RequestMapping(value="/updatePayKind",method=RequestMethod.POST)
 	public String updatePayKind(Model model, HttpServletRequest request,
 			String up_pk_number, String up_pk_name, String up_pk_tax){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
 		System.out.println(up_pk_number);
 		System.out.println(up_pk_name);
 		System.out.println(up_pk_tax);
@@ -678,7 +670,7 @@ public class PlanPublicRelationsSettingController {
 	@RequestMapping("/deletePayKind")
 	public String deletePayKind(Model model, HttpServletRequest request,
 			String del_pk_number){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/salaryForm";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
 		try {
 			planPublicRelationsSettingService.removePayKind(model, del_pk_number);
 		} catch (SQLException e) {
@@ -686,4 +678,100 @@ public class PlanPublicRelationsSettingController {
 		}
 		return url;
 	}
+
+	/**
+	 * 급여정책 삭제 컨트롤러
+	 */
+	@RequestMapping("/deletePayPolicy")
+	public String deletePayPolicy(Model model, HttpServletRequest request,
+			String del_pp_number){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
+		try {
+			planPublicRelationsSettingService.removePayPolicy(model, del_pp_number);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	/**
+	 * 회사 시간당급여 수정하는 컨트롤러
+	 * @param request
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	@RequestMapping("/updatePayPolicyHour")
+	public @ResponseBody Map<String,Object> updatePayPolicyHour(Model model,
+			String pp_number,
+			String pp_pay){
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		int result = -1;
+		try {
+			result = planPublicRelationsSettingService.modifyPayPolicyHourBasic(model, pp_number, pp_pay);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		map.put("result", result);
+		return map;
+	}
+
+	/**
+	 * 회사 시간당급여 수정하는 컨트롤러
+	 * @param request
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	@RequestMapping("/updatePayPolicyPos")
+	public @ResponseBody Map<String,Object> updatePayPolicyPos(Model model,
+			String pp_number,
+			String pp_pay){
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		int result = -1;
+		try {
+			result = planPublicRelationsSettingService.modifyPayPolicyPos(model, pp_number, pp_pay);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		map.put("result", result);
+		return map;
+	}
+	
+	/**
+	 * 모든 직책에 적용되는 급여정책 금액 수정하는 컨트롤러
+	 * @param request
+	 * @param model
+	 * @param pp_number
+	 * @param pp_pay
+	 * @return
+	 */
+	@RequestMapping("/updatePayPolicyAllPos")
+	public @ResponseBody Map<String,Object> updatePayPolicyAllPos(Model model,
+			String up_all_pp_number,
+			String up_all_pp_pay){
+		System.out.println("컨트롤러 진입!!");
+		Map<String, Object> map = new HashMap<String,Object>();
+		int result = -1;
+		try {
+			result = planPublicRelationsSettingService.modifyPayPolicyAllPos(model, up_all_pp_number, up_all_pp_pay);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		map.put("result", result);
+		return map;
+	}
+	
+	
+	
+	
+	
+	
 }
