@@ -3,6 +3,50 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.businessSupport.dutyReport.dao.DutyReportDao">
-
-
+	<!-- 내 업무보고 리스트 출력 -->
+	<select id="dutyReportmentCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from duty_report where 1=1
+		<choose>
+			<when test="titleType == 'dr_title'">
+			and dr_title like '%'||#{val}||'%'
+			</when>
+			<when test="titleType == 'dr_content'">
+			and dr_content like '%'||#{val}||'%'
+			</when>
+		</choose>
+		and dr_code_number like '%'||#{reportType}||'%'
+		and to_char(dr_date,'yyyy/MM/dd') between #{date} and sysdate
+		and dr_mem_number = (select mem_number from member where mem_id = #{user})
+		order by 1 desc
+	</select>
+	
+	<select id="selectDutyReportList" parameterType="java.util.Map" resultType="com.nyngw.dto.Duty_ReportVO">
+		select	
+			dr_number,
+			DR_CODE_NUMBER,
+			DR_CONTENT,
+			DR_DATE,
+			DR_MEM_NUMBER,
+			DR_TITLE,
+			DR_TO_MEM_NUMBER,
+			DR_WRITEDATE,
+			DR_YESNO 
+		from duty_report where 1=1
+		<choose>
+			<when test="titleType == 'dr_title'">
+			and dr_title like '%'||#{val}||'%'
+			</when>
+			<when test="titleType == 'dr_content'">
+			and dr_content like '%'||#{val}||'%'
+			</when>
+		</choose>
+		and dr_code_number like '%'||#{reportType}||'%'
+		and to_char(dr_date,'yyyy/MM/dd') between #{date} and sysdate
+		and dr_mem_number = (select mem_number from member where mem_id = #{user})
+		order by 1 desc
+	</select>
+	
+	<select id="dutyReportCodeSelect" resultType="com.nyngw.dto.Common_CodeVO">
+		select * from common_code where code_ck_number = 'ck1'
+	</select>
 </mapper>
