@@ -18,14 +18,14 @@
     <meta name="author" content="">
     <title>GroupWare Solution - NYN GroupWare</title>
 
-	<!-- Bootstrap Core CSS -->
-    <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<%=request.getContextPath()%>/resources/css/simple-sidebar.css" rel="stylesheet">
     <!-- jQuery -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- Bootstrap Core CSS -->
+    <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="<%=request.getContextPath()%>/resources/css/simple-sidebar.css" rel="stylesheet">
     <!-- jquery.form.js - ajaxSubmit() 사용 -->
 	<script type='text/javascript' src='http://malsup.github.com/jquery.form.js'></script>
 	
@@ -37,7 +37,6 @@
 	
 	<!-- 풀캘린드-->
 	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
-	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/jquery.min.js'></script>
 	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
 	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
 	<!-- 캘린더 css -->
