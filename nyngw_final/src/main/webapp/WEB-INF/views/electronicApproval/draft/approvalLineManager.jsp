@@ -127,51 +127,79 @@ td {
 		
 		//라인으로 이동시키기//
 		/////////////////////////////////////////////////////////
-		$("#addToApproval").click(function(){	
+		//결재자에 등록
+		$("#addToApproval").click(function(){
+			var index = 1;
 			$('input[type=checkbox]:checked').each(function(){
-				if($(this).attr('id')!='allCheck'){
-					if($("#approval").find("#"+$(this).attr('id')+"").val()===undefined){
-						$('#approval').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
-					}else{
-						alert("이미 추가되었습니다.");
-					}
+				if(!($("option:last","#approval").attr("name")===undefined)){
+					index = parseInt($("option:last","#approval").attr("name").substring(14))+1;
 				}
+				if(index>5){
+					alert("결재자는 5명까지만 등록할 수 있습니다. 상위 5명만 등록 됩니다.");
+				}else{
+					if($(this).attr('id')!='allCheck'){
+						if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
+							$('#approval').append('<option name="approvalMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+						}else{
+							alert($(this).val()+"님은 이미 추가되었습니다.");
+						}
+					}	
+					$(this).prop("checked",false);
+				}
+			});
+		});
+		//합의자 등록
+		$("#addToAgreement").click(function(){
+			var index = 1;
+			$('input[type=checkbox]:checked').each(function(){
+				if(!($("option:last","#agreement").attr("name")===undefined)){
+					index = parseInt($("option:last","#agreement").attr("name").substring(15))+1;
+				}
+				if(index>5){
+					alert("결재자는 5명까지만 등록할 수 있습니다. 상위 5명만 등록 됩니다.");
+				}else{
+					if($(this).attr('id')!='allCheck'){
+						if($("#agreement").find("#"+$(this).attr('id')).val()===undefined){
+							$('#agreement').append('<option name="agreementMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+						}else{
+							alert($(this).val()+"님은 이미 추가되었습니다.");
+						}
+					}	
+				}	
 				$(this).prop("checked",false);
 			});
 		});
-		$("#addToAgreement").click(function(){	
+		//시행자 등록
+		$("#addToImplement").click(function(){
+			var index = 1;
 			$('input[type=checkbox]:checked').each(function(){
-				if($(this).attr('id')!='allCheck'){
-					if($("#agreement").find("#"+$(this).attr('id')+"").val()===undefined){
-						$('#agreement').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
-					}else{
-						alert("이미 추가되었습니다.");
-					}
+				if(!($("option:last","#implement").attr("name")===undefined)){
+					index = parseInt($("option:last","#implement").attr("name").substring(15))+1;
 				}
+				if($(this).attr('id')!='allCheck'){
+					if($("#implement").find("#"+$(this).attr('id')).val()===undefined){
+						$('#implement').append('<option name="implementMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					}else{
+						alert($(this).val()+"님은 이미 추가되었습니다.");
+					}
+				}	
 				$(this).prop("checked",false);
 			});
 		});
-		$("#addToImplement").click(function(){	
+		//참조자 등록
+		$("#addToReference").click(function(){
+			var index = 1;
 			$('input[type=checkbox]:checked').each(function(){
-				if($(this).attr('id')!='allCheck'){
-					if($("#implement").find("#"+$(this).attr('id')+"").val()===undefined){
-						$('#implement').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
-					}else{
-						alert("이미 추가되었습니다.");
-					}
+				if(!($("option:last","#reference").attr("name")===undefined)){
+					index = parseInt($("option:last","#reference").attr("name").substring(15))+1;
 				}
-				$(this).prop("checked",false);
-			});
-		});
-		$("#addToReference").click(function(){	
-			$('input[type=checkbox]:checked').each(function(){
 				if($(this).attr('id')!='allCheck'){
-					if($("#reference").find("#"+$(this).attr('id')+"").val()===undefined){
-						$('#reference').append('<option id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+					if($("#reference").find("#"+$(this).attr('id')).val()===undefined){
+						$('#reference').append('<option name="referenceMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
 					}else{
-						alert("이미 추가되었습니다.");
+						alert($(this).val()+"님은 이미 추가되었습니다.");
 					}
-				}
+				}	
 				$(this).prop("checked",false);
 			});
 		});
@@ -184,6 +212,10 @@ td {
 		});
 		function moveUpItemA(){
 			$('#approval option:selected').each(function(){
+				var prevName = $(this).prev().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).prev().attr('name', thisName);
+				$(this).attr('name', prevName);
 				$(this).insertBefore($(this).prev());
 			});
 		}
@@ -192,6 +224,10 @@ td {
 		});
 		function moveUpItemB(){
 			$('#agreement option:selected').each(function(){
+				var prevName = $(this).prev().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).prev().attr('name', thisName);
+				$(this).attr('name', prevName);
 				$(this).insertBefore($(this).prev());
 			});
 		}
@@ -200,6 +236,10 @@ td {
 		});
 		function moveUpItemC(){
 			$('#implement option:selected').each(function(){
+				var prevName = $(this).prev().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).prev().attr('name', thisName);
+				$(this).attr('name', prevName);
 				$(this).insertBefore($(this).prev());
 			});
 		}
@@ -208,6 +248,10 @@ td {
 		});
 		function moveUpItemD(){
 			$('#reference option:selected').each(function(){
+				var prevName = $(this).prev().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).prev().attr('name', thisName);
+				$(this).attr('name', prevName);
 				$(this).insertBefore($(this).prev());
 			});
 		}
@@ -220,6 +264,10 @@ td {
 		});
 		function moveDownItemA(){
 			$('#approval option:selected').each(function(){
+				var nextName = $(this).next().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).next().attr('name', thisName);
+				$(this).attr('name', nextName);
 				$(this).insertAfter($(this).next());
 			});
 		}
@@ -228,6 +276,10 @@ td {
 		});
 		function moveDownItemB(){
 			$('#agreement option:selected').each(function(){
+				var nextName = $(this).next().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).next().attr('name', thisName);
+				$(this).attr('name', nextName);
 				$(this).insertAfter($(this).next());
 			});
 		}
@@ -236,6 +288,10 @@ td {
 		});
 		function moveDownItemC(){
 			$('#implement option:selected').each(function(){
+				var nextName = $(this).next().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).next().attr('name', thisName);
+				$(this).attr('name', nextName);
 				$(this).insertAfter($(this).next());
 			});
 		}
@@ -244,21 +300,77 @@ td {
 		});
 		function moveDownItemD(){
 			$('#reference option:selected').each(function(){
+				var nextName = $(this).next().attr('name');
+				var thisName = $(this).attr('name');
+				$(this).next().attr('name', thisName);
+				$(this).attr('name', nextName);
 				$(this).insertAfter($(this).next());
 			});
 		}
 		/////////////////////////////////////////////////////////
 		
-		//결재라인 등록하기//
-		$("#submitLine").click(function(){
-			$("#approval")	//select Option 이름을
-			$("#agreement")
-			$("#implement")
-			$("#reference")
-			
-			
-			
+		//삭제하기//
+		$('#deleteA').click(function(){
+			deleteItemA();
 		});
+		function deleteItemA(){
+			$('#approval option:selected').each(function(){
+				var last = parseInt($("option:last","#approval").attr("name").substring(14));
+				var current = parseInt($(this).attr("name").substring(14)); 
+				var times = last-current;
+				for(var i = 0 ; i<times ; i++){
+					$("option:nth-child("+last+")","#approval").attr("name","approvalMember"+(last-1));
+					last -= 1;
+				}
+				$(this).remove();
+			});
+		}
+		$('#deleteB').click(function(){
+			deleteItemB();
+		});
+		function deleteItemB(){
+			$('#agreement option:selected').each(function(){
+				var last = parseInt($("option:last","#agreement").attr("name").substring(15));
+				var current = parseInt($(this).attr("name").substring(15)); 
+				var times = last-current;
+				for(var i = 0 ; i<times ; i++){
+					$("option:nth-child("+last+")","#agreement").attr("name","agreementMember"+(last-1));
+					last -= 1;
+				}
+				$(this).remove();
+			});
+		}
+		$('#deleteC').click(function(){
+			deleteItemC();
+		});
+		function deleteItemC(){
+			$('#implement option:selected').each(function(){
+				var last = parseInt($("option:last","#implement").attr("name").substring(15));
+				var current = parseInt($(this).attr("name").substring(15)); 
+				var times = last-current;
+				for(var i = 0 ; i<times ; i++){
+					$("option:nth-child("+last+")","#implement").attr("name","implementMember"+(last-1));
+					last -= 1;
+				}
+				$(this).remove();
+			});
+		}
+		$('#deleteD').click(function(){
+			deleteItemD();
+		});
+		function deleteItemD(){
+			$('#reference option:selected').each(function(){
+				var last = parseInt($("option:last","#reference").attr("name").substring(15));
+				var current = parseInt($(this).attr("name").substring(15)); 
+				var times = last-current;
+				for(var i = 0 ; i<times ; i++){
+					$("option:nth-child("+last+")","#reference").attr("name","referenceMember"+(last-1));
+					last -= 1;
+				}
+				$(this).remove();
+			});
+		}
+		/////////////////////////////////////////////////////////
 	});
 	
 	
@@ -331,10 +443,11 @@ td {
 		<div id="treeMain" class="col-md-9">
 			<!-- 2.1 트리 메인 탑 -->
 			<div id="treeMainTop" class="row" style="height:200px;overflow:auto;border:1px solid black;">
-				<form id="search">
-					사원명 <input name="searchText"> <a href="javascript:goThere2()"><button type="button">검색</button></a>
+				<form id="search" onsubmit="javascript:goThere2(); return false;">
+					사원명 <input name="searchText"><button type="button" onclick="javascript:goThere2()">검색</button>
 					<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
 				</form>
+				
 				<table class="table" id="memberTable">
 					<tr>
 						<th><input type="checkbox" id="allCheck"></th>
@@ -357,54 +470,56 @@ td {
 			<div id="treeMainBottom" class="row" style="border:1px solid black;">
 				<div id="treeMainBottomTop" class="row">
 					<div id="treeMainBottomA" class="col-md-6" style="height:150px;">
-						결재자
-						<div>
-							<select id="approval" name="approval" size="5" style="width:300px;height:90px;">
+						<p>결재자</p>
+						<div style="float:left;width:280px;">
+							<select id="approval" name="approval" size="5" style="width:280px;height:90px;">
 							</select>
 						</div>
-						<div id ="but">
+						<div id ="but" style="float:left;width:40px">
 							<p><input type = "button" value="▲" id="moveUpA"></p>
 							<p><input type = "button" value="▼" id="moveDownA"></p>
+							<p><input type = "button" value="ⓧ" id="deleteA"></p>
 						</div>
 					</div>
 					<div id="treeMainBottomB" class="col-md-6" style="height:150px;">
-						합의자
-						<div>
-							<select id="agreement" size="5" style="width:300px;height:90px;">
+						<p>합의자</p>
+						<div style="float:left;width:280px;">
+							<select id="agreement" size="5" style="width:280px;height:90px;">
 							</select>
 						</div>
-						<div id ="but">
+						<div id ="but" style="float:left;width:40px">
 							<p><input type = "button" value="▲" id="moveUpB"></p>
 							<p><input type = "button" value="▼" id="moveDownB"></p>
+							<p><input type = "button" value="ⓧ" id="deleteB"></p>
 						</div>	
 					</div>
 				</div>
 				<div id="treeMainBottomBottom" class="row">
 					<div id="treeMainBottomC" class="col-md-6" style="height:150px;">
-						시행자
-						<div>
-							<select id="implement" size="5" style="width:300px;height:90px;">
+						<p>시행자</p>
+						<div style="float:left;width:280px;">
+							<select id="implement" size="5" style="width:280px;height:90px;">
 							</select>
 						</div>
-						<div id ="but">
+						<div id ="but" style="float:left;width:40px">
 							<p><input type = "button" value="▲" id="moveUpC"></p>
 							<p><input type = "button" value="▼" id="moveDownC"></p>
+							<p><input type = "button" value="ⓧ" id=deleteC></p>
 						</div>	
 					</div>
-					<div id="treeMainBottomD" class="col-md-6" style="height:150px;">
-						수신참조자
-						<div>
-							<select id="reference" size="5" style="width:300px;height:90px;">
+					<div id="treeMainBottomD" class="col-md-6" style="height:150px; width : 350px;">
+						<p>수신참조자</p>
+						<div style="float:left;width:280px;">
+							<select id="reference" size="5" style="width:280px;height:90px;">
 							</select>
 						</div>
-						<div id ="but">
-							<p><input type = "button" value="▲" id="moveUpD"></p>
-							<p><input type = "button" value="▼" id="moveDownD"></p>
+						<div id ="but" style="float:left;width:40px">
+							<input type = "button" value="▲" id="moveUpD">
+							<input type = "button" value="▼" id="moveDownD">
+							<input type = "button" value="ⓧ" id="deleteD">
 						</div>	
 					</div>
 				</div>
-				<button type="button" id="submitLine">등록</button>
-				<button type="button">취소</button>
 			</div>
 		</div>
 	</div>

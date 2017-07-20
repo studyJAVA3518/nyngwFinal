@@ -1,6 +1,9 @@
 package com.nyngw.electronicApproval.draft.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -238,6 +241,25 @@ public class DraftServiceImpl implements DraftService {
 			memberJsonList.add(memberjsonMap);
 		}
 		return memberJsonList;
+	}
+
+	public void searchMemberByMemberId(String mem_id,Model model) {
+//		품의번호 "부서이름-올해-시퀀스"
+//		작성일자 "오늘 날짜"----
+//		기안부서 "부서이름"----
+//		기안자 "사용자"----
+//		select last_number from user_sequences where sequence_name= 'EA_SEQ';
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		DateFormat dfForYear = new SimpleDateFormat("yyyy");
+		String today = df.format(new Date());
+		String thisYear = dfForYear.format(new Date());
+		
+		String seqNext = "";
+		MemberVO member = draftDao.draft_selectMemberByMemberId(mem_id);
+		
+//		member.getDept_name()+"-"+thisYear+"-"+
+		model.addAttribute("member",member);
+		model.addAttribute("date",today);
 	}
 
 }

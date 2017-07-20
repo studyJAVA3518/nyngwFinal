@@ -1,5 +1,6 @@
 package com.nyngw.electronicApproval.draft.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,6 @@ public class DraftController {
 	
 	@Autowired
 	private CommonServiceImpl commonServiceImpl;
-	
 	
 	@RequestMapping("/draft")
 	public String draft(Model model){
@@ -67,7 +67,9 @@ public class DraftController {
 	}
 	
 	@RequestMapping("/createDraftForm")
-	public String createDraftForm(String doc_number,Model model){
+	public String createDraftForm(String doc_number,Model model,Principal principal){
+		String mem_id = principal.getName();
+		draftService.searchMemberByMemberId(mem_id,model);
 		return "electronicApproval/draft/createDraftForm";
 	}
 	
