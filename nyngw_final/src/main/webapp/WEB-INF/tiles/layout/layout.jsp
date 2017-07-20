@@ -71,7 +71,6 @@
     <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
     <script>
 	    $(function(){
-	    	
 	    	//사이드바
 	    	$("#menu-toggle").click(function(e) {
 		        e.preventDefault();
@@ -105,6 +104,42 @@
             right:'prev, today, next'
         },
         editable: true,
+        dayClick :function(date,allDay,jsEvent,view){
+       		var yy=date.format("YYYY");
+       	   var mm=date.format("MM");
+       	   var dd=date.format("DD");
+       	   var ss=date.format("dd");
+			
+       	   day=yy+"-"+mm+"-"+dd;
+       	   
+       	$.ajax({
+			url : '/sharingInformation/scheduleManagement/side',
+			type : 'post',
+			data : {"date":day},
+			success : function(res) {
+				if(res.su=="ok"){
+					
+					var code="";
+					var list= res.sc;
+	                 
+	                $.each(list, function( index, list ) {
+	                  code+=index + " : " + list.sc_title+"<br>";
+	                });
+					
+					$('#todayschdule').html(code);
+					
+					
+				}else{
+					if(confirm(day+" -> 일정을 등록?")){
+						location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
+					}
+				}
+			},
+			error : function() {
+
+			},dataType : 'json'
+			})
+        },
         // add event name to title attribute on mouseover
         eventMouseover: function(event, jsEvent, view) {
             if (view.name !== 'agendaDay') {
@@ -122,7 +157,7 @@
 	top: 150px;
 	right: 250px;
 }
-
+ 
 #calendarmini {
     width: 250px;
     margin: 0 0;
@@ -189,11 +224,9 @@
 				</li>
 				<li><label style="color: white;">${memberName}님의 오늘
 						일정입니다.</label></li>
-				<c:forEach items="${scheduleList}" var="schedule">
-					<li>
-						<label style="color: white;">title :${schedule.sc_title }</label>
-					</li>
-				</c:forEach>
+				<li>
+					<div id='todayschdule'/>
+				</li>
 			</ul>
         </div>
   		

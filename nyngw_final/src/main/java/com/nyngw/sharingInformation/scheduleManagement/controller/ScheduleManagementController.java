@@ -1,11 +1,15 @@
 package com.nyngw.sharingInformation.scheduleManagement.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.MemberVO;
@@ -115,6 +119,29 @@ public class ScheduleManagementController {
 	public String cancleAndList(){
 		
 		return null;
+	}
+	
+	@RequestMapping("side")
+	public @ResponseBody Map<String,Object> sidebarSchedule(Principal principal,String date){
+		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String,String> param = new HashMap<String, String>();
+		map.put("su", "no");
+		
+		param.put("mem_id", principal.getName());
+		param.put("sc_date", date);
+		
+		List<ScheduleVO> scheduleList = null;
+		try{
+			scheduleList = scheduleManagementService.todayMemberSchedule(param);
+			map.put("sc", scheduleList);
+		}catch(Exception e){
+		}
+		
+		if(scheduleList!=null && scheduleList.size()>0){
+			map.put("su", "ok");
+		}
+		
+		return map;
 	}
 	
 	
