@@ -41,6 +41,11 @@ public class JoinMemberListDaoImpl implements JoinMemberListDao {
 	}
 
 	@Override
+	public void modifyMemberPosDeps(JoinMemberVO member) {
+		sqlSession.update("modifyMemberPosDeps", member);
+	}
+
+	@Override
 	public void modifyMemberBankinsert(JoinMemberVO member) {
 		sqlSession.insert("modifyMemberBankinsert",member);
 	}

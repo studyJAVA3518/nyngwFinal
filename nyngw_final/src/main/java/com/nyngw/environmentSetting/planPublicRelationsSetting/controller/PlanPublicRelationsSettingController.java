@@ -575,27 +575,13 @@ public class PlanPublicRelationsSettingController {
 //	}
 	
 	/**
-	 * 급여 종류 설정 화면으로 이동
+	 * 급여종류 및 퇴직금설정 설정 화면으로 이동
 	 */
 	@RequestMapping("/payKindForm")
 	public String payKindForm(Model model){
 		String url = "enovironmentSetting/planPublicRelationsSetting/payKind";
 		try {
-			planPublicRelationsSettingService.viewPay(model);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return url;
-	}
-	
-	/**
-	 * 급여 종류 설정 화면으로 이동
-	 */
-	@RequestMapping("/payPolicyForm")
-	public String payPolicyForm(Model model){
-		String url = "enovironmentSetting/planPublicRelationsSetting/payPolicy";
-		try {
-			planPublicRelationsSettingService.viewPay(model);
+			planPublicRelationsSettingService.viewPayKind(model);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -611,21 +597,6 @@ public class PlanPublicRelationsSettingController {
 		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
 		try {
 			planPublicRelationsSettingService.enrollPayKind(model, vo);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return url;
-	}
-
-	/**
-	 * 급여정책 등록 컨트롤러
-	 */
-	@RequestMapping(value="/insertPayPolicy",method=RequestMethod.POST)
-	public String insertPayPolicy(Model model, HttpServletRequest request,
-			Pay_PolicyVO vo){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
-		try {
-			planPublicRelationsSettingService.enrollPayPolicy(model, vo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -678,14 +649,42 @@ public class PlanPublicRelationsSettingController {
 		}
 		return url;
 	}
-
+	
+	/**
+	 * 급여정책 설정 화면으로 이동
+	 */
+	@RequestMapping("/payPolicyForm")
+	public String payPolicyForm(Model model){
+		String url = "enovironmentSetting/planPublicRelationsSetting/payPolicy";
+		try {
+			planPublicRelationsSettingService.viewPayPolicy(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	/**
+	 * 급여정책 등록 컨트롤러
+	 */
+	@RequestMapping(value="/insertPayPolicy",method=RequestMethod.POST)
+	public String insertPayPolicy(Model model, HttpServletRequest request,
+			Pay_PolicyVO vo){
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payPolicyForm";
+		try {
+			planPublicRelationsSettingService.enrollPayPolicy(model, vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
 	/**
 	 * 급여정책 삭제 컨트롤러
 	 */
 	@RequestMapping("/deletePayPolicy")
 	public String deletePayPolicy(Model model, HttpServletRequest request,
 			String del_pp_number){
-		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
+		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payPolicyForm";
 		try {
 			planPublicRelationsSettingService.removePayPolicy(model, del_pp_number);
 		} catch (SQLException e) {

@@ -9,20 +9,9 @@
 		<form action="/businessSupport/meetingManagement/meetingFile">
 			<table class="table table-border">
 				<tr>
-					<th>검색기간</th>
-					<td>
-						<select name="searchDate" id="searchDate">
-							<option value="today">금일</option>
-							<option value="week">1주일</option>
-							<option value="month">1개월</option>
-							<option value="trimester">3개월</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
 					<th>검색입력</th>
 					<td colspan="3">
-						<select name="index" id="titleType">
+						<select name="index">
 							<option value="md_name">제목</option>
 							<option value="md_writer">작성자</option>
 						</select>
@@ -32,6 +21,7 @@
 				</tr>
 			</table>
 				<input type="submit" value="검색">
+		</form>
 		<br>
 		<br>
 		<table class="table table-border">
@@ -46,7 +36,7 @@
 					<c:forEach items="${viewData.meeting_DocumentList }" var="board" >
 						<tr>
 							<td>${board.md_number}</td>
-							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?dd_number=${board.md_number}&page=${pageNumber}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">${board.md_name}</a></td>
+							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?md_number=${board.md_number}&page=${pageNumber}&val=${select.val}">${board.md_name}</a></td>
 							<td><fmt:formatDate value="${board.md_date}" pattern="yyyy/MM/dd"/></td>
 							<td>${board.md_writer }</td>
 						</tr>
@@ -70,5 +60,5 @@
 			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 		</div>
-		</form>
 	</div>
+	<button><a href="/businessSupport/meetingManagement/addMeetingFile">회의록 쓰기</a></button>

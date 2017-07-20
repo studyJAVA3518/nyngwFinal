@@ -352,7 +352,25 @@ public class PlanPublicRelationsSettingServiceImpl implements
 	 * @param model
 	 * @throws SQLException
 	 */
-	public void viewPay(Model model) throws SQLException {
+	public void viewPayKind(Model model) throws SQLException {
+		ArrayList<Pay_kindVO> payKindList = planPublicRelationsSettingDao.selectPayKindList();
+		ArrayList<Pay_PolicyViewVO> payViewList = planPublicRelationsSettingDao.selectPayInfoList();
+		ArrayList<PositionVO> positionList = planPublicRelationsSettingDao.selectPositionList();
+		ArrayList<Work_TimeVO> wtList = planPublicRelationsSettingDao.selectWorkTime();
+		
+		
+		model.addAttribute("payKindList",payKindList);
+		model.addAttribute("payViewList",payViewList);
+		model.addAttribute("positionList",positionList);
+		model.addAttribute("wtList",wtList);
+	}
+	
+	/**
+	 * 급여정보설정 페이지에 필요한 정보 보여주기 위한 메서드
+	 * @param model
+	 * @throws SQLException
+	 */
+	public void viewPayPolicy(Model model) throws SQLException {
 		ArrayList<Pay_kindVO> payKindList = planPublicRelationsSettingDao.selectPayKindList();
 		ArrayList<Pay_PolicyViewVO> payViewList = planPublicRelationsSettingDao.selectPayInfoList();
 		ArrayList<Pay_PolicyViewVO> payViewHourList = planPublicRelationsSettingDao.selectPayInfoHourList();

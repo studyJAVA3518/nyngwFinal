@@ -83,7 +83,7 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public Meeting_Document_ListViewVO meeting_DocumentList(int pageNumber,
 			Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
-		int documentTotalCount =meetingManagementDao.selectMeeting_DocumentCount(); 
+		int documentTotalCount =meetingManagementDao.selectMeeting_DocumentCount(select.getMem_id()); 
 			List<Meeting_DocumentVO> meeting_DocumentList = null;
 			int firstRow = 0;
 			int endRow = 0;
@@ -99,5 +99,8 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
 	
-	
+	@Override
+	public void meetingFileInsert(Meeting_DocumentVO meetingFile) {
+		meetingManagementDao.meetingFileInsert(meetingFile);
+	}
 }

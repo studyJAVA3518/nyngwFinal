@@ -14,4 +14,6 @@ public interface JoinMemberListDao {
 	public void modifyMemberBankinsert(JoinMemberVO member);
 	public void modifyDeleteMembter(JoinMemberVO member);
 	public int countTotalJoinMember();
+	
+	public void modifyMemberPosDeps(JoinMemberVO member);
 }

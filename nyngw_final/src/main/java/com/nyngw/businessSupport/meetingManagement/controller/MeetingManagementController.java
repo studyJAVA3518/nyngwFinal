@@ -25,6 +25,7 @@ import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
+import com.nyngw.dto.Meeting_DocumentVO;
 import com.nyngw.dto.Meeting_Document_ListViewVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.draft.service.DraftServiceImpl;
@@ -89,7 +90,8 @@ public class MeetingManagementController {
 		model.addAttribute("meetingList2",meetingList2);
 		return "businessSupport/meetingManagement/addMeeting";
 	}
-	 
+	
+	
 	@RequestMapping(value="/meetingInsert", method=RequestMethod.POST)
 	public String addMeet(Model model, 
 			String mt_title, 
@@ -200,12 +202,16 @@ public class MeetingManagementController {
 			select.setIndex(index);
 			select.setVal(val);
 		}
-		Meeting_Document_ListViewVO viewData =meetingManagementService.meeting_DocumentList(pageNumber, select);
-		model.addAttribute("viewData",viewData);
-		model.addAttribute("pageNumber",pageNumber);
+		MemberVO mem = basicSettingService.selectMember(principal.getName());
+		String mem_number = mem.getMem_number();
+		select.setMem_id(principal.getName());
+		select.setMem_number(mem_number);
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
 		}
+		Meeting_Document_ListViewVO viewData =meetingManagementService.meeting_DocumentList(pageNumber, select);
+		model.addAttribute("viewData",viewData);
+		model.addAttribute("pageNumber",pageNumber);
 		if(viewData.getPageTotalCount()>0){
 			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
 			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
@@ -222,5 +228,34 @@ public class MeetingManagementController {
 		
 		return "businessSupport/meetingManagement/meetingFile";
 	}
+	@RequestMapping("addMeetingFile")
+	public String addMeetFileForm(Model model){
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String mem_id = user.getUsername(); 
+		MemberVO meetingList3 = basicSettingService.selectMember(mem_id);
+		
+		model.addAttribute("meetingList3",meetingList3);
+		return "businessSupport/meetingManagement/addMeetingFile";
+	}
 	
+	@RequestMapping(value="/meetingFileInsert", method=RequestMethod.POST)
+	public String addMeet(Model model, 
+			String md_name, 
+			String md_date,
+			String md_writer,
+			@RequestParam( value="content") String md_content){
+		Meeting_DocumentVO meetingFile = new Meeting_DocumentVO();
+		
+		meetingFile.setMd_name(md_name);
+		meetingFile.setMd_writer(md_writer);
+		meetingFile.setMd_content(md_content);
+		System.out.println(md_writer);
+		try {
+			meetingFile.setMd_date(new SimpleDateFormat("yyyy-MM-dd").parse(md_date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		meetingManagementService.meetingFileInsert(meetingFile);
+		return "redirect:/businessSupport/meetingManagement/meetingFile";
+	}
 }

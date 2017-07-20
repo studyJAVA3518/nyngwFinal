@@ -1,12 +1,14 @@
 package com.nyngw.homeMain.appointedUI.service;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
-import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
+import com.nyngw.dto.UserUiVO;
 
 public interface AppointedUIService {
 	/**
@@ -23,6 +25,18 @@ public interface AppointedUIService {
 	 * @throws SQLException
 	 */
 	public MemberVO checkMember(String mem_id) throws SQLException;
-	public List<BigMenuVO> selectBigMenu();
-	public List<MiddleMenuVO> selectMiddleMenu(String select);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////UI설정
+	//화면1용
+	public List<Map> selectBigMenu();
+	public List<Map> selectMiddleMenu(String big_num);
+	public void userUiInsert_UI(UserUiVO userUi, Principal principal);
 }

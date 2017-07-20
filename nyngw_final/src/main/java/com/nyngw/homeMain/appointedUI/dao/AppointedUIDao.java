@@ -7,6 +7,8 @@ import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
+import com.nyngw.dto.UserInterfaceVO;
+import com.nyngw.dto.UserUiVO;
 
 
 
@@ -22,6 +24,13 @@ public interface AppointedUIDao {
 	 */
 	public MemberVO selectMember(String mem_id) throws SQLException;
 	
+	
+	
+	
+	/////////////////////UI설정
 	public List<BigMenuVO> selectBigMenu();
 	public List<MiddleMenuVO> selectMiddleMenu(String select);
+	public void userUiInsert_UI(UserInterfaceVO ui);
+	public int userUiSelect_UI(String mem_number);
+	public void userUiUpdate_UI(UserInterfaceVO ui);
 }
