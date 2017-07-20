@@ -22,4 +22,9 @@ public class DutyReportController {
 	public String dutyReportWrite(){
 		return "businessSupport/dutyReport/dutyReportWrite";
 	}
+	
+	@RequestMapping("/getDutyReportselect")
+	public String getDutyReportselect(){
+		return "businessSupport/dutyReport/getDutyReportselect";
+	}
 }
