@@ -92,4 +92,8 @@ public class DraftDaoImpl implements DraftDao {
 		return sqlSession.selectList("dreat_selectMemberListByDepartmentMemberName", paramMap);
 	}
 
+	public MemberVO draft_selectMemberByMemberId(String mem_id) {
+		return (MemberVO) sqlSession.selectOne("draft_selectMemberByMemberId", mem_id);
+	}
+
 }

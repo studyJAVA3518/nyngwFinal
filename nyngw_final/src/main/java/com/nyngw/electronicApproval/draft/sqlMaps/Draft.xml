@@ -79,4 +79,9 @@
 	<select id="dreat_selectMemberListByDepartmentMemberName" resultType="com.nyngw.dto.MemberVO" parameterType="map">
 		select * from member_view where mem_dept_number like '%'||#{dept_number}||'%' and mem_name like '%'||#{searchText}||'%'
 	</select>
+	
+	<!-- 로그인한 맴버 검색 -->
+	<select id="draft_selectMemberByMemberId" resultType="com.nyngw.dto.MemberVO" parameterType="string">
+		select * from member_view where mem_id = ${mem_id}
+	</select>
 </mapper>
