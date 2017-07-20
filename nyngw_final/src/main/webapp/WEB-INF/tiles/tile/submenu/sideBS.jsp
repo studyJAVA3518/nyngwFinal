@@ -30,14 +30,14 @@
 									<ul>
 										<li><a href="/businessSupport/dutyDocument/department">&nbsp;&nbsp;&nbsp;└ 부서 업무 조회</a></li>
 										<li><a href="/businessSupport/dutyDocument/personal">&nbsp;&nbsp;&nbsp;└ 개인 업무 조회</a></li>
-										<li><a href="/businessSupport/dutyDocument/additional">&nbsp;&nbsp;&nbsp;└ 추가 업무 조회</a></li>
 									</ul>
 								</li>
 							
 								<li>
-									<h3>업무보고상신</h3>                       
+									<h3>업무보고</h3>                       
 									<ul>                                 
-										<li><a href="/businessSupport/dutyReport/dutyReport">&nbsp;&nbsp;&nbsp;└ 업무 보고 상신</a></li>  
+										<li><a href="/businessSupport/dutyReport/dutyReport">&nbsp;&nbsp;&nbsp;└ 내 업무 보고</a></li>
+										<li><a href="/businessSupport/dutyReport/getDutyReportselect">&nbsp;&nbsp;&nbsp;└ 받은 업무 보고</a></li>  
 									</ul>                                	
 								</li>
 								
