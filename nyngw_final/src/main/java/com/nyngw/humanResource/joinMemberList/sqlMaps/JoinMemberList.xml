@@ -58,6 +58,12 @@
 		where mdi_mem_number = #{mem_number}
 	</update>
 	
+	<update id="modifyMemberPosDeps" parameterType="com.nyngw.dto.JoinMemberVO">
+		update MEMBER
+		set mem_dept_number=#{mem_dept_number} ,mem_position_number =#{mem_position_number}
+		where mem_number = #{mem_number}
+	</update>
+	
 	<insert id="modifyMemberBankinsert" parameterType="com.nyngw.dto.JoinMemberVO">
 		insert into MEMBER_DETAIL_INFORMATION (mdi_bank ,mdi_bank_account,MDI_ACCOUNT_HOLDER,MDI_MEM_NUMBER)
    		 values(#{mdi_bank},#{mdi_bank_account},#{mem_name},#{mem_number})
