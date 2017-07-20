@@ -2,7 +2,109 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="payManagement">
+<mapper namespace="com.nyngw.humanResource.payManagement.dao.PayManagementDao">
 
-
+	<!-- 모든 사원의 급여정보 리스트를 보여주는 메서드 -->
+	<select id="pm_humanPayList" resultType="com.nyngw.dto.Member_payViewVO">
+		select *
+		from member_pay_view
+		order by mp_pay_date desc
+	</select>
+	
+	<!-- 사원의 아이디를 가져와 하나의 급여정보 보여주는 리스트 -->
+	<select id="pm_humanPayOne" resultType="java.lang.String" parameterType="java.lang.String">
+		select *
+		from member_pay_view 
+		where mem_number = #{mem_number}
+	</select>
+	
+	<!-- 사원의 기존 급여를 수정 -->
+	<update id="pm_humanPayUpdate" parameterType="map">
+		update member_pay set 
+			mp_bonus = #{mp_bonus},
+		    mp_insurance = (
+		        select
+		          ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
+		          (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
+		        from PAY_POLICY_VIEW
+		        where POSITION_NUMBER=#{position_number} 
+		        and pk_name='기본급'
+		    ),
+		    mp_final_salary = (
+		        select
+		          (
+		            select sum(pp_pay) from PAY_POLICY_VIEW
+		            where POSITION_NUMBER=#{position_number}
+		            or POSITION_number='position0'
+		            and pk_tax='n'
+		          )
+		          -
+		          (
+		            select
+		              ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
+		              (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
+		            from PAY_POLICY_VIEW
+		            where POSITION_NUMBER=#{position_number} 
+		            and pk_name='기본급'
+		          )
+		        from pay_policy_view
+		        where POSITION_NUMBER=#{position_number} 
+		        and pk_name='기본급'
+		    )
+		where mp_number = #{mp_number}
+	</update>
+	
+	<!-- 해당회원 직급에 해당하는 기본급+직책수당+식대 조회 -->
+<!-- 	<select id=""> -->
+<!-- 	</select> -->
+	
+	<!-- 사원의 급여정보 입력 -->
+	<update id="pm_humanPayInsert" parameterType="map">
+		insert into member_pay(
+		  mp_number, mp_mem_number, mp_basic_pay, mp_bonus, mp_insurance, MP_PAY_DATE, MP_FINAL_SALARY
+		)
+		values (
+		  'mp'||mp_seq.nextval,
+		  #{mp_mem_number},
+		  (
+		    select sum(pp_pay) from PAY_POLICY_VIEW
+		    where POSITION_NUMBER=#{position_number}
+		    or POSITION_number='position0'
+		    and pk_tax='n'
+		  ),
+		  #{mp_bonus},
+		  (
+		    select
+		      ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
+		      (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
+		    from PAY_POLICY_VIEW
+		    where POSITION_NUMBER=#{position_number} 
+		    and pk_name='기본급'
+		  ),
+		  #{mp_pay_date},
+		  (
+		    select
+		      (
+		        select sum(pp_pay) from PAY_POLICY_VIEW
+		        where POSITION_NUMBER=#{position_number}
+		        or POSITION_number='position0'
+		        and pk_tax='n'
+		      )
+		      -
+		      (
+		        select
+		          ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
+		          (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
+		        from PAY_POLICY_VIEW
+		        where POSITION_NUMBER=#{position_number} 
+		        and pk_name='기본급'
+		      )
+		    from pay_policy_view
+		    where POSITION_NUMBER=#{position_number} 
+		    and pk_name='기본급'
+		  )
+		)
+	</update>
+	
+	
 </mapper>

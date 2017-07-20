@@ -1,7 +1,9 @@
 package com.nyngw.humanResource.memberJoin.controller;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.PositionVO;
+import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingServiceImpl;
 import com.nyngw.humanResource.memberJoin.service.MemberJoinServiceImpl;
 
 @Controller
@@ -21,10 +26,16 @@ public class MemberJoinController {
 	
 	@Autowired
 	private MemberJoinServiceImpl memberJoinService;
+	@Autowired
+	private PlanPublicRelationsSettingServiceImpl planPublicRelationsSettingService; 
 	
 	@RequestMapping("/mjm")
 	public String mjm(Model model){
-		
+		try {
+			memberJoinService.viewMjmInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		return "humanResource/memberJoin/mjm";

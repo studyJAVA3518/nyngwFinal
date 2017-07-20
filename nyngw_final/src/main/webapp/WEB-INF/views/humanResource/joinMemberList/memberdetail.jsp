@@ -33,7 +33,7 @@
 		})
 	}
 	function modifyDeleteMember() {
-		if (confirm("퇴사?????") == true) {
+		if (confirm("정말로 퇴사하시겠습니까?") == true) {
 			
 			var memdata = $('#memberDetail').serialize();
 			$.ajax({
@@ -45,7 +45,7 @@
 					location.href=result.url;
 				},
 				error : function() {
-					alert("ㅈ 망이다.");
+					alert("회원 퇴사처리가 실패했습니다.");
 					location.href="/humanResource/joinMemberList/detail";
 				},
 				dataType : 'json'
@@ -54,11 +54,7 @@
 	}
 </script>
 <form id="memberDetail" method="post">
-	<table class="table table-bordered">
-		<tr>
-			<td>사원정보</td>
-		</tr>
-	</table>
+	<h2>사원정보</h2>
 	<br> 
 	아이디 <input type="text" id="mem_id" name="mem_id" class="form-control" value="${member.mem_id }" readonly /> 
 	이름 <input type="text" id="mem_name" name="mem_name" class="form-control" value="${member.mem_name }" readonly /> 
@@ -67,9 +63,21 @@
 	<br> 
 	연락처<input type="tel" id="mem_tel" name="mem_tel" class="form-control" placeholder="${member.mem_tel }" value="${member.mem_tel }" readonly />
 	<br>
-	부서<input type="tel" class="form-control" placeholder="${member.dept_name }" value="${member.dept_name }" readonly /> 
+	부서 ${member.dept_name} 수정할 부서 선택
+<%-- 	<input type="tel" class="form-control" placeholder="${member.dept_name }" value="${member.dept_name }" readonly />  --%>
+	<select class="form-control" name="mem_dept_number">
+		<c:forEach items="${depList}" var="depList">
+			<option value="${depList.dept_number}">${depList.dept_name}</option>
+		</c:forEach>
+	</select> 
 	<br>
-	직급<input type="tel" class="form-control" placeholder="${member.position_name }" value="${member.position_name }" readonly /> 
+	직급 ${member.position_name} 수정할 직급 선택
+<%-- 	<input type="tel" class="form-control" placeholder="${member.position_name }" value="${member.position_name }" readonly />  --%>
+	<select class="form-control" name="mem_position_number">
+		<c:forEach items="${posList}" var="posList" begin="1" end="${posList.size()}">
+			<option value="${posList.position_number}">${posList.position_name}</option>
+		</c:forEach>
+	</select>
 	<br>
 	<div class="input-group">
 		주소 <input type="text" class="form-control" id="mem_zip" name="mem_zip" value="${member.mem_zip }" readonly />
@@ -81,8 +89,8 @@
 	<br> 
 	이메일<input type="email" id="mem_email" name="mem_email" class="form-control" value="${member.mem_email }" readonly /> 
 	<br>
-	거래은행<input type="text" id="mdi_bank" name="mdi_bank" class="form-control" value="${member.mdi_bank }" /> 
-	게좌번호<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control" value="${member.mdi_bank_account }" /> 
+	거래은행<input type="text" id="mdi_bank" name="mdi_bank" class="form-control" value="${member.mdi_bank }" readonly/> 
+	게좌번호<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control" value="${member.mdi_bank_account }" readonly/> 
 	<br>
 
 	<button onclick="modifyMember();" class="btn btn-default">사원수정</button>

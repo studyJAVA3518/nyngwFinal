@@ -1,5 +1,6 @@
 package com.nyngw.humanResource.joinMemberList.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.Paging;
 import com.nyngw.humanResource.joinMemberList.service.JoinMemberListServiceImpl;
+import com.nyngw.humanResource.memberJoin.service.MemberJoinServiceImpl;
 
 @Controller
 @RequestMapping("/humanResource/joinMemberList")
@@ -21,6 +23,8 @@ public class JoinMemberListController {
 	
 	@Autowired
 	private JoinMemberListServiceImpl joinMemberListService;
+	@Autowired
+	private MemberJoinServiceImpl memberJoinService;
 	
 	private List<JoinMemberVO> joinMemberList;
 	
@@ -67,6 +71,13 @@ public class JoinMemberListController {
 		System.out.println(member);
 		
 		model.addAttribute("member", member);
+		
+		try {
+			memberJoinService.viewMjmInfo(model);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return "humanResource/joinMemberList/memberdetail";
 	}
