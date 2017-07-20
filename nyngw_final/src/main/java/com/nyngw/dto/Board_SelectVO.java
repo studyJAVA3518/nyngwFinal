@@ -6,8 +6,23 @@ public class Board_SelectVO {
 	private String searchDate;
 	private String reportType;
 	private String mem_code;
+	private String mem_number;
+	private String mem_id;
 	
 	
+	
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getMem_number() {
+		return mem_number;
+	}
+	public void setMem_number(String mem_number) {
+		this.mem_number = mem_number;
+	}
 	public String getMem_code() {
 		return mem_code;
 	}

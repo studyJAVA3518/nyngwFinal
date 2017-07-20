@@ -14,7 +14,7 @@ public interface MeetingManagementDao {
 
 	public int boardMeetingCount(Board_SelectVO select);
 
-	public int selectMeetingCount();
+	public int selectMeetingCount(String mem_id);
 
 	public void meetingInsert(MeetingVO meeting);
 
@@ -28,11 +28,13 @@ public interface MeetingManagementDao {
 
 	public void meetingDelete(String mt_number);
 //--------------------회의록-------------------
-	public int meeting_DocumentCount(Board_SelectVO select);
 
 	public List<Meeting_DocumentVO> meeting_DocumentList(int firstRow, int endRow,
 			Board_SelectVO select);
 
+	public int boardMeetingMeetingCount(Board_SelectVO select);
+
 	public int selectMeeting_DocumentCount();
+
 
 }

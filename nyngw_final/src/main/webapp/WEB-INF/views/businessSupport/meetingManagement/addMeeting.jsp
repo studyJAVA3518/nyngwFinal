@@ -37,6 +37,8 @@
 			<tr>
 				<th>회의주최자</th>
 				<td><input type="text" name="mt_reader" value="${meetingList2.mem_name }" readonly="readonly"></td>
+				<th>회의참여자</th>
+				<td></td>
 			</tr>
 		</table>
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/meetingeditor.jsp" flush="false"/>

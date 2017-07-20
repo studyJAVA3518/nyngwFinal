@@ -42,12 +42,15 @@ public class MeetingManagementController {
 	
 	@RequestMapping("meetingCalendar")
 	public String calendar(@RequestParam(value="page",defaultValue="1")int pageNumber,
-			Model model,String val, String index, String page){
+			Model model,String val, String index, String page, Principal principal){
 		Board_SelectVO select = new Board_SelectVO();
 		if(val!=null && !val.equals("")){
 			select.setIndex(index);
 			select.setVal(val);
 		}
+		MemberVO mem = basicSettingService.selectMember(principal.getName());
+		String mem_number = mem.getMem_number();
+		select.setMem_number(mem_number);
 		MeetingListViewVO viewData =(MeetingListViewVO)meetingManagementService.selectMeetingList(pageNumber, select);
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
@@ -167,49 +170,32 @@ public class MeetingManagementController {
 	@RequestMapping("/meetingFile")
 	public String meetingfileselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
 				Model model,String val, String index, String searchDate, String titleType,
-					String setSearchOption, String setTitleOption,Principal principal){ //업무종류 하나 더 스트링으로 추가
+					String setSearchOption, String setTitleOption,Principal principal, String page){
 		Board_SelectVO select = new Board_SelectVO();
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd"); 
-		if(searchDate==null){
-			System.out.println("여기들어오냐");
-			searchDate = "today";
-			searchDate = sdformat.format(new Date());
-			index = searchDate;
+		if(val!=null && !val.equals("")){
+			select.setIndex(index);
+			select.setVal(val);
 		}
-		if(val==null){
-			val="";
-		}
-		if(setSearchOption==null){
-			setSearchOption = searchDate;
-		}
-		model.addAttribute("setSearchOption", setSearchOption);
-		
-		if(setTitleOption==null){
-			setTitleOption = titleType;
-		}
-		model.addAttribute("setReportOption", setSearchOption);
-		
-		System.out.println(searchDate+"dasdsa");
-		if(searchDate.equals("today")){
-			searchDate = sdformat.format(new Date());
-		}else if(searchDate.equals("week")){
-			cal.add(Calendar.DATE, -7);
-			searchDate = sdformat.format(cal.getTime());
-		}else if(searchDate.equals("month")){
-			cal.add(Calendar.MONTH, -1);
-			searchDate = sdformat.format(cal.getTime());
-		}else if(searchDate.equals("trimester")){
-			cal.add(Calendar.MONTH, -3);
-			searchDate = sdformat.format(cal.getTime());
-		}
-		select.setVal(val);
-		select.setSearchDate(searchDate);
-		select.setReportType(titleType);
-		Meeting_Document_ListViewVO viewData = (Meeting_Document_ListViewVO) meetingManagementService.meeting_DocumentList(pageNumber, select);
+		Meeting_Document_ListViewVO viewData =meetingManagementService.meeting_DocumentList(pageNumber, select);
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
-		model.addAttribute("select",select);
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select);
+		}
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getMeeting_DocumentList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
+		
+		model.addAttribute("page",page);
+		
 		return "businessSupport/meetingManagement/meetingFile";
 	}
 	

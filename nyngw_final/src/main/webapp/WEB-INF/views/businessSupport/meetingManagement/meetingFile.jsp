@@ -22,17 +22,16 @@
 				<tr>
 					<th>검색입력</th>
 					<td colspan="3">
-						<select name="titleType" id="titleType">
-							<option value="">전체</option>
+						<select name="index" id="titleType">
 							<option value="md_name">제목</option>
 							<option value="md_writer">작성자</option>
 						</select>
+						<input type="hidden" value="${select.index}">
 						<input type="text" name="val" value="${select.val}">
 					</td>
 				</tr>
 			</table>
 				<input type="submit" value="검색">
-		</form>
 		<br>
 		<br>
 		<table class="table table-border">
@@ -46,7 +45,7 @@
 				<c:when test="${viewData.documentTotalCount > 0 }">
 					<c:forEach items="${viewData.meeting_DocumentList }" var="board" >
 						<tr>
-							<td>${fn:substring(board.md_number,2,10077777)}</td>
+							<td>${board.md_number}</td>
 							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?dd_number=${board.md_number}&page=${pageNumber}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">${board.md_name}</a></td>
 							<td><fmt:formatDate value="${board.md_date}" pattern="yyyy/MM/dd"/></td>
 							<td>${board.md_writer }</td>
@@ -71,4 +70,5 @@
 			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 		</div>
+		</form>
 	</div>

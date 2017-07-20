@@ -6,14 +6,15 @@
 
 		<select id="meetingCalList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.MeetingVO">
 			select 
-				mt_number,
+        		to_number(substr(mt_number,3,9999999)) mt_number,
 				mt_date,
 				mt_rv_number,
 				mt_title,
 				mt_reader,
 				mt_content,
 				mt_mr_number
-			from meeting where 1=1
+			from meeting m where (select ad_mem_number from attendance a 
+			where a.ad_mt_number = m.mt_number) = #{mem_number}
 			<choose>
 				<when test='index == "mt_reader"'>
 					and mt_reader like '%'||#{val}||'%'
@@ -25,7 +26,7 @@
 					and mt_title like '%'||#{val}||'%'
 				</when>
 			</choose>
-			order by 2 desc
+			order by to_number(substr(mt_number,3,9999999)) desc
 		</select>
 		
 		<select id="selectMeetingNumber" parameterType="java.lang.String" resultType="com.nyngw.dto.MeetingVO">
@@ -37,11 +38,13 @@
 		</select>
 		
 		<select id="selectMeetingCount" resultType="java.lang.Integer">
-		select count(*) from meeting 
+		select count(*) from meeting m where (select ad_mem_number from attendance a 
+			where a.ad_mt_number = m.mt_number) = #{mem_id}
 	</select>
 	
 	<select id="boardMeetingCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting where 1=1
+		select count(*) from meeting m where (select ad_mem_number from attendance a 
+			where a.ad_mt_number = m.mt_number) = #{mem_id}
 		<choose>
 		    <when test='index == "mt_reader"'>
 		    	AND mt_reader like '%'||#{val}||'%'
@@ -83,9 +86,21 @@
 	
 	
 	<select id="meeting_DocumentList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.Meeting_DocumentVO">
-			select * from meeting_document where 1 = 1
-			and to_char(md_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
-			AND md_name like '%'||#{val}||'%'
+			select 
+				md_number,
+				md_name,
+				md_content,
+				md_date,
+				md_writer
+			from meeting_document where 1 = 1
+			<choose>
+				<when test='index == "md_name"'>
+					and md_name like '%'||#{val}||'%'
+				</when>
+				<when test='index == "mt_writer"'>
+					and mt_writer like '%'||#{val}||'%'
+				</when>
+			</choose>
 			order by 1 desc
 	</select>
 	
@@ -93,9 +108,16 @@
 		select count(*) from meeting_document
 	</select>
 	
-	<select id="meeting_DocumentCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting_document where md_name like '%'||#{val}||'%'
-		and	to_char(md_date,'YYYY/MM/DD') BETWEEN #{searchDate} and SYSDATE
+	<select id="boardMeeting_DocumentCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from meeting_document where 1=1
+		<choose>
+				<when test='index == "md_name"'>
+					and md_name like '%'||#{val}||'%'
+				</when>
+				<when test='index == "mt_writer"'>
+					and mt_writer like '%'||#{val}||'%'
+				</when>
+			</choose>
 	</select>
 	
 	<select id="selectMeeting_Document" parameterType="java.lang.String" resultType="com.nyngw.dto.Meeting_DocumentVO">

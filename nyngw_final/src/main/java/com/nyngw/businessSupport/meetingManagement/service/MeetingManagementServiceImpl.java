@@ -25,7 +25,7 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public MeetingListViewVO selectMeetingList(int pageNumber,
 			Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
-		int boardTotalCount = meetingManagementDao.selectMeetingCount();
+		int boardTotalCount = meetingManagementDao.selectMeetingCount(select.getMem_number());
 			List<MeetingVO> meetingList = null;
 			int firstRow = 0;
 			int endRow = 0;
@@ -83,7 +83,7 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public Meeting_Document_ListViewVO meeting_DocumentList(int pageNumber,
 			Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
-		int documentTotalCount =meetingManagementDao.meeting_DocumentCount(select); 
+		int documentTotalCount =meetingManagementDao.selectMeeting_DocumentCount(); 
 			List<Meeting_DocumentVO> meeting_DocumentList = null;
 			int firstRow = 0;
 			int endRow = 0;
@@ -98,4 +98,6 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 			return  new Meeting_Document_ListViewVO(meeting_DocumentList, documentTotalCount,
 					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
+	
+	
 }

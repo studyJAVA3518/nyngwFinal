@@ -30,8 +30,8 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	}
 	
 	@Override
-	public int selectMeetingCount() {
-		int result =(Integer) sqlSession.selectOne("selectMeetingCount");
+	public int selectMeetingCount(String mem_id) {
+		int result =(Integer) sqlSession.selectOne("selectMeetingCount",mem_id);
 		return result;
 	}
 
@@ -84,21 +84,23 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 		return result;
 	}
 
+	
 	@Override
 	public List<Meeting_DocumentVO> meeting_DocumentList(int firstRow, int endRow,
 			Board_SelectVO select) {
 		int offset = firstRow - 1;
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Meeting_DocumentVO> documentList = (ArrayList<Meeting_DocumentVO>)sqlSession.selectList("meeting_DocumentList",select,rowBounds);
-		return documentList;
+		List<Meeting_DocumentVO> meetingDocumentList = (ArrayList<Meeting_DocumentVO>)sqlSession.selectList("meeting_DocumentList",select,rowBounds);
+		return meetingDocumentList;
 	}
 
+	
+	
 	@Override
-	public int meeting_DocumentCount(Board_SelectVO select) {
-		System.out.println("val:"+select.getVal());
-		System.out.println("searchDate:"+select.getSearchDate());
-		int result =(Integer) sqlSession.selectOne("meeting_DocumentCount",select);
+	public int boardMeetingMeetingCount(Board_SelectVO select) {
+		int result =(Integer) sqlSession.selectOne("boardMeeting_DocumentCount",select);
 		return result;
 	}
+	
 }
