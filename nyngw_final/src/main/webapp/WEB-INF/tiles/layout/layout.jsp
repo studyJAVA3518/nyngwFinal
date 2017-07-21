@@ -99,9 +99,9 @@
    	               var list= res.list;
    	            	var code="";
    	                   $.each(list, function( index, list ) {
-   	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td><a href='#' onclick=deleteMemo('"+list.memo_number+"');>-</a></td></tr>";
+   	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
    	                   });
-   	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next</a></td></tr>";
+   	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
    	                   $('#memo').html(code);
    	         	   }
    	       		} ,
@@ -119,10 +119,10 @@
      	            if(res.su=="ok"){
      	               var list= res.list;
      	            	var code="";
-     	                   $.each(list, function( index, list ) {
-     	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td><a href='#' onclick=deleteMemo('"+list.memo_number+"');>-</a></td></tr>";
+     	               $.each(list, function( index, list ) {
+     	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
      	                   });
-     	                   code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next</a></td></tr>";
+     	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
      	                   $('#memo').html(code);
      	         	   }
      	       		} ,
@@ -222,10 +222,10 @@
               	            	alert("등록")
               	               var list= res.list;
               	            	var code="";
-              	                   $.each(list, function( index, list ) {
-              	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td><a href='#' onclick=deleteMemo('"+list.memo_number+"');>-</a></td></tr>";
-              	                   });
-              	                 code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next</a></td></tr>";
+              	              $.each(list, function( index, list ) {
+            	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+            	                   });
+            	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
               	                   $('#memo').html(code);
               	            }
               	       }
@@ -242,6 +242,7 @@
               });
        }
        function deleteMemo(memo_number){
+    	   if(confirm("??")){
     	   $.ajax({
     	         url : '/memo/delete',
     	         type : 'post',
@@ -251,14 +252,15 @@
     	            	alert("삭제")
     	               var list= res.list;
     	            	var code="";
-    	                   $.each(list, function( index, list ) {
-    	                	   code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td><a href='#' onclick=deleteMemo('"+list.memo_number+"');>-</a></td></tr>";
-    	                   });
-    	                   code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next</a></td></tr>";
+    	                $.each(list, function( index, list ) {
+      	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+      	                   });
+      	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
     	                   $('#memo').html(code);
     	            }
     	       }
   	  	 	})
+    	   }
        }
        function modifyMemo(memo_number){
     	   $.ajax({
@@ -285,10 +287,10 @@
   	                 	            	alert("등록")
   	                 	               var list= res.list;
   	                 	            	var code="";
-  	                 	                   $.each(list, function( index, list ) {
-  	                 	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td><a href='#' onclick=deleteMemo('"+list.memo_number+"');>-</a></td></tr>";
-  	                 	                   });
-  	                 	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next</a></td></tr>"; 
+  	                 	             $.each(list, function( index, list ) {
+  	             	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+  	             	                   });
+  	             	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
   	                 	                   $('#memo').html(code);
   	                 	            }
   	                 	       }

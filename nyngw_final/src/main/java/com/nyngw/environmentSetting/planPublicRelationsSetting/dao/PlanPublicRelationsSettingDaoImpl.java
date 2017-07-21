@@ -8,6 +8,10 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.CompanyVO;
@@ -27,6 +31,94 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	private static String COLLECTION_NAME = "Company";
+	
+	/**
+	 * 회사 정보를 입력하는 메서드
+	 * @param vo
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int insertCompanyInfo(CompanyVO vo) throws SQLException {
+		int result=(Integer)sqlSession.update("insertCompanyInfo",vo);
+		
+		vo.setId(1);
+		mongoTemplate.insert(vo, COLLECTION_NAME);
+
+		return result;
+	}
+	
+	/**
+	 * 회사 정보를 업데이트하는 메서드
+	 * @param vo
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int updateCompanyInfo(CompanyVO vo) throws SQLException {
+		int result=(Integer)sqlSession.update("updateCompanyInfo",vo);
+
+		vo.setId(1);
+		Query query = new Query();
+		
+		CompanyVO company=mongoTemplate.findById(1, CompanyVO.class, COLLECTION_NAME);
+		
+		System.out.println(company);
+
+		Update update = new Update();
+		update.set("company_name", vo.getCompany_name());
+		update.set("company_tel",vo.getCompany_tel());
+		update.set("company_zip", vo.getCompany_zip());
+		update.set("company_addr1",vo.getCompany_addr1());
+		update.set("company_addr2",vo.getCompany_addr2());
+		
+		mongoTemplate.updateFirst(query, update, COLLECTION_NAME);
+		
+		return result;
+	}
+	
+	/**
+	 * 회사 로고를 입력하는 메서드
+	 * @param String(업로드된 로고의 패스)
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int insertCompanyLogo(String company_logo) throws SQLException {
+		int result=(Integer)sqlSession.update("inserttCompanyInfo",company_logo);
+		
+		CompanyVO vo = new CompanyVO();
+		vo.setId(1);
+		vo.setCompany_logo(company_logo);
+		mongoTemplate.insert(vo, COLLECTION_NAME);
+		
+		return result;
+	}
+	
+	/**
+	 * 회사 로고를 업데이트하는 메서드
+	 * @param String(업로드된 로고의 패스)
+	 * @return int
+	 * @throws SQLException
+	 */
+	@Override
+	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException {
+		CompanyVO vo = new CompanyVO();
+		vo.setId(1);
+		Query query = new Query();
+		
+		Update update = new Update();
+		update.set("company_logo", company_logo);
+		mongoTemplate.updateFirst(query, update, COLLECTION_NAME);
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("company_logo", company_logo);
+		paramMap.put("company_number", company_number);
+		int result=(Integer)sqlSession.update("updateCompanyLogo",paramMap);
+		return result;
+	}
+	
 	/**
 	 * 회사의 기본적인 업무시간을 가져오는 메서드
 	 * @return wtList
@@ -44,56 +136,6 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	@Override
 	public int updateWorkTime(Work_TimeVO vo) throws SQLException{
 		int result = sqlSession.update("esUpdateWorkingTime",vo);
-		return result;
-	}
-	
-	/**
-	 * 회사 정보를 입력하는 메서드
-	 * @param vo
-	 * @return int
-	 * @throws SQLException
-	 */
-	public int insertCompanyInfo(CompanyVO vo) throws SQLException {
-		int result=(Integer)sqlSession.update("insertCompanyInfo",vo);
-		return result;
-	}
-	
-	/**
-	 * 회사 정보를 업데이트하는 메서드
-	 * @param vo
-	 * @return int
-	 * @throws SQLException
-	 */
-	public int updateCompanyInfo(CompanyVO vo) throws SQLException {
-		int result=(Integer)sqlSession.update("updateCompanyInfo",vo);
-		return result;
-	}
-	
-	/**
-	 * 회사 로고를 입력하는 메서드
-	 * @param String(업로드된 로고의 패스)
-	 * @return int
-	 * @throws SQLException
-	 */
-	@Override
-	public int insertCompanyLogo(String company_logo) throws SQLException {
-		int result=(Integer)sqlSession.update("inserttCompanyInfo",company_logo);
-		return result;
-	}
-	
-	/**
-	 * 회사 로고를 업데이트하는 메서드
-	 * @param String(업로드된 로고의 패스)
-	 * @return int
-	 * @throws SQLException
-	 */
-	@Override
-	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException {
-		
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("company_logo", company_logo);
-		paramMap.put("company_number", company_number);
-		int result=(Integer)sqlSession.update("updateCompanyLogo",paramMap);
 		return result;
 	}
 	
