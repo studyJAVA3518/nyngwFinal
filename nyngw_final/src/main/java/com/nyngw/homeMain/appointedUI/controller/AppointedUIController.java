@@ -24,16 +24,16 @@ public class AppointedUIController {
 	
 	@RequestMapping("/appointedUI")
 	public String appointedUI(Model model,String menu1, String menu2, String menu3){
-		MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
-		MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);
-		MiddleMenuVO mid3 = appointedUIservice.selectMiddleMenuFind_UI(menu3);
+//		MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
+//		MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);
+//		MiddleMenuVO mid3 = appointedUIservice.selectMiddleMenuFind_UI(menu3);
 		
-		model.addAttribute("big_number", mid1.getMid_big_number());
-		model.addAttribute("middleMenu", mid1.getMid_number());
-		model.addAttribute("big_number1", mid2.getMid_big_number());
-		model.addAttribute("middleMenu1", mid2.getMid_number());
-		model.addAttribute("big_number2", mid3.getMid_big_number());
-		model.addAttribute("middleMenu2", mid3.getMid_number());
+//		model.addAttribute("big_number", mid1.getMid_big_number());
+//		model.addAttribute("middleMenu", mid1.getMid_number());
+//		model.addAttribute("big_number1", mid2.getMid_big_number());
+//		model.addAttribute("middleMenu1", mid2.getMid_number());
+//		model.addAttribute("big_number2", mid3.getMid_big_number());
+//		model.addAttribute("middleMenu2", mid3.getMid_number());
 		return "homeMain/appointedUI/appointedUI";
 	}
 	///////////////////////UI
