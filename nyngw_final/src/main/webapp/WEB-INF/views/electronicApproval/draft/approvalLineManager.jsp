@@ -138,14 +138,17 @@ td {
 					alert("결재자는 5명까지만 등록할 수 있습니다. 상위 5명만 등록 됩니다.");
 				}else{
 					if($(this).attr('id')!='allCheck'){
-						if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
+						if(!($("#agreement").find("#"+$(this).attr('id')).val()===undefined)){
+							alert($(this).val()+"님은 이미 합의자 리스트에 추가되었습니다.");
+						}else if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
 							$('#approval').append('<option name="approvalMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
 						}else{
 							alert($(this).val()+"님은 이미 추가되었습니다.");
 						}
+						
 					}	
-					$(this).prop("checked",false);
 				}
+				$(this).prop("checked",false);
 			});
 		});
 		//합의자 등록
@@ -159,7 +162,9 @@ td {
 					alert("결재자는 5명까지만 등록할 수 있습니다. 상위 5명만 등록 됩니다.");
 				}else{
 					if($(this).attr('id')!='allCheck'){
-						if($("#agreement").find("#"+$(this).attr('id')).val()===undefined){
+						if(!($("#approval").find("#"+$(this).attr('id')).val()===undefined)){
+							alert($(this).val()+"님은 이미 결재자 리스트에 추가되었습니다.");
+						}else if($("#agreement").find("#"+$(this).attr('id')).val()===undefined){
 							$('#agreement').append('<option name="agreementMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
 						}else{
 							alert($(this).val()+"님은 이미 추가되었습니다.");
