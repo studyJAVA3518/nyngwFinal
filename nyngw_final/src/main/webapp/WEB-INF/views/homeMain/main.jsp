@@ -21,104 +21,92 @@
   									<p>2</p>
   								</div>
   							</div>
-  						
   						</div>
   						
   						<!-- UI 설정 -->
   						<div class="col-md-2 textRight">
-  							<a href="/homeMain/appointedUI/appointedUI" class="btn btn-default">UI 설정</a>
+  							<a href="/homeMain/appointedUI/appointedUI?menu1=${mUUSS.menu1}&menu2=${mUUSS.menu2}&menu3=${mUUSS.menu3}" class="btn btn-default">UI 설정</a>
   						</div>
   					</div>
   					
   					<!-- 공지사항 -->
   					<div class="row">
   						<div class="col-md-12">
-	  						<h2 class="tableTitle">공지사항<a href="/sharingInformation/noticeMatter/nmList">more</a></h2>
+	  						<h2 class="tableTitle">${mUUSS.menu1}<a href="${mUUSS.uriAddr1 }">more</a></h2>
   							<table class="table">
   								<tr>
-  									<th>번호</th>
-  									<th>제목</th>
-  									<th>조회수</th>
+  									<c:forEach items="${mUUSS.title1}" var="title1">
+	  									<th>${title1}</th>
+  									</c:forEach>
   								</tr>
-  								<c:forEach items="${boardList}" var="board" begin="0" end="4" step="1">
-									
+								<c:forEach items="${mUUSS.content1 }" var="i">
   									<tr>
-		  									<td>${board.board_number.substring(5)}</td>
-		  									<td><a href="/sharingInformation/board/detail?board_number=${board.board_number}">${board.board_title}</a></td>
-		  									<td>${board.board_count}</td>
+										<td>${i.content1}</td>
+										<td><a href="${i.detailUri}">${i.content2}</a></td>
+										<td>${i.content3}</td>
+										<td>${i.content4}</td>
 	  								</tr>
-  									
-  								</c:forEach>
+								</c:forEach>
   								
   							</table>
   						</div>
   						
   						<div class="col-md-6">
-	  						<h2 class="tableTitle">결재진행<a href="#">more</a></h2>
+	  						<h2 class="tableTitle">${mUUSS.menu2}<a href="${mUUSS.uriAddr2 }">more</a></h2>
   							<table class="table">
   								<tr>
-  									<th>순서</th>
-  									<th>제목</th>
-  									<th>기안자</th>
+  									<c:forEach items="${mUUSS.title2}" var="title2">
+	  									<th>${title2}</th>
+  									</c:forEach>
   								</tr>
-  								<tr>
-  									<td>1</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>2</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>3</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>4</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
-  								<tr>
-  									<td>5</td>
-  									<td>원자력 연구소 프로젝트 완료 보고</td>
-  									<td>최시영</td>
-  								</tr>
+  							    <c:forEach items="${mUUSS.content2 }" var="i">
+  									<tr>
+										<td>${i.content1}</td>
+										<td><a href="${i.detailUri}">${i.content2}</a></td>
+										<td>${i.content3}</td>
+										<td>${i.content4}</td>
+	  								</tr>
+								</c:forEach>
   							</table>
   						</div>
   						
   						<div class="col-md-6">
-	  						<h2 class="tableTitle">Today 개인/부서일정<a href="/sharingInformation/scheduleManagement/schedule?sc_code_number=code4">more</a></h2>
+	  						<h2 class="tableTitle">${mUUSS.menu3}<a href="${mUUSS.uriAddr3 }">more</a></h2>
   							<table class="table">
   								<tr>
-  									<th>일정종류</th>
-  									<th>일정제목</th>
-  									<th>일정시간</th>
+  									<c:forEach items="${mUUSS.title3}" var="title3">
+	  									<th>${title3}</th>
+  									</c:forEach>
   								</tr>
-  								<c:choose>
-  									<c:when test="${size != 0 }">
-  										<c:forEach items="${scheduleList}" var="scheduleList" begin="0" end="4" step="1">
-		  									<tr>
-												<%--<td>${scheduleList.sc_number.substring(2)}</td> --%>
-			  									<c:choose>
-			  										<c:when test="${scheduleList.sc_code_number != 'code4' }">
-			  											<td>부서</td>
-			  										</c:when>
-			  										<c:otherwise>
-			  											<td>개인</td>
-			  										</c:otherwise>
-			  									</c:choose>
-			  									<td><a href="/sharingInformation/scheduleManagement/scheduleDetail?sc_number=${scheduleList.sc_number}">${scheduleList.sc_title}</a></td>
-												<td>${scheduleList.sc_time}</td>
-			  								</tr>
-		  								</c:forEach>
-  									</c:when>
-  									<c:otherwise>
-  										<tr><td colspan="3">오늘 일정이 없습니다.</td></tr>
-	  								</c:otherwise>
-  								</c:choose>
+<%--   								<c:choose> --%>
+<%--   									<c:when test="${size != 0 }"> --%>
+  									<c:forEach items="${mUUSS.content3 }" var="i">
+	  									<tr>
+											<td>${i.content1}</td>
+											<td><a href="${i.detailUri}">${i.content2}</a></td>
+											<td>${i.content3}</td>
+											<td>${i.content4}</td>
+		  								</tr>
+									</c:forEach>
+<%--   										<c:forEach items="${scheduleList}" var="scheduleList" begin="0" end="4" step="1"> --%>
+<!-- 		  									<tr> -->
+<%-- 			  									<c:choose> --%>
+<%-- 			  										<c:when test="${scheduleList.sc_code_number != 'code4' }"> --%>
+<!-- 			  											<td>부서</td> -->
+<%-- 			  										</c:when> --%>
+<%-- 			  										<c:otherwise> --%>
+<!-- 			  											<td>개인</td> -->
+<%-- 			  										</c:otherwise> --%>
+<%-- 			  									</c:choose> --%>
+<%-- 			  									<td><a href="/sharingInformation/scheduleManagement/scheduleDetail?sc_number=${scheduleList.sc_number}">${scheduleList.sc_title}</a></td> --%>
+<%-- 												<td>${scheduleList.sc_time}</td> --%>
+<!-- 			  								</tr> -->
+<%-- 		  								</c:forEach> --%>
+<%--   									</c:when> --%>
+<%--   									<c:otherwise> --%>
+<!--   										<tr><td colspan="3">오늘 일정이 없습니다.</td></tr> -->
+<%-- 	  								</c:otherwise> --%>
+<%--   								</c:choose> --%>
   							</table>
   						</div>
   					</div>

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
@@ -39,4 +41,22 @@ public interface AppointedUIService {
 	public List<Map> selectBigMenu();
 	public List<Map> selectMiddleMenu(String big_num);
 	public void userUiInsert_UI(UserUiVO userUi, Principal principal);
+	
+	
+	
+	//공지사항 조회하는곳임
+	public void userMainUiSelectService(Model model, Principal principal);
+	
+	
+	
+	//select 선정해주기위한 곳
+	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name);
+	
+	
+	
+	
+	
+	
+	
+	
 }

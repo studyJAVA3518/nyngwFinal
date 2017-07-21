@@ -147,6 +147,14 @@ $(function(){
 	        $('#uiSelect').removeClass("userInterFaceSetting");
 	      }
 	});
+	$(function(){  
+	    $('#big_number option[value=${big_number}]').prop('selected',true);
+	    $('#middleMenu option[value=${middleMenu}]').prop('selected',true);
+	    $('#big_number1 option[value=${big_number1}]').prop('selected',true);
+	    $('#middleMenu1 option[value=${middleMenu1}]').prop('selected',true);
+	    $('#big_number2 option[value=${big_number2}]').prop('selected',true);
+	    $('#middleMenu2 option[value=${middleMenu2}]').prop('selected',true);
+	});
 })
 	function userUiSave(){
 		$.ajax({
@@ -160,6 +168,7 @@ $(function(){
 			dataType : 'json'
 		});
 	}
+
 </script>
 <style>
 	.userInterFaceSetting{
