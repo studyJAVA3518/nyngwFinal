@@ -4,8 +4,39 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDao">
 
-	<select id="selectWA" resultType="com.nyngw.dto.Electronic_ApprovalVO">
-		select * from Electronic_Approval where ea_status = '미결'
+	<!-- 한 사원이 결재스탭에 포함 된 결재번호들을 검색 -->
+	<select id="ap_selectEaNumberByMemId" parameterType="string" resultType="string">
+		select distinct ast_ea_number from APPROVAL_step where ast_mem_number = #{mem_number}
+	</select>
+
+	<!-- 가장 높은 결재 우선순위 ast_ea_number-->
+	<select id="selectLastAstPriority" parameterType="string" resultType="int">
+		select max(rnum) from
+		(select rownum rnum, a.* 
+		from (select * from approval_step 
+		where (ast_ea_number = #{ast_ea_number} and ast_al_number ='A') 
+		or (ast_ea_number = #{ast_ea_number} and ast_al_number ='B')  
+		order by ast_al_number desc, ast_priority asc) a)
+	</select>
+	
+	<!-- 자신의 결재 우선순위 ast_ea_number / ast_mem_number-->
+	<select id="selectOneAstPriority" parameterType="map" resultType="int">
+		select rnum from
+		(select rownum rnum, a.* 
+		from (select * from approval_step
+		where (ast_ea_number = #{ast_ea_number} and ast_al_number ='A') 
+		or (ast_ea_number = #{ast_ea_number} and ast_al_number ='B')  
+		order by ast_al_number desc, ast_priority asc) a)
+		where ast_mem_number = #{ast_mem_number}
+	</select>
+	
+	<!-- 결재이력의 가장 높은 우선순위 ah_ea_number-->
+	<select id="selectLastApprovalHistory" parameterType="string" resultType="int">
+		select nvl(max(substr(ah_ast_number,4)),0) from approval_history where ah_ea_number= #{ah_ea_number}
+	</select>
+	
+	<select id="selectEA" resultType="com.nyngw.dto.Electronic_ApprovalVO" parameterType="string">
+		select * from Electronic_Approval where ea_number = #{ea_number}
 	</select>
 	
 	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO">

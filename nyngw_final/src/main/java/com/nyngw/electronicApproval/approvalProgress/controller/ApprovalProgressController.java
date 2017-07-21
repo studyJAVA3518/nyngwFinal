@@ -1,5 +1,6 @@
 package com.nyngw.electronicApproval.approvalProgress.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,16 +30,8 @@ public class ApprovalProgressController {
 	
 	//미결재 문서 페이지 열기
 	@RequestMapping("/waitingApproval")
-	public String waitingApproval(Model model){
-		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultWA();
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
-		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
-		}
-		
-		model.addAttribute("EAList",EAList );
-		model.addAttribute("code_nameList",code_nameList );
+	public String waitingApproval(Model model,Principal principal){
+		ApprovalProgressService.defaultWA(model,principal);
 		return "electronicApproval/approvalProgress/waitingApproval";
 	}
 
