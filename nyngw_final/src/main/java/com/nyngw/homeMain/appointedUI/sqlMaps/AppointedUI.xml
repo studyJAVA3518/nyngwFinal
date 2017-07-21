@@ -43,6 +43,96 @@
 			   ui_autouse = #{ui_autouse}
 		where  ui_mem_number = #{ui_mem_number} 
 	</update>	
+	
+	<select id="userSelectInterface" resultType="com.nyngw.dto.UserInterfaceVO" parameterType="java.lang.String">
+		select * from userinterface where UI_MEM_NUMBER = #{mem_number}
+	</select>
+	
+<!-- 	공지사항 -->
+	<select id="userUiNoticeMatter_UI" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_code_number = 'code11' order by 1 desc
+	</select>
+	
+<!-- 게시판 -->
+	<select id="userUiBoardList_UI" resultType="com.nyngw.dto.BoardVO">
+		select * from board where board_code_number = 'code7' order by 1 desc
+	</select>
+	
+<!-- 주소록 -->
+	<select id="userUiMemberAddressList_UI" resultType="com.nyngw.dto.AddressBookVO">
+		select to_number(substr(mem_dept_number,5)) dept_number,
+		(select d.dept_name from department d where m.mem_dept_number = d.dept_number) mem_dept_name, 
+		mem_name, 
+		(select p.position_name from position p where m.mem_position_number = p.position_number) mem_position_name, 
+		mem_email, 
+		mem_tel, 
+		mem_addr1 
+		from member m 
+		order by 1
+	</select>
+
+<!-- 생일자 -->
+	<select id="userUiMemberBirthdayList_UI" resultType="com.nyngw.dto.BirthdayVO">
+		select to_number(substr(mem_dept_number,5)) dept_number,
+			mem_birthday,
+			(select d.dept_name from department d where m.mem_dept_number = d.dept_number) mem_dept_name, 
+			mem_name, 
+			(select p.position_name from position p where m.mem_position_number = p.position_number) mem_position_name, 
+			mem_email, 
+			mem_tel 
+			from member m 
+			where substr(mem_birthday,4,2) = SUBSTR(sysdate,4,2)
+			order by 1
+	</select>
+	
+<!-- 부서업무	 -->
+	<select id="userUiDepartmentList_UI" resultType="com.nyngw.dto.Duty_DocumentVO" parameterType="java.lang.String">
+    select * from Duty_document dd where 
+		(select m.mem_dept_number from member m where m.mem_number = dd.dd_mem_number) = 
+				(select mm.mem_dept_number from member mm where mm.mem_id = #{mem_id}) and dd_public ='y'
+		and to_char(dd_date,'yyyy/MM/dd') between (select to_char(add_months(sysdate,-1),'yyyy/mm/dd') from dual) and sysdate
+		order by 1 desc
+	</select>
+
+<!-- 개인업무	 -->
+	<select id="userUiPersonalBusinessList_UI" resultType="com.nyngw.dto.Duty_DocumentVO" parameterType="java.lang.String">
+		select * from duty_document where 1 = 1
+			and to_char(dd_date,'YYYY/MM/DD') BETWEEN (select to_char(add_months(sysdate,-1),'yyyy/mm/dd') from dual) and SYSDATE
+			and dd_mem_number = #{mem_number}
+			order by 1 desc
+	</select>
+
+<!-- 문서조회	 -->
+	<select id="userUiDocumentManagerList_UI" resultType="com.nyngw.dto.DocumentViewVO">
+		select 
+			dv_code_name,
+       		dv_doc_date,
+       		dv_doc_name,
+       		dv_doc_number,
+       		dv_mem_name
+		from documentview 
+		order by dv_doc_number desc
+	</select>
+	
+	
+	<select id="selectMiddleMenuFind_UI" parameterType="java.lang.String" resultType="com.nyngw.dto.MiddleMenuVO">
+		select * from middlemenu where mid_name = #{mid_name}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 
 
