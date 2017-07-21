@@ -349,19 +349,22 @@ public class DraftServiceImpl implements DraftService {
 		if(apVO.getAgreementMember5()!=null){
 			paramMap = new HashMap<String, String>(); 
 			agreementMember5 =apVO.getAgreementMember5();
-			paramMap.put("ast_mem_number", agreementMember1);
+			paramMap.put("ast_mem_number", agreementMember5);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast5");
 			paramMap.put("ast_al_number", "B");
 			paramMap.put("ast_priority", "5");
 			draftDao.draft_insertApprovalStep(paramMap);
 		}
-		int priority = Integer.parseInt(paramMap.get("ast_priority"));
+		int priority = 0; 
+		if(paramMap!=null ){
+			priority = Integer.parseInt(paramMap.get("ast_priority"));
+		}
 		//결재자
 		if(apVO.getApprovalMember1()!=null){
 			paramMap = new HashMap<String, String>(); 
 			approvalMember1 =apVO.getApprovalMember1();
-			paramMap.put("ast_mem_number", agreementMember1);
+			paramMap.put("ast_mem_number", approvalMember1);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast"+(priority+1));
 			paramMap.put("ast_al_number", "A");
@@ -371,7 +374,7 @@ public class DraftServiceImpl implements DraftService {
 		if(apVO.getApprovalMember2()!=null){
 			paramMap = new HashMap<String, String>(); 
 			approvalMember2 =apVO.getApprovalMember2();
-			paramMap.put("ast_mem_number", agreementMember2);
+			paramMap.put("ast_mem_number", approvalMember2);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast"+(priority+2));
 			paramMap.put("ast_al_number", "A");
@@ -381,7 +384,7 @@ public class DraftServiceImpl implements DraftService {
 		if(apVO.getApprovalMember3()!=null){
 			paramMap = new HashMap<String, String>(); 
 			approvalMember3 =apVO.getApprovalMember3();
-			paramMap.put("ast_mem_number", agreementMember3);
+			paramMap.put("ast_mem_number", approvalMember3);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast"+(priority+3));
 			paramMap.put("ast_al_number", "A");
@@ -391,7 +394,7 @@ public class DraftServiceImpl implements DraftService {
 		if(apVO.getApprovalMember4()!=null){
 			paramMap = new HashMap<String, String>(); 
 			approvalMember4 =apVO.getApprovalMember4();
-			paramMap.put("ast_mem_number", agreementMember4);
+			paramMap.put("ast_mem_number", approvalMember4);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast"+(priority+4));
 			paramMap.put("ast_al_number", "A");
@@ -401,36 +404,48 @@ public class DraftServiceImpl implements DraftService {
 		if(apVO.getApprovalMember5()!=null){
 			paramMap = new HashMap<String, String>(); 
 			approvalMember5 =apVO.getApprovalMember5();
-			paramMap.put("ast_mem_number", agreementMember5);
+			paramMap.put("ast_mem_number", approvalMember5);
 			paramMap.put("ast_ea_number", param_ea_number);
 			paramMap.put("ast_number", "ast"+(priority+5));
 			paramMap.put("ast_al_number", "A");
 			paramMap.put("ast_priority", (priority+5)+"");
 			draftDao.draft_insertApprovalStep(paramMap);
 		}
-		priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
+		if(paramMap!=null ){
+			priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
+		}
 		//시행자
 		if(apVO.getImplementMembers()!=null){
 			paramMap = new HashMap<String, String>(); 
 			implementMembers = apVO.getImplementMembers();
-			paramMap.put("ast_mem_number", implementMembers);
-			paramMap.put("ast_ea_number", param_ea_number);
-			paramMap.put("ast_number", "ast"+(priority+1));
-			paramMap.put("ast_al_number", "C");
-			paramMap.put("ast_priority", "0");
-			draftDao.draft_insertApprovalStep(paramMap);
+			StringTokenizer st = new StringTokenizer(implementMembers,","); 
+			while(st.hasMoreTokens()) { 
+				paramMap.put("ast_mem_number", st.nextToken());
+				paramMap.put("ast_ea_number", param_ea_number);
+				paramMap.put("ast_number", "ast"+(priority+1));
+				paramMap.put("ast_al_number", "C");
+				paramMap.put("ast_priority", "0");
+				draftDao.draft_insertApprovalStep(paramMap);
+				priority++;
+			}
 		}
-		priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
+		if(paramMap.get("ast_number")!=null ){
+			priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
+		}
 		//참조자
 		if(apVO.getReferenceMembers()!=null){
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();
-			paramMap.put("ast_mem_number", referenceMembers);
-			paramMap.put("ast_ea_number", param_ea_number);
-			paramMap.put("ast_number", "ast"+(priority+1));
-			paramMap.put("ast_al_number", "D");
-			paramMap.put("ast_priority", "0");
-			draftDao.draft_insertApprovalStep(paramMap);
+			StringTokenizer st = new StringTokenizer(implementMembers,","); 
+			while(st.hasMoreTokens()) { 
+				paramMap.put("ast_mem_number", st.nextToken());
+				paramMap.put("ast_ea_number", param_ea_number);
+				paramMap.put("ast_number", "ast"+(priority+1));
+				paramMap.put("ast_al_number", "C");
+				paramMap.put("ast_priority", "0");
+				draftDao.draft_insertApprovalStep(paramMap);
+				priority++;
+			}
 		}	
 	}
 

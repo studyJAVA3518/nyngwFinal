@@ -79,6 +79,8 @@ public class HomeMainController {
 			e.printStackTrace();
 		}
 		
+		appointedUIService.userMainUiSelectService(model, principal);
+		
 		return url;
 	}
 }

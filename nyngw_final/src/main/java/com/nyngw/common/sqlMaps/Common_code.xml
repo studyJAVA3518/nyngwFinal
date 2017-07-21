@@ -26,4 +26,46 @@
 		where code_number = #{code_number}
 	</select>
 	
+	<insert id="addMemo_CS" parameterType="com.nyngw.dto.MemoVO">
+		insert into memo values('memo'||memo_seq.nextval,#{memo_title},#{memo_content},#{memo_mem_number})		
+	</insert>
+	
+	<select id="getMemoList_CS" parameterType="com.nyngw.dto.MemoVO" resultType="com.nyngw.dto.MemoVO">
+		SELECT  *
+		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
+		select *
+		from memo
+		<![CDATA[
+		ORDER BY memo_number ) A)
+		where memo_mem_number = #{memo_mem_number}
+		and  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		]]>
+	</select>
+	
+	<delete id="deleteMemo_CS">
+		delete from memo where memo_number = #{memo_number}
+	</delete>
+	
+	<select id="getMemo_CS" parameterType="com.nyngw.dto.MemoVO" resultType="com.nyngw.dto.MemoVO">
+		select *
+		from memo
+		where memo_number = #{memo_number}
+	</select>
+	
+	<update id="modifyMemo_CS" parameterType="com.nyngw.dto.MemoVO">
+		update memo
+		set memo_title=#{memo_title} , memo_content=#{memo_content}
+		where memo_number = #{memo_number}
+	</update>
+	
+	<select id="countMemo_CS" parameterType="com.nyngw.dto.MemoVO" resultType="Integer">
+		select count(*)
+		from memo
+		where memo_mem_number = #{memo_mem_number}
+	</select>
+	
+	<select id="selectMemIdByMemPwd" parameterType="string" resultType="com.nyngw.dto.MemberVO">
+		select * from member where mem_pwd = #{mem_pwd}
+	</select>
+	
 </mapper>

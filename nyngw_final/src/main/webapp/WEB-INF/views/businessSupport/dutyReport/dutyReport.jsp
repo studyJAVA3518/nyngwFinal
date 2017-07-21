@@ -5,6 +5,43 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 업무지원 >> 업무 보고 상신 >> 내 업무보고
 <br>
+<script>
+$(function(){  
+    $('#searchDate option[value=${setSearchOption}]').prop('selected',true);
+    $('#reportType option[value=${setReportOption}]').prop('selected',true);
+});
+$(function(){ //전체선택 체크박스 클릭
+	$("#check_all").click(function() {
+			//만약 전체 선택 체크박스가 체크된상태일경우 
+			if ($("#check_all").prop("checked")) {
+				//해당화면에 전체 checkbox들을 체크해준다 
+				$("input[type=checkbox]").prop("checked", true);
+				// 전체선택 체크박스가 해제된 경우
+			} else {
+				//해당화면에 모든 checkbox들의 체크를해제시킨다. 
+				$("input[type=checkbox]").prop("checked", false);
+			}
+		})
+})
+function dutyReportDelete() {
+	alert('ff');
+	var items=[];
+	$('input[name="dr_chk"]:checkbox:checked').each(function(){items.push($(this).val());});
+	
+	$.ajax({
+		url : '/businessSupport/dutyReport/dutyReportDelete',
+		type : 'post',
+		data :  {'dr_chk': items},
+		success : function(result) {
+			location.href=result.uri;
+		},
+		error : function() {
+			
+		},
+		dataType : 'json'
+	})
+}
+</script>
 <div>
 	<form action="/businessSupport/dutyReport/dutyReport">
 		<div>
@@ -55,14 +92,12 @@
 				</tr>
 				<c:choose>
 					<c:when test="${viewData.documentTotalCount > 0 }">
-						<c:forEach items="${viewData.documentList }" var="dutyReport"
-							varStatus="i">
+						<c:forEach items="${viewData.documentList }" var="dutyReport" varStatus="i">
 							<tr>
-								<td><input type="checkbox" name="check_one" value="one"${i }></td>
-								<td>${dutyReport.dr_number}</td>
-								<td><fmt:formatDate value="${dutyReport.dr_date}"
-										pattern="yyyy/MM/dd" /></td>
-								<td><a href="#">${dutyReport.dr_title}</a></td>
+								<td><input type="checkbox" name="dr_chk" value="${dutyReport.dr_number}"></td>
+								<td>${fn:substring(dutyReport.dr_number,2,1007777)}</td>
+								<td><fmt:formatDate value="${dutyReport.dr_date}" pattern="yyyy/MM/dd" /></td>
+								<td><a href="/businessSupport/dutyReport/dutyReportDetail?dr_number=${dutyReport.dr_number }&page=${pageNumber}&reportType=${setReportOption}&searchDate=${setSearchOption}&val=${select.val}">${dutyReport.dr_title}</a></td>
 								<td>${fn:substring(dutyReport.dr_code_name,0,2) }보고</td>
 								<td>${mem_name }</td>
 								<td><fmt:formatDate value="${dutyReport.dr_writedate}" pattern="yyyy/MM/dd" /></td>
@@ -92,7 +127,7 @@
 			</c:if>
 		</div>
 		<div>
-			<input type="button" value="선택삭제">
+			<input type="button" value="선택삭제" onclick="dutyReportDelete();" /> 
 		</div>
 	</div>
 	<div style="text-align: right;">

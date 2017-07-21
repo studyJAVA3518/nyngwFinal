@@ -73,21 +73,19 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:forEach items="${EAList }" var="EA">
-		<c:forEach items="${code_nameList}" var="CN">
-			<tr>
-				<td>${EA.ea_number }</td>
-				<td>${CN.code_name}</td>
-				<td><a href="/electronicApproval/approvalProgress/waitingApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</td>
-				<td>${EA.ea_mem_number }</td>
-				<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-				<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-					~
-					<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
-				</td>
-				<td>${EA.ea_status }</td>
-			</tr>
-		</c:forEach>
+	<c:forEach items="${eaList}" var="EA" varStatus="status"> 
+		<tr>
+			<td>${EA.ea_number}</td>
+			<td>${code_nameList[status.index].code_name}</td>
+			<td><a href="/electronicApproval/approvalProgress/waitingApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</td>
+			<td>${memberList[status.index].mem_name}</td>
+			<td>${EA.ea_writedate}
+			<td>${EA.ea_startdate}
+				~
+				${EA.ea_enddate}
+			</td>
+			<td>${statusList[status.index]}</td>
+		</tr>
 	</c:forEach>
 </table>
 

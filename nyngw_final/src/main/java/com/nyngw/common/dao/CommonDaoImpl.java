@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.MemberVO;
+import com.nyngw.dto.MemoVO;
 
 @Repository
 public class CommonDaoImpl implements CommonDao {
@@ -30,6 +31,38 @@ public class CommonDaoImpl implements CommonDao {
 	
 	public Common_CodeVO common_selectCodeNameByDocument(String code_number) {
 		return (Common_CodeVO) sqlSession.selectOne("common_selectCodeNameByDocument", code_number);
+	}
+
+	public void addMemo_CS(MemoVO memo) {
+		sqlSession.insert("addMemo_CS", memo);
+	}
+
+	public List<MemoVO> getMemoList_CS(MemoVO memo) {
+		return sqlSession.selectList("getMemoList_CS", memo);
+	}
+
+	public void deleteMemo_CS(MemoVO memo) {
+		sqlSession.delete("deleteMemo_CS", memo);
+	}
+
+	public MemoVO getMemo_CS(MemoVO memo) {
+		return (MemoVO) sqlSession.selectOne("getMemo_CS", memo);
+	}
+
+	public void modifyMemo_CS(MemoVO memo) {
+		sqlSession.update("modifyMemo_CS", memo);
+	}
+
+	public int countMemo_CS(MemoVO memo) {
+		int result=0;
+		if(sqlSession.selectOne("countMemo_CS", memo)!=null){
+			result=(int) sqlSession.selectOne("countMemo_CS",memo);
+		}
+		return result;
+	}
+
+	public MemberVO selectMemIdByMemPwd(String mem_pwd) {
+		return (MemberVO) sqlSession.selectOne("selectMemIdByMemPwd", mem_pwd);
 	}
 
 }

@@ -19,7 +19,22 @@
 		and dr_mem_number = (select mem_number from member where mem_id = #{user})
 		order by 1 desc
 	</select>
-	
+	<!-- 받은업무보고 리스트  -->
+	<select id="dutyReportCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from duty_report where 1=1
+		<choose>
+			<when test="titleType == 'dr_title'">
+			and dr_title like '%'||#{val}||'%'
+			</when>
+			<when test="titleType == 'dr_content'">
+			and dr_content like '%'||#{val}||'%'
+			</when>
+		</choose>
+		and dr_code_number like '%'||#{reportType}||'%'
+		and to_char(dr_date,'yyyy/MM/dd') between #{date} and sysdate
+		and dr_to_mem_number = (select mem_number from member where mem_id = #{user})
+		order by 1 desc
+	</select>
 	<select id="selectDutyReportList" parameterType="java.util.Map" resultType="com.nyngw.dto.Duty_ReportVO">
 		select	
 			dr_number,
@@ -45,8 +60,59 @@
 		and dr_mem_number = (select mem_number from member where mem_id = #{user})
 		order by 1 desc
 	</select>
-	
+	<select id="selectDutyReportList2" parameterType="java.util.Map" resultType="com.nyngw.dto.Duty_ReportVO">
+		select	
+			dr_number,
+			DR_CODE_NUMBER,
+			DR_CONTENT,
+			DR_DATE,
+			DR_MEM_NUMBER,
+			DR_TITLE,
+			DR_TO_MEM_NUMBER,
+			DR_WRITEDATE,
+			DR_YESNO 
+		from duty_report where 1=1
+		<choose>
+			<when test="titleType == 'dr_title'">
+			and dr_title like '%'||#{val}||'%'
+			</when>
+			<when test="titleType == 'dr_content'">
+			and dr_content like '%'||#{val}||'%'
+			</when>
+		</choose>
+		and dr_code_number like '%'||#{reportType}||'%'
+		and to_char(dr_date,'yyyy/MM/dd') between #{date} and sysdate
+		and dr_to_mem_number = (select mem_number from member where mem_id = #{user})
+		order by 1 desc
+	</select>
 	<select id="dutyReportCodeSelect" resultType="com.nyngw.dto.Common_CodeVO">
 		select * from common_code where code_ck_number = 'ck1'
 	</select>
+	
+	<update id="dutyReportDelete" parameterType="java.lang.String">
+		delete from duty_report where dr_number = #{dr_number}
+	</update>
+	
+	<update id="dutyReportWrite" parameterType="com.nyngw.dto.Duty_ReportVO">
+		insert into duty_report
+		values('dr'||dr_seq.nextval, #{dr_code_number}, #{dr_date}, #{dr_mem_number},
+				#{dr_yesno}, #{dr_title}, #{dr_content}, SYSDATE, #{dr_to_mem_number})
+	</update>
+	
+	<select id="dutyReportSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.Duty_ReportVO">
+		select * from duty_report where dr_number = #{dr_number} 
+	</select>
+	
+	<update id="dutyReportCommentWrite" parameterType="com.nyngw.dto.Duty_Report_CommentVO">
+		insert into duty_report_comment
+		values('drc'||drc_seq.nextval, #{drc_dr_number}, #{drc_content}, SYSDATE, #{drc_mem_number})
+	</update>
+	
+	<select id="selectDutyReportComment" parameterType="java.lang.String" resultType="com.nyngw.dto.Duty_Report_CommentVO">
+		select * from duty_report_comment where drc_dr_number = #{dr_number} order by to_number(substr(drc_number,4))
+	</select>
+	
+	<update id="dutyReportCommentDelete" parameterType="java.lang.String">
+		delete from duty_report_comment where drc_number = #{drc_number}
+	</update>
 </mapper>

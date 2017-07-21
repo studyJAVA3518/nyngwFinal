@@ -1,11 +1,15 @@
 package com.nyngw.dto;
 
+import java.io.Serializable;
+
 /**
  * 회사정보
  * @author pc09
  *
  */
-public class CompanyVO {
+public class CompanyVO implements Serializable {
+	private static final long serialVersionUID = -7667147479819193393L;
+	private long id;
 	private String company_name;	//회사명
 	private String company_logo;	//회사로고
 	private String company_tel;		//전화번호
@@ -21,6 +25,12 @@ public class CompanyVO {
 	
 	public String getCompany_name() {
 		return company_name;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
@@ -65,4 +75,14 @@ public class CompanyVO {
 		this.company_number = company_number;
 	}
 	//수정됨 --끝
+	@Override
+	public String toString() {
+		return "CompanyVO [id=" + id + ", company_name=" + company_name
+				+ ", company_logo=" + company_logo + ", company_tel="
+				+ company_tel + ", company_addr1=" + company_addr1
+				+ ", company_addr2=" + company_addr2 + ", company_zip="
+				+ company_zip + ", company_number=" + company_number + "]";
+	}
+	
+	
 }
