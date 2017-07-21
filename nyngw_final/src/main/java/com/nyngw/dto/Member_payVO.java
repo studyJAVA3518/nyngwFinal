@@ -8,7 +8,14 @@ public class Member_payVO {
 	private int mp_bonus;			//사원 개별 수당
 	private int mp_insurance;		//4대보험료 : (직책별 급여+사원 개별 수당)*4대보험율
 	private int mp_final_salary;	//직책별 급여+사원 개별 수당-4대보험료
+	private String position_number;	//해당 사원의 직책번호
 	
+	public String getPosition_number() {
+		return position_number;
+	}
+	public void setPosition_number(String position_number) {
+		this.position_number = position_number;
+	}
 	public String getMp_number() {
 		return mp_number;
 	}

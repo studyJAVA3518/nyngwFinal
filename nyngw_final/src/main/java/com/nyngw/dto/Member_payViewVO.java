@@ -8,7 +8,8 @@ public class Member_payViewVO {
 	private int mp_bonus;				//사원 개별 수당
 	private int mp_insurance;			//4대보험료 : (직책별 급여+사원 개별 수당)*4대보험율
 	private int mp_final_salary;		//직책별 급여+사원 개별 수당-4대보험료
-		
+	private String mp_pay_date;			//수령일자
+	
 	private String mem_number;			//사원 고유번호		
 	private String mem_name;			//사원이름
 	private String mem_dept_number;		//부서 고유번호
@@ -20,6 +21,13 @@ public class Member_payViewVO {
 	private String position_number;		//직책 고유번호
 	private String position_name;		//직책 이름
 	
+	
+	public String getMp_pay_date() {
+		return mp_pay_date;
+	}
+	public void setMp_pay_date(String mp_pay_date) {
+		this.mp_pay_date = mp_pay_date;
+	}
 	public String getMp_number() {
 		return mp_number;
 	}
