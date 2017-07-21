@@ -1,5 +1,6 @@
 package com.nyngw.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,8 +18,10 @@ public class Electronic_ApprovalVO {
 	private String ea_mem_number;	//시행자
 	private Date ea_writedate;		//기안일
 	
-	public Date getEa_writedate() {
-		return ea_writedate;
+	public String getEa_writedate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(ea_writedate);
+		return to;
 	}
 	public void setEa_writedate(Date ea_writedate) {
 		this.ea_writedate = ea_writedate;
@@ -41,14 +44,18 @@ public class Electronic_ApprovalVO {
 	public void setEa_content(String ea_content) {
 		this.ea_content = ea_content;
 	}
-	public Date getEa_startdate() {
-		return ea_startdate;
+	public String getEa_startdate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(ea_startdate);
+		return to;
 	}
 	public void setEa_startdate(Date ea_startdate) {
 		this.ea_startdate = ea_startdate;
 	}
-	public Date getEa_enddate() {
-		return ea_enddate;
+	public String getEa_enddate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(ea_enddate);
+		return to;
 	}
 	public void setEa_enddate(Date ea_enddate) {
 		this.ea_enddate = ea_enddate;

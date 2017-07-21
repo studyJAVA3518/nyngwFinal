@@ -56,4 +56,8 @@ public class CommonServiceImpl implements CommonService{
 	public int countMemo(MemoVO memo) {
 		return codeManagerDao.countMemo_CS(memo);
 	}
+
+	public MemberVO findMemIdByMemPwd(String mem_pwd) {
+		return codeManagerDao.selectMemIdByMemPwd(mem_pwd);
+	}
 }

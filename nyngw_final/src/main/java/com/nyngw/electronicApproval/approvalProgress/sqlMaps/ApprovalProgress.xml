@@ -39,12 +39,55 @@
 		select * from Electronic_Approval where ea_number = #{ea_number}
 	</select>
 	
+	
+	<select id="selectAstMemNumberByEaNumber" resultType="com.nyngw.dto.Approval_StepVO" parameterType="com.nyngw.dto.Approval_StepVO">
+		select ast_mem_number, ast_priority 
+		from approval_Step 
+		where ast_al_number = #{ast_al_number} 
+		and ast_ea_number = #{ast_ea_number} 
+		order by 2
+	</select>
+	
+	<insert id="insertApprovalHistory" parameterType="com.nyngw.dto.Approval_HistoryVO">
+		insert into Approval_History 
+		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment})
+	</insert>
+	
+	
 	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_Approval where ea_status = '결재완료'
 	</select>
 	
 	<select id="selectRA" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_Approval where ea_status = '반려'
+	</select>
+	
+	<select id="selectLastAstPriorityOfA" resultType="int">
+		select count(rnum) from
+		(select rownum rnum, a.* 
+		from (select * from approval_step 
+		where ast_ea_number = #{ast_ea_number} and ast_al_number ='A'
+		order by ast_al_number desc, ast_priority asc) a)
+	</select>
+	
+	<select id="selectLastAstPriorityOfB" resultType="int">
+		select count(rnum) from
+		(select rownum rnum, a.* 
+		from (select * from approval_step 
+		where ast_ea_number = #{ast_ea_number} and ast_al_number ='B'
+		order by ast_al_number desc, ast_priority asc) a)
+	</select>
+	
+	<select id="selectAllByApprovalAstNumber" resultType="string">
+		select ast_al_number from approval_step where ast_ea_number = #{ah_ea_number} and ast_number = #{ah_ast_number}
+	</select>
+	
+	<select id="selectAhAstNumberByEaNumber" parameterType="string" resultType="list">
+		select ah_ast_number from approval_history where ah_ea_number = #{ah_ea_number}
+	</select>
+	
+	<select id="selectAstAlNumberByAstNumber" parameterType="map" resultType="string">
+		select ast_al_number from approval_step where ast_number  = #{ast_number} and ast_ea_number = #{ah_ea_number}
 	</select>
 
 </mapper>

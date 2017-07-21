@@ -64,4 +64,8 @@
 		where memo_mem_number = #{memo_mem_number}
 	</select>
 	
+	<select id="selectMemIdByMemPwd" parameterType="string" resultType="com.nyngw.dto.MemberVO">
+		select * from member where mem_pwd = #{mem_pwd}
+	</select>
+	
 </mapper>
