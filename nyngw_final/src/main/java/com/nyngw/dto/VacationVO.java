@@ -14,7 +14,14 @@ public class VacationVO {
 	private Date vacation_end_duedate;  //휴가종료예정일
 	private String vacation_mem_number;	//사원번호
 	private String vacation_vp_number;	//휴가정책번호
+	private String vp_kind;
 	
+	public String getVp_kind() {
+		return vp_kind;
+	}
+	public void setVp_kind(String vp_kind) {
+		this.vp_kind = vp_kind;
+	}
 	public Date getVacation_end_duedate() {
 		return vacation_end_duedate;
 	}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyngw.businessSupport.meetingManagement.dao.MeetingManagementDaoImpl;
+import com.nyngw.dto.AttendanceVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
@@ -51,10 +52,19 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public void meetingInsert(MeetingVO meeting) {
 		meetingManagementDao.meetingInsert(meeting);
 	}
+	@Override
+	public void attendInsert(AttendanceVO attend) {
+		meetingManagementDao.attendInsert(attend);
+	}
 	
 	@Override
 	public List<MeetingVO> meetingSelet(String mt_reader){
 		List<MeetingVO> meetingList = meetingManagementDao.meetingSelect(mt_reader);
+		return meetingList;
+	}
+	@Override
+	public List<MeetingVO> selectMeetingAll(){
+		List<MeetingVO> meetingList = meetingManagementDao.selectMeetingAll();
 		return meetingList;
 	}
 	@Override
@@ -100,7 +110,16 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	}
 	
 	@Override
+	public Meeting_DocumentVO selectMeetingFileNumber(String md_number){
+		Meeting_DocumentVO meeting_documentvo = meetingManagementDao.selectMeeting_DocumentNumber(md_number);
+		return meeting_documentvo;
+	}
+	
+	
+	@Override
 	public void meetingFileInsert(Meeting_DocumentVO meetingFile) {
 		meetingManagementDao.meetingFileInsert(meetingFile);
 	}
+	
+	
 }

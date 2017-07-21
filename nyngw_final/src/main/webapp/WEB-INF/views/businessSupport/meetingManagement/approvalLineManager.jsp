@@ -183,7 +183,8 @@ td {
 		//결재라인 등록하기//
 		$("#submitLine").click(function(){
 	         $('#approval option').each(function(i){
-	            $('#approvalMember'+(i+1)).html($(this).val()+'<input type="hidden" name="approvalMember'+(i+1)+'" value="'+$(this).attr('id')+'">');
+	        	 alert($('#approvalMember'+(i+1)).html($(this).val()+'<input type="hidden" name="mt_members'+(i+1)+'" value="'+$(this).attr('id')+'">'));
+	            $('#approvalMember'+(i+1)).html($(this).val()+'<input type="hidden" name="mt_members'+(i+1)+'" value="'+$(this).attr('id')+'">');
 	         });
 	         $('#linePopup').dialog('close');
 		})

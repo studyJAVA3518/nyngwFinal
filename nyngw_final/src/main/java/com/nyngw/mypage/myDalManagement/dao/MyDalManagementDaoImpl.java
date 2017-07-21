@@ -50,29 +50,34 @@ public class MyDalManagementDaoImpl implements MyDalManagementDao {
 	
 	
 	
-	
+	//새로만든것
 	
 	@Override
-	public List<VacationVO> selectVacationList() {
-		List<VacationVO> vacationList = null;
-		vacationList = sqlSession.selectList("selectVacationList");
-		return vacationList;
-	}
-
-	@Override
-	public List<VacationVO> selectBoardList2(int firstRow, int endRow) {
+	public List<VacationVO> vacationList(int firstRow, int endRow,
+			Board_SelectVO select) {
 		int offset = firstRow - 1;
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<VacationVO> boardList = (ArrayList<VacationVO>)sqlSession.selectList("selectVacationList","",rowBounds);
-		return boardList;
+		List<VacationVO> vacationList = (ArrayList<VacationVO>)sqlSession.selectList("vacationList",select,rowBounds);
+		return vacationList;
 	}
-
 	@Override
-	public int selectBoardCount2() {
-		int result =(Integer) sqlSession.selectOne("selectVacationCount");
+	public int selectVacationCount(String mem_number) {
+		int result =(Integer) sqlSession.selectOne("selectVacationCount",mem_number);
 		return result;
 	}
 
+	@Override
+	public int boardVacationCount(Board_SelectVO select) {
+		int result =(Integer) sqlSession.selectOne("boardVacationCount",select);
+		return result;
+	}
+	
+	//------------------예전거
+	
+	
+	
+	
+	
 	
 }

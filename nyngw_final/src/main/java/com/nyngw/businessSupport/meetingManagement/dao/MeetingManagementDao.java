@@ -2,6 +2,7 @@ package com.nyngw.businessSupport.meetingManagement.dao;
 
 import java.util.List;
 
+import com.nyngw.dto.AttendanceVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingRoomVO;
 import com.nyngw.dto.MeetingVO;
@@ -37,6 +38,13 @@ public interface MeetingManagementDao {
 	public int selectMeeting_DocumentCount(String mem_id);
 
 	public void meetingFileInsert(Meeting_DocumentVO meetingFile);
+
+	public Meeting_DocumentVO selectMeeting_DocumentNumber(String md_number);
+
+//	---------------------------- 참석 ----------------------
+	public void attendInsert(AttendanceVO attend);
+
+	public List<MeetingVO> selectMeetingAll();
 
 
 

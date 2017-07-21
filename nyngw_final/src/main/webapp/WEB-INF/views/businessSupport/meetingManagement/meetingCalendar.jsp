@@ -10,8 +10,8 @@
 					<td colspan="4">
 					<form action="/businessSupport/meetingManagement/meetingCalendar">
 						<select name="index">
-							<option value="mt_reader">주최자</option>
-							<option value="mt_date">날짜</option>
+							<option value="mt_reader">회의주최자</option>
+							<option value="mt_date">회의일자</option>
 							<option value="mt_title">회의명</option>
 						</select>
 					<input type="hidden" value="${select.index}">
@@ -24,7 +24,7 @@
 				<th>회의명</th>
 				<th>회의일자</th>
 				<th>회의장소</th>
-				<th>회의 주최자</th>
+				<th>회의주최자</th>
 			</tr>
 			<c:choose>
 				<c:when test="${viewData.boardCountPerPage > 0}">
@@ -32,7 +32,7 @@
 				<tr>
 					<td><a href="/businessSupport/meetingManagement/meetingDetail?mt_number=${board.mt_number}&page=${pageNumber}">${board.mt_title}</a></td>
 					<td><fmt:formatDate value="${board.mt_date}" pattern="yy'년'MM'월'dd'일'"/></td>
-					<td>${board.mt_mr_number }</td>
+					<td>${board.mr_name }</td>
 					<td>${board.mt_reader}</td>
 				</tr>
 				</c:forEach>

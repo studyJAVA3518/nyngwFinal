@@ -2,6 +2,7 @@ package com.nyngw.businessSupport.meetingManagement.service;
 
 import java.util.List;
 
+import com.nyngw.dto.AttendanceVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingListViewVO;
 import com.nyngw.dto.MeetingRoomVO;
@@ -30,4 +31,10 @@ public interface MeetingManagementService {
 			Board_SelectVO select);
 
 	public void meetingFileInsert(Meeting_DocumentVO meetingFile);
+
+	public Meeting_DocumentVO selectMeetingFileNumber(String md_number);
+
+	public void attendInsert(AttendanceVO attend);
+
+	public List<MeetingVO> selectMeetingAll();
 }

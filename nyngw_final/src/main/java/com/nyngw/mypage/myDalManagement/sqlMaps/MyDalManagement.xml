@@ -48,16 +48,38 @@
         </choose>
    </select>
 	
-	<select id="selectVacationCount" resultType="java.lang.Integer">
-		select count(*) from vacation
+<!-- 	휴가================================================= -->
+<select id="vacationList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.VacationVO">
+			select 
+				*
+				from vacation,member,vacation_policy
+				where 1=1
+				<choose>
+					<when test='index == "vacation_vp_number"'>
+						and vacation_vp_number like '%'||#{val}||'%'
+					</when>
+				</choose>
+				and vacation_mem_number = mem_number
+				and VACATION_VP_NUMBER =  VP_NUMBER
+				and vacation_mem_number = #{mem_number}
+				order by 1 desc
 	</select>
-
-	<select id="selectVacationList" parameterType="java.lang.String" resultType="com.nyngw.dto.VacationVO">
-		select * from vacation where vacation_number like '%'||#{vacation_number}||'%'
+	<select id="selectVacationCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from vacation,member 
+		where 	vacation_mem_number = mem_number
+				and vacation_mem_number = #{mem_number}
+	</select>
+	<select id="boardVacationCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from vacation,member where 1=1 
+				<choose>
+					<when test='index == "vacation_vp_number"'>
+						and vacation_vp_number like '%'||#{val}||'%'
+					</when>
+				</choose>
+				and vacation_mem_number = mem_number
+				and vacation_mem_number = #{mem_number}
 	</select>
 	
-	<select id="selectMyVacation" parameterType="java.lang.String" resultType="com.nyngw.dto.VacationVO">
-		select * from vacation where vacation_mem_number=#{mem_number}
-	</select>
+	
 	
 </mapper>

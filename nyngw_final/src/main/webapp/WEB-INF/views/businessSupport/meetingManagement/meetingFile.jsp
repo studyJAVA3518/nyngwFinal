@@ -35,8 +35,8 @@
 				<c:when test="${viewData.documentTotalCount > 0 }">
 					<c:forEach items="${viewData.meeting_DocumentList }" var="board" >
 						<tr>
-							<td>${board.md_number}</td>
-							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?md_number=${board.md_number}&page=${pageNumber}&val=${select.val}">${board.md_name}</a></td>
+							<td>${fn:substring(board.md_number,2,10077777)}</td>
+							<td><a href="/businessSupport/meetingManagement/meetingFileDetail?md_number=${board.md_number}&page=${pageNumber}">${board.md_name}</a></td>
 							<td><fmt:formatDate value="${board.md_date}" pattern="yyyy/MM/dd"/></td>
 							<td>${board.md_writer }</td>
 						</tr>

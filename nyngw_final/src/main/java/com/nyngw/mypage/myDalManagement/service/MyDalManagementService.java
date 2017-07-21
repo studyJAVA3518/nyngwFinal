@@ -12,8 +12,7 @@ public interface MyDalManagementService {
 	public List<DalViewVO> selectAttendList();
 	public MyAttendedListView selectAttendList(int pageNumber,Board_SelectVO select);
 	
-	public List<VacationVO> selectVacationList();
-	public MyVacationListView selectVacationList(int pageNumber);
+	public MyVacationListView selectVacationList(int pageNumber,Board_SelectVO select);
 	
 	
 }

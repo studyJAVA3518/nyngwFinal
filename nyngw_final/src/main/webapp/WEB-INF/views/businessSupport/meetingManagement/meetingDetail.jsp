@@ -12,18 +12,22 @@
 				<td>
 					${meeting.mt_title }
 				</td>
-				<th>회의장소</th>
-					<td>
-						${meeting.mt_mr_number }
-					</td>
 			</tr>
 			<tr>
+				<th>회의장소</th>
+					<td>
+						${meeting.mr_name }
+					</td>
 				<th>회의일</th>
 				<td>
 					<fmt:formatDate value="${meeting.mt_date }" pattern="yyyy-MM-dd"/>
 				</td>
+			</tr>
+			<tr>
 				<th>회의주최자</th>
 				<td>${meeting.mt_reader }</td>
+				<th>회의참석자</th>
+				<td>${meeting.mt_members }</td>			
 			</tr>
 			<tr>
 				<th colspan="4">내용</th>

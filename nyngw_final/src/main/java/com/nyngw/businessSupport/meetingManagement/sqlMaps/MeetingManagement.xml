@@ -6,15 +6,17 @@
 
 		<select id="meetingCalList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.MeetingVO">
 			select 
-        		to_number(substr(mt_number,3,9999999)) mt_number,
+        		mt_number,
 				mt_date,
 				mt_rv_number,
 				mt_title,
 				mt_reader,
 				mt_content,
-				mt_mr_number
-			from meeting m where (select ad_mem_number from attendance a 
+				mt_mr_number,
+				mr_name
+			from meeting m ,meetingroom  where (select ad_mem_number from attendance a 
 			where a.ad_mt_number = m.mt_number) = #{mem_number}
+			and mt_mr_number = mr_number
 			<choose>
 				<when test='index == "mt_reader"'>
 					and mt_reader like '%'||#{val}||'%'
@@ -29,22 +31,29 @@
 			order by to_number(substr(mt_number,3,9999999)) desc
 		</select>
 		
+		<select id="selectMeetingAll" resultType="com.nyngw.dto.MeetingVO">
+			select * from meeting
+		</select>
+		
 		<select id="selectMeetingNumber" parameterType="java.lang.String" resultType="com.nyngw.dto.MeetingVO">
-			select * from meeting where mt_number = #{mt_number}
+			select * from meeting,meetingroom where mt_number = #{mt_number}
+			and mt_mr_number = mr_number
 		</select>
 		
 		<select id="meetingSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.MeetingVO">
-			select * from meeting where mt_reader like #{mt_reader }
+			select * from meeting where mt_reader = #{mt_reader }
 		</select>
 		
 		<select id="selectMeetingCount" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(*) from meeting m where (select ad_mem_number from attendance a 
+		select count(*) from meeting m,meetingroom where (select ad_mem_number from attendance a 
 			where a.ad_mt_number = m.mt_number) = #{mem_id}
+				and mt_mr_number = mr_number
 	</select>
 	
 	<select id="boardMeetingCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting m where (select ad_mem_number from attendance a 
+		select count(*) from meeting m,meetingroom  where (select ad_mem_number from attendance a 
 			where a.ad_mt_number = m.mt_number) = #{mem_id}
+				and mt_mr_number = mr_number
 		<choose>
 		    <when test='index == "mt_reader"'>
 		    	AND mt_reader like '%'||#{val}||'%'
@@ -63,9 +72,14 @@
 	</select>
 	
 	<insert id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO">
-		insert into meeting(mt_number, mt_reader, mt_date, mt_title, mt_content, mt_mr_number)
-		values('mt'||mt_seq.nextVal,#{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content}, #{mt_mr_number})
+		insert into meeting(mt_number, mt_md_number, mt_reader, mt_date, mt_title, mt_content, mt_mr_number,mt_members)
+		values('mt'||mt_seq.nextVal, 'md'||md_seq.nextVal, #{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content}, #{mt_mr_number},#{mt_members})
 	</insert>
+	<insert id="attendInsert" parameterType="com.nyngw.dto.AttendanceVO">
+		insert into attendance(ad_mem_number, ad_mt_number)
+		values(#{ad_mem_number},#{ad_mt_number})
+	</insert>
+	
 	
 <!-- 	<insert id="meetingInsert" parameterType="com.nyngw.dto.MeetingVO"> -->
 <!-- 		insert all  -->
@@ -96,7 +110,7 @@
 	
 	<select id="meeting_DocumentList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.Meeting_DocumentVO">
 			select 
-				to_number(substr(md_number,3,9999999)) md_number, 
+				md_number, 
 				md_name, 
 				md_content, 
 				md_date,
@@ -142,12 +156,12 @@
 				and mem_id = #{mem_id}
 	</select>
 	
-	<select id="selectMeeting_Document" parameterType="java.lang.String" resultType="com.nyngw.dto.Meeting_DocumentVO">
+	<select id="selectMeeting_DocumentNumber" parameterType="java.lang.String" resultType="com.nyngw.dto.Meeting_DocumentVO">
 		select * from meeting_document where md_number = #{md_number} 
 	</select>
 	
 	<insert id="meetingFileInsert" parameterType="com.nyngw.dto.Meeting_DocumentVO">
 		insert into meeting_document(md_number, md_name, md_date, md_content, md_writer)
-		values('md'||md_seq.nextVal,#{md_name},to_date(to_char(#{md_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{md_content}, #{md_writer})
+		values(#{md_number},#{md_name},to_date(to_char(#{md_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{md_content}, #{md_writer})
 	</insert>
 </mapper>

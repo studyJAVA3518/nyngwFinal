@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nyngw.dto.AttendanceVO;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.MeetingRoomVO;
@@ -26,6 +27,11 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<MeetingVO> meetingList = (ArrayList<MeetingVO>)sqlSession.selectList("meetingCalList",select,rowBounds);
+		return meetingList;
+	}
+	@Override
+	public List<MeetingVO> selectMeetingAll() {
+		List<MeetingVO> meetingList = (ArrayList<MeetingVO>)sqlSession.selectList("selectMeetingAll");
 		return meetingList;
 	}
 	
@@ -48,10 +54,15 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	public void meetingInsert(MeetingVO meeting) {
 		sqlSession.insert("meetingInsert", meeting);
 	}
+	@Override
+	public void attendInsert(AttendanceVO attend) {
+		sqlSession.insert("attendInsert", attend);
+	}
+
 	
 	@Override
 	public List<MeetingVO> meetingSelect(String mt_reader){
-		List<MeetingVO> meetingList=(ArrayList<MeetingVO>)sqlSession.selectList("meetingSelect");
+		List<MeetingVO> meetingList=(ArrayList<MeetingVO>)sqlSession.selectList("meetingSelect",mt_reader);
 		return meetingList;
 	}
 	
@@ -98,6 +109,12 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	public int boardMeetingMeetingCount(Board_SelectVO select) {
 		int result =(Integer) sqlSession.selectOne("boardMeeting_DocumentCount",select);
 		return result;
+	}
+	
+	@Override
+	public Meeting_DocumentVO selectMeeting_DocumentNumber(String md_number){
+		Meeting_DocumentVO meeting_documentvo = (Meeting_DocumentVO) sqlSession.selectOne("selectMeeting_DocumentNumber",md_number);
+		return meeting_documentvo;
 	}
 	
 	@Override

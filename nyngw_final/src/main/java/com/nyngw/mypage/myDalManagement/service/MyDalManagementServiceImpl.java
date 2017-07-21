@@ -56,29 +56,26 @@ public class MyDalManagementServiceImpl implements MyDalManagementService {
 	//휴가ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
 	
 	@Override
-	public List<VacationVO> selectVacationList() {
-		List<VacationVO> vacation = myDalManagementDaoImpl.selectVacationList();
-		return vacation;
-	}
-
-	@Override
-	public MyVacationListView selectVacationList(int pageNumber) {
+	public MyVacationListView selectVacationList(int pageNumber, Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
-		
-		int boardTotalCount = myDalManagementDaoImpl.selectBoardCount2();
-		
-		List<VacationVO> boardList= null;
-		int firstRow = 0;
-		int endRow = 0;
-		if (boardTotalCount > 0) {
-			firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
-			endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
-			boardList =myDalManagementDaoImpl.selectBoardList2(firstRow, endRow);
-		} else {
-			currentPageNumber = 0;
-			boardList = Collections.emptyList();
-		}
-		return new MyVacationListView(boardList, boardTotalCount, currentPageNumber,
-				BOARD_COUNT_PER_PAGE, firstRow, endRow);
+		int boardTotalCount = myDalManagementDaoImpl.selectVacationCount(select.getMem_number());
+			List<VacationVO> vacationList = null;
+			int firstRow = 0;
+			int endRow = 0;
+			if (boardTotalCount > 0) {
+				firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
+				endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
+				vacationList = myDalManagementDaoImpl.vacationList(firstRow, endRow, select);
+				if(select.getVal()!=null && !select.getVal().equals("")){
+					boardTotalCount = myDalManagementDaoImpl.boardVacationCount(select);
+				}
+			} else {
+				currentPageNumber = 0;
+				vacationList = Collections.emptyList();
+			}
+			return  new MyVacationListView(vacationList, boardTotalCount,
+					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
+	
+	
 }

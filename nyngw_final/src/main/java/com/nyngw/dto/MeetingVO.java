@@ -16,6 +16,22 @@ public class MeetingVO {
 	private String mt_title;	//회의제목
 	private String mt_content;	//회의내용
 	private String mt_mr_number;//회의장소
+	private String mr_name;
+	private String mt_members;
+	
+	
+	public String getMt_members() {
+		return mt_members;
+	}
+	public void setMt_members(String mt_members) {
+		this.mt_members = mt_members;
+	}
+	public String getMr_name() {
+		return mr_name;
+	}
+	public void setMr_name(String mr_name) {
+		this.mr_name = mr_name;
+	}
 	public String getMt_number() {
 		return mt_number;
 	}

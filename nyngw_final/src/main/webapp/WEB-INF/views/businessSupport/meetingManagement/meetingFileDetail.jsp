@@ -10,28 +10,28 @@
 			<tr>
 				<th>회의록명</th>
 				<td>
-					${board.md_title }
+					${meetingFile.md_name }
 				</td>
 				<th>작성일</th>
 					<td>
-					<fmt:formatDate value="${board.md_date }" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate value="${meetingFile.md_date}" pattern="yyyy/MM/dd"/>
 					</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
 				<td>
-						${board.md_writer }
+						${meetingFile.md_writer }
 				</td>
 			</tr>
 			<tr>
 				<th colspan="4">내용</th>
 			</tr>
 		</table>
-			${meeting.mt_content }
+			${meetingFile.md_content }
 			<input type="hidden" value="${page}">
 			<div style="text-align: center;">
 			
-			<button><a href="/businessSupport/meetingManagement/meetingFileUpdateForm?mt_number=${meeting.mt_number}&param_mt_date=<fmt:formatDate value="${meeting.mt_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
+			<button><a href="/businessSupport/meetingManagement/meetingFileUpdateForm?md_number=${meetingFile.md_number}&param_md_date=<fmt:formatDate value="${meetingFile.md_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
 			<button><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">목록</a></button>
 			</div>
 	</div>

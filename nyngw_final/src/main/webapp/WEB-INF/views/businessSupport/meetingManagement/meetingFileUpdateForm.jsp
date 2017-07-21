@@ -5,6 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.util.*, java.text.*" %>
+<%Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strdate = simpleDate.format(date);
+%>
 <script>
 $(function(){   
     var loadContent = function() {
@@ -25,13 +30,13 @@ $(function(){
  });
 </script>
 <script>
-function meetingDelete(mt_number){
-	var con_test = confirm("해당 일정을 삭제하시겠습니까?");
+function meetingFileDelete(md_number){
+	var con_test = confirm("해당 회의록을 삭제하시겠습니까?");
 	if(con_test==true){
 		$.ajax({
             type : "POST",
-            url : "/businessSupport/meetingManagement/meetingDelete",
-            data : {'mt_number' : mt_number},
+            url : "/businessSupport/meetingManagement/meetingFileDelete",
+            data : {'md_number' : md_number},
             success : function(result){
             	location.href=result.uri;
 	        }, 
@@ -44,30 +49,22 @@ function meetingDelete(mt_number){
 </script>
 
 <div>
-<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingUpdate" method="post"  accept-charset="utf-8">
+<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingFileUpdate" method="post"  accept-charset="utf-8">
 			<table class="table table-border">
-			<input type="hidden" name="mt_number" value="${meeting.mt_number }">
+			<input type="hidden" name="mt_number" value="${meetingFile.md_number }">
 			<tr>
-				<th>회의제목</th>
+				<th>회의록명</th>
 				<td>
-					<input type="text" name="mt_title" value="${meeting.mt_title }">
+					<input type="text" name="mt_title" value="${meetingFile.md_name }">
 				</td>
-				<th>회의장소</th>
-					<td>
-						<select name="mt_mr_number">
-						<c:forEach items="${meetingroom }" var="meetingroom">
-							<option value="${meetingroom.mr_number }">${meetingroom.mr_name }</option>
-						</c:forEach>
-						</select>
-					</td>
 			</tr>
 			<tr>
-				<th>회의일</th>
+				<th>작성일</th>
 				<td>
-					<input type="date" name="param_mt_date" value="${param_mt_date }">
+					<input type="date" name="md_date" value="<%= strdate %>" readonly="readonly">
 				</td>
-				<th>회의주최자</th>
-				<td><input type="text" name="mt_reader" value="${meeting.mt_reader }" readonly="readonly"/></td>
+				<th>작성자</th>
+				<td><input type="text" name="md_writer" value="${meetingFile.md_writer }" readonly="readonly"/></td>
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
@@ -82,8 +79,8 @@ function meetingDelete(mt_number){
 			<div style="text-align: center;">
 			<button onclick='saveContent()'>등록</button>
 			<input type="reset" value="초기화" />
-			<button type="button" onclick="meetingDelete('${meeting.mt_number}');">삭제하기</button>
-			<button><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">취소</a></button>
+			<button type="button" onclick="meetingfileDelete('${meetingFile.md_number}');">삭제하기</button>
+			<button><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
 			</div>
 	</form>
 			

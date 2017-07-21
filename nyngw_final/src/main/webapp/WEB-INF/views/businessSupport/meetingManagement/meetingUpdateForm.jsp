@@ -2,9 +2,11 @@
 <%@page import="org.springframework.security.core.userdetails.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <script>
 $(function(){   
     var loadContent = function() {
@@ -88,6 +90,7 @@ function meetingDelete(mt_number){
 	</form>
 			
 	</div>
+	
 	<textarea id="text_content" style="display:none;">
 	${meeting.mt_content}
 	</textarea>

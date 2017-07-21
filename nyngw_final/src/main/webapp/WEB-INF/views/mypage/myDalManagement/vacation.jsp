@@ -6,49 +6,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 마이페이지 >> 나의 근태 관리 >> 휴가현황
-<%
-	Integer pageNumber = (Integer)request.getAttribute("pageNumber");
-	MyVacationListView viewData = (MyVacationListView)request.getAttribute("viewData");
-	%>
-	<table class="table table-bordered">
-		<tr>
+	<table class="table table-border">
+				<tr>
+					<th>검색입력</th>
+					<td colspan="4">
+					<form action="/mypage/myDalManagement/vacation">
+						<select name="index">
+							<option value="vacation_vp_number">휴가 정책</option>
+						</select>
+					<input type="hidden" value="${select.index}">
+					<input type="text" name="val" value="${select.val}">
+					<input type="submit" value="검색">
+					</form> 
+					</td>
+				</tr>
+			<tr>
 			<th>번호</th>
-			<th>휴가 번호</th>
+			<th>휴가 분류</th>
 			<th>휴가 시작일</th>
 			<th>휴가 종료일</th>
-			<th>휴가 종료예정일!</th>
-			<th>사원 번호</th>
+			<th>휴가 종료예정일</th>
 		</tr>
-		<% if(viewData.getBoardCountPerPage()>0){
-			List<VacationVO> boardList=viewData.getVacationList();
-			for(int i =0; i<boardList.size();i++){
-			%>
+			<c:choose>
+				<c:when test="${viewData.boardCountPerPage > 0}">
+				<c:forEach items="${viewData.vacationList}" var="board" >
 				<tr>
-					<td><%=viewData.getFirstRow()+i%></td>
-					<td><%=boardList.get(i).getVacation_number()%></td>
-					<td><fmt:formatDate value="<%=boardList.get(i).getVacation_start()%>" pattern="yyyy/MM/dd"/></td>
-					<td><fmt:formatDate value="<%=boardList.get(i).getVacation_end()%>" pattern="yyyy/MM/dd"/></td>
-					<td><fmt:formatDate value="<%=boardList.get(i).getVacation_end_duedate()%>" pattern="yyyy/MM/dd"/></td>
-					<td><%=boardList.get(i).getVacation_mem_number()%></td>
+					<td>${board.vacation_number}</td>
+					<td>${board.vp_kind }</td>
+					<td><fmt:formatDate value="${board.vacation_start}" pattern="yy'년'MM'월'dd'일'"/></td>
+					<td><fmt:formatDate value="${board.vacation_end}" pattern="yy'년'MM'월'dd'일'"/></td>
+					<td><fmt:formatDate value="${board.vacation_end_duedate}" pattern="yy'년'MM'월'dd'일'"/></td>
 				</tr>
-			<%
-			}
-			%>		
-					
-			<%}else{ %>
-				<tr>
-					<td style="text-align: center;">내용이 없습니다.</td>
-				</tr>
-			<%} %>
-	</table>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td style="text-align: center;">내용이 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+			</table>
 
 	<div id="pageNum">
-		<%for(int i=1;i<viewData.getPageTotalCount()+1;i++){ %>
-			<a href="mypage/myDalManagement/vacation?page=<%=i%>">[<%=i%>]</a>
-		<%} %>
-	</div>
-
-
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/mypage/myDalManagement/vacation?page=${beginPage-1}"/>">이전</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/mypage/myDalManagement/vacation?page=${pno}" />">[${pno}]</a>
+		</c:forEach>
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/mypage/myDalManagement/vacation?page=${endPage + 1}"/>">다음</a>
+		</c:if>
+		</div>
+	
 <div>
 	<button><a href="/electronicApproval/draft/draft">휴가 신청</a></button>
 </div>

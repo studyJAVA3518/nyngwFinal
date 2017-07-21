@@ -63,7 +63,6 @@ $(function(){
 			<th>출근 시간</th>
 			<th>퇴근 시간</th>
 			<th>결근 사유</th>
-			<th>결근 사유</th>
 		</tr>
 			<c:choose>
 				<c:when test="${viewData.boardCountPerPage > 0}">
@@ -74,7 +73,6 @@ $(function(){
 					<td>${board.dalview_attend_time}</td>
 					<td>${board.dalview_off_time}</td>
 					<td>${board.dalview_content}</td>
-					<td>${board.dalview_sf_number}</td>
 				</tr>
 				</c:forEach>
 				</c:when>
@@ -98,10 +96,6 @@ $(function(){
 			<a href="<c:url value="/mypage/myDalManagement/attended?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 	
-	
-<%-- 		<c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i"> --%>
-<%-- 			<a href="/mypage/myDalManagement/attended?page=${i}&index=${select.index}&val=${select.val}">[${i}]</a> --%>
-<%-- 		</c:forEach> --%>
 	</div>
 	
 	
