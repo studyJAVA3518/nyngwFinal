@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.electronicApproval.approvalProgress.service.ApprovalProgressServiceImpl;
@@ -91,7 +92,8 @@ public class ApprovalProgressController {
 	
 	//미결재 문서 상세 페이지
 	@RequestMapping("/waitingApprovalDetail")
-	public String waitingApprovalDetail(Model model,String ea_number){
+	public String waitingApprovalDetail(Model model,String ea_number,Principal principal){
+		ApprovalProgressService.waDetail(model, ea_number,principal);
 		return "electronicApproval/approvalProgress/waitingApprovalDetail";
 	}
 	
@@ -109,12 +111,11 @@ public class ApprovalProgressController {
 	
 	//결재하기
 	@RequestMapping("/conformApproval")
-	public @ResponseBody Map<String,String> conformApproval(String id){
+	public @ResponseBody Map<String,String> conformApproval(Approval_HistoryVO ahVO, String mem_pwd,Principal principal){
 		Map<String,String> map = new HashMap<String, String>();
-		map.put("uri", "/electronicApproval/individualDocumentBox/completeApprovalBox");
+		map = ApprovalProgressService.conformApproval(ahVO, mem_pwd,principal);
 		return map;
 	}
-	
 	
 	//결재하기
 	@RequestMapping("/editDraftForm")

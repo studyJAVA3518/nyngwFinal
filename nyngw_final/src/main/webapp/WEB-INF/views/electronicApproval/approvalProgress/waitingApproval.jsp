@@ -79,10 +79,10 @@
 			<td>${code_nameList[status.index].code_name}</td>
 			<td><a href="/electronicApproval/approvalProgress/waitingApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</td>
 			<td>${memberList[status.index].mem_name}</td>
-			<td><fmt:formatDate value="${EA.ea_writedate}" pattern="yyyy/MM/dd"/>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
+			<td>${EA.ea_writedate}
+			<td>${EA.ea_startdate}
 				~
-				<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
+				${EA.ea_enddate}
 			</td>
 			<td>${statusList[status.index]}</td>
 		</tr>

@@ -61,4 +61,8 @@ public class CommonDaoImpl implements CommonDao {
 		return result;
 	}
 
+	public MemberVO selectMemIdByMemPwd(String mem_pwd) {
+		return (MemberVO) sqlSession.selectOne("selectMemIdByMemPwd", mem_pwd);
+	}
+
 }
