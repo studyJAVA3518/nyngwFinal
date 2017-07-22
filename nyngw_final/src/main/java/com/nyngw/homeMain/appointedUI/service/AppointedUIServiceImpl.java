@@ -324,15 +324,15 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 						}
 						if(one.equals(uiCodeName.get(i))){
 							mUUSS.setContent1(list);
-							mUUSS.setMenu1("Today 개인/부서일정");
+							mUUSS.setMenu1("일정관리");
 							mUUSS.setUriAddr1("/sharingInformation/scheduleManagement/schedule");
 						}else if(two.equals(uiCodeName.get(i))){
 							mUUSS.setContent2(list);
-							mUUSS.setMenu2("Today 개인/부서일정");
+							mUUSS.setMenu2("일정관리");
 							mUUSS.setUriAddr2("/sharingInformation/scheduleManagement/schedule");
 						}else{
 							mUUSS.setContent3(list);
-							mUUSS.setMenu3("Today 개인/부서일정");
+							mUUSS.setMenu3("일정관리");
 							mUUSS.setUriAddr3("/sharingInformation/scheduleManagement/schedule");
 						}
 					}else{
@@ -351,15 +351,15 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 						}
 						if(one.equals(uiCodeName.get(i))){
 							mUUSS.setContent1(list);
-							mUUSS.setMenu1("Today 개인/부서일정");
+							mUUSS.setMenu1("일정관리");
 							mUUSS.setUriAddr1("/sharingInformation/scheduleManagement/schedule");
 						}else if(two.equals(uiCodeName.get(i))){
 							mUUSS.setContent2(list);
-							mUUSS.setMenu2("Today 개인/부서일정");
+							mUUSS.setMenu2("일정관리");
 							mUUSS.setUriAddr2("/sharingInformation/scheduleManagement/schedule");
 						}else{
 							mUUSS.setContent3(list);
-							mUUSS.setMenu3("Today 개인/부서일정");
+							mUUSS.setMenu3("일정관리");
 							mUUSS.setUriAddr3("/sharingInformation/scheduleManagement/schedule");
 						}
 					}
