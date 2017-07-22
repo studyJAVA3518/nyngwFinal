@@ -10,7 +10,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +18,6 @@ import com.nyngw.businessSupport.dutyReport.service.DutyReportServiceImpl;
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Duty_ReportVO;
-import com.nyngw.dto.Duty_Report_CommentVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 

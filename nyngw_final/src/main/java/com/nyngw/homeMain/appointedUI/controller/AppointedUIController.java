@@ -23,17 +23,33 @@ public class AppointedUIController {
 	private AppointedUIServiceImpl appointedUIservice;
 	
 	@RequestMapping("/appointedUI")
-	public String appointedUI(Model model,String menu1, String menu2, String menu3){
-//		MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
-//		MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);
-//		MiddleMenuVO mid3 = appointedUIservice.selectMiddleMenuFind_UI(menu3);
+	public String appointedUI(Model model,String menu1, String menu2, String menu3, String middle1, String middle2, String middle3){
+			
+		if(menu1 != null && menu2 != null && menu3 != null){
+			MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
+			MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);
+			MiddleMenuVO mid3 = appointedUIservice.selectMiddleMenuFind_UI(menu3);
+			
+			model.addAttribute("big_number", mid1.getMid_big_number());
+			model.addAttribute("middleMenu", mid1.getMid_number());
+			model.addAttribute("big_number1", mid2.getMid_big_number());
+			model.addAttribute("middleMenu1", mid2.getMid_number());
+			model.addAttribute("big_number2", mid3.getMid_big_number());
+			model.addAttribute("middleMenu2", mid3.getMid_number());
+		}
 		
-//		model.addAttribute("big_number", mid1.getMid_big_number());
-//		model.addAttribute("middleMenu", mid1.getMid_number());
-//		model.addAttribute("big_number1", mid2.getMid_big_number());
-//		model.addAttribute("middleMenu1", mid2.getMid_number());
-//		model.addAttribute("big_number2", mid3.getMid_big_number());
-//		model.addAttribute("middleMenu2", mid3.getMid_number());
+		if(middle1 != null && middle2 != null && middle3 != null){
+			MiddleMenuVO mid1 = appointedUIservice.selectBigMiddleMenuFind_UI(middle1);
+			MiddleMenuVO mid2 = appointedUIservice.selectBigMiddleMenuFind_UI(middle2);
+			MiddleMenuVO mid3 = appointedUIservice.selectBigMiddleMenuFind_UI(middle3);
+			model.addAttribute("big_number", mid1.getMid_big_number());
+			model.addAttribute("middleMenu", mid1.getMid_number());
+			model.addAttribute("big_number1", mid2.getMid_big_number());
+			model.addAttribute("middleMenu1", mid2.getMid_number());
+			model.addAttribute("big_number2", mid3.getMid_big_number());
+			model.addAttribute("middleMenu2", mid3.getMid_number());
+		}
+		
 		return "homeMain/appointedUI/appointedUI";
 	}
 	///////////////////////UI
@@ -86,7 +102,7 @@ public class AppointedUIController {
 	public @ResponseBody Map<String,String> userUiSave(UserUiVO userUi, Principal principal){
 		appointedUIservice.userUiInsert_UI(userUi, principal);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("uri", "/homeMain/appointedUI/appointedUI");
+		map.put("uri", "/homeMain/appointedUI/appointedUI?middle1="+userUi.getMiddleMenu()+"&middle2="+userUi.getMiddleMenu1()+"&middle3="+userUi.getMiddleMenu2());
 		return map;
 	}
 }

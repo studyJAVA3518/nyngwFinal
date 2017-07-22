@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.AddressBookVO;
@@ -14,6 +15,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_ReportVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.UserInterfaceVO;
@@ -25,6 +27,9 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	private static String COLLECTION_NAME = "Company";
 	
 	/**
 	 * 회사 정보 불러오는 메서드
@@ -34,9 +39,10 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	@Override
 	public CompanyVO selectCompany() throws SQLException{
 
-		CompanyVO Company
-			= (CompanyVO) sqlSession.selectOne("selectCompany","");
-		return Company;
+		CompanyVO Company = (CompanyVO) sqlSession.selectOne("selectCompany","");
+		CompanyVO company=mongoTemplate.findById(0, CompanyVO.class, COLLECTION_NAME);
+		
+		return company;
 	}
 	
 	
@@ -164,6 +170,20 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name) {
 		MiddleMenuVO mid = (MiddleMenuVO) sqlSession.selectOne("selectMiddleMenuFind_UI", mid_name);
 		return mid;
+	}
+
+
+	@Override
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number) {
+		MiddleMenuVO mid = (MiddleMenuVO) sqlSession.selectOne("selectBigMiddleMenuFind_UI", mid_number);
+		return mid;
+	}
+
+
+	@Override
+	public List<Duty_ReportVO> userUiDutyReportList_UI(String mem_id) {//받은업무보고
+		List<Duty_ReportVO> list = sqlSession.selectList("userUiDutyReportList_UI",mem_id);
+		return list;
 	}
 	
 	

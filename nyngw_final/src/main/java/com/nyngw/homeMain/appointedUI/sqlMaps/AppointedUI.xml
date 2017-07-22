@@ -118,8 +118,27 @@
 	<select id="selectMiddleMenuFind_UI" parameterType="java.lang.String" resultType="com.nyngw.dto.MiddleMenuVO">
 		select * from middlemenu where mid_name = #{mid_name}
 	</select>
+
+	<select id="selectBigMiddleMenuFind_UI" parameterType="java.lang.String" resultType="com.nyngw.dto.MiddleMenuVO">
+		select * from middlemenu where mid_number = #{mid_number}
+	</select>
 	
-	
+	<select id="userUiDutyReportList_UI" parameterType="java.util.Map" resultType="com.nyngw.dto.Duty_ReportVO">
+		select	
+			dr_number,
+			DR_CODE_NUMBER,
+			DR_CONTENT,
+			DR_DATE,
+			DR_MEM_NUMBER,
+			DR_TITLE,
+			DR_TO_MEM_NUMBER,
+			DR_WRITEDATE,
+			DR_YESNO 
+		from duty_report 
+		where to_char(dr_writedate,'yyyy/MM/dd') between (select to_char(add_months(sysdate,-1),'yyyy/mm/dd') from dual) and sysdate
+		and dr_to_mem_number = (select mem_number from member where mem_id = #{user})
+		order by 1 desc
+	</select>
 	
 	
 	

@@ -51,7 +51,7 @@ public interface AppointedUIService {
 	
 	//select 선정해주기위한 곳
 	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name);
-	
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number);
 	
 	
 	

@@ -10,6 +10,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_ReportVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.UserInterfaceVO;
@@ -49,9 +50,12 @@ public interface AppointedUIDao {
 	public List<Duty_DocumentVO> userUiDepartmentList_UI(String mem_id);//부서업무를 갖고오기 위한 메서드 한달 전것까지.
 	public List<Duty_DocumentVO> userUiPersonalBusinessList_UI(String mem_number);//개인업무를 갖고오기 위한 메서드
 	public List<DocumentViewVO> userUiDocumentManagerList_UI();//문서조회를 갖고오기 위한 메서드
+	public List<Duty_ReportVO> userUiDutyReportList_UI(String mem_id);//받은업무조회
+	
+	
 	
 	//메뉴의 값을 초기화 해주기위해 쓰는 메서드
 	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name);
-	
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number);
 }
 

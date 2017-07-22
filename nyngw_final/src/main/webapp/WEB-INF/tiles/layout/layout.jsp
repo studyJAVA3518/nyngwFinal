@@ -101,7 +101,7 @@
    	                   $.each(list, function( index, list ) {
    	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
    	                   });
-   	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
+   	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
    	                   $('#memo').html(code);
    	         	   }
    	       		} ,
@@ -122,7 +122,7 @@
      	               $.each(list, function( index, list ) {
      	                	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
      	                   });
-     	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
+     	                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
      	                   $('#memo').html(code);
      	         	   }
      	       		} ,
@@ -237,7 +237,8 @@
                   }
                },
                close: function() {
-                                 
+                      $('#memo_title').val("");           
+                      $('#memo_content').val("");           
                }
               });
        }

@@ -237,6 +237,14 @@ public class PlanPublicRelationsSettingController {
 			e.printStackTrace();
 		}
 		
+		CompanyVO companyInfo = null;
+		try {
+			companyInfo = appointedUIService.checkCompany();
+			model.addAttribute("companyInfo",companyInfo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return "enovironmentSetting/planPublicRelationsSetting/companyInfo";
 	}
 	

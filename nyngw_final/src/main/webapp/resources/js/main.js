@@ -1,3 +1,12 @@
+
+$(function() {
+    $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
+    $( ".inputTypeDate2" ).datepicker({ dateFormat: 'yy/mm/dd'}); 
+    $( ".inputTypeDate3" ).datepicker({ dateFormat: 'yyyy/mm/dd'}); 
+//	$( ".inputTypeMonth" ).monthPicker({ dateFormat: 'yy/mm'}); 
+
+})
+
 function printClock() {
 	    
     var clock = document.getElementById("clock");// 출력할 장소 선택

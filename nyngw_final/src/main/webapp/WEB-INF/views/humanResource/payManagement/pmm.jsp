@@ -6,7 +6,7 @@
 <script>
 	
 $(function() {
-     $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
+//      $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
 //      $( ".inputTypeMonth" ).monthpicker({ dateFormat: 'yy/mm'}); 
 	
    //기타수당 금액 변경 클릭->금액 수정

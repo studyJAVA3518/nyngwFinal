@@ -32,6 +32,7 @@ $(function(){
 				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
 			});
 			$('#big_number').html(code);
+		    $('#big_number option[value=${big_number}]').prop('selected',true);
 			$('#big_number').trigger('change');
 		},
 		dataType : 'json'
@@ -49,6 +50,7 @@ $(function(){
 					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
 				});
 				$('#middleMenu').html(code);
+			    $('#middleMenu option[value=${middleMenu}]').prop('selected',true);
 			},
 			dataType : 'json'
 		});
@@ -65,6 +67,7 @@ $(function(){
 				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
 			});
 			$('#big_number1').html(code);
+		    $('#big_number1 option[value=${big_number1}]').prop('selected',true);
 			$('#big_number1').trigger('change');
 		},
 		dataType : 'json'
@@ -82,6 +85,7 @@ $(function(){
 					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
 				});
 				$('#middleMenu1').html(code);
+			    $('#middleMenu1 option[value=${middleMenu1}]').prop('selected',true);
 			},
 			dataType : 'json'
 		});
@@ -100,6 +104,7 @@ $(function(){
 				code += "<option value='" + v.big_number + "'>" + v.big_name +"</option>";
 			});
 			$('#big_number2').html(code);
+		    $('#big_number2 option[value=${big_number2}]').prop('selected',true);
 			$('#big_number2').trigger('change');
 		},
 		dataType : 'json'
@@ -117,6 +122,7 @@ $(function(){
 					code += "<option value='" + v.mid_number + "'>" + v.mid_name +"</option>";
 				});
 				$('#middleMenu2').html(code);
+			    $('#middleMenu2 option[value=${middleMenu2}]').prop('selected',true);
 			},
 			dataType : 'json'
 		});
@@ -147,16 +153,14 @@ $(function(){
 	        $('#uiSelect').removeClass("userInterFaceSetting");
 	      }
 	});
-// 	$(function(){  
-// 	    $('#big_number option[value=${big_number}]').prop('selected',true);
-// 	    $('#middleMenu option[value=${middleMenu}]').prop('selected',true);
-// 	    $('#big_number1 option[value=${big_number1}]').prop('selected',true);
-// 	    $('#middleMenu1 option[value=${middleMenu1}]').prop('selected',true);
-// 	    $('#big_number2 option[value=${big_number2}]').prop('selected',true);
-// 	    $('#middleMenu2 option[value=${middleMenu2}]').prop('selected',true);
-// 	});
 })
 	function userUiSave(){
+// 	    var a = $('#middleMenu').val(); 
+// 	    var b = $('#middleMenu1').val(); 
+// 	    var c = $('#middleMenu2').val();
+// 	    alert(a);
+// 	    alert(b);
+// 	    alert(c);
 		$.ajax({
 			url : '/homeMain/appointedUI/userUiSave' ,
 			type : 'post' ,
