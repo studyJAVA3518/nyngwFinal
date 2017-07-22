@@ -21,6 +21,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_ReportVO;
 import com.nyngw.dto.MainUserUiSelectSetting;
 import com.nyngw.dto.MainUserUiSelectVO;
 import com.nyngw.dto.MemberVO;
@@ -142,6 +143,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		List<Duty_DocumentVO> personalBusiness = null;//개인업무일지
 		List<DocumentViewVO> documentManagerList = null; //문서조회
 		List<ScheduleVO> scheduleList = null;//일정관리 
+		List<Duty_ReportVO> dutyReportList = null; //받은업무보고
 		MainUserUiSelectSetting mUUSS = new MainUserUiSelectSetting();//제목리스트, 내용리스트, 테이블명, More주소
 		List<MainUserUiSelectVO> list = null; //내용을 담을 리스트
 		MainUserUiSelectVO mUUSVO = null;//내용이들어가는곳
@@ -714,6 +716,82 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 						}
 					}
 					
+					break;
+				case "mid_9": //받은업무보고
+					dutyReportList = appointedUIDao.userUiDutyReportList_UI(loginUser);
+					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
+					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+					titleList = new ArrayList<String>();//제목이 들어가는 곳
+					titleList.add("번호");
+					titleList.add("제목");
+					titleList.add("보고유형");
+					titleList.add("보고자");
+					if(one.equals(uiCodeName.get(i))){
+						mUUSS.setTitle1(titleList);
+					}else if(two.equals(uiCodeName.get(i))){
+						mUUSS.setTitle2(titleList);
+					}else{
+						mUUSS.setTitle3(titleList);
+					}
+					if(dutyReportList.size()>count){
+						for(int j = 0; j < count; j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(dutyReportList.get(j).getDr_number().substring(2));
+							mUUSVO.setContent2(dutyReportList.get(j).getDr_title());
+							mUUSVO.setContent3(userNameSetting(dutyReportList.get(j).getDr_mem_number()));
+							if(dutyReportList.get(j).getDr_code_number().equals("code1")){
+								mUUSVO.setContent4("일일보고");
+							}else if(dutyReportList.get(j).getDr_code_number().equals("code2")){
+								mUUSVO.setContent4("주간보고");
+							}else{
+								mUUSVO.setContent4("월간보고");
+							}
+							mUUSVO.setDetailUri("/businessSupport/dutyReport/dutyReportDetail?dr_number="+dutyReportList.get(j).getDr_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("받은업무보고");
+							mUUSS.setUriAddr1("/businessSupport/dutyReport/dutyReport");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("받은업무보고");
+							mUUSS.setUriAddr2("/businessSupport/dutyReport/dutyReport");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("받은업무보고");
+							mUUSS.setUriAddr3("/businessSupport/dutyReport/dutyReport");
+						}
+					}else{
+						for(int j = 0; j < dutyReportList.size(); j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(dutyReportList.get(j).getDr_number().substring(2));
+							mUUSVO.setContent2(dutyReportList.get(j).getDr_title());
+							mUUSVO.setContent3(userNameSetting(dutyReportList.get(j).getDr_mem_number()));
+							if(dutyReportList.get(j).getDr_code_number().equals("code1")){
+								mUUSVO.setContent4("일일보고");
+							}else if(dutyReportList.get(j).getDr_code_number().equals("code2")){
+								mUUSVO.setContent4("주간보고");
+							}else{
+								mUUSVO.setContent4("월간보고");
+							}
+							mUUSVO.setDetailUri("/businessSupport/dutyReport/dutyReportDetail?dr_number="+dutyReportList.get(j).getDr_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("받은업무보고");
+							mUUSS.setUriAddr1("/businessSupport/dutyReport/dutyReport");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("받은업무보고");
+							mUUSS.setUriAddr2("/businessSupport/dutyReport/dutyReport");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("받은업무보고");
+							mUUSS.setUriAddr3("/businessSupport/dutyReport/dutyReport");
+						}
+					}
 					break;
 				default:
 					break;

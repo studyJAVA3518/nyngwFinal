@@ -15,6 +15,7 @@ import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
 import com.nyngw.dto.Duty_DocumentVO;
+import com.nyngw.dto.Duty_ReportVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.UserInterfaceVO;
@@ -176,6 +177,13 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number) {
 		MiddleMenuVO mid = (MiddleMenuVO) sqlSession.selectOne("selectBigMiddleMenuFind_UI", mid_number);
 		return mid;
+	}
+
+
+	@Override
+	public List<Duty_ReportVO> userUiDutyReportList_UI(String mem_id) {//받은업무보고
+		List<Duty_ReportVO> list = sqlSession.selectList("userUiDutyReportList_UI",mem_id);
+		return list;
 	}
 	
 	
