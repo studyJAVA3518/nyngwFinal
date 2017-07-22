@@ -5,6 +5,8 @@ public class Member_ViewVO {
 	private String mem_number;	//사원번호
 	private String mem_id;    //회원 아이디
 	private String mem_name;  //회원 이름
+	private String mem_position_number;  //회원 직책 번호
+	private String mem_dept_number;  //회원 직책 번호
 	private String position_name; //직책
 	private String dept_name; //부서명
 	private String dal_date;			//날짜
@@ -101,5 +103,16 @@ public class Member_ViewVO {
 	public void setMdi_account_holder(String mdi_account_holder) {
 		this.mdi_account_holder = mdi_account_holder;
 	}
-		
+	public String getMem_position_number() {
+		return mem_position_number;
+	}
+	public void setMem_position_number(String mem_position_number) {
+		this.mem_position_number = mem_position_number;
+	}
+	public String getMem_dept_number() {
+		return mem_dept_number;
+	}
+	public void setMem_dept_number(String mem_dept_number) {
+		this.mem_dept_number = mem_dept_number;
+	}
 }

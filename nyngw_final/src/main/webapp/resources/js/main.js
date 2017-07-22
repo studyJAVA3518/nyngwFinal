@@ -3,7 +3,14 @@ $(function() {
     $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
     $( ".inputTypeDate2" ).datepicker({ dateFormat: 'yy/mm/dd'}); 
     $( ".inputTypeDate3" ).datepicker({ dateFormat: 'yyyy/mm/dd'}); 
-//	$( ".inputTypeMonth" ).monthPicker({ dateFormat: 'yy/mm'}); 
+	$( ".inputTypeMonth" ).MonthPicker({ 
+		pattern:'yy/mm',
+		dateFormat: 'yy/mm',
+		yearSuffix: '',     // Additional text to append to the year in the month headers 
+		prevText: 'Prev',   // Display text for previous month link 
+		nextText: 'Next',   // Display text for next month link 
+		monthNames: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월', '11월','12월'],  
+	}); 
 
 })
 

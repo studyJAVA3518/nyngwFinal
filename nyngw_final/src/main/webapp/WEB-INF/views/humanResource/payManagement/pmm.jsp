@@ -35,6 +35,7 @@ $(function() {
 		})
 	})
 	
+	
 	//급여 등록 팝업창 기본값=닫아준다
 	$('.updateMemPayBox').css('display', 'none');
 	
@@ -55,6 +56,8 @@ $(function() {
 			}
 		});
 		
+		var clickMonth = $('#payMonth').val();
+		
 		//셀렉트 태그에 부서정보 가져오기
 		$.ajax({
 			url : '/humanResource/payManagement/viewMPDeptjax',
@@ -70,25 +73,80 @@ $(function() {
 			dataType : 'json'
 		})
 		
+		//선택한 부서에 해당하는 직급 가져오기
 		/////////////////////////////////////
 		var dept_number = "";
 		$('#dept_number').change(function(){
 			dept_number = $(this).val();
 			$.ajax({
-				url : 'prodName.jsp',
-				type : 'post',
+				url : '/humanResource/payManagement/viewMPPositionjax',
+				type : 'get',
 				data : {'dept_number' : dept_number},
 				success : function(res){
 					var code = "";
 					$.each(res,function(i,v){
-						code +="<option value='" + v.id + "'>"+ v.name +"</option>";
+						code +="<option value='" + v.mem_position_number + "'>"+ v.position_name +"</option>";
 					})
-					$('#prod').html(code);
-					$('#prod').trigger('change');
+					$('#position_number').html(code);
+					$('#position_number').trigger('change');
 				},
 				dataType : 'json'
 			})
 		})
+		
+		//선택한 부서에 해당하는 직급에 해당하는 사원 가져오기
+		/////////////////////////////////////
+		var position_number = "";
+		$('#position_number').change(function(){
+			position_number = $(this).val();
+			$.ajax({
+				url : '/humanResource/payManagement/viewMPNameListjax',
+				type : 'get',
+				data : {'dept_number' : dept_number,
+						'position_number' : position_number	
+				},
+				success : function(res){
+					var code = "";
+					$.each(res,function(i,v){
+						code +="<option value='" + v.mem_number + "'>"+ v.mem_name +"</option>";
+					})
+					$('#mem_number').html(code);
+					$('#mem_number').trigger('change');
+				},
+				dataType : 'json'
+			})
+		})
+		
+		//사원을 선택하면 해당월을 선택할 수 있도록 조정
+		/////////////////////////////////////
+		var mem_number = "";
+		
+		$('#mem_number').change(function(){
+			mem_number = $(this).val();
+			
+				
+			$.ajax({
+				url : '/humanResource/payManagement/viewMPMemberPayInfoAjax',
+				type : 'get',
+				data : {'dept_number' : dept_number,
+						'position_number' : position_number,
+						'mem_number' : mem_number,
+						'clickMonth' : clickMonth
+				},
+				success : function(res){
+					
+					$('#basicPay').html(res.basicPay);
+					$('#vacationDayDuring').html(res.vacationDayDuring);
+// 					$('#mem_number').trigger('change');
+				},
+				dataType : 'json'
+			})
+			
+			
+			
+		})
+		
+		
 		/////////////////////////////////////
 // 		$('#prod').change(function(){
 // 			var prodId = $(this).val();
@@ -250,19 +308,36 @@ $(function() {
 		<form name="insertMPForm">
 			<tr>
 				<td colspan="2">
+					지급월 선택<input type="month" class="form-control inputTypeMonth" id="payMonth" name="payMonth" style="width:100px;" value="2017-07"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
 					<label for="dept_number">부서 선택</label>
 					<select name="dept_number" id="dept_number" style="width : 120px;" class="form-control">
-						<option selected="selected">부서 선택</option>
+<!-- 						<option selected="selected">부서 선택</option> -->
 					</select>
 					<label for="position_number">직급 선택</label>
 					<select name="position_number" id="position_number" style="width : 120px;" class="form-control">
-						<option selected="selected">직급 선택</option>
+<!-- 						<option selected="selected">직급 선택</option> -->
 					</select>
 					<label for="mem_number">이름 선택</label>
 					<select name="mem_number" id="mem_number" style=" width : 120px;" class="form-control">
-						<option selected="selected">이름선택 선택</option>
+<!-- 						<option selected="selected">이름선택 선택</option> -->
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<th>기본급+직책수당+식대</th>
+				<td id="basicPay"></td>
+			</tr>
+			<tr>
+				<th>휴가 일수</th>
+				<td id="vacationDayDuring">???</td>
+			</tr>
+			<tr>
+				<th>휴가 및 결근 차감</th>
+				<td>???</td>
 			</tr>
 		</form>
 	</table>

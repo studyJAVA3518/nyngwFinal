@@ -22,6 +22,11 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jQuery monthPicker -->
+    <script src="<%=request.getContextPath() %>/resources/js/MonthPicker.min.js"></script>
+    <link href="<%=request.getContextPath()%>/resources/css/MonthPicker.min.css" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+    
    <!-- Bootstrap Core CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
