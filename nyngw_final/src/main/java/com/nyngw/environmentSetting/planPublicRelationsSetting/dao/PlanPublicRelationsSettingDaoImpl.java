@@ -44,7 +44,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	public int insertCompanyInfo(CompanyVO vo) throws SQLException {
 		int result=(Integer)sqlSession.update("insertCompanyInfo",vo);
 		
-		vo.setId(1);
+		vo.setId(0);
 		mongoTemplate.insert(vo, COLLECTION_NAME);
 
 		return result;
@@ -59,13 +59,9 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	public int updateCompanyInfo(CompanyVO vo) throws SQLException {
 		int result=(Integer)sqlSession.update("updateCompanyInfo",vo);
 
-		vo.setId(1);
+		vo.setId(0);
 		Query query = new Query();
 		
-		CompanyVO company=mongoTemplate.findById(1, CompanyVO.class, COLLECTION_NAME);
-		
-		System.out.println(company);
-
 		Update update = new Update();
 		update.set("company_name", vo.getCompany_name());
 		update.set("company_tel",vo.getCompany_tel());
@@ -89,7 +85,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		int result=(Integer)sqlSession.update("inserttCompanyInfo",company_logo);
 		
 		CompanyVO vo = new CompanyVO();
-		vo.setId(1);
+		vo.setId(0);
 		vo.setCompany_logo(company_logo);
 		mongoTemplate.insert(vo, COLLECTION_NAME);
 		
@@ -105,7 +101,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 	@Override
 	public int updateCompanyLogo(String company_logo, String company_number) throws SQLException {
 		CompanyVO vo = new CompanyVO();
-		vo.setId(1);
+		vo.setId(0);
 		Query query = new Query();
 		
 		Update update = new Update();
