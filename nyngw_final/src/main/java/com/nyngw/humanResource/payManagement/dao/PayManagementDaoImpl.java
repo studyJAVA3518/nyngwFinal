@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.AddressBookVO;
+import com.nyngw.dto.Member_ViewVO;
 import com.nyngw.dto.Member_payVO;
 import com.nyngw.dto.Member_payViewVO;
 
@@ -135,6 +136,37 @@ public class PayManagementDaoImpl implements PayManagementDao {
 		map.put("position_number", position_number);
 		int result = sqlSession.update("MP_updateMemberPay", map);
 		return result;
+	}
+
+	public List<Member_ViewVO> selectPositionList(String dept_number) throws SQLException{
+		List<Member_ViewVO> posList = sqlSession.selectList("MP_selectPositionList", dept_number);
+		return posList;
+	}
+
+	public List<Member_ViewVO> selectNameList(String dept_number,
+			String position_number) throws SQLException{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("dept_number", dept_number);
+		map.put("position_number", position_number);
+		List<Member_ViewVO> nameList = sqlSession.selectList("MP_selectNameList", map);
+		return nameList;
+	}
+	
+	//해당 직급의 기본급+직급수당+식대 금액 조회
+	public int selectBasicPayOne(String position_number) {
+		int basicPay = 0;
+		basicPay = (int) sqlSession.selectOne("MP_selectBasicPay", position_number);
+		return basicPay;
+	}
+	
+	//휴가일수 가져오기
+	public int selectVacationDayDuring(String mem_number, String clickMonth) {
+		int vacationDayDuring = 0;
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("mem_number", mem_number);
+		map.put("clickMonth", clickMonth);
+		vacationDayDuring = (int) sqlSession.selectOne("MP_selectVacationDayDuring",map);
+		return vacationDayDuring;
 	}
 
 }

@@ -101,5 +101,55 @@ public class PayManagementController {
 		
 		return mapList;
 	}
+
+	//급여 등록 전-부서리스트 가져오기->부서에 해당하는 직급 가져오기
+	@RequestMapping("/viewMPPositionjax")
+	public @ResponseBody List<Map<String,String>> viewMPPositionjax(
+			Model model, String dept_number){
+		
+		List<Map<String,String>> mapList = null;
+		try {
+			mapList = payManagementService.viewPositionJsonList(model,dept_number);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return mapList;
+	}
+	
+	//급여 등록 전-부서리스트 가져오기->부서에 해당하는 직급 가져오기->직급을 선택하면 해당하는 사원리스트 가져오기
+	@RequestMapping("/viewMPNameListjax")
+	public @ResponseBody List<Map<String,String>> viewMPNameListjax(
+			Model model, String dept_number, String position_number){
+		
+		List<Map<String,String>> mapList = null;
+		try {
+			mapList = payManagementService.viewNameJsonList(model,dept_number,position_number);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return mapList;
+	}
+	
+	//급여 등록 전-부서리스트 가져오기->부서에 해당하는 직급 가져오기->직급을 선택하면 해당하는 사원리스트 가져오기
+	@RequestMapping("/viewMPMemberPayInfoAjax")
+	public @ResponseBody Map<String,Object> viewMPMemberPayInfoAjax(
+			Model model, 
+			String dept_number, 
+			String position_number,
+			String mem_number,
+			String clickMonth
+			){
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			map = payManagementService.viewPayInfoJson(model,dept_number,position_number,mem_number,clickMonth);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
 	
 }

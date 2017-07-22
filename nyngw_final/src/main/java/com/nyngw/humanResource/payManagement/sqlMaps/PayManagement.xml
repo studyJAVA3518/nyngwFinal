@@ -178,5 +178,41 @@
 		)
 	</update>
 	
+	<!-- 부서 정보를 가져와 거기에 해당하는 직급정보 리스트 출력 -->
+	<select id="MP_selectPositionList" resultType="com.nyngw.dto.Member_ViewVO" parameterType="java.lang.String">
+		select distinct
+  			mem_position_number,
+  			position_name
+		from member_view
+		where mem_dept_number = #{dept_number}
+	</select>
+
+	<!-- 부서 정보를 가져와 거기에 해당하는 직급정보를 가져오고 직급을 클릭하여 해당직급의 사원리스트 가져오기 -->
+	<select id="MP_selectNameList" resultType="com.nyngw.dto.Member_ViewVO" parameterType="map">
+		select 
+		  mem_number,
+		  mem_name
+		from member_view
+		where mem_dept_number = #{dept_number}
+		and mem_position_number = #{position_number}
+	</select>
+	
+	<!-- 해당 사원 직급의 기본급+직책수당+식대 금액 조회 -->
+	<select id="MP_selectBasicPay" resultType="int" parameterType="java.lang.String">
+		select sum(pp_pay) from PAY_POLICY_VIEW
+		where POSITION_NUMBER=#{position_number}
+		or POSITION_number='position0'
+		and pk_tax='n'
+	</select>
+	
+	<!-- 휴가일수 가져오기 -->
+	<select id="MP_selectVacationDayDuring" resultType="int" parameterType="map">
+		select
+		  count(*)
+		from vacation inner join VACATION_POLICY on (VACATION_VP_NUMBER=VP_NUMBER)
+		where vacation_mem_number = #{mem_number}
+		and VP_PAYONOFF = 'n'
+		and VACATION_START like #{clickMonth}||'%'
+	</select>
 	
 </mapper>
