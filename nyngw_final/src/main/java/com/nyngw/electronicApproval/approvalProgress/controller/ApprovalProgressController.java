@@ -111,7 +111,8 @@ public class ApprovalProgressController {
 	
 	//결재하기
 	@RequestMapping("/conformApproval")
-	public @ResponseBody Map<String,String> conformApproval(Approval_HistoryVO ahVO, String mem_pwd,Principal principal){
+	public @ResponseBody Map<String,String> conformApproval(Approval_HistoryVO ahVO, 
+			String mem_pwd,Principal principal){
 		Map<String,String> map = new HashMap<String, String>();
 		map = ApprovalProgressService.conformApproval(ahVO, mem_pwd,principal);
 		return map;
