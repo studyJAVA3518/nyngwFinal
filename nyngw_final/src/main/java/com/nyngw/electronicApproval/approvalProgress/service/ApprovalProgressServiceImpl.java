@@ -135,8 +135,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		}
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
 		model.addAttribute("agreementMem_sign",agreementMem_sign);
-		model.addAttribute("indexA",indexA+1);	//결재이력이 있는 수
-		model.addAttribute("indexB",indexB+1);	//결재이력이 있는 수
 		
 		index = 0;
 		for (Approval_StepVO approval_StepVO : implementMemberList) {
@@ -174,30 +172,47 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		model.addAttribute("lastAstPriorityOfA",5-lastAstPriorityOfA);	//lastAstPriorityOfA = 5에서 A의 전체 결재선을 뺀 수 = 빈칸의 수 
 		model.addAttribute("lastAstPriorityOfB",5-lastAstPriorityOfB);	//lastAstPriorityOfB = 5에서 B의 전체 결재선을 뺀 수 = 빈칸의 수
 		
-		
+		//결재 이력중 A와 B의 갯수
 		List<String> ahAstNumberList = approvalProgressDao.selectAhAstNumberByEaNumber(ea_number);
+		System.out.println(ahAstNumberList.size()+"123");
 		int countA = 0;
 		int countB = 0;
 		for (String ast_number : ahAstNumberList) {
 			paramMap = new HashMap<String, String>();
 			paramMap.put("ast_number", ast_number);
 			paramMap.put("ah_ea_number", ea_number);
-			if(approvalProgressDao.selectAstAlNumberByAstNumber(paramMap).equals('A')){
+			if(approvalProgressDao.selectAstAllNumberByAstNumber(paramMap).equals('A')){
 				countA++;
 			}else{
 				countB++;
 			}
 		}
-		model.addAttribute("CountIndexA",countA-indexA);	//전체 A의 결재선에서 결재이력이 있는 수를 뺀 수
-		model.addAttribute("CountIndexB",countB-indexB);	//전체 B의 결재선에서 결재이력이 있는 수를 뺀 수
-		model.addAttribute("countA",countA+1);	//countA = 전체 결재선의 A의 갯수+1 = 빈칸이 몇번무터 시작해야 하는지
-		model.addAttribute("countB",countB+1);	//countB = 전체 결재선의 B의 갯수+1 = 빈칸이 몇번무터 시작해야 하는지
-		System.out.println("==============");
-		System.out.println(indexA+1);	//3
-		System.out.println(indexB+1);	//1
-		System.out.println(countA-indexA);	//-1
-		System.out.println(countB-indexB);	//0
-		System.out.println("==============");
+
+		System.out.println(indexA);
+		System.out.println(lastAstPriorityOfA);
+		model.addAttribute("emptyStartA",lastAstPriorityOfA+1);	//3
+		model.addAttribute("emptyStartB",lastAstPriorityOfB+1);
+//		model.addAttribute("emptyEndA",5-lastAstPriorityOfA);	//3번 돌아야함 즉 처음 + 번호
+//		model.addAttribute("emptyEndB",5-lastAstPriorityOfB);
+//		model.addAttribute("yesStartA",1);
+//		model.addAttribute("yesStartB",1);
+//		model.addAttribute("yesEndA",indexA);
+//		model.addAttribute("yesEndA",indexB);
+		model.addAttribute("noStartA",indexA+1);
+		model.addAttribute("noStartB",indexB+1);
+		model.addAttribute("noEndA",lastAstPriorityOfA);
+		model.addAttribute("noEndB",lastAstPriorityOfB);
+		
+		
+		//A
+		//총 5
+		//A 결재선 2 lastAstPriorityOfA
+		
+		//A 2중 1 결재했으면 1	1부터  // indexA = 1 까지 
+		//A 2중 결재 안한 거 1	indexA+1 = 2부터 // lastAstPriorityOfA =1개		2-1 = 1
+		
+		//A 빈칸 3- 시작lastAstPriorityOfA+1=3부터 // 5까지
+		
 	}
 	
 	
@@ -224,20 +239,45 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			Principal principal) {
 		Map<String,String> map = new HashMap<String, String>();
 		MemberVO member = commonServiceImpl.findMemIdByMemPwd(mem_pwd);
-		//이사람이 결재잔지 합의잔지 체크해줘야함
-		if(member!=null){
-			if(principal.getName() .equals(member.getMem_id())){
-				approvalProgressDao.insertApprovalHistory(ahVO);
-				String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
-				map.put("al_number",al_number);
-				map.put("priority",ahVO.getAh_ast_number().substring(3));
-				map.put("check","y");
-				map.put("mem_sign",member.getMem_sign());
-				map.put("uri","/electronicApproval/individualDocumentBox/completeApprovalBox");
-			}else{
-				map.put("check","n");
+		if(ahVO.getAh_code_number() .equals("code14")){
+			//이사람이 결재잔지 합의잔지 체크해줘야함
+			if(member!=null){
+				if(principal.getName() .equals(member.getMem_id())){
+					approvalProgressDao.insertApprovalHistory(ahVO);
+					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
+					map.put("al_number",al_number);
+					map.put("priority",ahVO.getAh_ast_number().substring(3));
+					map.put("check","y");
+					map.put("mem_sign",member.getMem_sign());
+					map.put("uri","/electronicApproval/individualDocumentBox/completeApprovalBox");
+				}else{
+					map.put("check","n");
+				}
+			}
+		}else if(ahVO.getAh_code_number() .equals("code15")){
+			if(member!=null){
+				if(principal.getName() .equals(member.getMem_id())){
+					//한 결재의 마지막 결재우선순위 검색
+					int lastAstPriority = approvalProgressDao.selectLastAstPriority(ahVO.getAh_ea_number());
+					Map<String,String> paramMap = new HashMap<String, String>();
+					paramMap.put("updateNumber", lastAstPriority+2+"");
+					paramMap.put("ea_number", ahVO.getAh_ea_number());
+					paramMap.put("ast_number", ahVO.getAh_ast_number());
+					approvalProgressDao.updateAstPriority(paramMap);	//결재우선순위를 마지막 결재우선순위+2로 만들기
+					
+					approvalProgressDao.insertApprovalHistory(ahVO);
+					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
+					map.put("al_number",al_number);
+					map.put("priority",ahVO.getAh_ast_number().substring(3));
+					map.put("check","y");
+					map.put("mem_sign",member.getMem_sign());
+					map.put("uri","/electronicApproval/individualDocumentBox/completeApprovalBox");
+				}else{
+					map.put("check","n");
+				}
 			}
 		}
+		
 		return map;
 	}
 

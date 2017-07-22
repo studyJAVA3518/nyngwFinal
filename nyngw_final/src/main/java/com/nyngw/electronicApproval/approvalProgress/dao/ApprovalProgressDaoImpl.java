@@ -88,8 +88,12 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		return  sqlSession.selectList("selectAhAstNumberByEaNumber",ah_ea_number);
 	}
 	
-	public String selectAstAlNumberByAstNumber(Map paramMap) {
-		return (String) sqlSession.selectOne("selectAstAlNumberByAstNumber",paramMap);
+	public String selectAstAllNumberByAstNumber(Map paramMap) {
+		return (String) sqlSession.selectOne("selectAstAllNumberByAstNumber",paramMap);
+	}
+
+	public void updateAstPriority(Map paramMap) {
+		sqlSession.update("updateAstPriority",paramMap);
 	}
 	
 
