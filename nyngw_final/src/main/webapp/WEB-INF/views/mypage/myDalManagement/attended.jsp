@@ -30,11 +30,11 @@ $(function(){
 })
 </script>
 
-	<form name="hiddenForm">
-	<input type="hidden" id="ea_number" value="${ea_number }">
-	<button type="button" id="company_in">출근</button>
-	<button type="button" id="editDraft_go">퇴근</button>
-	</form>
+<!-- 	<form name="hiddenForm"> -->
+<%-- 	<input type="hidden" id="ea_number" value="${ea_number }"> --%>
+<!-- 	<button type="button" id="company_in">출근</button> -->
+<!-- 	<button type="button" id="editDraft_go">퇴근</button> -->
+<!-- 	</form> -->
 
 <div id="dialogg">
 	출근하셔쎼여 ?

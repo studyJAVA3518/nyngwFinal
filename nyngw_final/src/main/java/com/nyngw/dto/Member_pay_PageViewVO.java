@@ -21,6 +21,7 @@ public class Member_pay_PageViewVO {
 		this.memberPayViewCountPerPage = memberPayViewCountPerPage;
 		this.firstRow = firstRow;
 		this.endRow = endRow;
+		
 		calculatePageTotalCount();
 	}
 	

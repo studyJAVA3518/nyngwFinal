@@ -3,6 +3,19 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nyngw.mypage.myPayManagement.dao.MyPayManagementDao">
+	<!-- 나의 급여 보기  -->	
+	<select id="mySalaryList" parameterType="java.lang.String" resultType="com.nyngw.dto.Member_payViewVO">
+		select * from member_pay_view 
+		where mp_mem_number = #{mem_number}
+	</select>
 
+	<select id="selectMySalaryCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from member_pay_view where mp_mem_number = #{mem_number}
+	</select>
+	
 
+	<select id="boardMySalaryCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from member_pay_view where mp_mem_number = #{mem_number}
+		
+	</select>
 </mapper>

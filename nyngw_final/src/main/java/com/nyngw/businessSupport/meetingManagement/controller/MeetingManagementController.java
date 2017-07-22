@@ -115,17 +115,29 @@ public class MeetingManagementController {
 		if(mt_members1!=null){
 			MemberVO mem1 = CommonService.findMemberByMemNumber(mt_members1);
 			String mem1name = mem1.getMem_name();
-			mt_members += mem1name;
+			if(mt_members2==null){
+				mt_members += mem1name;
+			}else{
+				mt_members += mem1name+",";
+			}
 		}
 		if(mt_members2!=null){
 			MemberVO mem2 = CommonService.findMemberByMemNumber(mt_members2);
 			String mem2name = mem2.getMem_name();
-			mt_members += mem2name;
+			if(mt_members3==null){
+				mt_members += mem2name;
+			}else{
+				mt_members += mem2name+",";
+			}
 		}
 		if(mt_members3!=null){
 			MemberVO mem3 = CommonService.findMemberByMemNumber(mt_members3);
 			String mem3name = mem3.getMem_name();
-			mt_members += mem3name;
+			if(mt_members4==null){
+				mt_members += mem3name;
+			}else{
+				mt_members += mem3name+",";
+			}
 		}
 		if(mt_members4!=null){
 			MemberVO mem4 = CommonService.findMemberByMemNumber(mt_members4);

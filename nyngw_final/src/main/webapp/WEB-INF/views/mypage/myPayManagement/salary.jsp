@@ -1,18 +1,19 @@
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page import="org.springframework.security.core.userdetails.User"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%
-   User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
- %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
  <script>
  $(document).on("click",".guideBox > p",function(){
       if($(this).next().css("display")=="none"){
         $(this).next().show();
-        $(this).children("span").text("[´İ±â]");
+        $(this).children("span").text("[ë‹«ê¸°]");
       }else{
         $(this).next().hide();
-        $(this).children("span").text("[¿­±â]");
+        $(this).children("span").text("[ì—´ê¸°]");
       }
 });
  </script>
@@ -25,12 +26,12 @@ function print(printArea)
       win.document.open();
       
       /*
-         1. div ¾ÈÀÇ ¸ğµç ÅÂ±×µéÀ» innerHTMLÀ» »ç¿ëÇÏ¿© ¸Å°³º¯¼ö·Î ¹Ş´Â´Ù.
-         2. window.open() À» »ç¿ëÇÏ¿© »õ ÆË¾÷Ã¢À» ¶ç¿î´Ù.
-         3. ¿­¸° »õ ÆË¾÷Ã¢¿¡ ±âº» <html><head><body>¸¦ Ãß°¡ÇÑ´Ù.
-         4. <body> ¾È¿¡ ¸Å°³º¯¼ö·Î ¹ŞÀº printArea¸¦ Ãß°¡ÇÑ´Ù.
-         5. window.print() ·Î ÀÎ¼â
-         6. ÀÎ¼â È®ÀÎÀÌ µÇ¸é ÆË¾÷Ã¢Àº ÀÚµ¿À¸·Î window.close()¸¦ È£ÃâÇÏ¿© ´İÈû
+         1. div ì•ˆì˜ ëª¨ë“  íƒœê·¸ë“¤ì„ innerHTMLì„ ì‚¬ìš©í•˜ì—¬ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ëŠ”ë‹¤.
+         2. window.open() ì„ ì‚¬ìš©í•˜ì—¬ ìƒˆ íŒì—…ì°½ì„ ë„ìš´ë‹¤.
+         3. ì—´ë¦° ìƒˆ íŒì—…ì°½ì— ê¸°ë³¸ <html><head><body>ë¥¼ ì¶”ê°€í•œë‹¤.
+         4. <body> ì•ˆì— ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì€ printAreaë¥¼ ì¶”ê°€í•œë‹¤.
+         5. window.print() ë¡œ ì¸ì‡„
+         6. ì¸ì‡„ í™•ì¸ì´ ë˜ë©´ íŒì—…ì°½ì€ ìë™ìœ¼ë¡œ window.close()ë¥¼ í˜¸ì¶œí•˜ì—¬ ë‹«í˜
       */
       win.document.write('<html><'head'><title></title><style>');
       win.document.write('body, td {font-falmily: Verdana; font-size: 10pt;}');
@@ -44,43 +45,69 @@ function print(printArea)
 }
 </script>
 
-<div class="guideBox">
-  <p><button class="btn btn-primary">±Ş¿©È®ÀÎÇÏ±â!</button></p>
-  <div style="display:none" id="printArea">
-    <div>
-      <dl>
-        <dd>
-          <table class="table table-bordered" >
-   		<tr>
-   			<th>¼º¸í</th>
-   			<td><%=user.getUsername() %></td>
-   			<th>ºÎ¼­</th>
-   			<td>À¯ÀúÀÇ ºÎ¼­</td>
-   		</tr>
-   		<tr>
-   			<th>Á÷Ã¥</th>
-   			<td>À¯ÀúÀÇ Á÷Ã¥</td>
-   			<th>ºÎ¼­</th>
-   			<td>À¯ÀúÀÇ ºÎ¼­</td>
-   		</tr>
-   		<tr>
-   			<th>¼ö´ç</th>
-   			<td>1,000¿ø</td>
-   			<th>±Ş¿©</th>
-   			<td>5,435,435,432¿ø</td>
-   		</tr>
-   	</table>
-        </dd>
-      </dl>
-    </div>
+<!-- <div class="guideBox"> -->
+<!--   <p><button class="btn btn-primary">ê¸‰ì—¬í™•ì¸í•˜ê¸°!</button></p> -->
+<!--   <div style="display:none" id="printArea"> -->
+<!--     <div> -->
+<!--       <dl> -->
+<!--         <dd> -->
+         <table class="table table-border">
+			<tr>
+				<th>ë¶€ì„œëª…</th>
+				<th>ì§ì±…ëª…</th>
+				<th>ì‚¬ì›ëª…</th>
+				<th>ê¸°ë³¸ ê¸‰ì—¬</th>
+				<th>ê°œë³„ ìˆ˜ë‹¹</th>
+				<th>4ëŒ€ë³´í˜ë£Œ</th>
+				<th>ì‹¤ìˆ˜ë ¹ì•¡</th>
+				<th>ì§€ê¸‰ì¼ì</th>
+				
+			</tr>
+			<c:choose>
+				<c:when test="${viewData.memberTotalCount > 0}">
+				<c:forEach items="${viewData.memberPayViewList}" var="board" >
+				<tr>
+					<td>${board.dept_name }</td>
+					<td>${board.position_name }</td>
+					<td>${board.mem_name}</td>
+					<td>${board.mp_basic_pay}</td>
+					<td>${board.mp_bonus}</td>
+					<td>${board.mp_insurance}</td>
+					<td>${board.mp_final_salary}</td>
+					<td><fmt:formatDate value="${board.mp_pay_date}" pattern="yy'ë…„'MM'ì›”'dd'ì¼'"/></td>
+				</tr>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td style="text-align: center;">ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+			</table>
+			<div id="pageNum">
+		<c:if test="${beginPage > perPage}">
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">ì´ì „</a>
+		</c:if>
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
+		</c:forEach>
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">ë‹¤ìŒ</a>
+		</c:if>
+		</div>
+		
+<!--         </dd> -->
+<!--       </dl> -->
+<!--     </div> -->
  
-  </div>
-</div>
+<!--   </div> -->
+<!-- </div> -->
 
 
-<input type = "button" OnClick="print(document.getElementById('printArea').innerHTML)" value="ÇÁ¸°Æ®"/>
+<input type = "button" OnClick="print(document.getElementById('printArea').innerHTML)" value="í”„ë¦°íŠ¸"/>
 
-¸¶ÀÌÆäÀÌÁö >> ³ªÀÇ ±Ş¿© °ü¸® >> ±Ş¿©¸í¼¼¼­ º¸±â
+ë§ˆì´í˜ì´ì§€ >> ë‚˜ì˜ ê¸‰ì—¬ ê´€ë¦¬ >> ê¸‰ì—¬ëª…ì„¸ì„œ ë³´ê¸°
 
 
 

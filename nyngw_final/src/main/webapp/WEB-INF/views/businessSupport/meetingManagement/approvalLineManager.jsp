@@ -71,9 +71,6 @@ td {
 					var code='<tr><th><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th>부서</th><th>직급(직책)</th><th>사원명</th></tr>';
 					var codeInput='';
 					$.each(result, function(i, value){
-// 						if (i==0){
-// 							code="";
-// 						}
 						code+='<tr><td><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
 						code+='<td>'+value.mem_dept_name+'</td>';
 						code+='<td>'+value.mem_position_number+'</td>';
