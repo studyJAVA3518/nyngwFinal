@@ -155,22 +155,23 @@ $(function(){
 	});
 })
 	function userUiSave(){
-// 	    var a = $('#middleMenu').val(); 
-// 	    var b = $('#middleMenu1').val(); 
-// 	    var c = $('#middleMenu2').val();
-// 	    alert(a);
-// 	    alert(b);
-// 	    alert(c);
-		$.ajax({
-			url : '/homeMain/appointedUI/userUiSave' ,
-			type : 'post' ,
-			data : $('#userUi').serialize() , 
-			success : function(res){
-				alert('저장됬시유 ㅎ');
-				location.href=res.uri;
-			},
-			dataType : 'json'
-		});
+	    var a = $('#middleMenu').val(); 
+	    var b = $('#middleMenu1').val(); 
+	    var c = $('#middleMenu2').val();
+	    if(a != b && b != c && c != a){
+			$.ajax({
+				url : '/homeMain/appointedUI/userUiSave' ,
+				type : 'post' ,
+				data : $('#userUi').serialize() , 
+				success : function(res){
+					alert('저장됬시유 ㅎ');
+					location.href=res.uri;
+				},
+				dataType : 'json'
+			});
+	    }else{
+			alert('값을 서로 다르게 해주세욥');	    	
+	    }
 	}
 
 </script>
