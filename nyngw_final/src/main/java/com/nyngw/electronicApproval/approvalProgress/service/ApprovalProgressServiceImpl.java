@@ -108,27 +108,35 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		//결재 이력 정보
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
-		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
+		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);	//결재 이력에 등록된 마지막 우선순위를 검색
 		int index=1;
+		int indexA = 0;
+		int indexB = 0;
 		
+		//합의자의 싸인을 담기 위함
+		for (Approval_StepVO approval_StepVO : agreementMemberList) {
+			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
+			agreementMember.add(member2);
+			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
+				agreementMem_sign.add(member2.getMem_sign());
+				indexB++;
+			}
+			index++;
+		}
+		//결재자의 싸인을 담기 위함
 		for (Approval_StepVO approval_StepVO : approvalMemberList) {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
 			approvalMember.add(member2);
 			if(lastAhHistory>=index){
 				approvalMem_sign.add(member2.getMem_sign());
-			}
-			index++;
-		}
-		for (Approval_StepVO approval_StepVO : agreementMemberList) {
-			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
-			agreementMember.add(member2);
-			if(lastAhHistory>=index){
-				agreementMem_sign.add(member2.getMem_sign());
+				indexA++;
 			}
 			index++;
 		}
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
 		model.addAttribute("agreementMem_sign",agreementMem_sign);
+		model.addAttribute("indexA",indexA+1);	//결재이력이 있는 수
+		model.addAttribute("indexB",indexB+1);	//결재이력이 있는 수
 		
 		index = 0;
 		for (Approval_StepVO approval_StepVO : implementMemberList) {
@@ -163,8 +171,8 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		//전체 결재선의 크기
 		int lastAstPriorityOfA = approvalProgressDao.selectLastAstPriorityOfA(ea_number);
 		int lastAstPriorityOfB = approvalProgressDao.selectLastAstPriorityOfB(ea_number);
-		model.addAttribute("lastAstPriorityOfA",5-lastAstPriorityOfA);
-		model.addAttribute("lastAstPriorityOfB",5-lastAstPriorityOfB);
+		model.addAttribute("lastAstPriorityOfA",5-lastAstPriorityOfA);	//lastAstPriorityOfA = 5에서 A의 전체 결재선을 뺀 수 = 빈칸의 수 
+		model.addAttribute("lastAstPriorityOfB",5-lastAstPriorityOfB);	//lastAstPriorityOfB = 5에서 B의 전체 결재선을 뺀 수 = 빈칸의 수
 		
 		
 		List<String> ahAstNumberList = approvalProgressDao.selectAhAstNumberByEaNumber(ea_number);
@@ -180,10 +188,16 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 				countB++;
 			}
 		}
-		model.addAttribute("countA",countA+1);
-		model.addAttribute("countB",countB+1);
-		System.out.println(countA+1);
-		System.out.println(countB+1);
+		model.addAttribute("CountIndexA",countA-indexA);	//전체 A의 결재선에서 결재이력이 있는 수를 뺀 수
+		model.addAttribute("CountIndexB",countB-indexB);	//전체 B의 결재선에서 결재이력이 있는 수를 뺀 수
+		model.addAttribute("countA",countA+1);	//countA = 전체 결재선의 A의 갯수+1 = 빈칸이 몇번무터 시작해야 하는지
+		model.addAttribute("countB",countB+1);	//countB = 전체 결재선의 B의 갯수+1 = 빈칸이 몇번무터 시작해야 하는지
+		System.out.println("==============");
+		System.out.println(indexA+1);	//3
+		System.out.println(indexB+1);	//1
+		System.out.println(countA-indexA);	//-1
+		System.out.println(countB-indexB);	//0
+		System.out.println("==============");
 	}
 	
 	

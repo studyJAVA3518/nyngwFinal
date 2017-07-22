@@ -131,6 +131,7 @@ $(function(){
 			<th class="tableTh">기안자</th>
 			<td colspan="5">${mem_name }</td>
 		</tr>
+		<!-- 결재자 이름-->   
 		<tr id="approvalMember">
 			<th rowspan="2">결재</th>
 			<c:forEach items="${approvalMember}" var="member">
@@ -139,20 +140,28 @@ $(function(){
 			<c:forEach var="i" begin="1" end="${lastAstPriorityOfA }" step="1">
 				<th class="tableTd"></th>
 			</c:forEach>
-		</tr>                                
+		</tr>   
+		<!-- 결재자 서명 -->                              
 		<tr id="approvalStatus">                                 
 			<c:forEach items="${approvalMem_sign}" var="sign" varStatus="index">
 				<td id="approvalStatus${index.count}"><div class="tableTd tableSign memSign" style="background-image:url('/resources/memsign/${sign }')"></div></td>
 			</c:forEach>
-			<!--begin에서 몇번부터 시작할지 나와야함 
-				A
-				결재정보가 있을 때 저렇게 찍어주지 말고 없으면 따로 또 찍어줘야함
-				밑에  end="${lastAstPriorityOfA } 이걸 다른 방식으로 처리해줘야함
-			-->
-			<c:forEach var="i" begin="${countA }" end="${lastAstPriorityOfA }" step="1" varStatus="index">
+			<c:forEach var="i" begin="${indexB }" end="${CountIndexB }" step="1">
 				<td id="approvalStatus${i}" class="tableTd tableSign">as</td>
 			</c:forEach>
-		</tr>                                
+			<!--
+				indexA = 결재 이력의 수 + 1 = 결재스탭에 있는 것 중 결재 된 것의 다음 수를 알 수 있다 
+				indexB = 결재 이력의 수 + 1 = 결재스탭에 있는 것 중 결재 된 것의 다음 수를 알 수 있다
+				countA = 전체 결재선의 A의 갯수+1 = 빈칸이 몇 번부터 시작해야 하는지
+				countB = 전체 결재선의 B의 갯수+1 = 빈칸이 몇 번부터 시작해야 하는지 
+				lastAstPriorityOfA = 5에서 A의 전체 결재선을 뺀 수 = 빈칸의 수
+				lastAstPriorityOfB = 5에서 B의 전체 결재선을 뺀 수 = 빈칸의 수
+			-->
+			<c:forEach var="i" begin="${countA }" end="${lastAstPriorityOfA }" step="1">
+				<td id="approvalStatus${i}" class="tableTd tableSign">as</td>
+			</c:forEach>
+		</tr>      
+		<!-- 합의자 이름 -->                          
 		<tr id="agreementMember">                                 
 			<th rowspan="2">합의</th>        
 			<c:forEach items="${agreementMember}" var="member">
@@ -161,7 +170,8 @@ $(function(){
 			<c:forEach var="i" begin="1" end="${lastAstPriorityOfB}" step="1">
 				<th class="tableTd"></th>
 			</c:forEach>
-		</tr>                                
+		</tr>   
+		<!-- 합의자 서명 -->                               
 		<tr id="agreementStatus"> 
 			<c:forEach items="${agreementMem_sign}" var="sign" varStatus="index">  
 				<td id="agreementStatus${index.count}"><div class="memSign tableTd tableSign" style="background-image:url('/resources/memsign/${sign }')"></div></td>                            
