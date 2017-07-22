@@ -47,10 +47,10 @@ function print(printArea)
 
 <!-- <div class="guideBox"> -->
 <!--   <p><button class="btn btn-primary">급여확인하기!</button></p> -->
-<!--   <div style="display:none" id="printArea"> -->
 <!--     <div> -->
 <!--       <dl> -->
 <!--         <dd> -->
+  <div id="printArea">
          <table class="table table-border">
 			<tr>
 				<th>부서명</th>
@@ -74,7 +74,7 @@ function print(printArea)
 					<td>${board.mp_bonus}</td>
 					<td>${board.mp_insurance}</td>
 					<td>${board.mp_final_salary}</td>
-					<td><fmt:formatDate value="${board.mp_pay_date}" pattern="yy'년'MM'월'dd'일'"/></td>
+					<td>${board.mp_pay_date}</td>
 				</tr>
 				</c:forEach>
 				</c:when>
@@ -96,10 +96,10 @@ function print(printArea)
 			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 		</div>
+    </div>
 		
 <!--         </dd> -->
 <!--       </dl> -->
-<!--     </div> -->
  
 <!--   </div> -->
 <!-- </div> -->

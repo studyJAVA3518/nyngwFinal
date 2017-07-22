@@ -18,9 +18,16 @@ public class DocumentVO {
 	private String doc_mem_number;	//등록자
 	private String doc_eadoc;       //전자결재문서 유무
 	private String mem_name;        // 사원명
+	private String doc_content;        // 사원명
 	
 	
 	
+	public String getDoc_content() {
+		return doc_content;
+	}
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
+	}
 	public String getDoc_eadoc() {
 		return doc_eadoc;
 	}

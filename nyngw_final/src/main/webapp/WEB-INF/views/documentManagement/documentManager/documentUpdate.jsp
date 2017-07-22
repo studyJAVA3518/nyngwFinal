@@ -42,8 +42,9 @@
 		</form>
 	</div> 
 <textarea id="text_content" style="display:none;">
-${document.doc_explanation}
+${document.doc_content}
 </textarea>
+
 <script>
 $(function(){   
 	var loadContent = function() {
