@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nyngw.dto.DepartmentViewVO;
+import com.nyngw.dto.Member_ViewVO;
 import com.nyngw.dto.Member_payVO;
 import com.nyngw.dto.Member_payViewVO;
 import com.nyngw.dto.Member_pay_PageViewVO;
@@ -123,7 +124,7 @@ public class PayManagementServiceImpl implements PayManagementService {
 		return null;
 	}
 	
-	//json형식을 부서정보리스트 가져옴
+	//json형식의 부서정보리스트 가져옴
 	public List<Map<String,String>> viewDeptJsonList(Model model) throws SQLException{
 		List<DepartmentViewVO> deptList = planPublicRelationsSettingDao.selectDepartmentView();
 		List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
@@ -135,6 +136,53 @@ public class PayManagementServiceImpl implements PayManagementService {
 		}
 		
 		return resultList;
+	}
+	
+	//json형식의 직급정보리스트 가져옴
+	public List<Map<String, String>> viewPositionJsonList(Model model,
+			String dept_number) throws SQLException{
+		List<Member_ViewVO> posList = payManagementDao.selectPositionList(dept_number);
+		List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
+		for(Member_ViewVO vo : posList){
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("mem_position_number", vo.getMem_position_number());
+			map.put("position_name", vo.getPosition_name());
+			resultList.add(map);
+		}
+		
+		return resultList;
+		
+	}
+
+	//json형식의 사원리스트 가져옴
+	public List<Map<String, String>> viewNameJsonList(Model model,
+			String dept_number, String position_number) throws SQLException{
+		
+		List<Member_ViewVO> nameList = payManagementDao.selectNameList(dept_number,position_number);
+		List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
+		for(Member_ViewVO vo : nameList){
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("mem_number", vo.getMem_number());
+			map.put("mem_name", vo.getMem_name());
+			resultList.add(map);
+		}
+		
+		return resultList;
+	}
+	
+	//json형식으로 한 사원의 급여등록 전 기본정보 조회
+	public Map<String, Object> viewPayInfoJson(Model model, String dept_number,
+			String position_number, String mem_number, String clickMonth) throws SQLException{
+		Map<String,Object> map = new HashMap<String, Object>();
+		//해당 직급의 기본급+직급수당+식대 금액 조회
+		int basicPay = payManagementDao.selectBasicPayOne(position_number);
+		int vacationDayDuring = 0;
+		if(clickMonth.equals("")){
+			vacationDayDuring = payManagementDao.selectVacationDayDuring(mem_number, clickMonth);
+		}
+		map.put("basicPay", basicPay);
+		map.put("vacationDayDuring", vacationDayDuring);
+		return map;
 	}
 
 	

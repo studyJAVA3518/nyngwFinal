@@ -35,11 +35,12 @@
 		select nvl(max(substr(ah_ast_number,4)),0) from approval_history where ah_ea_number= #{ah_ea_number}
 	</select>
 	
+	<!-- 결재번호로 하나의 결재를 가져오기 -->
 	<select id="selectEA" resultType="com.nyngw.dto.Electronic_ApprovalVO" parameterType="string">
 		select * from Electronic_Approval where ea_number = #{ea_number}
 	</select>
 	
-	
+	<!-- ast_al_number_결재라인(A-결재 B-합의)과 결재번호로 => 결재스탭과 결재우선순위를 검색-->
 	<select id="selectAstMemNumberByEaNumber" resultType="com.nyngw.dto.Approval_StepVO" parameterType="com.nyngw.dto.Approval_StepVO">
 		select ast_mem_number, ast_priority 
 		from approval_Step 
@@ -48,20 +49,21 @@
 		order by 2
 	</select>
 	
+	<!-- 결재시 결재이력을 등록 -->
 	<insert id="insertApprovalHistory" parameterType="com.nyngw.dto.Approval_HistoryVO">
 		insert into Approval_History 
 		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment})
 	</insert>
 	
+<!-- 	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO"> -->
+<!-- 		select * from Electronic_Approval where ea_status = '결재완료' -->
+<!-- 	</select> -->
 	
-	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO">
-		select * from Electronic_Approval where ea_status = '결재완료'
-	</select>
-	
-	<select id="selectRA" resultType="com.nyngw.dto.Electronic_ApprovalVO">
-		select * from Electronic_Approval where ea_status = '반려'
-	</select>
-	
+<!-- 	<select id="selectRA" resultType="com.nyngw.dto.Electronic_ApprovalVO"> -->
+<!-- 		select * from Electronic_Approval where ea_status = '반려' -->
+<!-- 	</select> -->
+
+	<!-- 결재이력 중 가장 높은 결재 순위 검색 -->	
 	<select id="selectLastAstPriorityOfA" resultType="int">
 		select count(rnum) from
 		(select rownum rnum, a.* 
@@ -70,6 +72,7 @@
 		order by ast_al_number desc, ast_priority asc) a)
 	</select>
 	
+	<!-- 합의이력 중 가장 높은 결재 순위 검색 -->
 	<select id="selectLastAstPriorityOfB" resultType="int">
 		select count(rnum) from
 		(select rownum rnum, a.* 
@@ -78,16 +81,24 @@
 		order by ast_al_number desc, ast_priority asc) a)
 	</select>
 	
-	<select id="selectAllByApprovalAstNumber" resultType="string">
+	<!-- 결재번호와 결재스탭번호로 결재라인(A-결재, B-합의)을 검색 -->
+	<select id="selectAllByApprovalAstNumber" resultType="java.lang.String">
 		select ast_al_number from approval_step where ast_ea_number = #{ah_ea_number} and ast_number = #{ah_ast_number}
 	</select>
 	
-	<select id="selectAhAstNumberByEaNumber" parameterType="string" resultType="list">
+	<!-- 결재이력에 등록된 결재스탭번호를 검색 -->
+	<select id="selectAhAstNumberByEaNumber" parameterType="java.lang.String" resultType="java.lang.String">
 		select ah_ast_number from approval_history where ah_ea_number = #{ah_ea_number}
 	</select>
 	
-	<select id="selectAstAlNumberByAstNumber" parameterType="map" resultType="string">
+	<!-- 결재번호와 스탭번호로 결재라인을 검색 -->
+	<select id="selectAstAllNumberByAstNumber" parameterType="map" resultType="java.lang.String">
 		select ast_al_number from approval_step where ast_number  = #{ast_number} and ast_ea_number = #{ah_ea_number}
 	</select>
-
+	
+	<update id="updateAstPriority" parameterType="map">
+		update approval_step
+		set ast_priority = #{updateNumber}
+		where ast_number = #{ast_number} and ast_ea_number = #{ea_number}
+	</update>
 </mapper>
