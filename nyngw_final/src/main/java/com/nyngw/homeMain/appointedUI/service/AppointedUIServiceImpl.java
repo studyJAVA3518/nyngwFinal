@@ -739,6 +739,12 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		MiddleMenuVO mid = appointedUIDao.selectMiddleMenuFind_UI(mid_name);
 		return mid;
 	}
+
+	@Override
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number) {
+		MiddleMenuVO mid = appointedUIDao.selectBigMiddleMenuFind_UI(mid_number);
+		return mid;
+	}
 	
 	
 }

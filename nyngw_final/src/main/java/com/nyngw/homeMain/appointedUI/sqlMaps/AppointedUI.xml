@@ -118,6 +118,10 @@
 	<select id="selectMiddleMenuFind_UI" parameterType="java.lang.String" resultType="com.nyngw.dto.MiddleMenuVO">
 		select * from middlemenu where mid_name = #{mid_name}
 	</select>
+
+	<select id="selectBigMiddleMenuFind_UI" parameterType="java.lang.String" resultType="com.nyngw.dto.MiddleMenuVO">
+		select * from middlemenu where mid_number = #{mid_number}
+	</select>
 	
 	
 	

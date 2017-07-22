@@ -170,6 +170,13 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 		MiddleMenuVO mid = (MiddleMenuVO) sqlSession.selectOne("selectMiddleMenuFind_UI", mid_name);
 		return mid;
 	}
+
+
+	@Override
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number) {
+		MiddleMenuVO mid = (MiddleMenuVO) sqlSession.selectOne("selectBigMiddleMenuFind_UI", mid_number);
+		return mid;
+	}
 	
 	
 

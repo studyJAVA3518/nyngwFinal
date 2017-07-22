@@ -39,6 +39,15 @@ public class AppointedUIController {
 		}
 		
 		if(middle1 != null && middle2 != null && middle3 != null){
+			MiddleMenuVO mid1 = appointedUIservice.selectBigMiddleMenuFind_UI(middle1);
+			MiddleMenuVO mid2 = appointedUIservice.selectBigMiddleMenuFind_UI(middle2);
+			MiddleMenuVO mid3 = appointedUIservice.selectBigMiddleMenuFind_UI(middle3);
+			model.addAttribute("big_number", mid1.getMid_big_number());
+			model.addAttribute("middleMenu", mid1.getMid_number());
+			model.addAttribute("big_number1", mid2.getMid_big_number());
+			model.addAttribute("middleMenu1", mid2.getMid_number());
+			model.addAttribute("big_number2", mid3.getMid_big_number());
+			model.addAttribute("middleMenu2", mid3.getMid_number());
 		}
 		
 		return "homeMain/appointedUI/appointedUI";
@@ -93,7 +102,7 @@ public class AppointedUIController {
 	public @ResponseBody Map<String,String> userUiSave(UserUiVO userUi, Principal principal){
 		appointedUIservice.userUiInsert_UI(userUi, principal);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("uri", "/homeMain/appointedUI/appointedUI?menu1="+userUi.getMiddleMenu()+"&menu2="+userUi.getMiddleMenu1()+"&menu3="+userUi.getMiddleMenu2());
+		map.put("uri", "/homeMain/appointedUI/appointedUI?middle1="+userUi.getMiddleMenu()+"&middle2="+userUi.getMiddleMenu1()+"&middle3="+userUi.getMiddleMenu2());
 		return map;
 	}
 }

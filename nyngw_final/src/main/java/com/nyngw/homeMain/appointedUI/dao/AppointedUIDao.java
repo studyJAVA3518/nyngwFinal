@@ -52,6 +52,6 @@ public interface AppointedUIDao {
 	
 	//메뉴의 값을 초기화 해주기위해 쓰는 메서드
 	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name);
-	
+	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number);
 }
 
