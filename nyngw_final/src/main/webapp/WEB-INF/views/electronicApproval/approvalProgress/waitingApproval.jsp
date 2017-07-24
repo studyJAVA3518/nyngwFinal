@@ -12,16 +12,19 @@
 		<tr>
 			<td>검색일자</td>
 			<td>
-				<select name="EADateOption">
+				<select name="EADateOption" class="form-control">
 					<option>기안일</option>
 					<option>완료일</option>
 				</select>
 			</td>
+			<td>
+				<input type="text" class="form-control inputTypeDate2" id="EADate" name="EADate"/>
+			</td>
 		</tr>
 		<tr>
 			<td>결재상태</td>
-			<td>
-				<select name="EAStatusOption">
+			<td colspan="2">
+				<select name="EAStatusOption" class="form-control">
 					<option>--선택--</option>
 					<option>상신</option>
 					<option>진행</option>
@@ -33,8 +36,8 @@
 		</tr>		
 		<tr>
 			<td>결재분류</td>
-			<td>
-				<select name="EAClassificationOption">
+			<td colspan="2">
+				<select name="EAClassificationOption" class="form-control">
 					<option>--선택--</option>
 					<option>미결</option>
 					<option>예결</option>
@@ -45,7 +48,7 @@
 		<tr>
 			<td>문서검색</td>
 			<td>
-				<select name="docSearchOption">
+				<select name="docSearchOption" class="form-control">
 					<option>--선택--</option>
 					<option>제목</option>
 					<option>품의번호</option>
@@ -53,7 +56,7 @@
 				</select>
 			</td>
 			<td>
-				<input type="text" name="searchText">
+				<input type="text" name="searchText" id="" class="form-control">
 			</td>	
 		</tr>		
 	</table>
