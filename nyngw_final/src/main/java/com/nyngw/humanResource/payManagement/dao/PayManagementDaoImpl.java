@@ -160,13 +160,19 @@ public class PayManagementDaoImpl implements PayManagementDao {
 	}
 	
 	//휴가일수 가져오기
-	public int selectVacationDayDuring(String mem_number, String clickMonth) {
+	public int selectVacationDayDuring(String mem_number, String inputMonth) {
 		int vacationDayDuring = 0;
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("mem_number", mem_number);
-		map.put("clickMonth", clickMonth);
+		map.put("inputMonth", inputMonth);
 		vacationDayDuring = (int) sqlSession.selectOne("MP_selectVacationDayDuring",map);
 		return vacationDayDuring;
+	}
+	
+	//급여등록하기
+	public int insertMemberPay(Map<String, Object> map) throws SQLException{
+		int result = sqlSession.update("MP_insertMemberPay",map);
+		return result;
 	}
 
 }

@@ -120,11 +120,11 @@ $(function() {
 		//사원을 선택하면 해당월을 선택할 수 있도록 조정
 		/////////////////////////////////////
 		var mem_number = "";
-		var clickMonth = $('#payMonth').val();
+		var clickMonth = "";
 		
 		$('#mem_number').change(function(){
 			mem_number = $(this).val();
-			
+			clickMonth = $('#payMonth').val()
 				
 			$.ajax({
 				url : '/humanResource/payManagement/viewMPMemberPayInfoAjax',
@@ -136,51 +136,18 @@ $(function() {
 				},
 				success : function(res){
 					
-					$('#basicPay').html(res.basicPay);
+					$('#in_mem_number').val(mem_number);
+					$('#in_basicPay').val(res.basicPay);
 					$('#vacationDayDuring').html(res.vacationDayDuring);
-// 					$('#mem_number').trigger('change');
+					$('#in_vacationCost').val(res.vacationCost);
+					$('#in_bonus').val('0');
 				},
 				dataType : 'json'
 			})
 			
-			
-			
 		})
 		
 		
-		/////////////////////////////////////
-// 		$('#prod').change(function(){
-// 			var prodId = $(this).val();
-// 			$.post(
-// 				'detail.jsp',
-// 				'id='+prodId,
-// 				function(res){
-// 					var code = "<table class='table table-bordered'>";
-// 					code += "<tr><td>항목</td><td>내용</td>";
-// 					code += "<tr><td>PROD_ID</td><td>" + res.id + "</td></tr>";
-// 					code += "<tr><td>PROD_NAME</td><td>" + res.name + "</td></tr>";
-// 					code += "<tr><td>PROD_LGU</td><td>" + res.lgu + "</td></tr>";
-// 					code += "<tr><td>PROD_BUYER</td><td>" + res.buyer + "</td></tr>";
-// 					code += "<tr><td>PROD_COST</td><td>" + res.cost + "</td></tr>";
-// 					code += "<tr><td>PROD_PRICE</td><td>" + res.price + "</td></tr>";
-// 					code += "<tr><td>PROD_SALE</td><td>" + res.sale + "</td></tr>";
-// 					code += "<tr><td>PROD_OUTLINE</td><td>" + res.outline + "</td></tr>";
-// 					code += "<tr><td>PROD_DETAIL</td><td>" + res.detail + "</td></tr>";
-// 					code += "<tr><td>PROD_PROPERSTOCK</td><td>" + res.properstock + "</td></tr>";
-// 					code += "<tr><td>PROD_SIZE</td><td>" + res.size + "</td></tr>";
-// 					code += "<tr><td>PROD_COLOR</td><td>" + res.color + "</td></tr>";
-// 					code += "<tr><td>PROD_DELIVERY</td><td>" + res.delivery + "</td></tr>";
-// 					code += "<tr><td>PROD_QTYIN</td><td>" + res.qtyin + "</td></tr>";
-// 					code += "<tr><td>PROD_QTYSALE</td><td>" + res.qtysale + "</td></tr>";
-// 					code += "<tr><td>PROD_MILEAGE</td><td>" + res.mileage + "</td></tr>";
-					
-// 					code +="</table>";
-// 					$('#result').html(code);
-// 				},
-// 				'json'
-// 			)
-// 		})
-		///////////////////////////////////////////////////////////////////
 	})
 
 });
@@ -316,30 +283,100 @@ $(function() {
 				<td colspan="2">
 					<label for="dept_number">부서 선택</label>
 					<select name="dept_number" id="dept_number" style="width : 120px;" class="form-control">
-<!-- 						<option selected="selected">부서 선택</option> -->
 					</select>
 					<label for="position_number">직급 선택</label>
 					<select name="position_number" id="position_number" style="width : 120px;" class="form-control">
-<!-- 						<option selected="selected">직급 선택</option> -->
 					</select>
 					<label for="mem_number">이름 선택</label>
 					<select name="mem_number" id="mem_number" style=" width : 120px;" class="form-control">
-<!-- 						<option selected="selected">이름선택 선택</option> -->
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<th>기본급+직책수당+식대</th>
-				<td id="basicPay"></td>
+				<th>기본월급 : 기본급+직책수당+식대</th>
+				<td>
+					<input type="hidden" name="in_mem_number" id="in_mem_number"/>
+					<input type="text" name="in_basicPay" id="in_basicPay" class="form-control"/>
+				</td>
 			</tr>
 			<tr>
-				<th>휴가 일수</th>
+				<th>무급휴가 사용일수</th>
 				<td id="vacationDayDuring"></td>
 			</tr>
 			<tr>
-				<th>휴가 및 결근 차감</th>
-				<td>???</td>
+				<th>휴가차감금액 : 기본월급/해당월수</th>
+				<td>
+					<input type="text" name="in_vacationCost" id="in_vacationCost" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<th>기타수당</th>
+				<td>
+					<input type="text" name="in_bonus" id="in_bonus" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<th>월급 지급일자 선택</th>
+				<td>
+					<input type="text" name="in_payDate" id="in_payDate" class="form-control inputTypeDate2"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" class="btn btn-default" onclick="pk_insert_go();" value="급여 등록"/>
+				</td>
 			</tr>
 		</form>
 	</table>
 </div>
+
+<script>
+	function pk_insert_go(){
+		
+		//금액 입력 형식에 맞는지 체크(숫자만 들어가야함)
+		var regNumber = /^[0-9]*$/;
+		
+		var inputBasicPay = document.getElementById("in_basicPay").value;
+		var inputVacationCost = document.getElementById("in_vacationCost").value;
+		var inputBonus = document.getElementById("in_bonus").value;
+		var inputPayDate = document.getElementById("in_payDate").value;
+		
+		if(!inputBasicPay){
+			alert("기본 월급을 입력해야 합니다.");
+			document.getElementById("in_basicPay").focus();
+			return;
+		}else if(inputBasicPay.match(regNumber) == null){
+			alert("숫자만 입력할 수 있습니다.");
+			document.getElementById("in_basicPay").focus();
+			return;
+		}
+		if(!inputVacationCost){
+			alert("휴가차감금액을 입력해야 합니다.");
+			document.getElementById("in_vacationCost").focus();
+			return;
+		}else if(inputVacationCost.match(regNumber) == null){
+			alert("숫자만 입력할 수 있습니다.");
+			document.getElementById("in_basicPay").focus();
+			return;
+		}
+		if(!inputBonus){
+			alert("기타수당을 입력해야 합니다.");
+			document.getElementById("inputBonus").focus();
+			return;
+		}else if(inputBonus.match(regNumber) == null){
+			alert("숫자만 입력할 수 있습니다.");
+			document.getElementById("in_basicPay").focus();
+			return;
+		}
+		if(!inputPayDate){
+			alert("월급 지급일자를 입력해야 합니다.");
+			document.getElementById("in_basicPay").focus();
+			return;
+		}
+		
+		document.insertMPForm.method="post";
+		document.insertMPForm.action="<%=request.getContextPath()%>/humanResource/payManagement/insertMemberPay";
+		document.insertMPForm.submit();
+		
+	}
+</script>

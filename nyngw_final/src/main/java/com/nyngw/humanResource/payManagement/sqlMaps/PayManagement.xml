@@ -131,50 +131,24 @@
 <!-- 	</select> -->
 	
 	<!-- 사원의 급여정보 입력 -->
-	<update id="pm_humanPayInsert" parameterType="map">
+	<update id="MP_insertMemberPay" parameterType="map">
 		insert into member_pay(
-		  mp_number, mp_mem_number, mp_basic_pay, mp_bonus, mp_insurance, MP_PAY_DATE, MP_FINAL_SALARY
+		  mp_number, 
+		  mp_mem_number,
+		  mp_basic_pay,
+		  mp_bonus,
+		  mp_insurance,
+		  MP_PAY_DATE,
+		  MP_FINAL_SALARY
 		)
 		values (
 		  'mp'||mp_seq.nextval,
-		  #{mp_mem_number},
-		  (
-		    select sum(pp_pay) from PAY_POLICY_VIEW
-		    where POSITION_NUMBER=#{position_number}
-		    or POSITION_number='position0'
-		    and pk_tax='n'
-		  ),
-		  #{mp_bonus},
-		  (
-		    select
-		      ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
-		      (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
-		    from PAY_POLICY_VIEW
-		    where POSITION_NUMBER=#{position_number} 
-		    and pk_name='기본급'
-		  ),
-		  #{mp_pay_date},
-		  (
-		    select
-		      (
-		        select sum(pp_pay) from PAY_POLICY_VIEW
-		        where POSITION_NUMBER=#{position_number}
-		        or POSITION_number='position0'
-		        and pk_tax='n'
-		      )
-		      -
-		      (
-		        select
-		          ((select sum(pp_pay) from PAY_POLICY_VIEW where POSITION_NUMBER=#{position_number}) + #{mp_bonus}) * 
-		          (select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y') 
-		        from PAY_POLICY_VIEW
-		        where POSITION_NUMBER=#{position_number} 
-		        and pk_name='기본급'
-		      )
-		    from pay_policy_view
-		    where POSITION_NUMBER=#{position_number} 
-		    and pk_name='기본급'
-		  )
+		  #{in_mem_number},
+		  #{in_basicPay}-#{in_vacationCost},
+		  #{in_bonus},
+		  (#{in_basicPay}-#{in_vacationCost}+#{in_bonus})*(select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y'),
+		  #{in_payDate},
+		  (#{in_basicPay}-#{in_vacationCost}+#{in_bonus}) - (#{in_basicPay}-#{in_vacationCost}+#{in_bonus})*(select sum(pp_pay) from PAY_POLICY_VIEW where PK_TAX='y')
 		)
 	</update>
 	
@@ -212,7 +186,7 @@
 		from vacation inner join VACATION_POLICY on (VACATION_VP_NUMBER=VP_NUMBER)
 		where vacation_mem_number = #{mem_number}
 		and VP_PAYONOFF = 'n'
-		and VACATION_START like #{clickMonth}||'%'
+		and VACATION_START like #{inputMonth}||'%'
 	</select>
 	
 </mapper>

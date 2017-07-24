@@ -1,6 +1,8 @@
 package com.nyngw.humanResource.payManagement.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -174,15 +176,59 @@ public class PayManagementServiceImpl implements PayManagementService {
 	public Map<String, Object> viewPayInfoJson(Model model, String dept_number,
 			String position_number, String mem_number, String clickMonth) throws SQLException{
 		Map<String,Object> map = new HashMap<String, Object>();
-		//해당 직급의 기본급+직급수당+식대 금액 조회
+		//기본월급 : 해당 직급의 기본급+직급수당+식대 금액 조회
 		int basicPay = payManagementDao.selectBasicPayOne(position_number);
 		int vacationDayDuring = 0;
-		if(clickMonth.equals("")){
-			vacationDayDuring = payManagementDao.selectVacationDayDuring(mem_number, clickMonth);
+		//해당월의 무급휴가 사용일수 조회
+		String inputMonth = clickMonth.substring(2,4)+"/"+clickMonth.substring(5);
+		vacationDayDuring = payManagementDao.selectVacationDayDuring(mem_number, inputMonth);
+		int vacationCost = 0;
+		
+		if(vacationDayDuring>0){	//무급휴가 사용일수가 0보다 크다면 무급휴가비용 계산하기
+			
+			//해당월수 구하기
+			//"yyyyMMdd"형식의 데이터포맷의 틀을 만든다.
+			SimpleDateFormat transeDate = new SimpleDateFormat("yyyyMM");
+			//String의 날짜를 Date로 형변환
+			Date tdate = null;
+			try {
+				tdate = transeDate.parse(clickMonth);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			//Calendar형으로 시스템날짜를 가져온다.
+			Calendar cal = Calendar.getInstance();
+			//Date형의 입력받은 날짜를 Calendar형으로 변환한다.
+			cal.setTime(tdate);
+			//입력받은 날짜의 그달의 마지막일을 구한다.
+			int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			//휴가차감금액 : (기본월급/해당월수) * 무급휴가 사용일수
+			vacationCost = (basicPay/endDay)*vacationDayDuring;
 		}
+		
+		
 		map.put("basicPay", basicPay);
 		map.put("vacationDayDuring", vacationDayDuring);
+		map.put("vacationCost", vacationCost);
+		
 		return map;
+	}
+	
+	//급여 등록
+	public void enrollMemberPay(Model model, String in_basicPay,
+			String in_vacationCost, String in_bonus, String in_payDate, String in_mem_number) throws SQLException{
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("in_mem_number",in_mem_number);
+		map.put("in_basicPay",Integer.parseInt(in_basicPay));
+		map.put("in_vacationCost",Integer.parseInt(in_vacationCost));
+		map.put("in_bonus",Integer.parseInt(in_bonus));
+		String inputDate = in_payDate.substring(2);
+		map.put("in_payDate",inputDate);
+		
+		int result = payManagementDao.insertMemberPay(map);
+		model.addAttribute("mpInsertResut",result);
 	}
 
 	
