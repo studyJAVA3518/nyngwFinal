@@ -12,7 +12,6 @@ import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.DocumentViewVO;
-
 @Service
 public class DocumentManagerServiceImpl implements DocumentManagerService {
 	@Autowired
@@ -77,6 +76,32 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 	@Override
 	public void documentDelete(String doc_number) {
 		documentManagerDao.documentDelete(doc_number);
+	}
+	
+//	electronic ---------------------------------------------------
+	@Override
+	public DocumentListView selectEDocumentList(int pageNumber, Board_SelectVO select) {
+		int currentPageNumber = pageNumber;
+		
+		int documentTotalCount = documentManagerDao.selectEDocumentCount();
+		
+		List<DocumentViewVO> documentList = null;
+		int firstRow = 0;
+		int endRow = 0;
+		if(documentTotalCount > 0){
+			firstRow = (currentPageNumber - 1) * DOCUMENT_COUNT_PER_PAGE + 1;
+			endRow = firstRow + DOCUMENT_COUNT_PER_PAGE - 1;
+			documentList = documentManagerDao.selectEDocumentManagerList(firstRow, endRow,select);
+			if(select.getVal()!=null && !select.getVal().equals("")){
+				documentTotalCount = documentManagerDao.documentSelectCount(select);
+			}
+		} else {
+			currentPageNumber = 0;
+			documentList = Collections.emptyList();
+		}
+		
+		return new DocumentListView(documentList, documentTotalCount, currentPageNumber, DOCUMENT_COUNT_PER_PAGE, firstRow, endRow);
+	
 	}
 	
 }

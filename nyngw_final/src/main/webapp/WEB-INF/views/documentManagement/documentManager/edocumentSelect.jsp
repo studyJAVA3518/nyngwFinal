@@ -11,7 +11,7 @@
 	<h1>문서조회</h1>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
-			<form action="/documentManagement/documentManager/documentSelect">
+			<form action="/documentManagement/documentManager/edocumentSelect">
 				<select name="index">
 					<option value="dv_code_name">문서종류</option>
 					<option value="dv_doc_name">문서명</option>
@@ -29,7 +29,7 @@
 	<div></div>
 	<br>
 <!-- 	<div style="text-align: right;"> -->
-<!-- 		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert">등록</a></button> -->
+<!-- 		<button type="button"class="btn"> <a href="/documentManagement/documentManager/edocumentInsert">등록</a></button> -->
 <!-- 	</div> -->
 	
 	<div>
@@ -66,12 +66,12 @@
 	</div>
 	<div id="pageNum" style="text-align: center;">
 		<c:if test="${beginPage > perPage}">
-			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+			<a href="<c:url value="/documentManagement/documentManager/edocumentSelect?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>
 		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
-			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${pno}&index=${select.index}&val=${select.val}"/>">[${pno}]</a>
+			<a href="<c:url value="/documentManagement/documentManager/edocumentSelect?page=${pno}&index=${select.index}&val=${select.val}"/>">[${pno}]</a>
 		</c:forEach>
 		<c:if test="${endPage < viewData.getPageTotalCount()}">
-			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+			<a href="<c:url value="/documentManagement/documentManager/edocumentSelect?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 	</div>

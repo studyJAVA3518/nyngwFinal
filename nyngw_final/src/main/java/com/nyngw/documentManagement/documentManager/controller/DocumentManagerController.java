@@ -107,13 +107,13 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
 	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_explanation) throws IOException{
-		
+		String url="";
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document";
 		
 		MultipartFile multipartFile = document.getDoc_file_name();
 		
 		if(!multipartFile.isEmpty()){
-			File file = new File(upload , URLEncoder.encode(multipartFile.getOriginalFilename()));//+"$$"+System.currentTimeMillis()
+			File file = new File(upload ,multipartFile.getOriginalFilename());//+"$$"+System.currentTimeMillis()
 			
 			multipartFile.transferTo(file);
 			
@@ -134,10 +134,38 @@ public class DocumentManagerController implements ApplicationContextAware{
 			model.addAttribute(doc);
 			
 			documentManagerService.documentInsertComplete(doc);
-			
-			return "redirect:/documentManagement/documentManager/documentSelect";
+			if(document.getDoc_eadoc()==null){
+				url="redirect:/documentManagement/documentManager/documentSelect";
+			}else{
+				url="redirect:/documentManagement/documentManager/edocumentSelect";
+			}
+			return url;
 		}
-		return "documentManagement/documentManager/documentInsert";
+		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String mem_id = user.getUsername(); 
+		MemberVO mem = basicSettingService.selectMember(mem_id);
+		String mem_number = mem.getMem_number();
+		
+		DocumentVO doc=document.toDocumentVO();
+		doc.setDoc_eadoc("n");
+		if(document.getDoc_eadoc() != null){
+			doc.setDoc_eadoc("y");
+		}
+		doc.setDoc_file_name("다운받을 파일이 없습니다.");
+		doc.setDoc_explanation(doc_explanation);
+		doc.setDoc_mem_number(mem_number);
+		
+		model.addAttribute(doc);
+		
+		documentManagerService.documentInsertComplete(doc);
+		
+		if(document.getDoc_eadoc()==null){
+			url="redirect:/documentManagement/documentManager/documentSelect";
+		}else{
+			url="redirect:/documentManagement/documentManager/edocumentSelect";
+		}
+		return url;
 	}
 	/**
 	 * 
@@ -208,6 +236,38 @@ public class DocumentManagerController implements ApplicationContextAware{
 			throws BeansException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@RequestMapping("/edocumentSelect")
+	public String edocumentSelect(@RequestParam(value="page",defaultValue="1")int pageNumber,
+			Model model,String val, String index){
+		Board_SelectVO select = new Board_SelectVO();
+		if(val!=null && !val.equals("")){
+			select.setIndex(index);
+			select.setVal(val);
+		}
+		DocumentListView viewData = (DocumentListView) documentManagerService.selectEDocumentList(pageNumber,select);
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getDocumentList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
+		model.addAttribute("viewData",viewData);
+		model.addAttribute("pageNumber",pageNumber);
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select);
+		}
+		return "documentManagement/documentManager/edocumentSelect";
+	}
+	
+	public String edocumentSearch(@RequestParam(value="page",defaultValue="1")int pageNumber,String val, String index, Model model){
+		return "documentManagement/documentManager/edocumentSelect";
 	}
 	
 }

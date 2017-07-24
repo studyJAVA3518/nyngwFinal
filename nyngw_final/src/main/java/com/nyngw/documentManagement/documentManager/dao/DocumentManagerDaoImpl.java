@@ -74,4 +74,24 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 	public void documentDelete(String doc_number){
 		sqlSession.delete("documentDelete",doc_number);
 	}
+	
+	
+	
+//	전자문서 ----------------------------------------------------------
+	
+	@Override
+	public List<DocumentViewVO> selectEDocumentManagerList(int firstRow, int endRow, Board_SelectVO select) {
+		int offset = firstRow - 1;
+		int limit = endRow - firstRow + 1;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<DocumentViewVO> documentList = (ArrayList<DocumentViewVO>)sqlSession.selectList("selectEDocumentManagerList",select,rowBounds);
+		return documentList;
+	}
+	@Override
+	public int selectEDocumentCount() {
+		int result =(Integer) sqlSession.selectOne("selectEDocumentCount");
+		return result;
+	}
+	
+	
 }

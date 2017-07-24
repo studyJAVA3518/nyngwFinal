@@ -7,6 +7,14 @@ public class DocumentViewVO {
 	private String dv_doc_name;//문서명
 	private String dv_doc_number;//문서번호
 	private String dv_mem_name;//등록자
+	private String dv_doc_eadoc;
+	
+	public String getDv_doc_eadoc() {
+		return dv_doc_eadoc;
+	}
+	public void setDv_doc_eadoc(String dv_doc_eadoc) {
+		this.dv_doc_eadoc = dv_doc_eadoc;
+	}
 	public String getDv_code_name() {
 		return dv_code_name;
 	}

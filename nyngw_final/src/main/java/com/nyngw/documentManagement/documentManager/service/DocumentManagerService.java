@@ -17,4 +17,8 @@ public interface DocumentManagerService {
 	public int documentInsertComplete(DocumentVO documentVO);
 	public List<Common_CodeVO> documentCodeSelect();
 	public void documentDelete(String doc_number);
+	
+//	electro =========================================
+	
+	DocumentListView selectEDocumentList(int pageNumber, Board_SelectVO select);
 }

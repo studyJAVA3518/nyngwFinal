@@ -17,4 +17,9 @@ public interface DocumentManagerDao {
 	public List<Common_CodeVO> documentCodeSelect();
 	public void documentDelete(String doc_number);
 	public int documentSelectCount(Board_SelectVO select);
+	
+//	전자문서 -------------------------------------------------------
+	public List<DocumentViewVO> selectEDocumentManagerList(int firstRow, int endRow,
+			Board_SelectVO select);
+	public int selectEDocumentCount();
 }
