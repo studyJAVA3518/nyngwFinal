@@ -1,12 +1,28 @@
 package com.nyngw.dto;
 
+import java.util.Date;
+
 public class Approval_HistoryVO {
 	private String ah_number;
 	private String ah_code_number;
 	private String ah_ast_number;
 	private String ah_ea_number;
 	private String ah_comment;
+	private Date ah_time;//결재한 시간
+	private String ah_status;//결재상태
 	
+	public Date getAh_time() {
+		return ah_time;
+	}
+	public String getAh_status() {
+		return ah_status;
+	}
+	public void setAh_status(String ah_status) {
+		this.ah_status = ah_status;
+	}
+	public void setAh_time(Date ah_time) {
+		this.ah_time = ah_time;
+	}
 	public String getAh_number() {
 		return ah_number;
 	}

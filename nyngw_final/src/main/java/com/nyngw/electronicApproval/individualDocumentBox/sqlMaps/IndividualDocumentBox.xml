@@ -24,4 +24,44 @@
 		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
 		and ea_status = '반려'  
 	</select>
+	
+	
+	<!-- 결재이력조회 -->
+	<select id="selectAhAll" resultType="com.nyngw.dto.Approval_HistoryVO" parameterType="string">
+		select * from approval_history
+		where ah_ea_number = #{ea_number}
+	</select>
+	
+	<!-- 결재이력 중 자신이 결재한 내역 조회 -->
+	<select id="selectAhMember" resultType="com.nyngw.dto.Approval_HistoryVO" parameterType="map">
+		select * 
+		from approval_history 
+		where  ah_ea_number = #{ea_number} 
+		and ah_ast_number = (
+								select ast_number 
+								from approval_step 
+								where ast_mem_number = #{mem_number} 
+								and ast_ea_number = #{ea_number}
+							  )
+	</select>
+	<select id="selectMemberDept" resultType="string" parameterType="string">
+		select mem_dept_number from member where mem_number = #{mem_number}
+	</select>
+	<select id="selectEaStepMember" resultType="string" parameterType="map">
+		select ast_mem_number from approval_step 
+		where ast_number = #{ast_number}
+		and ast_ea_number = #{ast_ea_number} 
+	</select>
+	
+	<select id ="selectDeptName" resultType="string" parameterType="string">
+		select dept_name from department where dept_number = #{dept_number}
+	</select>
+	
+	<select id="selectMemberPosition" resultType="string" parameterType="string">
+		select mem_position_number from member where mem_number = #{mem_number}
+	</select>
+	
+	<select id="selectPositionName"  resultType="string" parameterType="string">
+		select position_name from position where position_number = #{position_number}
+	</select>
 </mapper>
