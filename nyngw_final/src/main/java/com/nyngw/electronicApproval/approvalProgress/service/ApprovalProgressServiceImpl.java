@@ -223,6 +223,9 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 	public List<Electronic_ApprovalVO> searchWA(String eADateOption,
 			String eAStatusOption, String eAClassificationOption,
 			String docSearchOption, String searchText) {
+		
+		
+		
 		return null;
 	}
 
