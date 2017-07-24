@@ -8,5 +8,8 @@ public interface IndividualDocumentBoxDao {
 	public List<Electronic_ApprovalVO> selectSAB(String mem_id);
 	public List<Electronic_ApprovalVO> selectCAB(String mem_id);
 	public List<Electronic_ApprovalVO> selectRAB(String mem_id);
+	//----------------------------------------------------------
+	
+	
 	
 }

@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -150,6 +153,23 @@ public class PayManagementController {
 		}
 		
 		return map;
+	}
+	
+	//급여등록
+	@RequestMapping(value="insertMemberPay",method=RequestMethod.POST)
+	public String insertMemberPay(Model model, HttpServletRequest request,
+			String in_basicPay, String in_vacationCost,
+			String in_bonus, String in_payDate, String in_mem_number){
+		
+		String url = "redirect:"+request.getContextPath()+"/humanResource/payManagement/pmm";
+		
+		try {
+			payManagementService.enrollMemberPay(model, in_basicPay, in_vacationCost, in_bonus,in_payDate, in_mem_number);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return url;
 	}
 	
 }
