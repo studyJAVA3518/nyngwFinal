@@ -12,7 +12,7 @@ public class Electronic_ApprovalVO {
 	private String ea_number;		//전자결재번호
 	private String ea_title;		//제목
 	private String ea_content;		//내용
-	private Date ea_startdate;		//시행일
+	private Date ea_startdate;		//시행일,기안일
 	private Date ea_enddate;		//마감일
 	private String ea_doc_number;	//문서번호
 	private String ea_mem_number;	//시행자

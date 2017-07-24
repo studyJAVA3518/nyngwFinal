@@ -104,22 +104,22 @@ $(function(){
 		<th>품의번호</th>
 		<th>문서분류</th>
 		<th>제목</th>
+		<th>기안자</th>
 		<th>기안일</th>
-		<th>결재</th>	<!-- 결재상태  ( 결재 한 번도 안 됐을 때 '상신'/결재가 한 번이라도 이루어 졌을 때 '진행' --> 
-		<th>합의</th> <!-- 없음, 완료, 진행 --> <!-- 미결과 결재완료는 안 나온다 -->
-		<th>최종결재</th> <!-- 최종 결재자 -->
+		<th>결재일</th> <!-- 최종 결재자 -->
+		<th>결재상태</th>	<!-- 결재상태  ( 결재 한 번도 안 됐을 때 '상신'/결재가 한 번이라도 이루어 졌을 때 '진행' --> 
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:forEach items="${EAList }" var="EA" varStatus="status">
+	<c:forEach items="${myEaList }" var="EA" varStatus="status">
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
 			<td id="approvalHistory_go" style="color:blue;">${EA.ea_title }</td>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-			<td>${EA.ea_status }</td>
-			<td>합의 내용</td>
-			<td>최종결재자</td>
+			<td>${EA.ea_mem_number }</td>
+			<td>${EA.ea_startdate}</td>
+			<td>결재한날짜가있어야함</td>			
+			<td>${status1 }</td>
 		</tr>
 	</c:forEach>
 </table>
