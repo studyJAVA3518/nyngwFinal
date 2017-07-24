@@ -56,7 +56,7 @@ $(function() {
 			}
 		});
 		
-		var clickMonth = $('#payMonth').val();
+		
 		
 		//셀렉트 태그에 부서정보 가져오기
 		$.ajax({
@@ -120,6 +120,7 @@ $(function() {
 		//사원을 선택하면 해당월을 선택할 수 있도록 조정
 		/////////////////////////////////////
 		var mem_number = "";
+		var clickMonth = $('#payMonth').val();
 		
 		$('#mem_number').change(function(){
 			mem_number = $(this).val();
@@ -333,7 +334,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>휴가 일수</th>
-				<td id="vacationDayDuring">???</td>
+				<td id="vacationDayDuring"></td>
 			</tr>
 			<tr>
 				<th>휴가 및 결근 차감</th>
