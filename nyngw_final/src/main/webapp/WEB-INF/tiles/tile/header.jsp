@@ -40,6 +40,7 @@
 						          <ul class="dropdown-menu" role="menu">
 						            <li class="topMenuTitle">문서 관리</li>
 						            <li><a href="/documentManagement/documentManager/documentSelect">문서 조회</a></li>
+						            <li><a href="/documentManagement/documentManager/edocumentSelect">전자문서 조회</a></li>
 						            <li><a href="/documentManagement/documentManager/documentInsert">문서 등록</a></li>
 						          </ul>
 						        </div>
