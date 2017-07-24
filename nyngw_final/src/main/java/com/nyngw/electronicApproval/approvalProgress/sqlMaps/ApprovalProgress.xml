@@ -51,7 +51,7 @@
 	
 	<!-- 결재시 결재이력을 등록 -->
 	<insert id="insertApprovalHistory" parameterType="com.nyngw.dto.Approval_HistoryVO">
-		insert into Approval_History 
+		insert into Approval_History (ah_number, ah_code_number, ah_ast_number,ah_ea_number,ah_comment)
 		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment})
 	</insert>
 	

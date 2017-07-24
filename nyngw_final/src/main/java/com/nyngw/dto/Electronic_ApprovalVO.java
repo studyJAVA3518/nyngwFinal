@@ -17,7 +17,14 @@ public class Electronic_ApprovalVO {
 	private String ea_doc_number;	//문서번호
 	private String ea_mem_number;	//시행자
 	private Date ea_writedate;		//기안일
+	private Date ea_ah_time; //결재이력 날짜..
 	
+	public Date getEa_ah_time() {
+		return ea_ah_time;
+	}
+	public void setEa_ah_time(Date ea_ah_time) {
+		this.ea_ah_time = ea_ah_time;
+	}
 	public String getEa_writedate() {
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String to = transFormat.format(ea_writedate);
