@@ -7,9 +7,46 @@
 	<!-- 상신문서함 -->
 	<select id="selectSAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_approval
-		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
-		and not (ea_status = '결재완료' or ea_status = '반려')  
+		where ea_mem_number =  #{mem_number}
 	</select>
+	
+	<!-- 결재번호로 누가 마지막으로 결재했는지 가져오기-->
+	<select id="ID_selectAllAS" parameterType="string" resultType="string">
+		select mem_name 
+		from member
+		where mem_number = 
+		(select ast_mem_number 
+		from approval_step 
+		where ast_number = 'ast'||(select max(substr(ah_ast_number,4)) 
+		from approval_history 
+		where ah_ea_number = #{ea_number}) 
+		and ast_ea_number = #{ea_number})
+	</select>
+
+	<!-- 결재번호로 최종 결재상태 가져오기 -->
+	<select id="ID_selectAhStatus" parameterType="string" resultType="string">
+		select ah_status
+		from approval_history 
+		where ah_ea_number = #{ea_number} 
+		and ah_ast_number = (select ast_number 
+		from approval_step 
+		where ast_number = 'ast'||(select max(substr(ah_ast_number,4)) 
+		from approval_history 
+		where ah_ea_number = #{ea_number}) 
+		and ast_ea_number = #{ea_number})
+	</select>
+	
+	<select id="selectsangsinCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from Electronic_approval
+		where ea_mem_number =  #{mem_number}
+	</select>
+	
+	<select id="boardsangsinCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
+		select count(*) from Electronic_approval
+		where ea_mem_number =  #{mem_number}
+	</select>
+
+
 
 	<!-- 완료문서함 -->
 	<select id="selectCAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
@@ -18,11 +55,12 @@
 		and ea_status = '결재완료'  
 	</select>
 
+
+
 	<!-- 반려문서함 -->
 	<select id="selectRAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_approval
-		where ea_mem_number = (select mem_number from member where mem_id = #{mem_id})
-		and ea_status = '반려'  
+		where ea_mem_number =  #{mem_number}
 	</select>
 	
 	
@@ -44,9 +82,11 @@
 								and ast_ea_number = #{ea_number}
 							  )
 	</select>
+	
 	<select id="selectMemberDept" resultType="string" parameterType="string">
 		select mem_dept_number from member where mem_number = #{mem_number}
 	</select>
+	
 	<select id="selectEaStepMember" resultType="string" parameterType="map">
 		select ast_mem_number from approval_step 
 		where ast_number = #{ast_number}

@@ -17,7 +17,7 @@
 	            success : function(result){
 	            	location.href=result.uri;
 		        }, 
-		        error : function(){
+		        error : function(){ 
 		        },
 	            dataType : 'json' 
 			});
@@ -52,6 +52,7 @@ th{
 				<td colspan="5">${document.doc_file_name }<a href="/documentManagement/documentManager/documentDownload?fileName=${document.doc_file_name}">[다운로드]</a></td>
 			</tr>
 		</table>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush ="false"/>
 	</div>
 	<div>
 	<c:choose>

@@ -1,5 +1,6 @@
 package com.nyngw.electronicApproval.individualDocumentBox.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
+import com.nyngw.dto.Electronic_ApprovalViewVO;
+import com.nyngw.dto.MeetingListViewVO;
+import com.nyngw.dto.MeetingVO;
 import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.dao.IndividualDocumentBoxDaoImpl;
 
@@ -18,11 +23,32 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 	private IndividualDocumentBoxDaoImpl individualDocumentBoxDao;
 	@Autowired
 	ApprovalProgressDaoImpl approvalProgressDao;
+	private static final int BOARD_COUNT_PER_PAGE = 5;
 	
 	@Override
-	public List<Electronic_ApprovalVO> defaultSAB(String mem_id) {
-		return individualDocumentBoxDao.selectSAB(mem_id);
+	public Electronic_ApprovalViewVO sangsinList(int pageNumber,
+			Board_SelectVO select) {
+		int currentPageNumber = pageNumber;
+		int boardTotalCount = individualDocumentBoxDao.selectsangsinCount(select.getMem_number());
+			List<Electronic_ApprovalVO> sangsinList = null;
+			int firstRow = 0;
+			int endRow = 0;
+			if (boardTotalCount > 0) {
+				firstRow = (pageNumber - 1) * BOARD_COUNT_PER_PAGE + 1;
+				endRow = firstRow + BOARD_COUNT_PER_PAGE - 1;
+				sangsinList = individualDocumentBoxDao.selectSAB(firstRow, endRow, select);
+				if(select.getVal()!=null && !select.getVal().equals("")){
+					boardTotalCount = individualDocumentBoxDao.boardsangsinCount(select);
+				}
+			} else {
+				currentPageNumber = 0;
+				sangsinList = Collections.emptyList();
+			}
+			return  new Electronic_ApprovalViewVO(sangsinList, boardTotalCount,
+					currentPageNumber, BOARD_COUNT_PER_PAGE, firstRow, endRow);
 	}
+	
+	
 
 	@Override
 	public List<Electronic_ApprovalVO> defaultCAB(String mem_id) {
@@ -87,6 +113,16 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 	@Override
 	public String selectPositionName(String position_number) {
 		return individualDocumentBoxDao.selectPositionName(position_number);
+	}
+
+
+
+	public String findLastAhStatus(String ea_number) {
+		return individualDocumentBoxDao.ID_selectAhStatus(ea_number);
+	}
+	
+	public String findLastAstMember(String ea_number) {
+		return individualDocumentBoxDao.ID_selectAllAS(ea_number);
 	}
 	
 }
