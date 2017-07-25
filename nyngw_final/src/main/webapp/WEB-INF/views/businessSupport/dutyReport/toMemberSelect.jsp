@@ -130,23 +130,20 @@ td {
 		//결재자에 등록
 		$("#addToApproval").click(function(){
 			var index = 1;
-			$('input[type=checkbox]:checked').each(function(){
-				if(!($("option:last","#approval").attr("name")===undefined)){
-					index = parseInt($("option:last","#approval").attr("name").substring(14))+1;
-				}
-				if(index>5){
-					alert("결재자는 5명까지만 등록할 수 있습니다. 상위 5명만 등록 됩니다.");
-				}else{
-					if($(this).attr('id')!='allCheck'){
-						if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
-							$('#approval').append('<option name="approvalMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
-						}else{
-							alert($(this).val()+"님은 이미 추가되었습니다.");
-						}
-					}	
-					$(this).prop("checked",false);
-				}
-			});
+				$('input[type=checkbox]:checked').each(function(){
+					if(!($("option:last","#approval").attr("name")===undefined)){
+						index = parseInt($("option:last","#approval").attr("name").substring(14))+1;
+					}else{
+						if($(this).attr('id')!='allCheck'){
+							if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
+								$('#approval').append('<option name="approvalMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
+							}else{
+								alert($(this).val()+"님은 이미 추가되었습니다.");
+							}
+						}	
+						$(this).prop("checked",false);
+					}
+				});
 		});
 		});
 		/////////////////////////////////////////////////////////

@@ -9,7 +9,7 @@
 </style>
  수정페이지입니다.
 	 <div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/documentManagement/documentManager/documentUpdate" method="post">
+		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/documentManagement/documentManager/edocumentUpdate" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<th>문서구분번호</th><td>${document.doc_code_number }<input type="hidden" value="${document.doc_code_number}" name="doc_code_number" readonly="readonly"></td>
@@ -24,25 +24,19 @@
 				<th>보존기간</th><td><fmt:formatDate value="${document.doc_lifetime}" pattern="yyyy/MM/dd"/></td>
 			</tr>
 			<tr>
-				<th colspan="4">설명</th>
+				<th colspan="4">내용</th>
 			</tr>
 		</table>
-		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush ="false"/>
-		<table class="table table-bordered">
-			<tr>
-				<th>파일이름</th>
-				<td colspan="3">${document.doc_file_name }<input type="hidden" value="${document.doc_file_name}" name="doc_file_name" readonly="readonly"></td>
-			</tr>
-		</table>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 		
 			<input type="hidden" value="${page}">
 			<button type="button" onclick="saveContent();" class="btn">수정</button>
 			<input type="reset" value="초기화" />		
-			<button type="button"><a href="/documentManagement/documentManager/documentSelect?page=${page }">취소</a></button>
+			<button type="button"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">취소</a></button>
 		</form>
 	</div> 
 <textarea id="text_content" style="display:none;">
-${document.doc_explanation}
+${document.doc_content}
 </textarea>
 
 <script>

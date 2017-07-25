@@ -66,7 +66,7 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 		int result = documentManagerDao.documentInsertComplete(documentVO);
 		return result;
 	}
-
+	
 	@Override
 	public List<Common_CodeVO> documentCodeSelect() {
 		List<Common_CodeVO> code = documentManagerDao.documentCodeSelect();
@@ -103,5 +103,12 @@ public class DocumentManagerServiceImpl implements DocumentManagerService {
 		return new DocumentListView(documentList, documentTotalCount, currentPageNumber, DOCUMENT_COUNT_PER_PAGE, firstRow, endRow);
 	
 	}
-	
+	@Override
+	public int edocumentInsertComplete(DocumentVO documentVO) {
+		int result = documentManagerDao.edocumentInsertComplete(documentVO);
+		return result;
+	}
+	public void edocumentManagerUpdate(DocumentVO document){
+		documentManagerDao.edocumentManagerUpdate(document);
+	}
 }

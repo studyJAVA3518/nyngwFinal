@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.BoardVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.MemberVO;
@@ -37,6 +38,8 @@ public class HomeMainController {
 	private ScheduleManagementServiceImpl shceculeManagementService;
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService; 
+	@Autowired
+	private CommonServiceImpl commonService; 
 	
 	@RequestMapping("/main")
 	public String homeMain(
@@ -56,6 +59,7 @@ public class HomeMainController {
 		List<BoardVO> boardList = null;
 		//일정관리
 		List<ScheduleVO> scheduleList = null;
+		MemberVO mem2 = commonService.findMemberByMemId(mem_id);
 		MemberVO mem = basicSettingService.selectMember(mem_id);
 		String mem_number = mem.getMem_number();
 		try {
@@ -70,11 +74,27 @@ public class HomeMainController {
 			int size = scheduleList.size();
 			model.addAttribute("size",size);
 			model.addAttribute("mem_id", mem_id);
+			model.addAttribute("mem_img", mem2.getMem_img());
 			//session에 회사 로고 경로를 저장해야 한다.
 			session.setAttribute("companyLogo",company.getCompany_logo());
 			session.setAttribute("companyNumber",company.getCompany_number());
 			session.setAttribute("memberName",member.getMem_name());
-		
+			
+			String auto="";
+			System.out.println("세션 셋 전");
+			if(session.getAttribute("auto")==null){
+				session.setAttribute("auto", auto);
+				System.out.println("세션 셋");
+			}else{
+				System.out.println("세션리셋");
+				auto = (String)session.getAttribute("auto");
+				auto += "화이팅,";
+				session.setAttribute("auto", auto);
+			}
+			System.out.println("세션 셋 후");
+			System.out.println(session.getAttribute("auto"));
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

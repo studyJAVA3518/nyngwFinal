@@ -16,7 +16,7 @@ public class MyPayManagementServiceImpl implements MyPayManagementService {
 	@Autowired
 	private MyPayManagementDaoImpl myPayManagementDao;
 	
-	private static final int BOARD_COUNT_PER_PAGE = 5;
+	private static final int BOARD_COUNT_PER_PAGE = 1;
 	
 	@Override
 	public Member_pay_PageViewVO selectMySalaryList(int pageNumber,

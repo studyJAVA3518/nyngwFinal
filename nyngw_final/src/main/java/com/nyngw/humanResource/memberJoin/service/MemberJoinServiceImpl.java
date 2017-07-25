@@ -3,9 +3,14 @@ package com.nyngw.humanResource.memberJoin.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 
 import com.nyngw.dto.DepartmentViewVO;
@@ -13,7 +18,6 @@ import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.PositionVO;
 import com.nyngw.environmentSetting.planPublicRelationsSetting.dao.PlanPublicRelationsSettingDaoImpl;
-import com.nyngw.environmentSetting.planPublicRelationsSetting.service.PlanPublicRelationsSettingService;
 import com.nyngw.humanResource.memberJoin.dao.MemberJoinDaoImpl;
 
 @Service
@@ -24,23 +28,35 @@ public class MemberJoinServiceImpl implements MemberJoinService {
 	@Autowired
 	private PlanPublicRelationsSettingDaoImpl planPublicRelationsSettingDao;
 	
+	/*@Resource(name = "transactionManager")
+	protected DataSourceTransactionManager txManager;*/
+
+	
 	@Override
 	public MemberVO idCheck(String id) {
 		return memberJoinDao.idCheck_MJ(id);
 	}
 	
-	@Transactional
 	@Override
 	public int joinMember(JoinMemberVO joinMember) {
 		int result=0;
+		
+		/*DefaultTransactionDefinition def = new DefaultTransactionDefinition(); 
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED); 
+		TransactionStatus txStatus= txManager.getTransaction(def);*/
+
+		
 		try{
+			System.out.println("joinMember <============================");
 			memberJoinDao.joinMember_JM(joinMember);
+			System.out.println("<<<<<<<<<=====================success ...... 1");
 			MemberVO member = memberJoinDao.idCheck_MJ(joinMember.getMem_id());
-			joinMember.setMem_number(member.getMem_number());
 			memberJoinDao.joinMemberMDI_JM(joinMember);
+			System.out.println("<<<<<<<<<=====================success ......  2");
 			result=1;
 		}catch(Exception e){
-			
+			System.out.println("<<<<<<<<<,=============== transaction ");
+			/*txManager.rollback(txStatus);*/
 		}
 		return result;
 	}

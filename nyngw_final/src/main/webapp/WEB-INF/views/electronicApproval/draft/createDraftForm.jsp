@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
+<style>
+	.tableTd{
+ 		width: 17%;
+ 		height: 50px;
+	}
+	.tableSign{
+ 		height: 80px;
+	}
+</style>
+
 <script>
 	$(function(){
 		$.ajax({
@@ -135,33 +145,33 @@
 		</tr>
 		<tr id="approvalMember">
 			<th rowspan="2">결재</th>
-			<th id="approvalMember1"></th>
-			<th id="approvalMember2"></th>
-			<th id="approvalMember3"></th>
-			<th id="approvalMember4"></th>
-			<th id="approvalMember5"></th>
+			<th id="approvalMember1" class="tableTd"></th>
+			<th id="approvalMember2" class="tableTd"></th>
+			<th id="approvalMember3" class="tableTd"></th>
+			<th id="approvalMember4" class="tableTd"></th>
+			<th id="approvalMember5" class="tableTd"></th>
 		</tr>                                
 		<tr id="approvalStatus">                                 
-			<td id="approvalStatus1"></td>
-			<td id="approvalStatus2"></td>
-			<td id="approvalStatus3"></td>
-			<td id="approvalStatus4"></td>
-			<td id="approvalStatus5"></td>
+			<td id="approvalStatus1" class="tableSign"></td>
+			<td id="approvalStatus2" class="tableSign"></td>
+			<td id="approvalStatus3" class="tableSign"></td>
+			<td id="approvalStatus4" class="tableSign"></td>
+			<td id="approvalStatus5" class="tableSign"></td>
 		</tr>                                
 		<tr id="agreementMember">                                 
 			<th rowspan="2">합의</th>        
-			<th id="agreementMember1"></th>
-			<th id="agreementMember2"></th>
-			<th id="agreementMember3"></th>
-			<th id="agreementMember4"></th>
-			<th id="agreementMember5"></th>
+			<th id="agreementMember1" class="tableTd"></th>
+			<th id="agreementMember2" class="tableTd"></th>
+			<th id="agreementMember3" class="tableTd"></th>
+			<th id="agreementMember4" class="tableTd"></th>
+			<th id="agreementMember5" class="tableTd"></th>
 		</tr>                                
 		<tr id="agreementStatus">                               
-			<td id="agreementStatus1"><input type="hidden" name="agreementStatus1"></td>
-			<td id="agreementStatus2"><input type="hidden" name="agreementStatus2"></td>
-			<td id="agreementStatus3"><input type="hidden" name="agreementStatus3"></td>
-			<td id="agreementStatus4"><input type="hidden" name="agreementStatus4"></td>
-			<td id="agreementStatus5"><input type="hidden" name="agreementStatus5"></td>
+			<td id="agreementStatus1" class="tableSign"><input type="hidden" name="agreementStatus1"></td>
+			<td id="agreementStatus2" class="tableSign"><input type="hidden" name="agreementStatus2"></td>
+			<td id="agreementStatus3" class="tableSign"><input type="hidden" name="agreementStatus3"></td>
+			<td id="agreementStatus4" class="tableSign"><input type="hidden" name="agreementStatus4"></td>
+			<td id="agreementStatus5" class="tableSign"><input type="hidden" name="agreementStatus5"></td>
 		</tr>
 		<tr>
 			<th>시행자</th>

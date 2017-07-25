@@ -1,6 +1,7 @@
 package com.nyngw.homeMain.appointedUI.controller;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.UserUiVO;
 import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
+import com.nyngw.mypage.basicSetting.service.BasicSettingServiceImpl;
 
 @Controller
 @RequestMapping("/homeMain/appointedUI")
@@ -21,10 +25,26 @@ public class AppointedUIController {
 
 	@Autowired
 	private AppointedUIServiceImpl appointedUIservice;
+	@Autowired
+	private CommonServiceImpl commonService;
+	@Autowired
+	AppointedUIServiceImpl appointedUIService;
 	
 	@RequestMapping("/appointedUI")
-	public String appointedUI(Model model,String menu1, String menu2, String menu3, String middle1, String middle2, String middle3){
-			
+	public String appointedUI(Principal principal,Model model,String menu1, String menu2, String menu3, String middle1, String middle2, String middle3){
+		
+		String mem_id = principal.getName();
+		MemberVO member2 = commonService.findMemberByMemId(mem_id);
+		MemberVO member = null;
+		try {
+			member = appointedUIService.checkMember(mem_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		model.addAttribute("member",member);
+		model.addAttribute("mem_img",member2.getMem_img());
+		
 		if(menu1 != null && menu2 != null && menu3 != null){
 			MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
 			MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);

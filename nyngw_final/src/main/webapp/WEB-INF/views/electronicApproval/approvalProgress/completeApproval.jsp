@@ -60,15 +60,19 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:forEach items="${EAList }" var="EA" varStatus="status">
+	<c:forEach items="${ca_eaList}" var="EA" varStatus="status" begin="0" end="${ca_eaList.size()}">
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
 			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${EA.ea_mem_number }</td>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-			<td><fmt:formatDate value="${EA.ea_approvaldate}" pattern="yyyy/MM/dd"/></td>
-			<td>${EA.ea_status }</td>
+			<td>${memberList[status.index].mem_name}</td>
+			<td>
+				${EA.ea_startdate}
+			</td>
+			<td>
+				${completeDateFormatList[status.index]}
+			</td>
+			<td>${statusResult}</td>
 		</tr>
 	</c:forEach>
 </table>
