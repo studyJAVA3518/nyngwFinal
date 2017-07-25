@@ -11,10 +11,13 @@
 		<tr>
 			<td>검색일자</td>
 			<td>
-				<select name="EADateOption">
+				<select name="EADateOption" class="form-control">
 					<option>반려일</option>
 					<option>기안일</option>
 				</select>
+			</td>
+			<td>
+				<input type="date" class="form-control" id="" name=""/>
 			</td>
 		</tr>
 		<tr>
@@ -43,17 +46,24 @@
 		<th>기안자</th>
 		<th>기안일</th>
 		<th>반려일</th>
+		<th>상태</th>
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:forEach items="${EAList }" var="EA" varStatus="status">
+	<c:forEach items="${ra_eaList}" var="EA" varStatus="status">
 		<tr>
+		
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
 			<td><a href="/electronicApproval/approvalProgress/refusedApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${EA.ea_mem_number }</td>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-			<td><fmt:formatDate value="${EA.ea_refusaldate}" pattern="yyyy/MM/dd"/></td>
+			<td>${memberList[status.index].mem_name}</td>
+			<td>
+				${EA.ea_startdate}
+			</td>
+			<td>
+				${completeDateFormatList[status.index]}
+			</td>
+			<td>${statusResult}</td>
 		</tr>
 	</c:forEach>
 </table>

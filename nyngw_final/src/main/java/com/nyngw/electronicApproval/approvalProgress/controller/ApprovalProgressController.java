@@ -2,6 +2,7 @@ package com.nyngw.electronicApproval.approvalProgress.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,31 +63,16 @@ public class ApprovalProgressController {
 	
 	//결재완료문서 페이지
 	@RequestMapping("/completeApproval")
-	public String completeApproval(Model model){
-		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultCA();
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+	public String completeApproval(Model model, Principal principal){
+		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultCA(model, principal);
 		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
-		}
-		
-		model.addAttribute("code_nameList",code_nameList );
-		model.addAttribute("EAList",EAList );
 		return "electronicApproval/approvalProgress/completeApproval";
 	}
 	
 	//반려 문서 페이지
 	@RequestMapping("/refusedApproval")
-	public String refusedApproval(Model model){
-		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultRA();
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
-		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
-		}
-		
-		model.addAttribute("code_nameList",code_nameList );
-		model.addAttribute("EAList",EAList );
+	public String refusedApproval(Model model, Principal principal){
+		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultRA(model, principal);
 		return "electronicApproval/approvalProgress/refusedApproval";
 	}
 	

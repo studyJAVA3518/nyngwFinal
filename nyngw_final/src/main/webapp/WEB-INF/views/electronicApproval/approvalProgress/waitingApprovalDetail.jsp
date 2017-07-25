@@ -29,7 +29,7 @@
 $(function(){
 	 $('#approvalDialog').css('display', 'none');
 	 $('#refuseDialog').css('display', 'none');
-	 
+	 $('#approvalHistoryDialog').css('display', 'none');
 	/////////////////////////////////////////////////
 	 $("#approve_go").click(function(){
 		 $('#approvalDialog').dialog({
@@ -82,6 +82,45 @@ $(function(){
 				}
 	     });
      })
+     
+     
+	 $(".approvalHistory_go").click(function(){
+		
+		var tmp = $(this).siblings('.ea_number').text();
+        $.ajax({
+           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
+           type:'get',
+           data: {'ea_number' : tmp},
+           success : function(res){
+       		   var code = "";
+        	   $.each(res, function (i,value){
+        		   code+='<tr><td>'+value.dept_name+'</td>';
+        		   code+='<td>'+value.position_name+'</td>';
+        		   code+='<td>'+value.mem_name+'</td>';
+        		   code+='<td>'+value.ah_status+'</td>';
+        		   code+='<td>'+value.ah_time+'</td></tr>';
+        	   });
+				$("#historyList").append(code);
+           },
+           dataType : 'json'
+        })
+     
+     
+     $('#approvalHistory_go').click(function(){
+    	 $('#approvalHistoryDialog').dialog({
+ 			width: 700,
+ 			height: 500,
+ 			modal: true,
+ 			buttons: {
+ 		       "취소": function() {
+ 					$(this).dialog("close");
+ 				}
+ 			},
+ 			close: function() {
+ 				$('#textArea').val('');
+ 			}
+ 	    }); 
+     });
      
      var approvalSubmitCall = null;
 	//결재하기//
@@ -190,6 +229,19 @@ $(function(){
 		<input type="hidden" name="ah_ast_number" value="${ast_number}">
 		<textarea id="textArea" name="ah_comment"></textarea>
 	</form>   
+</div>
+
+<div id="approvalHistoryDialog">
+	결재상태 이력보기
+	<table class="table" id="historyList">
+		<tr>
+			<th>부서</th>
+			<th>직급</th>
+			<th>이름</th>
+			<th>결재종류</th>
+			<th>결재시간</th>
+		</tr>
+	</table>
 </div>
 
 <div>
