@@ -12,32 +12,20 @@
 			<td>검색일자</td>
 			<td>
 				<select name="EADateOption">
-					<option>기안일</option>
-					<option>최종 결재일</option>
+					<option value="ea_writedate">기안일</option>
+					<option value="ea_startdate">시작일</option>
+					<option value="ea_enddate">종료일</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td>시행구분</td>
-			<td>
-				<select name="implementOption">
-					<option>--선택--</option>
-					<option>전체</option>
-					<option>미시행</option>
-					<option>시행</option>
-					<option>시행준비</option>
-					<option>반송</option>
-				</select>
-			</td>
-		</tr>		
-		<tr>
 			<td>문서검색</td>
 			<td>
 				<select name="docSearchOption">
-					<option>--선택--</option>
-					<option>제목</option>
-					<option>품의번호</option>
-					<option>문서분류</option>
+					<option value="all">--선택--</option>
+					<option value="ea_title">제목</option>
+					<option value="ea_number">품의번호</option>
+					<option value="doc_name">문서분류</option>
 				</select>
 			</td>
 			<td>
@@ -63,15 +51,15 @@
 	<c:forEach items="${EAList }" var="EA" varStatus="status">
 		<tr>
 			<td>${EA.ea_number }</td>
-			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="electronicApproval/theRestDocumentBox/implementDocumentDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${EA.ea_mem_number}</td>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
+			<td>${EA.doc_name }</td>
+			<td><a href="/electronicApproval/theRestDocumentBox/implementDocumentDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
+			<td>${EA.mem_name}</td>
+			<td><fmt:formatDate value="${EA.ea_writedate}" pattern="yyyy/MM/dd"/>
 			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
 					~
 				<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
 			</td>
-			<td>${EA.ea_status }</td>
+			<td>${EA.ah_status }</td>
 		</tr>
 	</c:forEach>
 </table>
