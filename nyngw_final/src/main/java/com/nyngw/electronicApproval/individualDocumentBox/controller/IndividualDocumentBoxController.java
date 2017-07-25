@@ -154,12 +154,12 @@ public class IndividualDocumentBoxController {
 			//사원이름
 			MemberVO member = commonService.findMemberByMemNumber(ast_mem_number);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-//			String ah_time = format.format(history.get(i).getAh_time());
+			String ah_time = format.format(history.get(i).getAh_time());
 			map.put("dept_name", dept_name);
 			map.put("position_name", position_name);
 			map.put("mem_name", member.getMem_name());
 			map.put("ah_status",history.get(i).getAh_status());//결재상태
-//			map.put("ah_time", ah_time);//결재시간
+			map.put("ah_time", ah_time);//결재시간
 			System.out.println(history.get(i).getAh_status());
 			historyMember.add(map);
 		}
