@@ -37,7 +37,6 @@
 									<h3>나의 급여 관리</h3>
 									<ul>
 										<li><a href="/mypage/myPayManagement/salary">&nbsp;&nbsp;&nbsp;└ 급여 명세서 보기</a></li>
-										<li><a href="/mypage/myPayManagement/severance">&nbsp;&nbsp;&nbsp;└ 퇴직금 현황</a></li>
 									</ul>
 								</li>
 							

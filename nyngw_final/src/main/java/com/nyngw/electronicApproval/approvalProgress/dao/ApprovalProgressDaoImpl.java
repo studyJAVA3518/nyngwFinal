@@ -101,6 +101,9 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	public String selectAstAllNumberByAstNumber(Map paramMap) {
 		return (String) sqlSession.selectOne("selectAstAllNumberByAstNumber",paramMap);
 	}
+	public String EA_selectAstALNumber(Map paramMap) {
+		return (String) sqlSession.selectOne("EA_selectAstALNumber",paramMap);
+	}
 
 	public void updateAstPriority(Map paramMap) {
 		sqlSession.update("updateAstPriority",paramMap);
@@ -125,6 +128,10 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	public int selectApprivalHistoryDoneCount(String ah_ea_number){
 		int doneCount = (int) sqlSession.selectOne("selectApprivalHistoryDoneCount",ah_ea_number);
 		return doneCount;
+	}
+	
+	public int selectMaxAgreementPriority(String ea_number){
+		return (int) sqlSession.selectOne("selectMaxAgreementPriority",ea_number);
 	}
 	
 	/**

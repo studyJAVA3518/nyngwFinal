@@ -41,7 +41,6 @@
 									<h3>개인문서함</h3>                       
 									<ul>                                 
 										<li><a href="/electronicApproval/individualDocumentBox/submitApprovalBox">&nbsp;&nbsp;&nbsp;└ 상신문서함</a></li>  
-										<li><a href="/electronicApproval/individualDocumentBox/outbox">&nbsp;&nbsp;&nbsp;└ 임시보관함</a></li>  
 										<li><a href="/electronicApproval/individualDocumentBox/completeApprovalBox">&nbsp;&nbsp;&nbsp;└ 결재완료문서함</a></li>  
 										<li><a href="/electronicApproval/individualDocumentBox/refusedApprovalBox">&nbsp;&nbsp;&nbsp;└ 반려문서함</a></li>  
 									</ul>                                	
@@ -54,9 +53,6 @@
 										<li><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">&nbsp;&nbsp;&nbsp;└ 참조문서함</a></li>  
 										<li><a href="/electronicApproval/theRestDocumentBox/overallDocumentBox">&nbsp;&nbsp;&nbsp;└ 전체문서함</a></li>  
 									</ul>                                	
-								</li>
-								<li>
-									<a href="/electronicApproval/approvalLineManagement/approvalLineManagement"><h3>결재라인관리</h3></a>               
 								</li>
 							</ul>
 						</div><!-- side_list -->

@@ -132,17 +132,17 @@ $(function(){
 				success: function(result){ // success
 					if(result.check=='y'){
 						if(result.al_number=='A'){
-		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
-		 				$("#approvalStatus"+result.priority).html(code);
-		 				$("#approve_go").attr("disabled",true);
-		 				$("#refuse_go").attr("disabled",true);
-		 				alert("결재가 완료되었습니다.");
+			 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+			 				$("#approvalStatus"+result.priority).html(code);
+			 				$("#approve_go").attr("disabled",true);
+			 				$("#refuse_go").attr("disabled",true);
+			 				alert("결재가 완료되었습니다.");
 						}else if(result.al_number=='B'){
 							var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
-		 				$("#agreementStatus"+result.priority).html(code);
-		 				$("#approve_go").attr("disabled",true);
-		 				$("#refuse_go").attr("disabled",true);
-		 				alert("합의가 완료되었습니다.");
+			 				$("#agreementStatus"+result.priority).html(code);
+			 				$("#approve_go").attr("disabled",true);
+			 				$("#refuse_go").attr("disabled",true);
+			 				alert("합의가 완료되었습니다.");
 						}
 					}else{
 						alert("잘못된 비밀번호입니다.");
@@ -173,7 +173,7 @@ $(function(){
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
-		 				alert("반려가 완료되었습니다.");
+		 				alert("거부가 완료되었습니다.");
 						}
 					}else{
 						alert("잘못된 비밀번호입니다.");
@@ -192,44 +192,109 @@ $(function(){
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
 <form name="hiddenForm">
 	<input type="hidden" id="ea_number" value="${ea_number }">
-	<button type="button" id="approve_go">결재</button>
+	<c:choose>
+		<c:when test="${mem_al_number eq 'A' }">
+			<button type="button" id="approve_go">결재</button>
+		</c:when>
+		<c:otherwise>
+			<button type="button" id="approve_go">합의</button>
+		</c:otherwise>
+	</c:choose>	
+	<c:choose>
+		<c:when test="${mem_al_number eq 'A' }">
+			<button type="button" id="refuse_go">반려</button>
+		</c:when>
+		<c:otherwise>
+			<button type="button" id="refuse_go">거부</button>
+		</c:otherwise>
+	</c:choose>	
 <!-- 	<button type="button" id="insteadApprove_go">전결</button> -->
-	<button type="button" id="refuse_go">반려</button>
 <!-- 	<button type="button" id="postpone_go">보류</button> -->
 	<button type="button" id="approvalHistory_go">결재이력</button>
 </form>
 
-<div id="approvalDialog">
-	결재하기
-	<form id="approvalSubmitForm">
-		<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
-		<%=user.getUsername() %>님 결재하시겠습니까?<br>
-		비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
-		결재사유
-		<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
-		<input type="hidden" name="ah_code_number" value="code14">
-		<input type="hidden" name="ah_ast_number" value="${ast_number}">
-		<textarea id="textArea" name="ah_comment"></textarea>
-	</form>   
-</div>
+<!-- 결재하기 버튼 다이얼로그 -->
+<c:choose>
+	<c:when test="${mem_al_number eq 'A' }">
+		<div id="approvalDialog">
+			결재하기
+			<form id="approvalSubmitForm">
+				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+				<%=user.getUsername() %>님 결재하시겠습니까?<br>
+				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
+				결재사유
+				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
+				<input type="hidden" name="ah_code_number" value="code14">
+				<input type="hidden" name="ah_ast_number" value="${ast_number}">
+				<input type="hidden" name="ah_status" value="결재">
+				<textarea id="textArea" name="ah_comment"></textarea>
+			</form>   
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div id="approvalDialog">
+			합의하기
+			<form id="approvalSubmitForm">
+				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+				<%=user.getUsername() %>님 합의 하시겠습니까?<br>
+				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
+				합의사유
+				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
+				<input type="hidden" name="ah_code_number" value="code12">
+				<input type="hidden" name="ah_ast_number" value="${ast_number}">
+				<input type="hidden" name="ah_status" value="합의">
+				<textarea id="textArea" name="ah_comment"></textarea>
+			</form>   
+		</div>
+	</c:otherwise>
+</c:choose>
 
-<div id="refuseDialog">
-	반려하기
-	<form id="refuseSubmitForm">
-		<%=user.getUsername() %>님 반려하시겠습니까?<br>
-		비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
-		반려사유
-<!-- 		code12	합의 -->
-<!-- 		code13	거부 -->
-<!-- 		code14	결재 -->
-<!-- 		code15	반대 -->
-<!-- 		code16	전결 -->
-		<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
-		<input type="hidden" name="ah_code_number" value="code15">
-		<input type="hidden" name="ah_ast_number" value="${ast_number}">
-		<textarea id="textArea" name="ah_comment"></textarea>
-	</form>   
-</div>
+<!-- 반려하기 버튼 다이얼로그 -->
+<c:choose>
+	<c:when test="${mem_al_number eq 'A' }">
+		<div id="refuseDialog">
+			반려하기
+			<form id="refuseSubmitForm">
+				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+				<%=user.getUsername() %>님 반려하시겠습니까?<br>
+				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
+				반려사유
+		<!-- 		code12	합의 -->
+		<!-- 		code13	거부 -->
+		<!-- 		code14	결재 -->
+		<!-- 		code15	반대 -->
+		<!-- 		code16	전결 -->
+				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
+				<input type="hidden" name="ah_code_number" value="code15">
+				<input type="hidden" name="ah_ast_number" value="${ast_number}">
+				<input type="hidden" name="ah_status" value="반려">
+				<textarea id="textArea" name="ah_comment"></textarea>
+			</form>   
+		</div>
+		</c:when>
+	<c:otherwise>
+		<div id="refuseDialog">
+			거부하기
+			<form id="refuseSubmitForm">
+				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+				<%=user.getUsername() %>님 거부하시겠습니까?<br>
+				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
+				반려사유
+		<!-- 		code12	합의 -->
+		<!-- 		code13	거부 -->
+		<!-- 		code14	결재 -->
+		<!-- 		code15	반대 -->
+		<!-- 		code16	전결 -->
+				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
+				<input type="hidden" name="ah_code_number" value="code13">
+				<input type="hidden" name="ah_ast_number" value="${ast_number}">
+				<input type="hidden" name="ah_status" value="거부">
+				<textarea id="textArea" name="ah_comment"></textarea>
+			</form>   
+		</div>
+	</c:otherwise>
+</c:choose>
+
 
 <div id="approvalHistoryDialog">
 	결재상태 이력보기

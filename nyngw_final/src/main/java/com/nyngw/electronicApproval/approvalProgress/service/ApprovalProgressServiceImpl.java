@@ -170,6 +170,14 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
 		model.addAttribute("ast_number","ast"+memberAstPriority);
 		
+		//자신의 결재 종류 (합의인지 결재인지)
+		paramMap = new HashMap<String,String>();
+		paramMap.put("ea_number", ea_number);
+		paramMap.put("mem_id", principal.getName());
+		
+		String mem_al_number = approvalProgressDao.EA_selectAstALNumber(paramMap);
+		model.addAttribute("mem_al_number",mem_al_number);
+		
 		//전체 결재선의 크기
 		int lastAstPriorityOfA = approvalProgressDao.selectLastAstPriorityOfA(ea_number);
 		int lastAstPriorityOfB = approvalProgressDao.selectLastAstPriorityOfB(ea_number);
@@ -178,7 +186,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		
 		//결재 이력중 A와 B의 갯수
 		List<String> ahAstNumberList = approvalProgressDao.selectAhAstNumberByEaNumber(ea_number);
-		System.out.println(ahAstNumberList.size()+"123");
 		int countA = 0;
 		int countB = 0;
 		for (String ast_number : ahAstNumberList) {
@@ -192,16 +199,8 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			}
 		}
 
-		System.out.println(indexA);
-		System.out.println(lastAstPriorityOfA);
 		model.addAttribute("emptyStartA",lastAstPriorityOfA+1);	//3
 		model.addAttribute("emptyStartB",lastAstPriorityOfB+1);
-//		model.addAttribute("emptyEndA",5-lastAstPriorityOfA);	//3번 돌아야함 즉 처음 + 번호
-//		model.addAttribute("emptyEndB",5-lastAstPriorityOfB);
-//		model.addAttribute("yesStartA",1);
-//		model.addAttribute("yesStartB",1);
-//		model.addAttribute("yesEndA",indexA);
-//		model.addAttribute("yesEndA",indexB);
 		model.addAttribute("noStartA",indexA+1);
 		model.addAttribute("noStartB",indexB+1);
 		model.addAttribute("noEndA",lastAstPriorityOfA);
@@ -347,26 +346,10 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		System.out.println(lastAstPriorityOfA);
 		model.addAttribute("emptyStartA",lastAstPriorityOfA+1);	//3
 		model.addAttribute("emptyStartB",lastAstPriorityOfB+1);
-//		model.addAttribute("emptyEndA",5-lastAstPriorityOfA);	//3번 돌아야함 즉 처음 + 번호
-//		model.addAttribute("emptyEndB",5-lastAstPriorityOfB);
-//		model.addAttribute("yesStartA",1);
-//		model.addAttribute("yesStartB",1);
-//		model.addAttribute("yesEndA",indexA);
-//		model.addAttribute("yesEndA",indexB);
 		model.addAttribute("noStartA",indexA+1);
 		model.addAttribute("noStartB",indexB+1);
 		model.addAttribute("noEndA",lastAstPriorityOfA);
 		model.addAttribute("noEndB",lastAstPriorityOfB);
-		
-		
-		//A
-		//총 5
-		//A 결재선 2 lastAstPriorityOfA
-		
-		//A 2중 1 결재했으면 1	1부터  // indexA = 1 까지 
-		//A 2중 결재 안한 거 1	indexA+1 = 2부터 // lastAstPriorityOfA =1개		2-1 = 1
-		
-		//A 빈칸 3- 시작lastAstPriorityOfA+1=3부터 // 5까지
 		
 	}
 	
@@ -540,7 +523,16 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 					approvalProgressDao.insertApprovalHistory(ahVO);
 					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
 					map.put("al_number",al_number);
-					map.put("priority",ahVO.getAh_ast_number().substring(3));
+					
+					int priority = Integer.parseInt(ahVO.getAh_ast_number().substring(3));
+					int maxAgreementPriority = approvalProgressDao.selectMaxAgreementPriority(ahVO.getAh_ea_number());
+					if(priority>maxAgreementPriority){
+						map.put("priority",priority-maxAgreementPriority+"");
+					}else{
+						map.put("priority",ahVO.getAh_ast_number().substring(3));
+					}
+					
+					
 					map.put("check","y");
 					map.put("mem_sign",member.getMem_sign());
 					map.put("uri","/electronicApproval/individualDocumentBox/completeApprovalBox");
