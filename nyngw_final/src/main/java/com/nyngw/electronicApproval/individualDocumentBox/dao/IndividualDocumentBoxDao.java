@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 
 public interface IndividualDocumentBoxDao {
-	public List<Electronic_ApprovalVO> selectSAB(String mem_id);
+	public List<Electronic_ApprovalVO> selectSAB(int firstRow, int endRow,
+			Board_SelectVO select);
+	public int selectsangsinCount(String mem_number);
+	public int boardsangsinCount(Board_SelectVO select);
+	
+	
 	public List<Electronic_ApprovalVO> selectCAB(String mem_id);
 	public List<Electronic_ApprovalVO> selectRAB(String mem_id);
 	//----------------------------------------------------------

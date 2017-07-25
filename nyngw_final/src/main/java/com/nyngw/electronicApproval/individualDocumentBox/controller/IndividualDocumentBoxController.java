@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
+import com.nyngw.dto.Electronic_ApprovalViewVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.service.IndividualDocumentBoxServiceImpl;
@@ -33,19 +36,62 @@ public class IndividualDocumentBoxController {
 	@Autowired
 	private CommonServiceImpl commonService;
 	
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
+	
 	//상신문서함
 	@RequestMapping("/submitApprovalBox")
-	public String submitApprovalBox(Model model, Principal principal){
-		//로그인 한 자의 아이디
-//		List<Electronic_ApprovalVO> EAList = individualDocumentBoxService.defaultSAB(principal.getName());
-		List<Electronic_ApprovalVO> EAList = individualDocumentBoxService.defaultSAB("4");
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+	public String submitApprovalBox(@RequestParam(value="page",defaultValue="1")int pageNumber,
+			Model model,String val, String index, String page, Principal principal){
+			Board_SelectVO select = new Board_SelectVO();
 		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonService.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
+			if(val!=null && !val.equals("")){
+				select.setIndex(index);
+				select.setVal(val);
+			}
+			
+		//로그인 한 자의 아이디
+		MemberVO mem = commonService.findMemberByMemId(principal.getName());
+		String mem_number = mem.getMem_number();
+		select.setMem_number(mem_number);
+		
+		Electronic_ApprovalViewVO viewData = (Electronic_ApprovalViewVO) individualDocumentBoxService.sangsinList(pageNumber, select);
+		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+		List<Electronic_ApprovalVO> eaList = viewData.getSangsinList();
+		List<String> ahStatusList = new ArrayList<String>();
+		List<String> astMemberList = new ArrayList<String>();
+		for (Electronic_ApprovalVO EAVO : eaList) {
+//			code_nameList.add(commonService.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
+			String lastAhStatus = individualDocumentBoxService.findLastAhStatus(EAVO.getEa_number());	//마지막 결재 상태
+			String lastAstMember = individualDocumentBoxService.findLastAstMember(EAVO.getEa_number());	//마지막 결재자
+			
+			ahStatusList.add(lastAhStatus);
+			astMemberList.add(lastAstMember);
+			
 		}
-		model.addAttribute("EAList",EAList);
-		model.addAttribute("code_nameList",code_nameList );
+		model.addAttribute("ahStatusList",ahStatusList);
+		model.addAttribute("astMemberList",astMemberList);
+		model.addAttribute("viewData",viewData);
+		model.addAttribute("pageNumber",pageNumber);
+		
+		if(val!=null && !val.equals("")){
+			model.addAttribute("select",select); 
+		}
+		
+		if(viewData.getPageTotalCount()>0){
+			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
+			int endPageNumber = beginPageNumber+ PAGE_NUMBER_COUNT_PER_PAGE-1;
+			if(endPageNumber > viewData.getPageTotalCount()){
+				endPageNumber = viewData.getPageTotalCount();
+			}
+			model.addAttribute("perPage", PAGE_NUMBER_COUNT_PER_PAGE);	//페이지 번호의 갯수
+			model.addAttribute("end", viewData.getSangsinList().size()-1);//마지막 페이지
+			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
+			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
+		}
+		
+		model.addAttribute("page",page);
+//		model.addAttribute("code_nameList",code_nameList );
+		
 		return "electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	//상신문서 검색

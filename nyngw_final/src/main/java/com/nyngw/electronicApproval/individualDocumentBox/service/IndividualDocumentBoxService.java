@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
+import com.nyngw.dto.Electronic_ApprovalViewVO;
 
 public interface IndividualDocumentBoxService {
 
-	public List<Electronic_ApprovalVO> defaultSAB(String mem_id);
+	public Electronic_ApprovalViewVO sangsinList(int pageNumber, Board_SelectVO select);
 
 	public List<Electronic_ApprovalVO> defaultCAB(String string);
 
@@ -29,4 +31,5 @@ public interface IndividualDocumentBoxService {
 	public String selectDeptName(String dept_number);
 	public String selectMemberPosition(String mem_number);
 	public String selectPositionName(String position_number);
+
 }

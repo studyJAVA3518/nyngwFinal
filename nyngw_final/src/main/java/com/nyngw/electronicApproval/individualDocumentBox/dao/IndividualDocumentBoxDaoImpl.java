@@ -1,14 +1,18 @@
 package com.nyngw.electronicApproval.individualDocumentBox.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
+import com.nyngw.dto.MeetingVO;
 
 @Repository
 public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
@@ -16,10 +20,30 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Electronic_ApprovalVO> selectSAB(String mem_id) {
-		return sqlSession.selectList("selectSAB",mem_id);
+	
+	
+	@Override
+	public List<Electronic_ApprovalVO> selectSAB(int firstRow, int endRow,
+			Board_SelectVO select) {
+		int offset = firstRow - 1;
+		int limit = endRow - firstRow + 1;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Electronic_ApprovalVO> sansingList = (ArrayList<Electronic_ApprovalVO>)sqlSession.selectList("selectSAB",select,rowBounds);
+		return sansingList;
 	}
 
+	@Override
+	public int selectsangsinCount(String mem_number) {
+		int result =(Integer) sqlSession.selectOne("selectsangsinCount",mem_number);
+		return result;
+	}
+
+	@Override
+	public int boardsangsinCount(Board_SelectVO select) {
+		int result =(Integer) sqlSession.selectOne("boardsangsinCount",select);
+		return result;
+	}
+	
 	public List<Electronic_ApprovalVO> selectCAB(String mem_id) {
 		return sqlSession.selectList("selectCAB",mem_id);
 	}
@@ -63,5 +87,13 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 	@Override
 	public String selectPositionName(String position_number) {
 		return (String) sqlSession.selectOne("selectPositionName",position_number);
+	}
+
+	public String ID_selectAhStatus(String ea_number) {
+		return (String) sqlSession.selectOne("ID_selectAhStatus",ea_number);
+	}
+
+	public String ID_selectAllAS(String ea_number) {
+		return (String) sqlSession.selectOne("ID_selectAllAS",ea_number);
 	}
 }

@@ -27,7 +27,7 @@
 				<th colspan="4">설명</th>
 			</tr>
 		</table>
-		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush ="false"/>
 		<table class="table table-bordered">
 			<tr>
 				<th>파일이름</th>
