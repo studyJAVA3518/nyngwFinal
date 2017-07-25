@@ -29,9 +29,8 @@
 								<li>
 									<h3>문서관리</h3>
 									<ul>
-										<li><a href="/documentManagement/documentManager/documentSelect">&nbsp;&nbsp;&nbsp;└ 문서 조회</a></li>
-										<li><a href="/documentManagement/documentManager/edocumentSelect">&nbsp;&nbsp;&nbsp;└ 전자문서 조회</a></li>
-										<li><a href="/documentManagement/documentManager/documentInsert">&nbsp;&nbsp;&nbsp;└ 문서 등록</a></li>
+										<li><a href="/documentManagement/documentManager/documentSelect">&nbsp;&nbsp;&nbsp;└ 일반 문서</a></li>
+										<li><a href="/documentManagement/documentManager/edocumentSelect">&nbsp;&nbsp;&nbsp;└ 전자문서</a></li>
 									</ul>							
 							</ul>
 						</div><!-- side_list -->

@@ -18,7 +18,7 @@ public class DocumentVO {
 	private String doc_mem_number;	//등록자
 	private String doc_eadoc;       //전자결재문서 유무
 	private String mem_name;        // 사원명
-	private String doc_content;        // 사원명
+	private String doc_content;        // 
 	
 	
 	
@@ -95,7 +95,8 @@ public class DocumentVO {
 				+ doc_file_name + ", doc_explanation=" + doc_explanation
 				+ ", doc_lifetime=" + doc_lifetime + ", doc_code_number="
 				+ doc_code_number + ", doc_mem_number=" + doc_mem_number
-				+ ", doc_eadoc=" + doc_eadoc + ", mem_name=" + mem_name + "]";
+				+ ", doc_eadoc=" + doc_eadoc + ", mem_name=" + mem_name + 
+				",doc_content"+doc_content+"]";
 	}
 	
 }

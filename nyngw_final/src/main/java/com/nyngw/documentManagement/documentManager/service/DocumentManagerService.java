@@ -19,6 +19,7 @@ public interface DocumentManagerService {
 	public void documentDelete(String doc_number);
 	
 //	electro =========================================
-	
+	public int edocumentInsertComplete(DocumentVO documentVO);
 	DocumentListView selectEDocumentList(int pageNumber, Board_SelectVO select);
+	public void edocumentManagerUpdate(DocumentVO document);
 }
