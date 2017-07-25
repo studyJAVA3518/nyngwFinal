@@ -426,6 +426,15 @@ public class DraftServiceImpl implements DraftService {
 			paramMap = new HashMap<String, String>(); 
 			implementMembers = apVO.getImplementMembers();
 			StringTokenizer st = new StringTokenizer(implementMembers,","); 
+			if(!st.hasMoreTokens()){
+				paramMap.put("ast_mem_number", implementMembers);
+				paramMap.put("ast_ea_number", param_ea_number);
+				paramMap.put("ast_number", "ast"+(priority+1));
+				paramMap.put("ast_al_number", "C");
+				paramMap.put("ast_priority", "0");
+				draftDao.draft_insertApprovalStep(paramMap);
+				priority++;
+			}
 			while(st.hasMoreTokens()) { 
 				paramMap.put("ast_mem_number", st.nextToken());
 				paramMap.put("ast_ea_number", param_ea_number);
