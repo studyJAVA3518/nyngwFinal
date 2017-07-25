@@ -56,6 +56,7 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 //			joinMemberListDao.modifyMemberBank(member);
 			joinMemberListDao.modifyMemberPosDeps(member);
 			result=1;
+			return result;
 		}catch(Exception e){
 			System.out.println("income <======== exception modify");
 		}
@@ -63,6 +64,7 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 //			System.out.println("<==================inse");
 //			joinMemberListDao.modifyMemberBankinsert(member);
 //			result=1;
+//			return result;
 //		}catch(Exception e1){
 //			System.out.println("income <======== exception insert");
 //		}
