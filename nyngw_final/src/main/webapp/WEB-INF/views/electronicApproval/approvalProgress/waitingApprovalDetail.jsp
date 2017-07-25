@@ -27,164 +27,164 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	 $('#approvalDialog').css('display', 'none');
-	 $('#refuseDialog').css('display', 'none');
-	 $('#approvalHistoryDialog').css('display', 'none');
+	$('#approvalDialog').css('display', 'none');
+	$('#refuseDialog').css('display', 'none');
+	$('#approvalHistoryDialog').css('display', 'none');
 	/////////////////////////////////////////////////
-	 $("#approve_go").click(function(){
-		 $('#approvalDialog').dialog({
-				width: 700,
-				height: 500,
-				modal: true,
-				buttons:[{
-					text: "등록",
-					icon: "ui-icon-heart",
-					click: function() {
-						approvalSubmitCall();
-						$( this ).dialog( "close" );
-					}
-				},{
-					text: "취소",
-					icon: "ui-icon-heart",
-					click: function() {
-						$( this ).dialog( "close" );
-					}
-				}],
-				close: function() {
-					$('#textArea').val('');
-					$('#pwd').val('');
+	$("#approve_go").click(function(){
+		$('#approvalDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons:[{
+				text: "등록",
+				icon: "ui-icon-heart",
+				click: function() {
+					approvalSubmitCall();
+					$( this ).dialog( "close" );
 				}
-	     });
-     })
-     
-	 $("#refuse_go").click(function(){
-		 $('#refuseDialog').dialog({
-				width: 700,
-				height: 500,
-				modal: true,
-				buttons:[{
-					text: "등록",
-					icon: "ui-icon-heart",
-					click: function() {
-						refuseSubmitCall();
-						$( this ).dialog( "close" );
-					}
-				},{
-					text: "취소",
-					icon: "ui-icon-heart",
-					click: function() {
-						$( this ).dialog( "close" );
-					}
-				}],
-				close: function() {
-					$('#textArea').val('');
-					$('#pwd').val('');
+			},{
+				text: "취소",
+				icon: "ui-icon-heart",
+				click: function() {
+					$( this ).dialog( "close" );
 				}
-	     });
-     })
+			}],
+			close: function() {
+				$('#textArea').val('');
+				$('#pwd').val('');
+			}
+		});
+	})
+     
+	$("#refuse_go").click(function(){
+		$('#refuseDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons:[{
+				text: "등록",
+				icon: "ui-icon-heart",
+				click: function() {
+					refuseSubmitCall();
+					$( this ).dialog( "close" );
+				}
+			},{
+				text: "취소",
+				icon: "ui-icon-heart",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}],
+			close: function() {
+				$('#textArea').val('');
+				$('#pwd').val('');
+			}
+		});
+	})
      
      
-	 $(".approvalHistory_go").click(function(){
+	$(".approvalHistory_go").click(function(){
 		
 		var tmp = $(this).siblings('.ea_number').text();
-        $.ajax({
-           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
-           type:'get',
-           data: {'ea_number' : tmp},
-           success : function(res){
-       		   var code = "";
-        	   $.each(res, function (i,value){
-        		   code+='<tr><td>'+value.dept_name+'</td>';
-        		   code+='<td>'+value.position_name+'</td>';
-        		   code+='<td>'+value.mem_name+'</td>';
-        		   code+='<td>'+value.ah_status+'</td>';
-        		   code+='<td>'+value.ah_time+'</td></tr>';
-        	   });
-				$("#historyList").append(code);
-           },
-           dataType : 'json'
-        })
-     
-     
-     $('#approvalHistory_go').click(function(){
-    	 $('#approvalHistoryDialog').dialog({
- 			width: 700,
- 			height: 500,
- 			modal: true,
- 			buttons: {
- 		       "취소": function() {
- 					$(this).dialog("close");
- 				}
- 			},
- 			close: function() {
- 				$('#textArea').val('');
- 			}
- 	    }); 
-     });
-     
-     var approvalSubmitCall = null;
-	//결재하기//
-	function approvalSubmit(){
 		$.ajax({
- 			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
- 			type:"post",
- 			data: $("#approvalSubmitForm").serialize(),
- 			success: function(result){ // success
- 				if(result.check=='y'){
- 					if(result.al_number=='A'){
+			url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
+			type:'get',
+			data: {'ea_number' : tmp},
+			success : function(res){
+				var code = "";
+      	   		$.each(res, function (i,value){
+					code+='<tr><td>'+value.dept_name+'</td>';
+					code+='<td>'+value.position_name+'</td>';
+					code+='<td>'+value.mem_name+'</td>';
+					code+='<td>'+value.ah_status+'</td>';
+					code+='<td>'+value.ah_time+'</td></tr>';
+				});
+				$("#historyList").append(code);
+			},
+			dataType : 'json'
+		})
+     
+     
+		$('#approvalHistory_go').click(function(){
+			$('#approvalHistoryDialog').dialog({
+	 			width: 700,
+	 			height: 500,
+	 			modal: true,
+	 			buttons: {
+	 		       "취소": function() {
+	 					$(this).dialog("close");
+					}
+				},
+				close: function() {
+ 					$('#textArea').val('');
+				}
+			}); 
+		});
+     
+		var approvalSubmitCall = null;
+		//결재하기//
+		function approvalSubmit(){
+			$.ajax({
+				url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+				type:"post",
+				data: $("#approvalSubmitForm").serialize(),
+				success: function(result){ // success
+					if(result.check=='y'){
+						if(result.al_number=='A'){
 		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
 		 				$("#approvalStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("결재가 완료되었습니다.");
- 					}else if(result.al_number=='B'){
- 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+						}else if(result.al_number=='B'){
+							var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("합의가 완료되었습니다.");
- 					}
- 				}else{
- 					alert("잘못된 비밀번호입니다.");
- 				}
- 			},
- 			dataType:"json"				// dataType
- 		});
-	}	
-	approvalSubmitCall=approvalSubmit;
-	
-	var refuseSubmitCall = null;
-	//반려하기//
-	function refuseSubmit(){
-		$.ajax({
- 			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
- 			type:"post",
- 			data: $("#refuseSubmitForm").serialize(),
- 			success: function(result){ // success
- 				if(result.check=='y'){
- 					if(result.al_number=='A'){
+						}
+					}else{
+						alert("잘못된 비밀번호입니다.");
+					}
+				},
+				dataType:"json"				// dataType
+			});
+		}	
+		approvalSubmitCall=approvalSubmit;
+		
+		var refuseSubmitCall = null;
+		//반려하기//
+		function refuseSubmit(){
+			$.ajax({
+				url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+				type:"post",
+				data: $("#refuseSubmitForm").serialize(),
+				success: function(result){ // success
+					if(result.check=='y'){
+						if(result.al_number=='A'){
 		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
 		 				$("#approvalStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("반려가 완료되었습니다.");
- 					}else if(result.al_number=='B'){
- 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+						}else if(result.al_number=='B'){
+							var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("반려가 완료되었습니다.");
- 					}
- 				}else{
- 					alert("잘못된 비밀번호입니다.");
- 				}
- 			},
- 			dataType:"json"				// dataType
- 		});
-	}	
-	refuseSubmitCall=refuseSubmit;
-	
+						}
+					}else{
+						alert("잘못된 비밀번호입니다.");
+					}
+				},
+				dataType:"json"				// dataType
+			});
+		}	
+		refuseSubmitCall=refuseSubmit;
 	///////////////////////////////////////////////
+	})
 })
 </script>
 결재진행>미결재문서함상세
