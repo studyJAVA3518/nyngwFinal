@@ -85,9 +85,6 @@ public class TheRestDocumentBoxController {
 		
 		vo.setEa_mem_number(member.getMem_number());
 		
-		System.out.println("<<<===================== 참조");
-		
-		
 		if(docSearchOption.equals("all")){
 		}else if(docSearchOption.equals("ea_title")){
 			vo.setEa_title(searchText);
@@ -107,9 +104,13 @@ public class TheRestDocumentBoxController {
 	
 	//전체문서함
 	@RequestMapping("/overallDocumentBox")
-	public String overAllDocumentBox(Model model){
+	public String overAllDocumentBox(Model model,Principal principal){
 		
 		CommonApproval_TOTALVO vo = new CommonApproval_TOTALVO();
+		
+		MemberVO member = commonService.findMemberByMemId(principal.getName());
+		
+		vo.setEa_mem_number(member.getMem_number());
 		
 		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApprovalTOList(vo);
 		
@@ -124,7 +125,6 @@ public class TheRestDocumentBoxController {
 		MemberVO member = commonService.findMemberByMemId(principal.getName());
 		
 		vo.setEa_mem_number(member.getMem_number());
-		
 		if(docSearchOption.equals("all")){
 		}else if(docSearchOption.equals("ea_title")){
 			vo.setEa_title(searchText);
