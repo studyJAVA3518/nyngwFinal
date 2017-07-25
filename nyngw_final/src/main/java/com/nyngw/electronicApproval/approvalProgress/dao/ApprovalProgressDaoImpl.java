@@ -1,5 +1,6 @@
 package com.nyngw.electronicApproval.approvalProgress.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,12 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	//service에서 처리해서 parameter 받아줘야함
+	/**
+	 * 결재번호로 하나의 결재를 가져오기
+	 * service에서 처리해서 parameter 받아줘야함
+	 * @param ea_number
+	 * @return
+	 */
 	public Electronic_ApprovalVO selectEA(String ea_number) {
 		return (Electronic_ApprovalVO) sqlSession.selectOne("selectEA",ea_number);
 	}
@@ -35,11 +41,15 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		return sqlSession.selectList("ap_selectEaNumberByMemId",mem_number);
 	}
 	
-	//가장 높은 결재 우선순위 ast_ea_number
+	/**
+	 * 가장 높은 결재 우선순위 ast_ea_number
+	 * @param ast_ea_number
+	 * @return
+	 */
 	public int selectLastAstPriority(String ast_ea_number) {
 		return (int) sqlSession.selectOne("selectLastAstPriority",ast_ea_number);
 	}
-	
+
 	//자신의 결재 우선순위 ast_ea_number / ast_mem_number
 	public int selectOneAstPriority(Map paramMap) {
 		return (int) sqlSession.selectOne("selectOneAstPriority",paramMap);
@@ -94,6 +104,53 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 
 	public void updateAstPriority(Map paramMap) {
 		sqlSession.update("updateAstPriority",paramMap);
+	}
+	
+	
+	/**
+	 * 전자결제에서 해당회원이 진행한 모든 전자결재번호 리스트로 불러오기
+	 * @param ea_mem_number
+	 * @return
+	 */
+	public List<Electronic_ApprovalVO> selectEaNumberList(String ea_mem_number){
+		List<Electronic_ApprovalVO> eaNumList = sqlSession.selectList("selectEaNumberList",ea_mem_number);
+		return eaNumList;
+	}
+	
+	/**
+	 * 결재히스토리에서 결재완료된 해당결재번호의 카운트를 세주는 쿼리
+	 * @param ah_ea_number
+	 * @return
+	 */
+	public int selectApprivalHistoryDoneCount(String ah_ea_number){
+		int doneCount = (int) sqlSession.selectOne("selectApprivalHistoryDoneCount",ah_ea_number);
+		return doneCount;
+	}
+	
+	/**
+	 * 결재히스토리에서 반려된 해당결재번호의 카운트를 세주는 쿼리
+	 * @param ah_ea_number
+	 * @return
+	 */
+	public int selectApprivalHistoryRefuseCount(String ah_ea_number){
+		int doneCount = (int) sqlSession.selectOne("selectApprivalHistoryRefuseCount",ah_ea_number);
+		return doneCount;
+	}
+	
+	/**
+	 * 결재이력에서 제일 최근의 결제날짜를 가져온다
+	 * @param ah_ea_number
+	 * @return Date
+	 */
+	public Date selectResentHistoryDate(String ah_ea_number){
+		List<Approval_HistoryVO> voList = sqlSession.selectList("selectResentHistoryDate",ah_ea_number);
+		Date returnDate = null;
+		for(int i = 0; i<voList.size();i++){
+			if(i==(voList.size()-1)){
+				returnDate = voList.get(i).getAh_time();
+			}
+		}
+		return returnDate;
 	}
 	
 
