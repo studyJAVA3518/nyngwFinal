@@ -22,7 +22,18 @@
 		</property>
 	</bean>
 
+	<context:component-scan base-package="com.nyngw" />
 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="com.nyngw" />
+		<property name="mapperLocations" value="classpath:com/nyngw/**/sqlMaps/*.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		c:sqlSessionFactory-ref="sqlSessionFactory" />
+		
 	<!-- <bean id="sqlSessionFactory" -->
 	<!-- class="org.mybatis.spring.SqlSessionFactoryBean" -->
 	<!-- p:dataSource-ref="dataSource" -->

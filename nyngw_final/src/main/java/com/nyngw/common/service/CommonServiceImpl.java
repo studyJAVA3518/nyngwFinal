@@ -2,8 +2,14 @@ package com.nyngw.common.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.nyngw.common.dao.CommonDaoImpl;
 import com.nyngw.dto.Common_CodeVO;
@@ -60,4 +66,29 @@ public class CommonServiceImpl implements CommonService{
 	public MemberVO findMemIdByMemPwd(String mem_pwd) {
 		return codeManagerDao.selectMemIdByMemPwd(mem_pwd);
 	}
+	
+	public void autoCompute(){
+		
+//	    RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+//	    System.out.println("test1");
+	    
+	    if(requestAttributes !=null);{
+	    	ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
+//	    	System.out.println("test2");
+	    	
+	    	if(attributes !=null){
+	    		System.out.println("test3");
+	    		HttpServletRequest request = attributes.getRequest();
+	    		HttpSession httpSession = request.getSession(true);
+	    		
+	    		String auto = (String) httpSession.getAttribute("auto");
+	    		
+	    		if(auto!=null){
+	    			System.out.println("schedule log:"+auto);
+	    		}
+	    	}
+	    }
+	}
+	
 }

@@ -6,7 +6,7 @@
 					<!-- 개인사원 프로필사진 -->
   					<div class="row leftTemplate textCenter">
   						<div class="col-md-5 personImg">
-  							<img src="../resources/images/proflie_01.jpg" alt="profile image" class="img-responsive">
+  							<img src="/resources/images/profile/${mem_img }" alt="profile image" class="img-responsive">
   						</div>
   						<div class="col-md-7">
 	  						<p class="personCompany">${company.company_name}</p>
