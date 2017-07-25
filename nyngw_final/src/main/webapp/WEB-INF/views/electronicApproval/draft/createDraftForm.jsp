@@ -195,12 +195,12 @@
 	</table>
 	<!-- ea_content -> content -->
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-	<table>
-		<tr>
-			<th>첨부파일</th>
-			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	
-		</tr>
-	</table>
+<!-- 	<table> -->
+<!-- 		<tr> -->
+<!-- 			<th>첨부파일</th> -->
+<!-- 			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	 -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 </form>
 <input type="hidden" value="${page}">
 <button type="button" onclick="saveContent();">등록</button>

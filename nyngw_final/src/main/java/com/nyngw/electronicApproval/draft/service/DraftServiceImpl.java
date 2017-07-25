@@ -441,14 +441,24 @@ public class DraftServiceImpl implements DraftService {
 		}
 		//참조자
 		if(apVO.getReferenceMembers()!=null){
+			System.out.println("참조자");
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();
-			StringTokenizer st = new StringTokenizer(implementMembers,","); 
+			StringTokenizer st = new StringTokenizer(referenceMembers,","); 
+			if(!st.hasMoreTokens()){
+				paramMap.put("ast_mem_number", referenceMembers);
+				paramMap.put("ast_ea_number", param_ea_number);
+				paramMap.put("ast_number", "ast"+(priority+1));
+				paramMap.put("ast_al_number", "D");
+				paramMap.put("ast_priority", "0");
+				draftDao.draft_insertApprovalStep(paramMap);
+				priority++;
+			}
 			while(st.hasMoreTokens()) { 
 				paramMap.put("ast_mem_number", st.nextToken());
 				paramMap.put("ast_ea_number", param_ea_number);
 				paramMap.put("ast_number", "ast"+(priority+1));
-				paramMap.put("ast_al_number", "C");
+				paramMap.put("ast_al_number", "D");
 				paramMap.put("ast_priority", "0");
 				draftDao.draft_insertApprovalStep(paramMap);
 				priority++;
