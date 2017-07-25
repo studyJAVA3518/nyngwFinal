@@ -88,6 +88,7 @@
 		and doc_number = EA_DOC_NUMBER
 		and ah_ea_number = ea_number
 		and mem_number = EA_MEM_number
+		and AST_MEM_NUMBER=#{ea_mem_number}
 		<if test="ea_title != null">
 			<if test="ea_title != ''">
 				and ea_title like  '%'||#{ea_title}||'%'
