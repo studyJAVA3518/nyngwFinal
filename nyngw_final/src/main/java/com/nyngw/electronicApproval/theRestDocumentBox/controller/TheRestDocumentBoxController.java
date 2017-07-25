@@ -62,17 +62,6 @@ public class TheRestDocumentBoxController {
 		
 		return "electronicApproval/theRestDocumentBox/implementDocumentBox";
 	}
-	//시행문서 상세
-	@RequestMapping("/implementDocumentDetail")
-	public String implementDocumentDetail(CommonApproval_TOTALVO vo,Model model){
-		
-		List<CommonApproval_TOTALVO> list = theRestDocumentBoxService.getApproval_HistoryList(vo);
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("list", list);
-		
-		return "electronicApproval/theRestDocumentBox/implementDocumentDetail";
-	}
 	
 	//참조문서함
 	@RequestMapping("/referenceDocumentBox")
@@ -96,6 +85,9 @@ public class TheRestDocumentBoxController {
 		
 		vo.setEa_mem_number(member.getMem_number());
 		
+		System.out.println("<<<===================== 참조");
+		
+		
 		if(docSearchOption.equals("all")){
 		}else if(docSearchOption.equals("ea_title")){
 			vo.setEa_title(searchText);
@@ -105,22 +97,12 @@ public class TheRestDocumentBoxController {
 			vo.setDoc_name(searchText);
 		}
 		
-		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApproval_RE_HistoryList(vo);
+		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApprovalREList(vo);
 		
 		model.addAttribute("EAList", appList);
 		
 		
 		return "electronicApproval/theRestDocumentBox/referenceDocumentBox";
-	}
-	//참조문서 상세
-	@RequestMapping("/referenceDocumentDetail")
-	public String referenceDocumentDetail(CommonApproval_TOTALVO vo,Model model){
-		List<CommonApproval_TOTALVO> list = theRestDocumentBoxService.getApprovalREList(vo);
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("list", list);
-		
-		return "electronicApproval/theRestDocumentBox/referenceDocumentDetail";
 	}
 	
 	//전체문서함
@@ -158,15 +140,5 @@ public class TheRestDocumentBoxController {
 		
 		return "electronicApproval/theRestDocumentBox/overallDocumentBox";
 	}
-	//전체문서 상세
-	@RequestMapping("/overallDocumentDetail")
-	public String overallDocumentDetail(CommonApproval_TOTALVO vo,Model model){
-		
-		List<CommonApproval_TOTALVO> list = theRestDocumentBoxService.getApprovalList(vo);
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("list", list);
-		
-		return "electronicApproval/theRestDocumentBox/overallDocumentDetail";
-	}
+
 }

@@ -39,18 +39,6 @@
 		
 	</select>
 	
-	
-	<select id="getApproval_HistoryList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
-		select mem_name,mem_number,dept_name,position_name
-		from approval_step,member,department,position
-		where ast_al_number ='A'
-		and ast_mem_number = mem_number
-		and position_number = mem_position_number
-		and mem_dept_number = dept_number
-		and ast_ea_number =#{ea_number}
-	</select>
-
-	
 	<select id="getApprovalREList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
 		select EA_NUMBER,
        doc_name,
@@ -83,16 +71,6 @@
 				and doc_name like '%'||#{doc_name}||'%'
 			</if>
 		</if>
-	</select>
-
-	<select id="getApproval_RE_HistoryList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
-		select mem_name,mem_number,dept_name,position_name
-		from approval_step,member,department,position
-		where ast_al_number ='A'
-		and ast_mem_number = mem_number
-		and position_number = mem_position_number
-		and mem_dept_number = dept_number
-		and ast_ea_number =#{ea_number}
 	</select>
 
 	<select id="getApprovalTOList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
