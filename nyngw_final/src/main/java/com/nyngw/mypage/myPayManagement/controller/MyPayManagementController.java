@@ -20,7 +20,7 @@ public class MyPayManagementController {
 	@Autowired
 	private MyPayManagementServiceImpl myPayManagementService;
 	
-	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
+	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 1;
 	
 	@Autowired
 	private CommonServiceImpl commonService;

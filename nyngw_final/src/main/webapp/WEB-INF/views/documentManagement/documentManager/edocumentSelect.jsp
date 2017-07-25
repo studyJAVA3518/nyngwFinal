@@ -28,10 +28,9 @@
 	<br>
 	<div></div>
 	<br>
-<!-- 	<div style="text-align: right;"> -->
-<!-- 		<button type="button"class="btn"> <a href="/documentManagement/documentManager/edocumentInsert">등록</a></button> -->
-<!-- 	</div> -->
-	
+	<div style="text-align: right;">
+		<button type="button"class="btn"> <a href="/documentManagement/documentManager/edocumentInsert">등록</a></button>
+	</div>
 	<div>
 		<table class="table table-bordered">
 			<tr>
@@ -50,7 +49,7 @@
 						<td>${documentView.dv_code_name }</td>
 						<td>${documentView.dv_doc_date }</td>
 						<td>${documentView.dv_doc_number }</td>
-						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_name }</a></td>
+						<td><a href="/documentManagement/documentManager/edocumentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_name }</a></td>
 						<td>${documentView.dv_mem_name }</td>
 					</tr>
 				</c:forEach>

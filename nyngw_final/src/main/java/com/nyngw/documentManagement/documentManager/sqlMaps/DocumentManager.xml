@@ -69,12 +69,24 @@
 			doc_mem_number = #{doc_mem_number}
 		where  doc_number = #{doc_number}
 	</update>
-	
-	<update id="documentManagerInsert">
+	<update id="edocumentManagerUpdate" parameterType="com.nyngw.dto.DocumentVO">
+		update document
+		set doc_code_number = #{doc_code_number},
+			doc_number = #{doc_number},
+			doc_name = #{doc_name},
+			doc_content = #{doc_content},
+			doc_mem_number = #{doc_mem_number}
+		where  doc_number = #{doc_number}
+	</update>
+	<update id="documentManagerInsert" parameterType="com.nyngw.dto.DocumentVO">
 		insert into document(doc_number, doc_name, doc_date, doc_file_name, doc_explanation, doc_code_number, doc_mem_number, doc_lifetime, doc_eadoc)
 		values('doc'||doc_seq.nextval,#{doc_name},sysdate, #{doc_file_name}, #{doc_explanation},#{doc_code_number},#{doc_mem_number},#{doc_lifetime},#{doc_eadoc})
 	</update>
 	
+	<update id="edocumentManagerInsert" parameterType="com.nyngw.dto.DocumentVO">
+		insert into document(doc_number, doc_name, doc_date, doc_content, doc_code_number, doc_mem_number, doc_lifetime, doc_eadoc)
+		values('doc'||doc_seq.nextval,#{doc_name},sysdate, #{doc_content},#{doc_code_number},#{doc_mem_number},#{doc_lifetime},#{doc_eadoc})
+	</update>
 	<select id="documentCodeSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.Common_CodeVO">
 		select * from common_code where code_ck_number = 'ck2'
 	</select>

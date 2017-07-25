@@ -28,9 +28,9 @@
 	<br>
 	<div></div>
 	<br>
-<!-- 	<div style="text-align: right;"> -->
-<!-- 		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert">등록</a></button> -->
-<!-- 	</div> -->
+	<div style="text-align: right;">
+		<button type="button"class="btn"> <a href="/documentManagement/documentManager/documentInsert">등록</a></button>
+	</div>
 	
 	<div>
 		<table class="table table-bordered">

@@ -51,25 +51,25 @@
 })();
 
 /* show development environments indicator */
-(function() {
-    function addEditorEnvIndicator() {
-        if (window.Editor && Editor.__EDITOR_LOADED) {
-            var indicator = document.createElement("span");
-            indicator.innerHTML = "DEVELOPMENT MODE";
-            $tx.setStyle(indicator, {
-                position: "absolute",
-                fontSize: "13px",
-                color: "green",
-                fontFamily: "courier,serif",
-                right: "10px",
-                bottom : "10px"
-            });
-            var canvas = Editor.getCanvas().elContainer; //$tx("tx_canvas");
-            canvas.appendChild(indicator);
-        } else {
-            setTimeout(arguments.callee, 500);
-        }
-    }
-
-    EditorJSLoader.ready(addEditorEnvIndicator);
-})();
+//(function() {
+//    function addEditorEnvIndicator() {
+//        if (window.Editor && Editor.__EDITOR_LOADED) {
+//            var indicator = document.createElement("span");
+//            indicator.innerHTML = "DEVELOPMENT MODE";
+//            $tx.setStyle(indicator, {
+//                position: "absolute",
+//                fontSize: "13px",
+//                color: "green",
+//                fontFamily: "courier,serif",
+//                right: "10px",
+//                bottom : "10px"
+//            });
+//            var canvas = Editor.getCanvas().elContainer; //$tx("tx_canvas");
+//            canvas.appendChild(indicator);
+//        } else {
+//            setTimeout(arguments.callee, 500);
+//        }
+//    }
+//
+//    EditorJSLoader.ready(addEditorEnvIndicator);
+//})();

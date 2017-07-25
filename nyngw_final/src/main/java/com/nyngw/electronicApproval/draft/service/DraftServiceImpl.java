@@ -11,9 +11,12 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.ApprovalParamVO;
 import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.DocumentSearchVO;
@@ -27,7 +30,8 @@ public class DraftServiceImpl implements DraftService {
 
 	@Autowired
 	private DraftDaoImpl draftDao;
-	
+	@Autowired
+	private CommonServiceImpl commonService;
 	//기안문서함을 처음 열었을 때 모든 document를 차례대로 보여줄 메서드
 	//무엇을 기준으로 정렬하여 보여줄지 고민해봐야한다.
 	@Override
@@ -208,18 +212,20 @@ public class DraftServiceImpl implements DraftService {
 	//부서번호로 해당 부서의 직원을 선택하는 메서드 // 결재라인 선택에서 사용
 	public List<Map> findMemberByDepartment(String dept_number,Model model) {
 		List<MemberVO> memberList = draftDao.dreat_selectMemberListByDepartment(dept_number);
-		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Map> memberJsonList = new ArrayList<Map>();
 		
 		for (MemberVO member : memberList) {
-			Map<String,String> memberjsonMap = new HashMap<String,String>();
-			memberjsonMap.put("mem_dept_name", member.getDept_name());
-			memberjsonMap.put("mem_position_number", member.getPosition_name());
-			memberjsonMap.put("mem_name", member.getMem_name());
-			memberjsonMap.put("mem_number", member.getMem_number());
-			memberjsonMap.put("mem_dept_number", member.getMem_dept_number());
-			
-			memberJsonList.add(memberjsonMap);
+			if(!user.getUsername().equals(member.getMem_id())){
+				Map<String,String> memberjsonMap = new HashMap<String,String>();
+				memberjsonMap.put("mem_dept_name", member.getDept_name());
+				memberjsonMap.put("mem_position_number", member.getPosition_name());
+				memberjsonMap.put("mem_name", member.getMem_name());
+				memberjsonMap.put("mem_number", member.getMem_number());
+				memberjsonMap.put("mem_dept_number", member.getMem_dept_number());
+				
+				memberJsonList.add(memberjsonMap);
+			}
 		}
 		System.out.println(dept_number);
 		model.addAttribute("dept_number",dept_number);
@@ -230,19 +236,20 @@ public class DraftServiceImpl implements DraftService {
 		Map<String, String> paramMap = new HashMap<String,String>();
 		paramMap.put("searchText", searchText);
 		paramMap.put("dept_number", dept_number);
-		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<MemberVO> memberList = draftDao.dreat_selectMemberListByDepartmentMemberName(paramMap);
 		
 		List<Map> memberJsonList = new ArrayList<Map>();
 		
 		for (MemberVO member : memberList) {
-			Map<String,String> memberjsonMap = new HashMap<String,String>();
-			memberjsonMap.put("mem_dept_name", member.getDept_name());
-			memberjsonMap.put("mem_position_number", member.getPosition_name());
-			memberjsonMap.put("mem_name", member.getMem_name());
-			memberjsonMap.put("mem_number", member.getMem_number());
-			
-			memberJsonList.add(memberjsonMap);
+			if(!user.getUsername().equals(member.getMem_id())){
+				Map<String,String> memberjsonMap = new HashMap<String,String>();
+				memberjsonMap.put("mem_dept_name", member.getDept_name());
+				memberjsonMap.put("mem_position_number", member.getPosition_name());
+				memberjsonMap.put("mem_name", member.getMem_name());
+				memberjsonMap.put("mem_number", member.getMem_number());
+				memberJsonList.add(memberjsonMap);
+			}
 		}
 		return memberJsonList;
 	}

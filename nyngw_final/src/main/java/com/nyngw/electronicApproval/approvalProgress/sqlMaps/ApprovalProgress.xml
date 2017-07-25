@@ -51,8 +51,8 @@
 	
 	<!-- 결재시 결재이력을 등록 -->
 	<insert id="insertApprovalHistory" parameterType="com.nyngw.dto.Approval_HistoryVO">
-		insert into Approval_History (ah_number, ah_code_number, ah_ast_number,ah_ea_number,ah_comment)
-		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment})
+		insert into Approval_History (ah_number, ah_code_number, ah_ast_number,ah_ea_number,ah_comment,ah_time)
+		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment},sysdate)
 	</insert>
 	
 <!-- 	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO"> -->
@@ -101,4 +101,39 @@
 		set ast_priority = #{updateNumber}
 		where ast_number = #{ast_number} and ast_ea_number = #{ea_number}
 	</update>
+	
+	
+	
+	
+	<!-- 전자결제에서 해당회원이 진행한 모든 전자결재번호 리스트로 불러오기 -->
+	<select id="selectEaNumberList" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
+		select *
+		from electronic_approval
+		where ea_mem_number=#{ea_mem_number}
+	</select>
+	
+	<!-- 결재이력에서 결재완료된 해당결재번호의 카운트를 세주는 쿼리 -->
+	<select id="selectApprivalHistoryDoneCount" resultType="int" parameterType="java.lang.String">
+		select count(*)
+		from approval_history
+		where ah_ea_number = #{ah_ea_number}
+		and ah_status='결재'
+	</select>
+	
+	<!-- 결재이력에서 반려된 해당결재번호의 카운트를 세주는 쿼리 -->
+	<select id="selectApprivalHistoryRefuseCount" resultType="int" parameterType="java.lang.String">
+		select count(*)
+		from approval_history
+		where ah_ea_number = #{ah_ea_number}
+		and ah_status='반려'
+	</select>
+	
+	<!-- 결재이력에서 제일 최근의 결제날짜를 가져온다 -->
+	<select id="selectResentHistoryDate" resultType="com.nyngw.dto.Approval_HistoryVO" parameterType="java.lang.String">
+		select ah_time
+		from APPROVAL_HISTORY
+		where AH_EA_NUMBER = #{ah_ea_number}
+		order by ah_time desc
+	</select>
+
 </mapper>
