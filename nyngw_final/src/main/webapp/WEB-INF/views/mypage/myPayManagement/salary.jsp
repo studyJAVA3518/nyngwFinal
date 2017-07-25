@@ -52,30 +52,58 @@ function print(printArea)
 <!--         <dd> -->
   <div id="printArea">
          <table class="table table-border">
-			<tr>
-				<th>부서명</th>
-				<th>직책명</th>
-				<th>사원명</th>
-				<th>기본 급여</th>
-				<th>개별 수당</th>
-				<th>4대보혐료</th>
-				<th>실수령액</th>
-				<th>지급일자</th>
+<!-- 			<tr> -->
+<!-- 				<th>부서명</th> -->
+<!-- 				<th>직책명</th> -->
+<!-- 				<th>사원명</th> -->
+<!-- 				<th>기본 급여</th> -->
+<!-- 				<th>개별 수당</th> -->
+<!-- 				<th>4대보혐료</th> -->
+<!-- 				<th>실수령액</th> -->
+<!-- 				<th>지급일자</th> -->
 				
-			</tr>
+<!-- 			</tr> -->
 			<c:choose>
 				<c:when test="${viewData.memberTotalCount > 0}">
 				<c:forEach items="${viewData.memberPayViewList}" var="board" >
-				<tr>
-					<td>${board.dept_name }</td>
-					<td>${board.position_name }</td>
-					<td>${board.mem_name}</td>
-					<td>${board.mp_basic_pay}</td>
-					<td>${board.mp_bonus}</td>
-					<td>${board.mp_insurance}</td>
-					<td>${board.mp_final_salary}</td>
-					<td>${board.mp_pay_date}</td>
-				</tr>
+<!-- 					<tr> -->
+<%-- 						<td>${board.dept_name }</td> --%>
+<%-- 						<td>${board.position_name }</td> --%>
+<%-- 						<td>${board.mem_name}</td> --%>
+<%-- 						<td>${board.mp_basic_pay}</td> --%>
+<%-- 						<td>${board.mp_bonus}</td> --%>
+<%-- 						<td>${board.mp_insurance}</td> --%>
+<%-- 						<td>${board.mp_final_salary}</td> --%>
+<%-- 						<td>${board.mp_pay_date}</td> --%>
+<!-- 					</tr> -->
+					<tr>
+						<th>이름</th>
+						<td>${board.mem_name}</td>
+						<th>지급일</th>
+						<td>${board.mp_pay_date}</td>
+					</tr>
+					<tr>
+						<th>부서</th>
+						<td>${board.dept_name }</td>
+						<th>직책</th>
+						<td>${board.position_name }</td>
+					</tr>
+					<tr>
+						<td colspan="3">기본급</td>
+						<td><fmt:formatNumber value="${board.mp_basic_pay}" type="currency" currencySymbol="￦"/></td>
+					</tr>
+					<tr>
+						<td colspan="3">개별수당</td>
+						<td><fmt:formatNumber value="${board.mp_bonus}" type="currency" currencySymbol="￦"/></td>
+					</tr>
+					<tr>
+						<td colspan="3">(4대보험)</td>
+						<td>-<fmt:formatNumber value="${board.mp_insurance}" type="currency" currencySymbol="￦"/></td>
+					</tr>
+					<tr>
+						<td colspan="3">실수령액</td>
+						<td><fmt:formatNumber value="${board.mp_final_salary}" type="currency" currencySymbol="￦"/></td>
+					</tr>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -87,13 +115,13 @@ function print(printArea)
 			</table>
 			<div id="pageNum">
 		<c:if test="${beginPage > perPage}">
-			<a href="<c:url value="/mypage/myPayManagement/salary?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">다음달</a>
 		</c:if>
-		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
-			<a href="<c:url value="/mypage/myPayManagement/salary?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
-		</c:forEach>
+<%-- 		<c:forEach var="pno" begin="${beginPage}" end="${endPage}"> --%>
+<%-- 			<a href="<c:url value="/mypage/myPayManagement/salary?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a> --%>
+<%-- 		</c:forEach> --%>
 		<c:if test="${endPage < viewData.getPageTotalCount()}">
-			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">이전달</a>
 		</c:if>
 		</div>
     </div>
