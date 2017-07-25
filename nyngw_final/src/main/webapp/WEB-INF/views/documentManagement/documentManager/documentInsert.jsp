@@ -17,23 +17,18 @@
 </script>
 	<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="documentInsertComplete" method="POST" accept-charset="utf-8">
 		<table class="table table-bordered">
-<!-- 			<colgroup> -->
-<!-- 				<col width="5%"/> -->
-<!-- 				<col width="*"/> -->
-<!-- 			</colgroup> -->
 			<caption>문서 작성</caption>
 			<tbody>
 				<tr>
 					<th>문서종류</th>
-					<td>
+					<td colspan="2">
 						<select name="doc_code_number">
 						<c:forEach items="${codeList }" var="codeList">
 							<option value="${codeList.code_number }">${codeList.code_name }</option>
 						</c:forEach>
 						</select>
 					</td>
-					<th>전자문서</th>
-					<td><input type="checkbox" name="doc_eadoc" id="doc_eadoc"></td>
+					<th>일반문서<input type="hidden" name="doc_eadoc" id="doc_eadoc"></th>
 				</tr>
 				<tr>
 					<th>보존기간</th>

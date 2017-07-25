@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author pc09
  *
  */
-public class CommandDocumentVO {
+public class CommandDocumentVO2 {
 	private String doc_number;		//문서번호
 	private String doc_name;		//문서명
 	private Date doc_date;			//등록일
@@ -101,7 +101,7 @@ public class CommandDocumentVO {
 		doc.setDoc_date(doc_date);
 		doc.setDoc_eadoc(doc_eadoc);
 		doc.setDoc_explanation(doc_explanation);
-		doc.setDoc_file_name(doc_file_name.getName());
+		doc.setDoc_file_name("");
 		doc.setDoc_mem_number(doc_mem_number);
 		doc.setDoc_name(doc_name);
 		doc.setDoc_number(doc_number);

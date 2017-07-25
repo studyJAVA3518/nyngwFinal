@@ -92,6 +92,14 @@ public class DocumentManagerDaoImpl implements DocumentManagerDao {
 		int result =(Integer) sqlSession.selectOne("selectEDocumentCount");
 		return result;
 	}
-	
+	@Override
+	public int edocumentInsertComplete(DocumentVO documentVO) {
+		int result = (Integer)sqlSession.update("edocumentManagerInsert",documentVO);
+		return result;
+	}
+	@Override
+	public void edocumentManagerUpdate(DocumentVO document) {
+		sqlSession.update("edocumentManagerUpdate", document);
+	}
 	
 }

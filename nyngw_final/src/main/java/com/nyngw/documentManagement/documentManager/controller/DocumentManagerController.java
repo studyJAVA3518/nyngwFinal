@@ -2,13 +2,10 @@ package com.nyngw.documentManagement.documentManager.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.util.EncodingUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +26,7 @@ import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.CommandDocumentVO;
+import com.nyngw.dto.CommandDocumentVO2;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.DocumentVO;
 import com.nyngw.dto.MemberVO;
@@ -124,9 +121,9 @@ public class DocumentManagerController implements ApplicationContextAware{
 			
 			DocumentVO doc=document.toDocumentVO();
 			doc.setDoc_eadoc("n");
-			if(document.getDoc_eadoc() != null){
-				doc.setDoc_eadoc("y");
-			}
+//			if(document.getDoc_eadoc() != null){
+//				doc.setDoc_eadoc("y");
+//			}
 			doc.setDoc_explanation(doc_explanation);
 			doc.setDoc_mem_number(mem_number);
 			doc.setDoc_file_name(multipartFile.getOriginalFilename());
@@ -134,11 +131,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 			model.addAttribute(doc);
 			
 			documentManagerService.documentInsertComplete(doc);
-			if(document.getDoc_eadoc()==null){
-				url="redirect:/documentManagement/documentManager/documentSelect";
-			}else{
-				url="redirect:/documentManagement/documentManager/edocumentSelect";
-			}
+			url="redirect:/documentManagement/documentManager/documentSelect";
 			return url;
 		}
 		
@@ -149,9 +142,6 @@ public class DocumentManagerController implements ApplicationContextAware{
 		
 		DocumentVO doc=document.toDocumentVO();
 		doc.setDoc_eadoc("n");
-		if(document.getDoc_eadoc() != null){
-			doc.setDoc_eadoc("y");
-		}
 		doc.setDoc_file_name("다운받을 파일이 없습니다.");
 		doc.setDoc_explanation(doc_explanation);
 		doc.setDoc_mem_number(mem_number);
@@ -160,11 +150,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 		
 		documentManagerService.documentInsertComplete(doc);
 		
-		if(document.getDoc_eadoc()==null){
-			url="redirect:/documentManagement/documentManager/documentSelect";
-		}else{
-			url="redirect:/documentManagement/documentManager/edocumentSelect";
-		}
+		url="redirect:/documentManagement/documentManager/documentSelect";
 		return url;
 	}
 	/**
@@ -270,4 +256,72 @@ public class DocumentManagerController implements ApplicationContextAware{
 		return "documentManagement/documentManager/edocumentSelect";
 	}
 	
+	@RequestMapping("/edocumentInsert")
+	public String edocumentInsert(Model model,Principal principal){
+		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등로곺ㅁ");
+		List<Common_CodeVO> codeList = documentManagerService.documentCodeSelect(); 
+		model.addAttribute("codeList2",codeList);
+		
+		MemberVO mem = basicSettingService.selectMember(principal.getName());
+		
+		model.addAttribute("mem", mem);
+		
+		return "documentManagement/documentManager/edocumentInsert";
+	}
+	/**
+	 * 파일등록하여 글 등록하는 것
+	 * @param model
+	 * @param request
+	 * @param document
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/edocumentInsertComplete", method=RequestMethod.POST)
+	public String edocumentInsertComplete(Model model , CommandDocumentVO2 document,@RequestParam( value="content") String doc_content) throws IOException{
+		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등록");
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String mem_id = user.getUsername(); 
+		MemberVO mem = basicSettingService.selectMember(mem_id);
+		String mem_number = mem.getMem_number();
+		DocumentVO doc = document.toDocumentVO();
+		
+		doc.setDoc_eadoc("y");
+		doc.setDoc_content(doc_content);
+		doc.setDoc_mem_number(mem_number);
+		model.addAttribute(doc);
+		
+		documentManagerService.edocumentInsertComplete(doc);
+		return "redirect:/documentManagement/documentManager/edocumentSelect";
+	}
+	@RequestMapping("/edocumentDelete")
+	public @ResponseBody Map<String,String> edocumentDelete(String id){
+		documentManagerService.documentDelete(id);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/documentManagement/documentManager/edocumentSelect");
+		return resultMap;
+	}
+	@RequestMapping("/edocumentDetail")
+	public String edocumentDetail(String dv_doc_number, Model model, String page){
+		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO mem = basicSettingService.selectMember(user.getUsername());
+		model.addAttribute("mem",mem);
+		model.addAttribute("document",document);
+		model.addAttribute("page",page);
+		return "documentManagement/documentManager/edocumentDetail";
+	}
+	
+	@RequestMapping("/edocumentUpdateForm")
+	public String edocumentUpdate(String doc_number, Model model, String page){
+		DocumentVO document = documentManagerService.selectDocumentUpdateForm(doc_number);
+		model.addAttribute("document",document);
+		model.addAttribute("page",page);
+		return "documentManagement/documentManager/edocumentUpdate";
+	}
+	@RequestMapping("/edocumentUpdate")
+	public String edocumentUpdate(DocumentVO document,@RequestParam( value="content") String doc_content){
+		document.setDoc_content(doc_content);	
+		documentManagerService.edocumentManagerUpdate(document);
+		return "redirect:/documentManagement/documentManager/edocumentSelect";
+	}
 }

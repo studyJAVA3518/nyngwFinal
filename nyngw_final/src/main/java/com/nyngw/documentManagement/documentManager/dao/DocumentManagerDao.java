@@ -22,4 +22,6 @@ public interface DocumentManagerDao {
 	public List<DocumentViewVO> selectEDocumentManagerList(int firstRow, int endRow,
 			Board_SelectVO select);
 	public int selectEDocumentCount();
+	public int edocumentInsertComplete(DocumentVO documentVO);
+	public void edocumentManagerUpdate(DocumentVO document);
 }

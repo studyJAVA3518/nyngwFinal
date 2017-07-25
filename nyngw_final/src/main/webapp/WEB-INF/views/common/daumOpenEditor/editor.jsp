@@ -28,11 +28,11 @@
 						</div>
 					</li>
 					<!-- 이미지 첨부 버튼 끝 -->
-					<li class="tx-list">
-						<div unselectable="on" id="tx_file" class="tx-file tx-btn-trans">
-							<a href="javascript:;" title="파일" class="tx-text">파일</a>
-						</div>
-					</li>
+<!-- 					<li class="tx-list"> -->
+<!-- 						<div unselectable="on" id="tx_file" class="tx-file tx-btn-trans"> -->
+<!-- 							<a href="javascript:;" title="파일" class="tx-text">파일</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
 					<li class="tx-list">
 						<div unselectable="on" id="tx_media" class="tx-media tx-btn-trans">
 							<a href="javascript:;" title="외부컨텐츠" class="tx-text">외부컨텐츠</a>
@@ -398,11 +398,11 @@
 			<div class="tx-resize-bar-bg"></div>
 			<img id="tx_resize_holder" src="<c:url value="/resources/daumOpenEditor/images/icon/editor/skin/01/btn_drag01.gif"/>" width="58" height="12" unselectable="on" alt="" />
 		</div>
-			<div class="tx-side-bi" id="tx_side_bi">
+		<div class="tx-side-bi" id="tx_side_bi">
 		</div>
-		<!-- 편집영역 끝 -->
-		<!-- 첨부박스 시작 -->
-		<!-- 파일첨부박스 Start -->
+<!-- 		편집영역 끝 -->
+<!-- 		첨부박스 시작 -->
+<!-- 		파일첨부박스 Start -->
 		<div id="tx_attach_div" class="tx-attach-div">
 			<div id="tx_attach_txt" class="tx-attach-txt">파일 첨부</div>
 			<div id="tx_attach_box" class="tx-attach-box">
@@ -422,11 +422,11 @@
 					</div>
 				</div>
 			</div>
-		<!-- 첨부박스 끝 -->
+<!-- 		첨부박스 끝 -->
 		</div>
-		<!-- 에디터 컨테이너 끝 -->
+<!-- 		에디터 컨테이너 끝 -->
 		</div>
-		<!-- 에디터 끝 -->
+<!-- 		에디터 끝 -->
 <script type="text/javascript">
 	var config = {
 		txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
