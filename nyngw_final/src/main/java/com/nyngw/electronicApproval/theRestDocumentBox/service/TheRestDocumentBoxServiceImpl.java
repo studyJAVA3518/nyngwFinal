@@ -18,16 +18,8 @@ public class TheRestDocumentBoxServiceImpl implements TheRestDocumentBoxService 
 		return theRestDocumentBoxDao.getApprovalList(vo);
 	}
 
-	public List<CommonApproval_TOTALVO> getApproval_HistoryList(CommonApproval_TOTALVO vo) {
-		return theRestDocumentBoxDao.getApproval_HistoryList(vo);
-	}
-
 	public List<CommonApproval_TOTALVO> getApprovalREList(CommonApproval_TOTALVO vo) {
 		return theRestDocumentBoxDao.getApprovalREList(vo);
-	}
-
-	public List<CommonApproval_TOTALVO> getApproval_RE_HistoryList(CommonApproval_TOTALVO vo) {
-		return theRestDocumentBoxDao.getApproval_RE_HistoryList(vo);
 	}
 
 	public List<CommonApproval_TOTALVO> getApprovalTOList(CommonApproval_TOTALVO vo) {
