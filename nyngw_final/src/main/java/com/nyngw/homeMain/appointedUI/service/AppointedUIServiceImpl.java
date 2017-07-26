@@ -18,6 +18,7 @@ import com.nyngw.dto.AddressBookVO;
 import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.BirthdayVO;
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.CommonApproval_TOTALVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
@@ -155,7 +156,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		List<DocumentViewVO> documentManagerList = null; //문서조회
 		List<ScheduleVO> scheduleList = null;//일정관리 
 		List<Duty_ReportVO> dutyReportList = null; //받은업무보고
-		List<Electronic_ApprovalVO> EARefusedList = null;//반려문서
+		List<CommonApproval_TOTALVO> EARefusedList = null;//반려문서함
 		List<Electronic_ApprovalVO> eaList = null;//미완료문서
 		List<String> ea_numberList = null;//접속자의 사원번호로 결재라인에 올라가있는 결재번호 검색
 		MainUserUiSelectSetting mUUSS = new MainUserUiSelectSetting();//제목리스트, 내용리스트, 테이블명, More주소
@@ -897,11 +898,9 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 					}
 					break;
 				case "mid_11": //반려문서
-					EARefusedList = individualDocumentBoxDao.selectRAB(loginUser);
-					for(int j = 0; i < EARefusedList.size(); i++){
-						Common_CodeVO ccVO = CommonDao.selectCodeNameByDocNumber(EARefusedList.get(i).getEa_doc_number());
-						EARefusedList.get(i).setCommon_name(ccVO.getCode_name());
-					}
+					CommonApproval_TOTALVO vo = new CommonApproval_TOTALVO();
+					vo.setEa_mem_number(member.getMem_number());
+					EARefusedList = individualDocumentBoxDao.getRefusedApprovalList_ID(vo);
 					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
 					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
 					titleList = new ArrayList<String>();//제목이 들어가는 곳
@@ -919,10 +918,11 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 					if(EARefusedList.size()>count){
 						for(int j = 0; j < count; j++){
 							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
-							mUUSVO.setContent1(EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent1(EARefusedList.get(j).getEa_number());
 							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
-							mUUSVO.setContent3(EARefusedList.get(j).getCommon_name());
-							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number="+EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent3(EARefusedList.get(j).getDoc_name());
+							mUUSVO.setContent4(EARefusedList.get(j).getMem_name());
+							mUUSVO.setDetailUri("");
 							list.add(mUUSVO);
 						}
 						if(one.equals(uiCodeName.get(i))){
@@ -941,10 +941,11 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 					}else{
 						for(int j = 0; j < EARefusedList.size(); j++){
 							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
-							mUUSVO.setContent1(EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent1(EARefusedList.get(j).getEa_number());
 							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
-							mUUSVO.setContent3(EARefusedList.get(j).getCommon_name());
-							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number="+EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent3(EARefusedList.get(j).getDoc_name());
+							mUUSVO.setContent4(EARefusedList.get(j).getMem_name());
+							mUUSVO.setDetailUri("");
 							list.add(mUUSVO);
 						}
 						if(one.equals(uiCodeName.get(i))){
