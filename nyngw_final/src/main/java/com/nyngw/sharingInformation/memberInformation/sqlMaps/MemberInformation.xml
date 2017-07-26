@@ -47,4 +47,19 @@
 		where substr(mem_birthday,4,2) = #{month}
 		order by 1
 	</select>
+	
+	<select id="SI_selectOrganizationChart" parameterType="java.lang.String" resultType="com.nyngw.dto.MemberVO">
+		select * from member
+		where    mem_dept_number = #{dept_number}
+	</select>
+	
+	<select id="SI_selectPosition" parameterType="java.lang.String" resultType="java.lang.String">
+		select position_name from position
+		where  position_number = #{position_number}
+	</select>
+
+	<select id="SI_selectDepartment_SI" parameterType="java.lang.String" resultType="java.lang.String">
+		select dept_name from department
+		where  dept_number = #{dept_number}
+	</select>
 </mapper>

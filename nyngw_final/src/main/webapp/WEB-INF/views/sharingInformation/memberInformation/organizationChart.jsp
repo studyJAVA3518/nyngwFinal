@@ -4,9 +4,45 @@
 http://info.korail.com/mbs/www/subview.jsp?id=www_010604010000   를 참고하였음
 링크를 각각 잡아줘야함 (현재 22번째 줄에서 구글로 잡아주고 있다)
 
+<style>
+	.tableTd1{
+		 width:111px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd2{
+		 width:75px;
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd3{
+		 width:233px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd4{
+		 width:160px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd5{
+		 width:213px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+</style>
+
 <script>
 
 $(function(){
+	// 	기본 설정 dialog 보이지 않게                                                                                                                                                                        
+	$('#deptAddress').css('display', 'none');
+	
 	$.ajax({
 		url:"/sharingInformation/memberInformation/getTreeJsonDate",
 		type: "get",
@@ -19,15 +55,75 @@ $(function(){
 			$(".verticalTree").zooTree(jsonData, {
 				forceCreate: true, // 현재 사용하지 않음
 				render: function(data) { // <li>...</li> 태그안에 내용을 커스텀 할 수 있다
-				    var $div = $("<a href='http://google.com'>").append(data.label);
+					var abc = data.itemId;
+				    var $div = $("<a id='detail' name='"+data.itemId+"'>").append(data.label);
 				    return $div;
 				}
 			});
 		},
 		dataType:"json"
 	});
-});	
+
+// function aaa(a){
+// 	alert(a);
+// }
+	
+	$(document).delegate("#detail",'click', function(){
+		var dept_number = this.name;
+		$.ajax({                                                                                                                                                                                 
+				url:'/sharingInformation/memberInformation/organizationChartDetail',                                                                                                              
+				type:'get',                                                                                                                                                                          
+				data: {'dept_number': dept_number},                                                                                                                                                  
+				success : function(res){                                                                                                                                                             
+					var code = "";                   
+					var dept = "";
+						$.each(res, function (i,value){                                                                                                                                              
+						code+='<tr>';                                                                                                                                    
+						code+='<td class="tableTd1">'+value.mem_name+'</td>';                                                                                                                                    
+						code+='<td class="tableTd2">'+value.mem_position_name+'</td>';                                                                                                                                         
+						code+='<td class="tableTd3">'+value.mem_email+'</td>';                                                                                                                                        
+						code+='<td class="tableTd4">'+value.mem_tel+'</td>';                                                                                                                                        
+						code+='<td class="tableTd5">'+value.mem_addr1+'</td></tr>';  
+						dept = '<h2>'+value.mem_dept_name+'</h2>';
+					});                                                 
+					$("#dept_name").append(dept);
+					$("#deptAddressList").append(code);                                                                                                                                                  
+				},                                                                                                                                                                                   
+				dataType : 'json'                                                                                                                                                                    
+		}) 
+		
+		$('#deptAddress').dialog({                                                                                                                                                     
+			width: 870,                                                                                                                                                                          
+			height: 500,                                                                                                                                                                         
+			modal: true,                                                                                                                                                                         
+			buttons: {                                                                                                                                                                           
+			   "확인": function() {                                                                                                                                                                
+					$(this).dialog("close");
+				}                                                                                                                                                                                
+			},                                                                                                                                                                                   
+			close: function() {                                                                                                                                                                  
+				$('#deptAddressList').html('<tr><th class="tableTd1">이름</th><th class="tableTd2">직위</th><th class="tableTd3">메일주소</th><th class="tableTd4">연락처</th><th class="tableTd5">주소</th></tr>'); 
+				$("#dept_name").html('');
+			}                                                                                                                                                                                    
+		}); 
+	}); 
+	
+});
+
 </script>
 
-
 <div class="verticalTree"></div>
+
+<div id="deptAddress" style="text-align: center;">                                                                                                                                                                 
+	조직도 클릭시 해당 부서의 값을 가지고있는 사원리스트를 가져옴   
+	<div id="dept_name"></div>                                                                                                                                                                              
+	<table class="table" id="deptAddressList">                                                                                                                                                       
+		<tr>                                                                                                                                                                                     
+			<th>이름</th>                                                                                                                                                                          
+			<th>직위</th>                                                                                                                                                                          
+			<th>메일주소</th>                                                                                                                                                                          
+			<th>연락처</th>                                                                                                                                                                        
+			<th>주소</th>                                                                                                                                                                        
+		</tr>                                                                                                                                                                                    
+	</table>                                                                                                                                                                                     
+</div>     
