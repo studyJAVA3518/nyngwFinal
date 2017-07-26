@@ -30,7 +30,7 @@ $(function(){
 	//기본 설정 dialog 보이지 않게                                                                                                                                                                        
 	$('#approvalHistoryDialog').css('display', 'none');                                                                                                                                          
 	                                                                                                                                                                                             
-	/////////////////////////////////////////////////////////////////////////                                                                                                                    
+	/////////////////////////////////////////////////////////////////////////    
     //결재 이력                                                                                                                                                                                      
 	$("#approvalHistory_go").click(function(){                                                                                                                                                   
 		$.ajax({                                                                                                                                                                                 
@@ -66,16 +66,11 @@ $(function(){
 		});                                                                                                                                                                                      
                                                                                                                                                                                                  
 	})	                                                                                                                                                                                         
-})                                                                                                                                                                                               
+})      
 </script>                                                                                                                                                                                        
 
 결재진행>완료문서상세
-<form name="hiddenForm" id="buttonForm">                                                                                                                                                         
-	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
-	<button type="button" id="rewriteApproval_go">재작성</button>
-	<button type="button" id="approvalHistory_go">결재이력</button>                                                                                                                                  
-</form>                                                                                                                                                                                          
-                                                                                                                                                                                                 
+                                                                                                                                                                                          
 <div id="approvalHistoryDialog">                                                                                                                                                                 
 	결재상태 이력보기                                                                                                                                                                                    
 	<table class="table" id="historyList">                                                                                                                                                       
@@ -88,22 +83,35 @@ $(function(){
 		</tr>                                                                                                                                                                                    
 	</table>                                                                                                                                                                                     
 </div>                                                                                                                                                                                           
-                                                                                                                                                                                                 
-<div>                                                                                                                                                                                            
-	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">                                                                                                                    
+        
+        
+<form name="hiddenForm" id="buttonForm">                                                                                                                                                         
+	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
+	<button type="button" id="approvalHistory_go">결재이력</button>                                                                                                                                  
+</form>                                                                                                                                                                                          
+       
+<div>
+	<form id="editForm">                                                                                                                                                                                            
+	<button type="button" onclick="rewriteApproval_go(this.form);">재작성</button>
 	<table class="table table-bordered">                                                                                                                                                         
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">품의번호</th>                                                                                                                                                        
-			<td colspan="5">${eaVO.ea_number }</td>                                                                                                                                              
-			<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                    
+			<td colspan="5">
+				${eaVO.ea_number }
+				<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                    
+			</td>                                                                                                                                              
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">작성일자</th>                                                                                                                                                        
-			<td colspan="5">${eaVO.ea_writedate }</td>                                                                                                                                           
+			<td colspan="5">
+				${eaVO.ea_writedate }
+			</td>                                                                                                                                           
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">기안자</th>                                                                                                                                                         
-			<td colspan="5">${mem_name }</td>                                                                                                                                                    
+			<td colspan="5">
+				${mem_name }
+			</td>                                                                                                                                                    
 		</tr>                                                                                                                                                                                    
 		<!-- 결재자 이름-->                                                                                                                                                                           
 		<tr id="approvalMember">                                                                                                                                                                 
@@ -159,11 +167,15 @@ $(function(){
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">시행일자</th>                                                                                                                                                        
-			<td colspan="5">${eaVO.ea_startdate } ~ ${eaVO.ea_enddate}</td>                                                                                                                      
+			<td colspan="5">
+				${eaVO.ea_startdate } ~ ${eaVO.ea_enddate}
+			</td>       
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">제목</th>                                                                                                                                                          
-			<td colspan="5">${eaVO.ea_title }</td>                                                                                                                                               
+			<td colspan="5">
+				${eaVO.ea_title }
+			</td>                                                                                                                                               
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<th colspan="6">내용</th>                                                                                                                                                              
@@ -173,6 +185,15 @@ $(function(){
 				${eaVO.ea_content }                                                                                                                                                              
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
-	</table>                                                                                                                                                                                     
+	</table>  
+	</form>                                                                                                                                                                                   
 	<a href="/electronicApproval/approvalProgress/refusedApproval"><button type="button">뒤로</button></a>                                                                                         
-</div>                                                                                                                                                                                           
+</div>     
+
+<script>    
+	function rewriteApproval_go(form){
+		form.method="get";
+		form.action="/electronicApproval/approvalProgress/editDraftForm";
+		form.submit();
+	}
+</script>                                                                                                                                                                                         
