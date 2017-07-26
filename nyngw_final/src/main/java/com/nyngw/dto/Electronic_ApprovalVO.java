@@ -18,7 +18,14 @@ public class Electronic_ApprovalVO {
 	private String ea_mem_number;	//시행자
 	private Date ea_writedate;		//기안일
 	private Date ea_ah_time; //결재이력 날짜..
+	private String common_name;// 문서이름을 저장하는 변수
 	
+	public String getCommon_name() {
+		return common_name;
+	}
+	public void setCommon_name(String common_name) {
+		this.common_name = common_name;
+	}
 	public Date getEa_ah_time() {
 		return ea_ah_time;
 	}
