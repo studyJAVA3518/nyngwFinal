@@ -182,7 +182,7 @@ $(function(){
 	}
 	.uiSelectWrap {
 		overflow : hidden;
-		margin-left : 10px;
+		margin : 15px 0 20px 10px;
 	}
 	.uiSelectBtnWrap {
 		padding : 15px;
@@ -220,6 +220,11 @@ $(function(){
 		border-radius : 10px;
 		width: 49%;
 		background-color : #f1f5f8;
+	}
+	.uiBottomWrap {
+		margin : 15px auto 30px;
+		text-align : center;
+		
 	}
 </style>
 <div id="allDiv row">
@@ -264,9 +269,6 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12 textCenter uiSelectBtnWrap">
-					<button type="button" id="userInterFaceButton" onclick="userUiSave()" class="btn btn-default">저장</button>
-				</div>
 			</form>
 		</div>
 		
@@ -284,8 +286,8 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<div style="width: 100%;">
-		<button class="btn">저장</button>
-		<button class="btn">취소</button>
+	<div class="row uiBottomWrap">
+		<button type="button" id="userInterFaceButton" onclick="userUiSave()" class="btn btn-default">저장</button>
+		<button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/homeMain/main'">취소</button>
 	</div>
 </div>
