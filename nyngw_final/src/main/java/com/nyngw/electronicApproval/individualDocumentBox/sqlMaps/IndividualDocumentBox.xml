@@ -104,4 +104,34 @@
 	<select id="selectPositionName"  resultType="string" parameterType="string">
 		select position_name from position where position_number = #{position_number}
 	</select>
+	
+	<select id="getRefusedApprovalList_ID" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
+		select distinct EA_NUMBER,doc_name,EA_TITLE,mem_name,EA_WRITEDATE,EA_STARTDATE,EA_ENDDATE,ah_time,ah_status  
+		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
+		where  al_number = AST_AL_NUMBER
+		and ea_number = AST_EA_NUMBER
+		and doc_number = EA_DOC_NUMBER
+		and ah_ea_number = ea_number
+		and mem_number = EA_MEM_number
+		and ah_status='반려'
+		and AST_MEM_NUMBER=#{ea_mem_number}
+		<if test="ea_title != null">
+			<if test="ea_title != ''">
+				and ea_title like  '%'||#{ea_title}||'%'
+			</if>
+		</if>
+		<if test="ea_number != null">
+			<if test="ea_number != ''">
+				and ea_number like '%'||#{ea_number}||'%'
+			</if>
+		</if>
+		<if test="doc_name != null">
+			<if test="doc_name != ''">
+				and doc_name like '%'||#{doc_name}||'%'
+			</if>
+		</if>
+	     order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
+	</select>
+	
+	
 </mapper>

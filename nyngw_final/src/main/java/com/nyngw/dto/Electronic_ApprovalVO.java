@@ -79,4 +79,14 @@ public class Electronic_ApprovalVO {
 	public void setEa_mem_number(String ea_mem_number) {
 		this.ea_mem_number = ea_mem_number;
 	}
+	@Override
+	public String toString() {
+		return "Electronic_ApprovalVO [ea_number=" + ea_number + ", ea_title="
+				+ ea_title + ", ea_content=" + ea_content + ", ea_startdate="
+				+ ea_startdate + ", ea_enddate=" + ea_enddate
+				+ ", ea_doc_number=" + ea_doc_number + ", ea_mem_number="
+				+ ea_mem_number + ", ea_writedate=" + ea_writedate
+				+ ", ea_ah_time=" + ea_ah_time + "]";
+	}
+	
 }

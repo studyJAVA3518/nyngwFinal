@@ -12,8 +12,8 @@
 			<td>검색일자</td>
 			<td>
 				<select name="EADateOption">
-					<option>반려일</option>
-					<option>기안일</option>
+					<option >반려일</option>
+					<option >기안일</option>
 				</select>
 			</td>
 		</tr>
@@ -21,10 +21,10 @@
 			<td>문서검색</td>
 			<td>
 				<select name="docSearchOption">
-					<option>--선택--</option>
-					<option>제목</option>
-					<option>품의번호</option>
-					<option>문서분류</option>
+					<option value="all">--선택--</option>
+					<option value="ea_title">제목</option>
+					<option value="ea_number">품의번호</option>
+					<option value="doc_name">문서분류</option>
 				</select>
 			</td>
 			<td>
@@ -43,25 +43,83 @@
 		<th>기안자</th>
 		<th>기안일</th>
 		<th>반려일</th>
+		<th>상태</th>
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
+	<!-- EA=electronicApproval (전자결재) -->
 	<c:forEach items="${EAList }" var="EA" varStatus="status">
 		<tr>
-			<td>${EA.ea_number }</td>
-			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${EA.ea_mem_number }</td>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-			<td><fmt:formatDate value="${EA.ea_refusaldate}" pattern="yyyy/MM/dd"/></td>
+			<td class="ea_number">${EA.ea_number }</td>
+			<td>${EA.doc_name }</td>
+			<td class="approvalHistory_go" style="color: blue;">${EA.ea_title }</td>
+			<td>${EA.mem_name}</td>
+			<td><fmt:formatDate value="${EA.ea_writedate}" pattern="yyyy/MM/dd"/>
+			<td><fmt:formatDate value="${EA.ah_time}" pattern="yyyy/MM/dd"/>
+			</td>
+			<td>${EA.ah_status }</td>
 		</tr>
 	</c:forEach>
 </table>
-
+<div id="approvalHistoryDialog">
+	결재상태 이력보기
+	<table class="table" id="historyList">
+		<tr>
+			<th>부서</th>
+			<th>직급</th>
+			<th>이름</th>
+			<th>결재종류</th>
+			<th>결재시간</th>
+		</tr>
+	</table>
+</div>
 <script>
 	function searchRefusedApproval_go(form){
 		form.method="get";
 		form.action="/electronicApproval/individualDocumentBox/searchRefusedApproval";
 		form.submit();
 	} 
+	
+	$(function(){
+		$('#approvalHistoryDialog').css('display', 'none');
+		$(".approvalHistory_go").click(function(){
+			var tmp = $(this).siblings('.ea_number').text();
+	        $.ajax({
+	           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
+	           type:'get',
+	           data: {'ea_number' : tmp},
+	           success : function(res){
+	       		   var code = "";
+	        	   $.each(res, function (i,value){
+	        		   code+='<tr><td>'+value.dept_name+'</td>';
+	        		   code+='<td>'+value.position_name+'</td>';
+	        		   code+='<td>'+value.mem_name+'</td>';
+	        		   code+='<td>'+value.ah_status+'</td>';
+	        		   code+='<td>'+value.ah_time+'</td></tr>';
+	        	   });
+					$("#historyList").append(code);
+	           },
+	           dataType : 'json'
+	        })
+			
+			$('#approvalHistoryDialog').dialog({
+				width: 700,
+				height: 500,
+				modal: true,
+				buttons: {
+			       "취소": function() {
+						$(this).dialog("close");
+					}
+				},
+				close: function() {
+					$('#textArea').val('');
+				}
+		    });
+	    })
+	    ///////////////////////////////////////////////
+		$("#editDraft_go").click(function(){
+			location.href="/electronicApproval/individualDocumentBox/editDraftForm";
+		});
+		
+	})
 </script>

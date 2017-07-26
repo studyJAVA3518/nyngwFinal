@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.CommonApproval_TOTALVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.Electronic_ApprovalViewVO;
 import com.nyngw.dto.MeetingListViewVO;
@@ -123,6 +124,10 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 	
 	public String findLastAstMember(String ea_number) {
 		return individualDocumentBoxDao.ID_selectAllAS(ea_number);
+	}
+
+	public List<CommonApproval_TOTALVO> getRefusedApprovalList(CommonApproval_TOTALVO vo) {
+		return individualDocumentBoxDao.getRefusedApprovalList_ID(vo);
 	}
 	
 }
