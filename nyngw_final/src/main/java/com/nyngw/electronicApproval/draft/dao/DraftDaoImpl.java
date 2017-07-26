@@ -113,4 +113,8 @@ public class DraftDaoImpl implements DraftDao {
 		return (String) sqlSession.selectOne("ea_selectDocContent",doc_number);
 	}
 
+	public void draft_deleteApproval(Electronic_ApprovalVO eaVO) {
+		sqlSession.delete("draft_deleteApproval", eaVO);		
+	}
+
 }
