@@ -78,7 +78,7 @@ $(function(){
 				</td>
 				<th>회의일</th>
 				<td>
-					<input type="date" name="mt_date">
+					<input type="text" class="inputTypeDate" name="mt_date">
 				</td>
 			</tr>
 			<tr>

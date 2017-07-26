@@ -69,7 +69,7 @@
 				</select>
 			</td>
 			<th>보고일</th>
-			<td><input type="date" name="dr_date1"></td>
+			<td><input type="text" class="inputTypeDate" name="dr_date1"></td>
 		</tr>
 		<tr>
 			<th id="approvalMember">보고대상</th><td colspan="3" id="approvalMember1"><button type="button" id="linePopup_go">선택</button></td>

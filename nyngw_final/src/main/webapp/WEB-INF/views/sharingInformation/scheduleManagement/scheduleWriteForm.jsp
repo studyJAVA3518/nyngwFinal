@@ -11,7 +11,7 @@
 		</tr>
 		<tr>
 		    <th>날짜</th>
-		    <td><input type="date" value="" name="sc_date"></td>
+		    <td><input type="text" class="inputTypeDate" value="" name="sc_date"></td>
 		</tr>
 		<tr>
 		    <th>시간</th>

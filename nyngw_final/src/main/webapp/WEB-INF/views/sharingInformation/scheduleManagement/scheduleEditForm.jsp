@@ -10,7 +10,7 @@
 		</tr>
 		<tr>
 			<td>날짜</td>
-			<td><input type="date" value="${schedule.sc_date }" name="sc_date"></td>
+			<td><input type="text" class="inputTypeDate" value="${schedule.sc_date }" name="sc_date"></td>
 		</tr>
 		<tr>
 			<td>시간</td>
@@ -19,7 +19,7 @@
 	</table>
 	<textarea rows="10" cols="100" name="sc_content">${schedule.sc_content}</textarea>
 	<button type="button" onclick="scheduleEdit_go(this.form)">확인</button>
-	<button type="button">취소</button>
+	<button type="button" onclick="scheduleEdit_go(this.form)">취소</button>
 </form>
 
 <script>
@@ -28,4 +28,5 @@
 		form.action="/sharingInformation/scheduleManagement/scheduleEdit";
 		form.submit();
 	}
+	
 </script>

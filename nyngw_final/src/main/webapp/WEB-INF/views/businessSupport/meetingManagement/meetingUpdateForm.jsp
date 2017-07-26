@@ -66,7 +66,7 @@ function meetingDelete(mt_number){
 			<tr>
 				<th>회의일</th>
 				<td>
-					<input type="date" name="param_mt_date" value="${param_mt_date }">
+					<input type="text" class="inputTypeDate" name="param_mt_date" value="${param_mt_date }">
 				</td>
 				<th>회의주최자</th>
 				<td><input type="text" name="mt_reader" value="${meeting.mt_reader }" readonly="readonly"/></td>
