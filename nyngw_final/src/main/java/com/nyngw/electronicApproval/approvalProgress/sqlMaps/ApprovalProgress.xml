@@ -35,8 +35,14 @@
 		select nvl(max(substr(ah_ast_number,4)),0) from approval_history where ah_ea_number= #{ah_ea_number}
 	</select>
 	
+	<!-- 가장 마지막의 결재상태 -->
 	<select id="selectLastAhStatus" parameterType="string" resultType="string">
-		
+		select ah_status 
+		from approval_history 
+		where ah_ea_number = #{ea_number} 
+		and 'ast'||(select max(substr(ah_ast_number,4)) 
+		from approval_history
+		where ah_ea_number = #{ea_number} ) = ah_ast_number
 	</select>
 	
 	<!-- 결재번호로 하나의 결재를 가져오기 -->
@@ -148,4 +154,18 @@
 		order by ah_time desc
 	</select>
 
+	<!-- 결재 수정 -->
+	<update id="EA_updateApproval" parameterType="com.nyngw.dto.Electronic_ApprovalVO">
+		update electronic_approval
+		set ea_writedate = sysdate,
+			ea_startdate = #{ea_startdate},
+			ea_enddate = #{ea_enddate},
+			ea_title = #{ea_title},
+			ea_content = #{ea_content}
+		where ea_number = #{ea_number}	
+	</update>
+	
+	<delete id="EA_deleteApprovalHistory" parameterType="string">
+		delete from approval_history where ah_ea_number = #{ea_number}
+	</delete>
 </mapper>

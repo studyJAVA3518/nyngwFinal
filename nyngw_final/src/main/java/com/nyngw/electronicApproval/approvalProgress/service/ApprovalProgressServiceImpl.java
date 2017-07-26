@@ -1,6 +1,8 @@
 package com.nyngw.electronicApproval.approvalProgress.service;
 
 import java.security.Principal;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,7 @@ import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
+import com.nyngw.homeMain.appointedUI.service.AppointedUIServiceImpl;
 
 @Service
 public class ApprovalProgressServiceImpl implements ApprovalProgressService {
@@ -29,6 +32,9 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 
 	@Autowired
 	private CommonServiceImpl commonServiceImpl;
+	
+	@Autowired
+	private AppointedUIServiceImpl appointedUIService;
 	
 	//모든 미결재문서를 가져옴
 	public void defaultWA(Model model,Principal principal) {
@@ -114,6 +120,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
 		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);	//결재 이력에 등록된 마지막 우선순위를 검색
+		String lastAhStatus = approvalProgressDao.selectLastAhStatus(ea_number);
 		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
 		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
 		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
@@ -123,7 +130,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
 			agreementMember.add(member2);
 			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
-//				if()
 				agreementMem_sign.add(member2.getMem_sign());
 				indexB++;
 			}
@@ -139,6 +145,17 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			}
 			index++;
 		}
+		if(lastAhStatus.equals("거부")){
+			agreementMem_sign.remove(agreementMem_sign.size()-1);
+			agreementMem_sign.add("refuse.jpg");
+			indexB++;
+		}
+		if(lastAhStatus.equals("반려")){
+			approvalMem_sign.remove(approvalMem_sign.size()-1);
+			approvalMem_sign.add("disapprove.jpg");
+			indexB++;
+		}
+		
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
 		model.addAttribute("agreementMem_sign",agreementMem_sign);
 		
@@ -569,6 +586,165 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		}
 		
 		return map;
+	}
+
+	public void editApprovalSet(Model model, String ea_number, Principal principal){
+		Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+		model.addAttribute("eaVO", eaVO);
+		
+		MemberVO member = null;
+		try {
+			member = appointedUIService.checkMember(principal.getName());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("member", member);
+		
+		//결재스탭 정보 setting 
+		Approval_StepVO asVO = new Approval_StepVO();
+		asVO.setAst_ea_number(eaVO.getEa_number());
+		asVO.setAst_al_number("A");
+		List<Approval_StepVO> approvalMemberList = approvalProgressDao.selectAstMemNumberByEaNumber(asVO);
+		asVO.setAst_al_number("B");
+		List<Approval_StepVO> agreementMemberList = approvalProgressDao.selectAstMemNumberByEaNumber(asVO);
+		asVO.setAst_al_number("C");
+		List<Approval_StepVO> implementMemberList = approvalProgressDao.selectAstMemNumberByEaNumber(asVO);
+		asVO.setAst_al_number("D");
+		List<Approval_StepVO> referenceMemberList = approvalProgressDao.selectAstMemNumberByEaNumber(asVO);
+		
+		List<MemberVO> approvalMember= new ArrayList<MemberVO>();
+		List<MemberVO> agreementMember= new ArrayList<MemberVO>();
+		String implementMemberName = "";
+		String referenceMemberName = "";
+		MemberVO member2 =null;
+		
+		//결재 이력 정보
+		List<String> approvalMem_sign = new ArrayList<String>();
+		List<String> agreementMem_sign = new ArrayList<String>();
+		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(eaVO.getEa_number());	//결재 이력에 등록된 마지막 우선순위를 검색
+		String lastAhStatus = approvalProgressDao.selectLastAhStatus(eaVO.getEa_number());
+		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
+		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
+		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
+		
+		//합의자의 싸인을 담기 위함
+		for (Approval_StepVO approval_StepVO : agreementMemberList) {
+			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
+			agreementMember.add(member2);
+			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
+				agreementMem_sign.add(member2.getMem_sign());
+				indexB++;
+			}
+			index++;
+		}
+		//결재자의 싸인을 담기 위함
+		for (Approval_StepVO approval_StepVO : approvalMemberList) {
+			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
+			approvalMember.add(member2);
+			if(lastAhHistory>=index){
+				approvalMem_sign.add(member2.getMem_sign());
+				indexA++;
+			}
+			index++;
+		}
+		if(lastAhStatus.equals("거부")){
+			agreementMem_sign.remove(agreementMem_sign.size()-1);
+			agreementMem_sign.add("refuse.jpg");
+			indexB++;
+		}
+		if(lastAhStatus.equals("반려")){
+			approvalMem_sign.remove(approvalMem_sign.size()-1);
+			approvalMem_sign.add("disapprove.jpg");
+			indexB++;
+		}
+		
+		model.addAttribute("approvalMem_sign",approvalMem_sign);
+		model.addAttribute("agreementMem_sign",agreementMem_sign);
+		
+		index = 0;
+		for (Approval_StepVO approval_StepVO : implementMemberList) {
+			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
+			if(index!=0){
+				implementMemberName += ", ";
+			}
+			implementMemberName += (member2.getMem_name());
+		}
+		for (Approval_StepVO approval_StepVO : referenceMemberList) {
+			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
+			if(index!=0){
+				referenceMemberName += ", ";
+			}
+			referenceMemberName += (member2.getMem_name());
+		}
+		model.addAttribute("approvalMember",approvalMember);
+		model.addAttribute("agreementMember",agreementMember);
+		model.addAttribute("implementMemberName",implementMemberName);
+		model.addAttribute("referenceMemberName",referenceMemberName);
+		
+		//자신의 결재우선순위
+		//작성자 이름
+		MemberVO member3 = commonServiceImpl.findMemberByMemId(principal.getName());
+		
+		Map<String, String> paramMap = new HashMap<String,String>();
+		paramMap.put("ast_ea_number", eaVO.getEa_number());
+		paramMap.put("ast_mem_number",member3.getMem_number());
+		int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
+		model.addAttribute("ast_number","ast"+memberAstPriority);
+		
+		//자신의 결재 종류 (합의인지 결재인지)
+		paramMap = new HashMap<String,String>();
+		paramMap.put("ea_number", eaVO.getEa_number());
+		paramMap.put("mem_id", principal.getName());
+		
+		String mem_al_number = approvalProgressDao.EA_selectAstALNumber(paramMap);
+		model.addAttribute("mem_al_number",mem_al_number);
+		
+		//전체 결재선의 크기
+		int lastAstPriorityOfA = approvalProgressDao.selectLastAstPriorityOfA(eaVO.getEa_number());
+		int lastAstPriorityOfB = approvalProgressDao.selectLastAstPriorityOfB(eaVO.getEa_number());
+		model.addAttribute("lastAstPriorityOfA",5-lastAstPriorityOfA);	//lastAstPriorityOfA = 5에서 A의 전체 결재선을 뺀 수 = 빈칸의 수 
+		model.addAttribute("lastAstPriorityOfB",5-lastAstPriorityOfB);	//lastAstPriorityOfB = 5에서 B의 전체 결재선을 뺀 수 = 빈칸의 수
+		
+		//결재 이력중 A와 B의 갯수
+		List<String> ahAstNumberList = approvalProgressDao.selectAhAstNumberByEaNumber(eaVO.getEa_number());
+		int countA = 0;
+		int countB = 0;
+		for (String ast_number : ahAstNumberList) {
+			paramMap = new HashMap<String, String>();
+			paramMap.put("ast_number", ast_number);
+			paramMap.put("ah_ea_number", eaVO.getEa_number());
+			if(approvalProgressDao.selectAstAllNumberByAstNumber(paramMap).equals('A')){
+				countA++;
+			}else{
+				countB++;
+			}
+		}
+
+		model.addAttribute("emptyStartA",lastAstPriorityOfA+1);	//3
+		model.addAttribute("emptyStartB",lastAstPriorityOfB+1);
+		model.addAttribute("noStartA",indexA+1);
+		model.addAttribute("noStartB",indexB+1);
+		model.addAttribute("noEndA",lastAstPriorityOfA);
+		model.addAttribute("noEndB",lastAstPriorityOfB);
+	}
+
+	public void editApproval(Model model, Electronic_ApprovalVO eaVO, Principal principal,String ea_content,
+			String param_startdate,String param_enddate) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date startdate = null;
+		Date enddate = null;
+		try {
+			startdate = transFormat.parse(param_startdate);
+			enddate = transFormat.parse(param_enddate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		eaVO.setEa_content(ea_content);
+		eaVO.setEa_startdate(startdate);
+		eaVO.setEa_enddate(enddate);
+		approvalProgressDao.EA_updateApproval(eaVO);
+		
+		approvalProgressDao.EA_deleteApprovalHistory(eaVO.getEa_number());
 	}
 
 }

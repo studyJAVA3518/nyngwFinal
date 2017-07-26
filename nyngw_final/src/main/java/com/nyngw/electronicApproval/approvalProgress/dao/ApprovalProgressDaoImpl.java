@@ -163,6 +163,18 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		}
 		return returnDate;
 	}
+
+	public String selectLastAhStatus(String ea_number) {
+		return (String) sqlSession.selectOne("selectLastAhStatus",ea_number);
+	}
+
+	public void EA_updateApproval(Electronic_ApprovalVO eaVO) {
+		sqlSession.update("EA_updateApproval",eaVO);
+	}
 	
+	public void EA_deleteApprovalHistory(String ea_number) {
+		sqlSession.delete("EA_deleteApprovalHistory",ea_number);
+	}
+
 
 }
