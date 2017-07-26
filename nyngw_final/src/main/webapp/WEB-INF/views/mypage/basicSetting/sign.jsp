@@ -13,7 +13,7 @@
 <table class="table table-bordered">
 	<tr>
 		<th>사진</th>
-		<td><img src="/resources/memface/${MemberVoDetail.mem_img }"></td>
+		<td><img src="/resources/images/profile/${MemberVoDetail.mem_img }"></td>
 	</tr>
 	<tr>
 		<th>사원이름</th>

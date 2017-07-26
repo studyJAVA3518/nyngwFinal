@@ -75,7 +75,7 @@ public class BasicSettingController {
 	
 	@RequestMapping(value="/updateMember", method=RequestMethod.POST)
 	public String updateMember(MemberVO vo,Principal principal,Model model,String mem_npwd, MemberVOup voup) throws IOException{
-		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/memface";
+		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/images/profile";
 		String upload2 = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/resources/memsign";
 		
 		MultipartFile multipartFile = voup.getMem_imgup();

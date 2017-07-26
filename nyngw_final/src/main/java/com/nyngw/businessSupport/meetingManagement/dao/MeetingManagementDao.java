@@ -28,6 +28,7 @@ public interface MeetingManagementDao {
 	public void updateMeeting(MeetingVO meeting);
 
 	public void meetingDelete(String mt_number);
+	public void attendDelete(String mt_number);
 //--------------------회의록-------------------
 
 	public List<Meeting_DocumentVO> meeting_DocumentList(int firstRow, int endRow,
@@ -45,6 +46,7 @@ public interface MeetingManagementDao {
 	public void attendInsert(AttendanceVO attend);
 
 	public List<MeetingVO> selectMeetingAll();
+
 
 
 
