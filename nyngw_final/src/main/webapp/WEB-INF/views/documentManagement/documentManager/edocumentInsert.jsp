@@ -7,7 +7,21 @@
 <%
       User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 %>
-
+<script>
+function insert_error_go(){
+    
+    if(!document.getElementById("doc_name").value){
+       alert("제목을 입력하십시오.");
+       return;
+    }else if(!document.getElementById("doc_lifetime").value){
+    	alert("보존기간를 입력하시오.");
+    	return;
+    }else{
+    	saveContent();
+    }
+    
+ }
+</script>
 <form name="tx_editor_form"	style="width: 750px;" id="tx_editor_form" action="edocumentInsertComplete" method="POST" accept-charset="utf-8">
 	<table class="table table-bordered">
 		<caption>문서 작성</caption>
@@ -44,7 +58,7 @@
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp"	flush="false" />
 
 	<div>
-		<button type="button" onclick="saveContent();" class="btn">등록</button>
+		<button type="button" onclick="insert_error_go();" class="btn">등록</button>
 		<button class="btn">
 			<a href="/documentManagement/documentManager/edocumentSelect"id="edocumentSelect">취소</a>
 		</button>

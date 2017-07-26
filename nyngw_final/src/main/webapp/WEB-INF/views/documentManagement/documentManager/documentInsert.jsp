@@ -7,6 +7,26 @@
 <%
       User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 %>
+<script>
+function insert_error_go(){
+    
+    if(!document.getElementById("doc_name").value){
+       alert("제목을 입력하십시오.");
+       return;
+    }else if(!document.getElementById("doc_lifetime").value){
+    	alert("보존기간를 입력하시오.");
+    	return;
+    }else if(!document.getElementsByName("doc_file_name").value){
+    	alert("파일을 첨부해 주세요.");
+    	return;
+    }else{
+    	saveContent();
+    }
+    
+ }
+</script>
+
+
 
 <script type="text/javascript">
    function file_change(file){
@@ -56,7 +76,7 @@
 		</table>
 		
 		<div>
-			<button type="button" onclick="saveContent();" class="btn">등록</button>
+			<button type="button" onclick="insert_error_go(); " class="btn">등록</button>
 			<button class="btn"><a href="/documentManagement/documentManager/documentSelect" id="documentSelect">취소</a></button>
 		</div>
 	</form>

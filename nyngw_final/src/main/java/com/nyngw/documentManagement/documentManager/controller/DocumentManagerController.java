@@ -104,7 +104,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
-	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_content, String doc_name) throws IOException{
+	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_content) throws IOException{
 		String url="";
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document";
 		
@@ -122,10 +122,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 			
 			DocumentVO doc=document.toDocumentVO();
 			doc.setDoc_eadoc("n");
-//			if(document.getDoc_eadoc() != null){
-//				doc.setDoc_eadoc("y");
-//			}
-			doc.setDoc_explanation(doc_name);
+			doc.setDoc_explanation(doc_content);
 			doc.setDoc_mem_number(mem_number);
 			doc.setDoc_file_name(multipartFile.getOriginalFilename());
 			
@@ -143,7 +140,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 			DocumentVO doc=document.toDocumentVO();
 			doc.setDoc_eadoc("n");
 			doc.setDoc_file_name("다운받을 파일이 없습니다.");
-			doc.setDoc_explanation(doc_name);
+			doc.setDoc_explanation(doc_content);
 			doc.setDoc_mem_number(mem_number);
 			
 			model.addAttribute(doc);

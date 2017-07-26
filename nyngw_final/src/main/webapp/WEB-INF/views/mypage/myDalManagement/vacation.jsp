@@ -60,6 +60,6 @@
 		</div>
 	
 <div>
-	<button><a href="/electronicApproval/draft/draft">»ﬁ∞° Ω≈√ª</a></button>
+	<button><a href="/electronicApproval/draft/searchDraftDocument?draftBoxOption=&searchOption=doc_name&searchText=»ﬁ∞°">»ﬁ∞° Ω≈√ª</a></button>
 </div>
 
