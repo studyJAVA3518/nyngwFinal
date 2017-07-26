@@ -216,6 +216,7 @@ public class MeetingManagementController {
 	@RequestMapping("/meetingDelete")
 	public @ResponseBody Map<String,String> meetingDelete(String mt_number){
 		System.out.println(mt_number+"오니?");
+		meetingManagementService.attendDelete(mt_number);
 		meetingManagementService.meetingDelete(mt_number);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/businessSupport/meetingManagement/meetingCalendar");
