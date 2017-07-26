@@ -27,16 +27,45 @@ $(function(){
 				width:950,
 				height: 700,
 				modal: true,
-				buttons: {
-			       "취소": function() {
-						$(this).dialog("close");
+				buttons: [{
+					text: "등록",
+					icon: "ui-icon-heart",
+					click: function() {
+						submitLineCall();
+						$( this ).dialog( "close" );
 					}
-				},
+				},{
+					text: "취소",
+					icon: "ui-icon-heart",
+					click: function() {
+						$( this ).dialog( "close" );
+					}
+				}],
 				close: function() {
 					
 				}
 			});
 		})
+		
+		var submitLineCall = null;
+		//결재라인 등록하기//
+				
+		//결재라인 등록하기//
+
+		
+		function submitLine(){
+			var code = "";
+			var mt_members="";
+	         $('#approval option').each(function(i){
+	        	 
+	        	 if(i>0){
+	        		 code += ",";
+	        	 }
+	        	 code+=$(this).val();
+	         });
+	        $('#approvalMember').html(code);
+		}
+		submitLineCall=submitLine;
 })
 </script>
 <div>
@@ -67,7 +96,7 @@ $(function(){
 			<tr>
 				<th>회의주최자</th>
 				<td><input type="text" name="mt_reader" value="${meetingList2.mem_name }" readonly="readonly"></td>
-				<td id="approvalMember1"></td><td id="approvalMember2"></td><td id="approvalMember3"></td><td id="approvalMember4"></td>
+				<td id="approvalMember" colspan="5">
 			</tr>
 		</table>
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/meetingeditor.jsp" flush="false"/>

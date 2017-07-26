@@ -178,14 +178,7 @@ td {
 		
 		
 		/////////////////////////////////////////////////////////
-		
-		//결재라인 등록하기//
-		$("#submitLine").click(function(){
-	         $('#approval option').each(function(i){
-	        	 $('#approvalMember'(i+1)).html($(this).val()+'<input type="hidden" name="mt_members'+(i+1)+'" value="'+$(this).attr('id')+'">');
-	         });
-	         $('#linePopup').dialog('close');
-		})
+
 	});
 	
 	
@@ -289,8 +282,8 @@ td {
 					</div>
 					
 				</div>
-				<button type="button" id="submitLine">등록</button>
-				<button type="button">취소</button>
+<!-- 				<button type="button" id="submitLine">등록</button> -->
+<!-- 				<button type="button">취소</button> -->
 			</div>
 		</div>
 	</div>
