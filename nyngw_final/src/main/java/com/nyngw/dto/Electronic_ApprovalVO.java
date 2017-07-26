@@ -19,7 +19,14 @@ public class Electronic_ApprovalVO {
 	private Date ea_writedate;		//기안일
 	private Date ea_ah_time; //결재이력 날짜..
 	private String common_name;// 문서이름을 저장하는 변수
+	private String write_name; //기안자이름
 	
+	public String getWrite_name() {
+		return write_name;
+	}
+	public void setWrite_name(String write_name) {
+		this.write_name = write_name;
+	}
 	public String getCommon_name() {
 		return common_name;
 	}

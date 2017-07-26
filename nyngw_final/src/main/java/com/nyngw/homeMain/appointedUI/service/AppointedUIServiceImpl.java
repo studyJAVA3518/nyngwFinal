@@ -31,6 +31,7 @@ import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.ScheduleVO;
 import com.nyngw.dto.UserInterfaceVO;
 import com.nyngw.dto.UserUiVO;
+import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.dao.IndividualDocumentBoxDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.service.IndividualDocumentBoxServiceImpl;
 import com.nyngw.homeMain.appointedUI.dao.AppointedUIDaoImpl;
@@ -50,6 +51,9 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 
 	@Autowired
 	private IndividualDocumentBoxDaoImpl individualDocumentBoxDao;
+	
+	@Autowired
+	ApprovalProgressDaoImpl approvalProgressDao;
 	
 	@Override
 	public CompanyVO checkCompany() throws SQLException {
@@ -152,6 +156,8 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		List<ScheduleVO> scheduleList = null;//일정관리 
 		List<Duty_ReportVO> dutyReportList = null; //받은업무보고
 		List<Electronic_ApprovalVO> EARefusedList = null;//반려문서
+		List<Electronic_ApprovalVO> eaList = null;//미완료문서
+		List<String> ea_numberList = null;//접속자의 사원번호로 결재라인에 올라가있는 결재번호 검색
 		MainUserUiSelectSetting mUUSS = new MainUserUiSelectSetting();//제목리스트, 내용리스트, 테이블명, More주소
 		List<MainUserUiSelectVO> list = null; //내용을 담을 리스트
 		MainUserUiSelectVO mUUSVO = null;//내용이들어가는곳
@@ -801,24 +807,95 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 						}
 					}
 					break;
-//				case "mid_10": //미결재문서
-//					dutyReportList = appointedUIDao.userUiDutyReportList_UI(loginUser);
-//					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
-//					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
-//					titleList = new ArrayList<String>();//제목이 들어가는 곳
-//					titleList.add("번호");
-//					titleList.add("제목");
-//					titleList.add("보고유형");
-//					titleList.add("보고자");
-//					if(one.equals(uiCodeName.get(i))){
-//						mUUSS.setTitle1(titleList);
-//					}else if(two.equals(uiCodeName.get(i))){
-//						mUUSS.setTitle2(titleList);
-//					}else{
-//						mUUSS.setTitle3(titleList);
-//					}
-//					
-//					break;
+				case "mid_10": //미결재문서
+					eaList = new ArrayList<Electronic_ApprovalVO>();//미완료문서
+					ea_numberList = approvalProgressDao.ap_selectEaNumberByMemId(member.getMem_number());//접속자의 사원번호로 결재라인에 올라가있는 결재번호 검색
+					List<MemberVO> memberList = new ArrayList<MemberVO>();
+					for (String ea_number: ea_numberList) {
+						//한 결재의 마지막 결재우선순위 검색
+						int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
+						//한 사원의 한 결재의 우선순위 검색 
+						Map<String, String> paramMap = new HashMap<String,String>();
+						paramMap.put("ast_ea_number", ea_number);
+						paramMap.put("ast_mem_number", member.getMem_number());
+						int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
+						//한 결재의 마지막 결재이력의 우선순위 검색
+						int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
+						//미결재문서 (자신의 우선순위 차례이면)
+						if(lastAhHistory+1==memberAstPriority){
+							Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+							eaList.add(eaVO);
+						}else if(lastAhHistory==lastAstPriority+1){
+							Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+							eaList.add(eaVO);
+						}
+					}
+					for(int j = 0; j < eaList.size(); j++){
+						MemberVO nameVO = CommonDao.common_selectMemberByMemNumber(eaList.get(j).getEa_mem_number());
+						eaList.get(j).setWrite_name(nameVO.getMem_name());
+					}
+					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
+					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+					titleList = new ArrayList<String>();//제목이 들어가는 곳
+					titleList.add("품의번호");
+					titleList.add("제목");
+					titleList.add("기안자");
+					titleList.add("기안일");
+					if(one.equals(uiCodeName.get(i))){
+						mUUSS.setTitle1(titleList);
+					}else if(two.equals(uiCodeName.get(i))){
+						mUUSS.setTitle2(titleList);
+					}else{
+						mUUSS.setTitle3(titleList);
+					}
+					if(eaList.size()>count){
+						for(int j = 0; j < count; j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(eaList.get(j).getEa_number());
+							mUUSVO.setContent2(eaList.get(j).getEa_title());
+							mUUSVO.setContent3(eaList.get(j).getWrite_name());
+							mUUSVO.setContent4(eaList.get(j).getEa_writedate());
+							mUUSVO.setDetailUri("/electronicApproval/approvalProgress/waitingApprovalDetail?ea_number="+eaList.get(j).getEa_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("미결재문서");
+							mUUSS.setUriAddr1("/electronicApproval/approvalProgress/waitingApproval");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("미결재문서");
+							mUUSS.setUriAddr2("/electronicApproval/approvalProgress/waitingApproval");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("미결재문서");
+							mUUSS.setUriAddr3("/electronicApproval/approvalProgress/waitingApproval");
+						}
+					}else{
+						for(int j = 0; j < eaList.size(); j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(eaList.get(j).getEa_number());
+							mUUSVO.setContent2(eaList.get(j).getEa_title());
+							mUUSVO.setContent3(eaList.get(j).getWrite_name());
+							mUUSVO.setContent4(eaList.get(j).getEa_writedate());
+							mUUSVO.setDetailUri("/electronicApproval/approvalProgress/waitingApprovalDetail?ea_number="+eaList.get(j).getEa_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("미결재문서");
+							mUUSS.setUriAddr1("/electronicApproval/approvalProgress/waitingApproval");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("미결재문서");
+							mUUSS.setUriAddr2("/electronicApproval/approvalProgress/waitingApproval");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("미결재문서");
+							mUUSS.setUriAddr3("/electronicApproval/approvalProgress/waitingApproval");
+						}
+					}
+					break;
 				case "mid_11": //반려문서
 					EARefusedList = individualDocumentBoxDao.selectRAB(loginUser);
 					for(int j = 0; i < EARefusedList.size(); i++){
