@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.ScheduleVO;
 import com.nyngw.sharingInformation.scheduleManagement.dao.ScheduleManagementDaoImpl;
@@ -29,6 +30,25 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
 		paramMap.put("sc_mem_number", mem_number);
 		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_selectAllSchedule(paramMap); 
 		model.addAttribute("scheduleList",scheduleList );
+	}
+	
+	public void SI_selectCompanySchedule(Model model, String sc_code_number){
+		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_selectCompanySchedule(sc_code_number);
+		model.addAttribute("scheduleList",scheduleList);
+	}
+	
+	public List<ScheduleVO> SI_schedule_sc_mem_number(Model model, String sc_code_number){
+		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_schedule_sc_mem_number(sc_code_number);
+		return scheduleList;
+	}
+	
+	public void SI_selectDepartmentSchedule(Model model, String sc_code_number, String mem_number, String sc_mem_number){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("sc_code_number", sc_code_number);
+		paramMap.put("mem_number", mem_number);
+		paramMap.put("sc_mem_number", sc_mem_number);
+		List<ScheduleVO> scheduleList = scheduleManagementDao.SI_selectDepartmentSchedule(paramMap);
+		model.addAttribute("scheduleList",scheduleList);
 	}
 	
 	public void getSchedule(Model model,String sc_number,Principal principal) {

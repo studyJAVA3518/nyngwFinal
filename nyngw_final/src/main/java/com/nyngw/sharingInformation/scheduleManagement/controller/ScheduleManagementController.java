@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.DepartmentVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.dto.ScheduleVO;
 import com.nyngw.sharingInformation.scheduleManagement.service.ScheduleManagementServiceImpl;
@@ -39,8 +40,27 @@ public class ScheduleManagementController {
 	public String scheduleCheck(Model model,String sc_code_number,Principal principal){
 		String mem_id = principal.getName();
 		MemberVO member = commonService.findMemberByMemId(mem_id);
-		
-		scheduleManagementService.getAllSchedule(model, sc_code_number,member.getMem_number());
+		//로그인한 유저의 부서
+		String mem_number = member.getMem_number();
+		if(sc_code_number.equals("code5")){
+			List<ScheduleVO> schedule = scheduleManagementService.SI_schedule_sc_mem_number(model, sc_code_number);
+			for(int i = 0; i<schedule.size(); i++){
+				MemberVO member2 = commonService.findMemberByMemNumber(schedule.get(i).getSc_mem_number());
+				if(member.getMem_dept_number().equals(member2.getMem_dept_number())){
+					String sc_mem_number = schedule.get(i).getSc_mem_number();
+					scheduleManagementService.SI_selectDepartmentSchedule(model, sc_code_number, mem_number, sc_mem_number);
+					System.out.println("부서일정가져와!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+schedule.get(i).getSc_mem_number()+"스케줄등록한 사람???");
+					System.out.println("부서일정가져와!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+mem_number+"로그인한 사람???");
+					System.out.println("로그인한 사람의 부서번호!!!!!!!!!"+member.getMem_dept_number());
+					System.out.println("일정등록한 사람의 부서번호!!!!!!!!!"+member2.getMem_dept_number());
+				}
+			}
+			
+		}else if(sc_code_number.equals("code6")){
+			scheduleManagementService.SI_selectCompanySchedule(model, sc_code_number);
+		}else{
+			scheduleManagementService.getAllSchedule(model, sc_code_number,member.getMem_number());
+		}
 		model.addAttribute("sc_code_number",sc_code_number);
 		return "sharingInformation/scheduleManagement/schedule";
 	}
