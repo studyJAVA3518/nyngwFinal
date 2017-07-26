@@ -490,18 +490,27 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		return null;
 	}
 
+	//결재하기
 	public Map<String,String>  conformApproval(Approval_HistoryVO ahVO, String mem_pwd,
 			Principal principal) {
 		Map<String,String> map = new HashMap<String, String>();
 		MemberVO member = commonServiceImpl.findMemIdByMemPwd(mem_pwd);
-		if(ahVO.getAh_code_number() .equals("code14")){
-			//이사람이 결재잔지 합의잔지 체크해줘야함
+		//이사람이 결재잔지 합의잔지 체크해줘야함
+		if(ahVO.getAh_code_number() .equals("code14")||ahVO.getAh_code_number() .equals("code12")){	//결재,합의자
 			if(member!=null){
 				if(principal.getName() .equals(member.getMem_id())){
 					approvalProgressDao.insertApprovalHistory(ahVO);
 					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
 					map.put("al_number",al_number);
-					map.put("priority",ahVO.getAh_ast_number().substring(3));
+					
+					int priority = Integer.parseInt(ahVO.getAh_ast_number().substring(3));
+					int maxAgreementPriority = approvalProgressDao.selectMaxAgreementPriority(ahVO.getAh_ea_number());
+					if(priority>maxAgreementPriority){
+						map.put("priority",priority-maxAgreementPriority+"");
+					}else{
+						map.put("priority",ahVO.getAh_ast_number().substring(3));
+					}
+					
 					map.put("check","y");
 					map.put("mem_sign",member.getMem_sign());
 					map.put("uri","/electronicApproval/individualDocumentBox/completeApprovalBox");
@@ -509,9 +518,10 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 					map.put("check","n");
 				}
 			}
-		}else if(ahVO.getAh_code_number() .equals("code15")){
+		}else if(ahVO.getAh_code_number() .equals("code15")||ahVO.getAh_code_number() .equals("code13")){	//거부,반려자
 			if(member!=null){
 				if(principal.getName() .equals(member.getMem_id())){
+					System.out.println("패스워드 통과");
 					//한 결재의 마지막 결재우선순위 검색
 					int lastAstPriority = approvalProgressDao.selectLastAstPriority(ahVO.getAh_ea_number());
 					Map<String,String> paramMap = new HashMap<String, String>();
@@ -531,7 +541,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 					}else{
 						map.put("priority",ahVO.getAh_ast_number().substring(3));
 					}
-					
 					
 					map.put("check","y");
 					map.put("mem_sign",member.getMem_sign());

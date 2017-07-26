@@ -27,10 +27,15 @@
 </style>
 <script type="text/javascript">
 $(function(){
+	//기본 설정 dialog 보이지 않게
 	$('#approvalDialog').css('display', 'none');
+	$('#disapproveDialog').css('display', 'none');
+	$('#agreeDialog').css('display', 'none');
 	$('#refuseDialog').css('display', 'none');
 	$('#approvalHistoryDialog').css('display', 'none');
-	/////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////
+	//결재 다이얼로그
 	$("#approve_go").click(function(){
 		$('#approvalDialog').dialog({
 			width: 700,
@@ -56,7 +61,59 @@ $(function(){
 			}
 		});
 	})
-     
+	//합의 다이얼로그
+	$("#agree_go").click(function(){
+		$('#agreeDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons:[{
+				text: "등록",
+				icon: "ui-icon-heart",
+				click: function() {
+					agreeSubmitCall();
+					$( this ).dialog( "close" );
+				}
+			},{
+				text: "취소",
+				icon: "ui-icon-heart",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}],
+			close: function() {
+				$('#textArea').val('');
+				$('#pwd').val('');
+			}
+		});
+	})
+    //반려 다이얼로그
+	$("#disapprove_go").click(function(){
+		$('#disapproveDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons:[{
+				text: "등록",
+				icon: "ui-icon-heart",
+				click: function() {
+					disapproveSubmitCall();
+					$( this ).dialog( "close" );
+				}
+			},{
+				text: "취소",
+				icon: "ui-icon-heart",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}],
+			close: function() {
+				$('#textArea').val('');
+				$('#pwd').val('');
+			}
+		});
+	})
+    //거부 다이얼로그 
 	$("#refuse_go").click(function(){
 		$('#refuseDialog').dialog({
 			width: 700,
@@ -82,18 +139,143 @@ $(function(){
 			}
 		});
 	})
-     
-     
-	$(".approvalHistory_go").click(function(){
+    
+	//////////////////////////////////////////////////////////////
+	//결재하기//
+	var approvalSubmitCall = null;
+	function approvalSubmit(){
+		$.ajax({
+			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+			type:"post",
+			data: $("#approvalSubmitForm").serialize(),
+			success: function(result){ // success
+				if(result.check=='y'){
+					if(result.al_number=='A'){
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+		 				$("#approvalStatus"+result.priority).html(code);
+		 				$("#approve_go").attr("disabled",true);
+		 				$("#disapprove_go").attr("disabled",true);
+		 				alert("결재가 완료되었습니다.");
+					}else if(result.al_number=='B'){
+						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+		 				$("#agreementStatus"+result.priority).html(code);
+		 				$("#agree_go").attr("disabled",true);
+		 				$("#refuse_go").attr("disabled",true);
+		 				alert("합의가 완료되었습니다.");
+					}
+				}else{
+					alert("잘못된 비밀번호입니다.");
+				}
+			},
+			dataType:"json"				// dataType
+		});
+	}	
+	approvalSubmitCall=approvalSubmit;
+	
+	//합의하기//
+	var agreeSubmitCall = null;
+	function agreeSubmit(){
+		$.ajax({
+			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+			type:"post",
+			data: $("#agreeSubmitForm").serialize(),
+			success: function(result){ // success
+				if(result.check=='y'){
+					if(result.al_number=='A'){
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+		 				$("#approvalStatus"+result.priority).html(code);
+		 				$("#approve_go").attr("disabled",true);
+		 				$("#disapprove_go").attr("disabled",true);
+		 				alert("결재가 완료되었습니다.");
+					}else if(result.al_number=='B'){
+						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
+		 				$("#agreementStatus"+result.priority).html(code);
+		 				$("#agree_go").attr("disabled",true);
+		 				$("#refuse_go").attr("disabled",true);
+		 				alert("합의가 완료되었습니다.");
+					}
+				}else{
+					alert("잘못된 비밀번호입니다.");
+				}
+			},
+			dataType:"json"				// dataType
+		});
+	}	
+	agreeSubmitCall=agreeSubmit;
 		
-		var tmp = $(this).siblings('.ea_number').text();
+	//반려하기//
+	var disapproveSubmitCall = null;
+	function disapproveSubmit(){
+		$.ajax({
+			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+			type:"post",
+			data: $("#disapproveSubmitForm").serialize(),
+			success: function(result){ // success
+				if(result.check=='y'){
+					if(result.al_number=='A'){
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				$("#approvalStatus"+result.priority).html(code);
+		 				$("#approve_go").attr("disabled",true);
+		 				$("#disapprove_go").attr("disabled",true);
+		 				alert("반려가 완료되었습니다.");
+					}else if(result.al_number=='B'){
+						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				$("#agreementStatus"+result.priority).html(code);
+		 				$("#agree_go").attr("disabled",true);
+		 				$("#refuse_go").attr("disabled",true);
+		 				alert("거부가 완료되었습니다.");
+					}
+				}else{
+					alert("잘못된 비밀번호입니다.");
+				}
+			},
+			dataType:"json"				// dataType
+		});
+	}	
+	disapproveSubmitCall=disapproveSubmit;
+
+	//반려하기//
+	var refuseSubmitCall = null;
+	function refuseSubmit(){
+		$.ajax({
+			url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
+			type:"post",
+			data: $("#refuseSubmitForm").serialize(),
+			success: function(result){ // success
+				if(result.check=='y'){
+					if(result.al_number=='A'){
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				$("#approvalStatus"+result.priority).html(code);
+		 				$("#approve_go").attr("disabled",true);
+		 				$("#disapprove_go").attr("disabled",true);
+		 				alert("반려가 완료되었습니다.");
+					}else if(result.al_number=='B'){
+						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				$("#agreementStatus"+result.priority).html(code);
+		 				$("#agree_go").attr("disabled",true);
+		 				$("#refuse_go").attr("disabled",true);
+		 				alert("거부가 완료되었습니다.");
+					}
+				}else{
+					alert("잘못된 비밀번호입니다.");
+				}
+			},
+			dataType:"json"				// dataType
+		});
+	}	
+	refuseSubmitCall=refuseSubmit;
+    //////////////////////////////////////////////////////////////////////// 
+    
+    
+    //결재 이력
+	$("#approvalHistory_go").click(function(){
 		$.ajax({
 			url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
 			type:'get',
-			data: {'ea_number' : tmp},
+			data: $("#buttonForm").serialize(),
 			success : function(res){
 				var code = "";
-      	   		$.each(res, function (i,value){
+					$.each(res, function (i,value){
 					code+='<tr><td>'+value.dept_name+'</td>';
 					code+='<td>'+value.position_name+'</td>';
 					code+='<td>'+value.mem_name+'</td>';
@@ -104,105 +286,55 @@ $(function(){
 			},
 			dataType : 'json'
 		})
-     
-     
-		$('#approvalHistory_go').click(function(){
-			$('#approvalHistoryDialog').dialog({
-	 			width: 700,
-	 			height: 500,
-	 			modal: true,
-	 			buttons: {
-	 		       "취소": function() {
-	 					$(this).dialog("close");
-					}
-				},
-				close: function() {
- 					$('#textArea').val('');
-				}
-			}); 
-		});
-     
-		var approvalSubmitCall = null;
-		//결재하기//
-		function approvalSubmit(){
-			$.ajax({
-				url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
-				type:"post",
-				data: $("#approvalSubmitForm").serialize(),
-				success: function(result){ // success
-					if(result.check=='y'){
-						if(result.al_number=='A'){
-			 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
-			 				$("#approvalStatus"+result.priority).html(code);
-			 				$("#approve_go").attr("disabled",true);
-			 				$("#refuse_go").attr("disabled",true);
-			 				alert("결재가 완료되었습니다.");
-						}else if(result.al_number=='B'){
-							var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
-			 				$("#agreementStatus"+result.priority).html(code);
-			 				$("#approve_go").attr("disabled",true);
-			 				$("#refuse_go").attr("disabled",true);
-			 				alert("합의가 완료되었습니다.");
-						}
-					}else{
-						alert("잘못된 비밀번호입니다.");
-					}
-				},
-				dataType:"json"				// dataType
-			});
-		}	
-		approvalSubmitCall=approvalSubmit;
 		
-		var refuseSubmitCall = null;
-		//반려하기//
-		function refuseSubmit(){
-			$.ajax({
-				url:"/electronicApproval/approvalProgress/conformApproval",	// 결재처리 하는 컨트롤러 url
-				type:"post",
-				data: $("#refuseSubmitForm").serialize(),
-				success: function(result){ // success
-					if(result.check=='y'){
-						if(result.al_number=='A'){
-		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
-		 				$("#approvalStatus"+result.priority).html(code);
-		 				$("#approve_go").attr("disabled",true);
-		 				$("#refuse_go").attr("disabled",true);
-		 				alert("반려가 완료되었습니다.");
-						}else if(result.al_number=='B'){
-							var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
-		 				$("#agreementStatus"+result.priority).html(code);
-		 				$("#approve_go").attr("disabled",true);
-		 				$("#refuse_go").attr("disabled",true);
-		 				alert("거부가 완료되었습니다.");
-						}
-					}else{
-						alert("잘못된 비밀번호입니다.");
-					}
-				},
-				dataType:"json"				// dataType
-			});
-		}	
-		refuseSubmitCall=refuseSubmit;
-	///////////////////////////////////////////////
-	})
+		$('#approvalHistoryDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons: {
+			   "확인": function() {
+					$(this).dialog("close");
+				}
+			},
+			close: function() {
+				$('#textArea').val('');
+			}
+		}); 
+
+	})	
+	/* $('#approvalHistory_go').click(function(){
+		$('#approvalHistoryDialog').dialog({
+			width: 700,
+			height: 500,
+			modal: true,
+			buttons: {
+			   "취소": function() {
+					$(this).dialog("close");
+				}
+			},
+			close: function() {
+				$('#textArea').val('');
+			}
+		}); 
+	}); */
 })
 </script>
 결재진행>미결재문서함상세
 <!-- 선택한 결재문서의 정보들을 가지고 들어와야하고 이 때 필요한 정보를 hidden에 담아 주자 -->
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
-<form name="hiddenForm">
-	<input type="hidden" id="ea_number" value="${ea_number }">
+<form name="hiddenForm" id="buttonForm">
+	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">
 	<c:choose>
 		<c:when test="${mem_al_number eq 'A' }">
 			<button type="button" id="approve_go">결재</button>
 		</c:when>
 		<c:otherwise>
-			<button type="button" id="approve_go">합의</button>
+			<button type="button" id="agree_go">합의</button>
 		</c:otherwise>
 	</c:choose>	
 	<c:choose>
 		<c:when test="${mem_al_number eq 'A' }">
-			<button type="button" id="refuse_go">반려</button>
+			<button type="button" id="disapprove_go">반려</button>
 		</c:when>
 		<c:otherwise>
 			<button type="button" id="refuse_go">거부</button>
@@ -232,9 +364,9 @@ $(function(){
 		</div>
 	</c:when>
 	<c:otherwise>
-		<div id="approvalDialog">
+		<div id="agreeDialog">
 			합의하기
-			<form id="approvalSubmitForm">
+			<form id="agreeSubmitForm">
 				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
 				<%=user.getUsername() %>님 합의 하시겠습니까?<br>
 				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
@@ -252,9 +384,9 @@ $(function(){
 <!-- 반려하기 버튼 다이얼로그 -->
 <c:choose>
 	<c:when test="${mem_al_number eq 'A' }">
-		<div id="refuseDialog">
+		<div id="disapproveDialog">
 			반려하기
-			<form id="refuseSubmitForm">
+			<form id="disapproveSubmitForm">
 				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
 				<%=user.getUsername() %>님 반려하시겠습니까?<br>
 				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>

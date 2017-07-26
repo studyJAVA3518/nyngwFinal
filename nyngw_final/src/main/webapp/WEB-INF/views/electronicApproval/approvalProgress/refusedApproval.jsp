@@ -50,7 +50,7 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty eaList }">
+	<c:if test="${empty ra_eaList }">
 		<tr><td colspan="7">반려 문서가 없습니다!</td></tr>
 	</c:if>
 	<c:forEach items="${ra_eaList}" var="EA" varStatus="status">

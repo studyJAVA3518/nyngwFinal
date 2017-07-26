@@ -422,7 +422,7 @@ public class DraftServiceImpl implements DraftService {
 			priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
 		}
 		//시행자
-		if(apVO.getImplementMembers()!=null){
+		if(apVO.getImplementMembers()!=null&&!apVO.getImplementMembers().equals("")){
 			paramMap = new HashMap<String, String>(); 
 			implementMembers = apVO.getImplementMembers();
 			StringTokenizer st = new StringTokenizer(implementMembers,","); 
@@ -449,7 +449,7 @@ public class DraftServiceImpl implements DraftService {
 			priority = Integer.parseInt(paramMap.get("ast_number").substring(3));
 		}
 		//참조자
-		if(apVO.getReferenceMembers()!=null){
+		if(apVO.getReferenceMembers()!=null&&!apVO.getReferenceMembers().equals("")){
 			System.out.println("참조자");
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();

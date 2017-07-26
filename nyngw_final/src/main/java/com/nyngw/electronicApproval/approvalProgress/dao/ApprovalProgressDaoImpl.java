@@ -131,7 +131,11 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	}
 	
 	public int selectMaxAgreementPriority(String ea_number){
-		return (int) sqlSession.selectOne("selectMaxAgreementPriority",ea_number);
+		Integer result = (Integer) sqlSession.selectOne("selectMaxAgreementPriority",ea_number);
+		if(result != null){
+			return result;
+		}
+		return 0;
 	}
 	
 	/**
