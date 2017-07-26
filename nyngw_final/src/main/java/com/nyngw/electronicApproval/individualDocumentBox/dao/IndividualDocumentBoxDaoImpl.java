@@ -101,4 +101,8 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 	public List<CommonApproval_TOTALVO> getRefusedApprovalList_ID(CommonApproval_TOTALVO vo) {
 		return sqlSession.selectList("getRefusedApprovalList_ID", vo);
 	}
+
+	public void draft_deleteApprovalStep(String ea_number) {
+		sqlSession.delete("draft_deleteApprovalStep",ea_number);
+	}
 }

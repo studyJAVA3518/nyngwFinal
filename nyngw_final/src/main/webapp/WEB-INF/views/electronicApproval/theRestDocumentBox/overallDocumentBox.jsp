@@ -47,7 +47,7 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty eaList }">
+	<c:if test="${empty EAList }">
 		<tr><td colspan="7">결재에 관려된 이력이 없습니다!</td></tr>
 	</c:if>
 	<c:forEach items="${EAList }" var="EA" varStatus="status">

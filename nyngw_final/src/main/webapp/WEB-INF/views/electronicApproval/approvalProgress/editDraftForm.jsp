@@ -27,12 +27,6 @@
 </style>
 
 <script>
-	$(function(){
-
-	});
-</script>
-
-<script>
 	function approvalLine_go(){
 		location.href="/electronicApproval/draft/approvalLineManager";
 	}

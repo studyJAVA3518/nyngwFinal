@@ -39,7 +39,7 @@ $(function(){
 			data: $("#buttonForm").serialize(),                                                                                                                                                  
 			success : function(res){                                                                                                                                                             
 				var code = "";                                                                                                                                                                   
-					$.each(res, function (i,value){                                                                                                                                              
+				$.each(res, function (i,value){                                                                                                                                              
 					code+='<tr><td>'+value.dept_name+'</td>';                                                                                                                                    
 					code+='<td>'+value.position_name+'</td>';                                                                                                                                    
 					code+='<td>'+value.mem_name+'</td>';                                                                                                                                         
