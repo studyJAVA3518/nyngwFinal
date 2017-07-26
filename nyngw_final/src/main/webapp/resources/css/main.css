@@ -51,30 +51,36 @@ h5 {
 /**********login**********/
 .topBar {
 /* 	height : 65px; */
+/* 	background-color : #293348; */
+	background-color : #fff;
+	border-top : 4px solid #00a0c7;
 }
 .topBar img {
 	margin : 10px;
+	
 }
 .topText {
-	color : #ccc;
-	font-size : 13px;
+	color : #99a3b6;
+	font-size : 14px;
 	padding-top : 20px;
 	text-align : right;
+	margin-top : 55px;
 }
 .login {
 	text-align : center;
+	padding-bottom : 30px;
 }
 .login h2 {
 	font-size : 24px;
-	color : #666;
-	padding : 10px 0 15px;
+	color : #fff;
+	padding : 30px 0 30px;
 }
 .login>div {
-	padding : 20px;
+	padding : 20px 30px 50px;
 	margin-top : 350px;
 	margin-bottom : 350px;
-	border-radius : 10px;
-	background-color : #fff;
+	border-radius : 5px;
+	background-color: rgba( 0,0,0, 0.7 );
 }
 
 
