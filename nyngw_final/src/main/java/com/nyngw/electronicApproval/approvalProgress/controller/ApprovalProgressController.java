@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.ApprovalParamVO;
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
@@ -109,10 +111,21 @@ public class ApprovalProgressController {
 		return map;
 	}
 	
-	//결재하기
+	//재기안하기 폼
 	@RequestMapping("/editDraftForm")
-	public String  editDraftForm(String id){
+	public String editDraftForm(Model model,String ea_number, Principal principal){
+		ApprovalProgressService.editApprovalSet(model,ea_number,principal);
 		return "electronicApproval/approvalProgress/editDraftForm";
+	}
+	
+	//재기안하기
+	@RequestMapping("/editDraft")
+	public String editDraft(Model model,Electronic_ApprovalVO eaVO,Principal principal
+			,@RequestParam(value="content") String ea_content
+			,@RequestParam(value="param_ea_startdate") String startdate
+			,@RequestParam(value="param_ea_enddate") String enddate){
+		ApprovalProgressService.editApproval(model,eaVO,principal,ea_content,startdate,enddate);
+		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	
 	

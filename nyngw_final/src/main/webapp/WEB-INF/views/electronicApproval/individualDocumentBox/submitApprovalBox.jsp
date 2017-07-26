@@ -58,9 +58,6 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty eaList }">
-		<tr><td colspan="7">상신 문서가 없습니다!</td></tr>
-	</c:if>
 	<c:choose>
 	<c:when test="${viewData.documentCountPerPage > 0}">
 	<c:forEach items="${viewData.sangsinList }" var="EA" varStatus="status">
@@ -75,7 +72,7 @@
 	</c:when>
 	<c:otherwise>
 	<tr>
-		<td style="text-align: center;">내용이 없습니다.</td>
+		<td colspan="5" style="text-align: center;">상신한 문서가 없습니다.</td>
 	</tr>
 </c:otherwise>
 </c:choose>

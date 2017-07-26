@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
+import com.nyngw.dto.ApprovalParamVO;
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Board_SelectVO;
 import com.nyngw.dto.CommonApproval_TOTALVO;
@@ -23,6 +24,8 @@ import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.Electronic_ApprovalViewVO;
 import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
+import com.nyngw.electronicApproval.approvalProgress.service.ApprovalProgressServiceImpl;
+import com.nyngw.electronicApproval.draft.service.DraftServiceImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.service.IndividualDocumentBoxServiceImpl;
 
 @Controller
@@ -35,6 +38,8 @@ public class IndividualDocumentBoxController {
 	ApprovalProgressDaoImpl approvalProgressDao;
 	@Autowired
 	private CommonServiceImpl commonService;
+	@Autowired
+	private DraftServiceImpl draftService;
 	
 	private static final int PAGE_NUMBER_COUNT_PER_PAGE = 5;
 	
@@ -101,13 +106,40 @@ public class IndividualDocumentBoxController {
 	}
 	//상신문서상세
 	@RequestMapping("/submitApprovalDetail")
-	public String submitApprovalDetail(Model model,String ea_number){
+	public String submitApprovalDetail(Model model,String ea_number,Principal principal){
+		int check = 1;	//미결재
+		individualDocumentBoxService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/individualDocumentBox/submitApprovalDetail";
 	}
+	
 	//상신문서수정페이지
 	@RequestMapping("/editDraftForm")
-	public String editDraftForm(Model model){
+	public String editDraftForm(Model model,Principal principal,String doc_number,String ea_number){
+		individualDocumentBoxService.editApprovalSet(model,ea_number,principal);
 		return "electronicApproval/individualDocumentBox/editDraftForm";
+	}
+	
+	//상신문서수정
+	@RequestMapping("/editDraft")
+	public String editDraft(Model model,Electronic_ApprovalVO eaVO, 
+			@RequestParam(value="content") String ea_content,
+			@RequestParam(value="param_ea_startdate") String ea_startdate,
+			@RequestParam(value="param_ea_enddate") String ea_enddate,
+			ApprovalParamVO apVO){
+		System.out.println("인");
+		individualDocumentBoxService.editApproval(model,eaVO,ea_content,apVO,ea_startdate,ea_enddate);
+		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
+	}
+	
+	@RequestMapping("/submit")
+	public String edit(Model model,Electronic_ApprovalVO eaVO, 
+			@RequestParam(value="content") String ea_content,
+			String param_ea_number,
+			ApprovalParamVO apVO){
+		
+		//draftService.submitApproval(model,eaVO,ea_content,apVO,param_ea_number);
+		individualDocumentBoxService.submitApproval(model,eaVO,ea_content,apVO,param_ea_number);
+		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	
 	//임시보관함

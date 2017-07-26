@@ -6,65 +6,6 @@
 개인문서함>완료문서함 결재완료문서는 본인이 결재라인에 포함되어 있는 문서들 중 결재 처리를 한 문서들을 확인할 수 있는
 메뉴입니다. 검색 목록의 제목을 클릭하면 결재문서가 팝업으로 뜨면 결재 이력을 확인할 수 있습니다.
 
-<script type="text/javascript">
-
-$(function(){
-	$('#approvalHistoryDialog').css('display', 'none');
-	$(".approvalHistory_go").click(function(){
-		
-		var tmp = $(this).siblings('.ea_number').text();
-        $.ajax({
-           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
-           type:'get',
-           data: {'ea_number' : tmp},
-           success : function(res){
-       		   var code = "";
-        	   $.each(res, function (i,value){
-        		   code+='<tr><td>'+value.dept_name+'</td>';
-        		   code+='<td>'+value.position_name+'</td>';
-        		   code+='<td>'+value.mem_name+'</td>';
-        		   code+='<td>'+value.ah_status+'</td>';
-        		   code+='<td>'+value.ah_time+'</td></tr>';
-        	   });
-				$("#historyList").append(code);
-           },
-           dataType : 'json'
-        })
-		
-		$('#approvalHistoryDialog').dialog({
-			width: 700,
-			height: 500,
-			modal: true,
-			buttons: {
-		       "취소": function() {
-					$(this).dialog("close");
-				}
-			},
-			close: function() {
-				$('#textArea').val('');
-			}
-	    });
-    })
-    ///////////////////////////////////////////////
-	$("#editDraft_go").click(function(){
-		location.href="/electronicApproval/individualDocumentBox/editDraftForm";
-	});
-	
-})
-</script>
-<div id="approvalHistoryDialog">
-	결재상태 이력보기
-	<table class="table" id="historyList">
-		<tr>
-			<th>부서</th>
-			<th>직급</th>
-			<th>이름</th>
-			<th>결재종류</th>
-			<th>결재시간</th>
-		</tr>
-	</table>
-</div>
-
 <form>
 	<table class="table">
 		<tr>
@@ -109,14 +50,14 @@ $(function(){
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty eaList }">
-		<tr><td colspan="7">결재완료 문서가 없습니다!</td></tr>
+	<c:if test="${empty myEaList }">
+		<tr><td colspan="7">결재 완료 문서가 없습니다!</td></tr>
 	</c:if>
 	<c:forEach items="${myEaList }" var="EA" varStatus="status">
 		<tr>
 			<td class="ea_number">${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td class="approvalHistory_go" style="color: blue;">${EA.ea_title }</td>
+			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
 			<td>${EA.ea_mem_number }</td>
 			<td>${EA.ea_startdate}</td>
 			<td><fmt:formatDate value="${EA.ea_ah_time}" pattern="yyyy/MM/dd" /></td>

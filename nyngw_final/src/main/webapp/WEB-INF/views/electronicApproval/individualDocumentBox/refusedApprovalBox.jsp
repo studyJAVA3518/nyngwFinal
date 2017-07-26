@@ -45,6 +45,9 @@
 		<th>반려일</th>
 		<th>상태</th>
 	</tr>
+	<c:if test="${empty EAList }">
+		<tr><td colspan="7">반려 문서가 없습니다!</td></tr>
+	</c:if>
 	<c:forEach items="${EAList }" var="EA" varStatus="status">
 		<tr>
 			<td class="ea_number">${EA.ea_number }</td>

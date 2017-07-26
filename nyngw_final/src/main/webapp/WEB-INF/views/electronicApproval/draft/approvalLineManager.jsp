@@ -60,7 +60,7 @@ td {
 		//부서 선택시 회원 띄워주기//
 		function goThereAjax(str){
 			$.ajax({
-				url: 'findMemberByDepartment',
+				url: '/electronicApproval/draft/findMemberByDepartment',
 				data: 'dept_number='+str,
 				type: 'get',
 				success : function(result){

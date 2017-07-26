@@ -133,5 +133,7 @@
 	     order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
 	</select>
 	
-	
+	<delete id="draft_deleteApprovalStep" parameterType="string">
+		delete from approval_step where ast_ea_number = #{ast_ea_number}
+	</delete>
 </mapper>

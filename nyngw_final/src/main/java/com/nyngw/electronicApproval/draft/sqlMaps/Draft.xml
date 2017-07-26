@@ -103,4 +103,9 @@
 	<select id="ea_selectDocContent" parameterType="string" resultType="string">
 		select doc_content from document where doc_number = #{doc_number}
 	</select>
+	
+	<delete id="draft_deleteApproval" parameterType="com.nyngw.dto.Electronic_ApprovalVO" >
+		delete approval_step
+		where ast_ea_number=#{ea_number}
+	</delete>
 </mapper>

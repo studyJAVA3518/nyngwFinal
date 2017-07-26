@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.nyngw.dto.AddressBookVO;
 import com.nyngw.dto.BirthdayVO;
 import com.nyngw.dto.DepartmentVO;
+import com.nyngw.dto.MemberVO;
 
 @Repository
 public class MemberInformationDaoImpl implements MemberInformationDao {
@@ -44,5 +45,23 @@ public class MemberInformationDaoImpl implements MemberInformationDao {
 	//생일인 회원 리스트
 	public List<BirthdayVO> SI_selectBirthdayMember(String month, RowBounds rowBounds) {
 		return sqlSession.selectList("SI_selectBirthdayMember",month,rowBounds);
+	}
+	
+	//부서의 번호로 회원찾기
+	public List<MemberVO> SI_selectOrganizationChart(String dept_number){
+		List<MemberVO> member = sqlSession.selectList("SI_selectOrganizationChart", dept_number);
+		return member;
+	}
+	
+	//부서번호로 이름찾기
+	public String SI_selectDepartment(String dept_number){
+		String dept_name = (String) sqlSession.selectOne("SI_selectDepartment_SI",dept_number);
+		return dept_name;
+	}
+	
+	//직위번호로 직급이름찾기
+	public String SI_selectPosition(String position_number){
+		String position_name = (String) sqlSession.selectOne("SI_selectPosition",position_number);
+		return position_name;
 	}
 }
