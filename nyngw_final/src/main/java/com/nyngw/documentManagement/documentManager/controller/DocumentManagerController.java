@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.documentManagement.documentManager.DocumentListView;
 import com.nyngw.documentManagement.documentManager.service.DocumentManagerServiceImpl;
 import com.nyngw.dto.Board_SelectVO;
@@ -46,6 +47,9 @@ public class DocumentManagerController implements ApplicationContextAware{
 	
 	@Autowired
 	private BasicSettingServiceImpl basicSettingService; 
+	
+	@Autowired
+	private CommonServiceImpl commonService;
 	
 	/**
 	 * @param pageNumber
@@ -189,8 +193,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 	@RequestMapping("/documentDetail")
 	public String documentDetail(String dv_doc_number, Model model, String page){
 		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO mem = basicSettingService.selectMember(user.getUsername());
+		MemberVO mem = commonService.findMemberByMemNumber(document.getDoc_mem_number());
 		model.addAttribute("mem",mem);
 		model.addAttribute("document",document);
 		model.addAttribute("page",page);
@@ -303,8 +306,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 	@RequestMapping("/edocumentDetail")
 	public String edocumentDetail(String dv_doc_number, Model model, String page){
 		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO mem = basicSettingService.selectMember(user.getUsername());
+		MemberVO mem = commonService.findMemberByMemNumber(document.getDoc_mem_number());
 		model.addAttribute("mem",mem);
 		model.addAttribute("document",document);
 		model.addAttribute("page",page);

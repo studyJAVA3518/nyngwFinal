@@ -34,7 +34,7 @@ th{
 		<table class="table table-bordered">
 			<tr>
 				<th>문서번호</th><td>${document.doc_number }</td>
-				<th>등록자</th><td>${document.doc_mem_number }</td>
+				<th>등록자</th><td>${mem.mem_name }</td>
 				<th>전자결재문서</th><td>${document.doc_eadoc }</td>			
 			</tr>
 			<tr>
