@@ -2,22 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-#allDiv{
-	width: 100%;
-	height: 500px;
-}
-#allDiv>div{
-	width: 100%;
-}
-#bodyDiv{
-	height: 90%;
-}
-#topDiv{
-	height: 10%;
-}
-#bodyDiv>div{
-	border:  1px solid black;
-}
 </style>
 <script>
 $(function(){
@@ -164,67 +148,139 @@ $(function(){
 				type : 'post' ,
 				data : $('#userUi').serialize() , 
 				success : function(res){
-					alert('저장됬시유 ㅎ');
+					alert('UI설정이 저장되었습니다.');
 					location.href=res.uri;
 				},
 				dataType : 'json'
 			});
 	    }else{
-			alert('값을 서로 다르게 해주세욥');	    	
+			alert('값을 서로 다르게 해주세요.');	    	
 	    }
 	}
 
 </script>
 <style>
+	.uiTopWrap > h2 {
+		margin : 25px 0 15px;
+		padding-left : 20px;
+	}
 	.userInterFaceSetting{
 		background-color: rgba( 0, 0, 0, 0.5 );
 	}
-</style>
-<div id="allDiv">
-	<div id="topDiv" style="height: 50px;">
-		<button class="btn">자동</button>이 버튼을 누르면 밑에 화면1,2,3이 자주들어간 곳으로 설정됨.
-		<br>
-		<input type="checkbox" id="autoAndUser"> 체크시 자동 미체크시 UI선택
-	</div>
-<!-- 	<div id="bodyDiv"> -->
-	<div id="uiSelect">
-		<div style="height:60px;">
-			<form id="userUi">
-				<div style="float: left; margin: 0 30px;">
-					<h1>화면1</h1>
-					<div style="width: 100%;">
-						<select name="big_number" id="big_number"></select>
-						<select name="middleMenu" id="middleMenu"></select>
-					</div>
-				</div>
-			
-				<div style="float: left; margin: 0px 30px;">
-					<h1>화면2</h1>
-					<div style="width: 100%;">
-						<select name="big_number1" id="big_number1"></select>
-						<select name="middleMenu1" id="middleMenu1"></select>
-					</div>
-				</div>
+	#topDiv {
+		height: 60px;
+		line-height : 30px;
+		margin : 5px 0 15px;
+		padding-left : 20px;
+	}
+	#userUi > div > div> h4{
+		margin : 30px 0px 18px;
+	}
+	.uiSelect {
+		display : inline-block;
+		width : 115px;
+	}
+	.uiSelectWrap {
+		overflow : hidden;
+		margin-left : 10px;
+	}
+	.uiSelectBtnWrap {
+		padding : 15px;
+	}
 	
-				<div style="float: left; margin: 0px 30px;">
-					<h1>화면3</h1>
-					<div style="width: 100%;">
-						<select name="big_number2" id="big_number2"></select>
-						<select name="middleMenu2" id="middleMenu2"></select>
+	.uiBox_01 h4, .uiBox_02 h4, .uiBox_03 h4 {
+		line-height : 150px;
+	}
+	
+	.uiBox_01 {
+		height: 150px; 
+		border: 2px solid #00a0c7; 
+		text-align: center;
+		margin : 0 0 15px 5px;
+		border-radius : 10px;
+		background-color : #f1f5f8;
+	}
+	.uiBoxBottomWrap {
+		margin : 0 0 15px 4px;
+	}
+	.uiBox_02 {
+		height: 150px; 
+		border: 2px solid #00a0c7;
+		text-align: center;
+		border-radius : 10px;
+		width: 49%;
+		margin-right : 2%;
+		background-color : #f1f5f8;
+	}
+	
+	.uiBox_03 {
+		height: 150px; 
+		border: 2px solid #00a0c7;
+		text-align: center;
+		border-radius : 10px;
+		width: 49%;
+		background-color : #f1f5f8;
+	}
+</style>
+<div id="allDiv row">
+	
+	<div class="row">
+		<div class="col-md-12 uiTopWrap">
+			<h2>UI 설정하기</h2>
+			
+			<div id="topDiv">
+				<button class="btn">자동</button>이 버튼을 누르면 밑에 화면1,2,3이 자주들어간 곳으로 설정됩니다.
+				<br>
+				<input type="checkbox" id="autoAndUser"> 체크시 자동으로 사용자가 자주 사용하는 화면으로 설정되고 미체크시 UI를 선택할 수 있습니다.
+			</div>
+		</div>
+	</div>
+	
+	<div id="uiSelect" class="row">
+		<div class="col-md-12">
+			<form id="userUi">
+				<div class="row uiSelectWrap">
+					<div class="col-md-4">
+						<h4>화면1</h4>
+						<div class="row">
+							<select name="big_number" id="big_number" class="form-control uiSelect"></select>
+							<select name="middleMenu" id="middleMenu" class="form-control uiSelect"></select>
+						</div>
+					</div>
+				
+					<div class="col-md-4">
+						<h4>화면2</h4>
+						<div style="width: 100%;">
+							<select name="big_number1" id="big_number1" class="form-control uiSelect"></select>
+							<select name="middleMenu1" id="middleMenu1" class="form-control uiSelect"></select>
+						</div>
+					</div>
+		
+					<div class="col-md-4">
+						<h4>화면3</h4>
+						<div style="width: 100%;">
+							<select name="big_number2" id="big_number2" class="form-control uiSelect"></select>
+							<select name="middleMenu2" id="middleMenu2" class="form-control uiSelect"></select>
+						</div>
 					</div>
 				</div>
-				<button type="button" id="userInterFaceButton" onclick="userUiSave()">저장</button>
+				<div class="col-md-12 textCenter uiSelectBtnWrap">
+					<button type="button" id="userInterFaceButton" onclick="userUiSave()" class="btn btn-default">저장</button>
+				</div>
 			</form>
 		</div>
-		<div style="height: 400px;">
-			<div style="height: 50%; width: 100%; border: 2px solid black; text-align: center;">
-				<h1>화면 1</h1> 
+		
+		<div class="col-md-12">
+			<div class="row uiBox_01">
+				<h4>화면 1</h4> 
 			</div>
-			<div style="height: 40%; width: 46%; border: 2px solid black; float: left; margin: 2% 2%; text-align: center; vertical-align: middle;">
-				<h1>화면 2</h1> 
-			</div>
-			<div style="height: 40%; width: 46%; border: 2px solid black; float: left; margin: 2% 2%; text-align: center; vertical-align: middle;">
-				<h1>화면 3</h1> 
+			<div class="row uiBoxBottomWrap">
+				<div class="col-md-6 uiBox_02">
+					<h4>화면 2</h4> 
+				</div>
+				<div class="col-md-6 uiBox_03">
+					<h4>화면 3</h4> 
+				</div>
 			</div>
 		</div>
 	</div>
