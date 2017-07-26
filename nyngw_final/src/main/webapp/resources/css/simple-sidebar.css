@@ -29,9 +29,10 @@
     right: 250px;
     width: 0;
     height: 100%;
+    margin-top: -160px;
     margin-right: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #293348;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -65,8 +66,8 @@
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
     line-height: 30px;
+	text-align : center;
 }
 
 .sidebar-nav li a {
