@@ -40,13 +40,13 @@
     <!-- fontawesome(클래스화 된 아이콘) css inport -->
     <link href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" rel="stylesheet">
    
-   <!-- 풀캘린드-->
-   <script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
-   <script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
-   <script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
-   <!-- 캘린더 css -->
-   <link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
-   <link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
+	<!-- 풀캘린드-->
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
+	<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
+	<!-- 캘린더 css -->
+	<link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
+	<link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
    
     <!-- 초기화 css import -->
     <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
@@ -75,7 +75,7 @@
     $(function(){
       
 		// 비디오나 배경을 노출할 엘리먼트를 선택합니다. $('#videoEle')는 html 태그중에 <div id="videoEle"></div> 를 말하는 것입니다.
-		var BV = new $.BigVideo({useFlashForFirefox:false, container:$('#videoEle')});
+		var BV = new $.BigVideo({useFlashForFirefox:false, container:$('.videoEle')});
 	    BV.init();
 	    
         //웹브라우저마다 지원하는 비디오 형식이 다르기 때문에 다양하게 만들어서 제공해야합니다. 변환은 다음팟인코더나, 카카오인코더를 이용하세요. 
@@ -88,25 +88,13 @@
     })
     
 </script>
-<style>
-	#video {
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		min-width: 100%;
-		min-height: 100%;
-		width: auto;
-		height: auto;
-		z-index: -1;
-		overflow: hidden;
-	}
-</style>
+
 </head>
 <body>
 	
-	<div class="container-fluid indexWrapper" id="BigWrap">
+	<div class="container-fluid indexWrapper BigWrap">
 
-		<div id="videoEle"></div>
+		<div class="videoEle"></div>
 		
 		<nav class="navbar navbar-default navbar-fixed-top topBar">
 			<div class="container">
@@ -115,7 +103,7 @@
 						<img src="<%=request.getContextPath()%>/resources/images/nynLogo.png" class="img-responsive" style="width:60%; height : 60%;">	
 					</div>
 					<div class="col-md-10 topText">
-						Groupware Solotion
+						Do. and it will be done<br/>Next Year`s Newface Groupware Solotion
 					</div>
 				</div>
 			</div>

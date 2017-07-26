@@ -23,7 +23,8 @@
 }
 
 #sidebar-wrapper {
-    z-index: 1000;
+	position: fixed;
+    z-index: 10000;
     position: fixed;
     right: 250px;
     width: 0;
