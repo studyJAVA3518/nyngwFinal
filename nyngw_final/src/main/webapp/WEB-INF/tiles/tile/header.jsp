@@ -104,7 +104,6 @@
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">개인문서함</li>
 						            <li><a href="/electronicApproval/individualDocumentBox/submitApprovalBox">상신문서함</a></li>
-						            <li><a href="/electronicApproval/individualDocumentBox/outbox">임시보관함</a></li>
 						            <li><a href="/electronicApproval/individualDocumentBox/completeApprovalBox">결재완료문서함</a></li>
 						            <li><a href="/electronicApproval/individualDocumentBox/refusedApprovalBox">반려문서함</a></li>
 						            <li class="divider"></li>
@@ -112,9 +111,6 @@
 									<li><a href="/electronicApproval/theRestDocumentBox/implementDocumentBox">시행문서함</a></li>  
 									<li><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">참조문서함</a></li>  
 									<li><a href="/electronicApproval/theRestDocumentBox/overallDocumentBox">전체문서함</a></li>  
-						            <li class="divider"></li>
-									<li><a href="/electronicApproval/approvalLineManagement/approvalLineManagement">결재라인관리</a></li>  
-						         
 						          </ul>
 						        </div>
 						        
@@ -146,7 +142,6 @@
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">나의 급여 관리</li>
 						            <li><a href="/mypage/myPayManagement/salary">급여 명세서 보기</a></li>
-									<li><a href="/mypage/myPayManagement/severance">퇴직금 현황</a></li>
 						            <li class="divider"></li>
 						            <li class="topMenuTitle">기본 설정</li>
 						            <li><a href="/mypage/basicSetting/sign">개인 정보 수정</a></li>

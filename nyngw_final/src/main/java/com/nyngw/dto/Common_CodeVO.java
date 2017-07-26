@@ -28,4 +28,10 @@ public class Common_CodeVO {
 	public void setCode_ck_number(String code_ck_number) {
 		this.code_ck_number = code_ck_number;
 	}
+	@Override
+	public String toString() {
+		return "Common_CodeVO [code_number=" + code_number + ", code_name="
+				+ code_name + ", code_ck_number=" + code_ck_number + "]";
+	}
+	
 }

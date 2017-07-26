@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.CommonApproval_TOTALVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.MeetingVO;
 
@@ -95,5 +96,9 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 
 	public String ID_selectAllAS(String ea_number) {
 		return (String) sqlSession.selectOne("ID_selectAllAS",ea_number);
+	}
+
+	public List<CommonApproval_TOTALVO> getRefusedApprovalList_ID(CommonApproval_TOTALVO vo) {
+		return sqlSession.selectList("getRefusedApprovalList_ID", vo);
 	}
 }

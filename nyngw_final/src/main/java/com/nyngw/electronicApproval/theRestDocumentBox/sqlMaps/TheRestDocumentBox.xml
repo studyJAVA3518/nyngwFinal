@@ -36,7 +36,7 @@
 				and doc_name like '%'||#{doc_name}||'%'
 			</if>
 		</if>
-		
+		 order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
 	</select>
 	
 	<select id="getApprovalREList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
@@ -71,6 +71,7 @@
 				and doc_name like '%'||#{doc_name}||'%'
 			</if>
 		</if>
+		 order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
 	</select>
 
 	<select id="getApprovalTOList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
@@ -88,6 +89,7 @@
 		and doc_number = EA_DOC_NUMBER
 		and ah_ea_number = ea_number
 		and mem_number = EA_MEM_number
+		and AST_MEM_NUMBER=#{ea_mem_number}
 		<if test="ea_title != null">
 			<if test="ea_title != ''">
 				and ea_title like  '%'||#{ea_title}||'%'
@@ -103,6 +105,7 @@
 				and doc_name like '%'||#{doc_name}||'%'
 			</if>
 		</if>
+		  order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
 	</select>
 
 </mapper>

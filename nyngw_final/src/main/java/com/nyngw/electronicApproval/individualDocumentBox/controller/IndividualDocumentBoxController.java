@@ -10,7 +10,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nyngw.common.service.CommonServiceImpl;
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Board_SelectVO;
+import com.nyngw.dto.CommonApproval_TOTALVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.Electronic_ApprovalViewVO;
@@ -222,36 +222,38 @@ public class IndividualDocumentBoxController {
 	//반려문서함
 	@RequestMapping("/refusedApprovalBox")
 	public String refusedApprovalBox(Model model, Principal principal){
-		//로그인 한 자의 아이디
-		List<Electronic_ApprovalVO> EAList = individualDocumentBoxService.defaultRAB(principal.getName());
-//		List<Electronic_ApprovalVO> EAList = individualDocumentBoxService.defaultRAB("4");
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+		CommonApproval_TOTALVO vo = new CommonApproval_TOTALVO();
 		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonService.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
-		}
-		model.addAttribute("EAList",EAList);
-		model.addAttribute("code_nameList",code_nameList );
+		MemberVO member = commonService.findMemberByMemId(principal.getName());
+		vo.setEa_mem_number(member.getMem_number());
+		
+		List<CommonApproval_TOTALVO> EAList = individualDocumentBoxService.getRefusedApprovalList(vo);
+		
+		model.addAttribute("EAList", EAList);
+		
 		return "electronicApproval/individualDocumentBox/refusedApprovalBox";
 	}
 	
 	//반려 문서 검색
 	@RequestMapping("/searchRefusedApproval")
-	public String searchRefusedApproval(Model model){
-		/*List<Electronic_ApprovalVO> EAList = individualDocumentBoxService.searchRefusedApproval();
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+	public String searchRefusedApproval(Model model,CommonApproval_TOTALVO vo,String docSearchOption,String searchText,Principal principal){
 		
-		for (Electronic_ApprovalVO EAVO : EAList) {
-			code_nameList.add(commonService.findCodeNameByDocNumber(EAVO.getEa_doc_number()));
+		MemberVO member = commonService.findMemberByMemId(principal.getName());
+		vo.setEa_mem_number(member.getMem_number());
+		
+		if(docSearchOption.equals("all")){
+		}else if(docSearchOption.equals("ea_title")){
+			vo.setEa_title(searchText);
+		}else if(docSearchOption.equals("ea_number")){
+			vo.setEa_number(searchText);
+		}else if(docSearchOption.equals("doc_name")){
+			vo.setDoc_name(searchText);
 		}
 		
-		model.addAttribute("code_nameList",code_nameList );
-		model.addAttribute("EAList",EAList );*/
+		List<CommonApproval_TOTALVO> EAList = individualDocumentBoxService.getRefusedApprovalList(vo);
+		
+		model.addAttribute("EAList", EAList);
 		return "electronicApproval/individualDocumentBox/refusedApprovalBox";
 	}
-	//반려문서상세
-	@RequestMapping("/refusedApprovalDetail")
-	public String refusedApprovalDetail(Model model,String ea_number){
-		return "electronicApproval/individualDocumentBox/refusedApprovalDetail";
-	}
+	
 }

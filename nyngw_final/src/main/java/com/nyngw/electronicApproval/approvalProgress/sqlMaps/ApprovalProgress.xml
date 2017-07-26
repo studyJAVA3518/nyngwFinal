@@ -40,6 +40,12 @@
 		select * from Electronic_Approval where ea_number = #{ea_number}
 	</select>
 	
+	<!-- 결재번호와 회원아이디로 자신의 결재 라인이 무엇인지 검색 -->
+	<select id="EA_selectAstALNumber" parameterType="map" resultType="string">
+		select ast_al_number from approval_step where ast_ea_number = #{ea_number} and ast_mem_number = (select mem_number from member where mem_id = #{mem_id})
+	</select>
+	
+	
 	<!-- ast_al_number_결재라인(A-결재 B-합의)과 결재번호로 => 결재스탭과 결재우선순위를 검색-->
 	<select id="selectAstMemNumberByEaNumber" resultType="com.nyngw.dto.Approval_StepVO" parameterType="com.nyngw.dto.Approval_StepVO">
 		select ast_mem_number, ast_priority 
@@ -51,8 +57,8 @@
 	
 	<!-- 결재시 결재이력을 등록 -->
 	<insert id="insertApprovalHistory" parameterType="com.nyngw.dto.Approval_HistoryVO">
-		insert into Approval_History (ah_number, ah_code_number, ah_ast_number,ah_ea_number,ah_comment,ah_time)
-		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment},sysdate)
+		insert into Approval_History (ah_number, ah_code_number, ah_ast_number,ah_ea_number,ah_comment,ah_time,ah_status)
+		values ('ah'||ah_seq.nextval,#{ah_code_number},#{ah_ast_number},#{ah_ea_number},#{ah_comment},sysdate, #{ah_status})
 	</insert>
 	
 <!-- 	<select id="selectCA" resultType="com.nyngw.dto.Electronic_ApprovalVO"> -->
@@ -102,7 +108,9 @@
 		where ast_number = #{ast_number} and ast_ea_number = #{ea_number}
 	</update>
 	
-	
+	<select id="selectMaxAgreementPriority" parameterType="string" resultType="int" >
+		select max(ast_priority) from approval_step where ast_ea_number = #{ea_number} and ast_al_number = 'B'
+	</select>
 	
 	
 	<!-- 전자결제에서 해당회원이 진행한 모든 전자결재번호 리스트로 불러오기 -->

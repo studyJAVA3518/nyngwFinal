@@ -85,13 +85,15 @@ public class ApprovalProgressController {
 	
 	//완료 문서 상세 페이지
 	@RequestMapping("/completeApprovalDetail")
-	public String completeApprovalDetail(Model model,String ea_number){
+	public String completeApprovalDetail(Model model,String ea_number, Principal principal){
+		ApprovalProgressService.caDetail(model, ea_number,principal);
 		return "electronicApproval/approvalProgress/completeApprovalDetail";
 	}
 	
 	//반려 문서 상세 페이지
 	@RequestMapping("/refusedApprovalDetail")
-	public String refusedApprovalDetail(Model model,String ea_number){
+	public String refusedApprovalDetail(Model model,String ea_number, Principal principal){
+		ApprovalProgressService.waDetail(model, ea_number,principal);
 		return "electronicApproval/approvalProgress/refusedApprovalDetail";
 	}
 	

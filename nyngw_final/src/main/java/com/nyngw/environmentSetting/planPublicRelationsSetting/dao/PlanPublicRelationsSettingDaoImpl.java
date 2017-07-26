@@ -69,7 +69,7 @@ public class PlanPublicRelationsSettingDaoImpl implements
 		update.set("company_addr1",vo.getCompany_addr1());
 		update.set("company_addr2",vo.getCompany_addr2());
 		
-		mongoTemplate.updateFirst(query, update, COLLECTION_NAME);
+		mongoTemplate.updateFirst(query, update, COLLECTION_NAME);	
 		
 		return result;
 	}

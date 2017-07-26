@@ -195,14 +195,32 @@
 	</table>
 	<!-- ea_content -> content -->
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-	<table>
-		<tr>
-			<th>첨부파일</th>
-			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	
-		</tr>
-	</table>
+<!-- 	<table> -->
+<!-- 		<tr> -->
+<!-- 			<th>첨부파일</th> -->
+<!-- 			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	 -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 </form>
 <input type="hidden" value="${page}">
 <button type="button" onclick="saveContent();">등록</button>
 <input type="reset" value="초기화" />	
 <button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
+
+
+
+<textarea id="text_content" style="display:none;">
+${board.board_content}
+</textarea>
+<script type="text/javascript">
+	$(function(){   
+		var loadContent = function() {
+			/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+			Editor.modify({
+				"content": document.getElementById("text_content") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+			});
+		};
+		
+		loadContent();
+	});
+</script>
