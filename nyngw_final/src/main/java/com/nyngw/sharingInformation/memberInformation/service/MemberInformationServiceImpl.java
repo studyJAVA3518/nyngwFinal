@@ -16,6 +16,7 @@ import com.nyngw.dto.AddressBookViewVO;
 import com.nyngw.dto.BirthdayVO;
 import com.nyngw.dto.BirthdayViewVO;
 import com.nyngw.dto.DepartmentVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.memberInformation.dao.MemberInformationDaoImpl;
 
 @Service
@@ -38,6 +39,7 @@ public class MemberInformationServiceImpl implements MemberInformationService {
 			treejsonMap.put("label", department.getDept_name());
 			treejsonMap.put("itemId", department.getDept_number());
 			treejsonMap.put("parentId", department.getDept_parents());
+			treejsonMap.put("url", "https://www.naver.com/");
 			
 			treeJsonList.add(treejsonMap);
 		}
@@ -136,5 +138,21 @@ public class MemberInformationServiceImpl implements MemberInformationService {
 		}
 	}
 	
+	//부서의 번호로 회원찾기
+	public List<MemberVO> SI_selectOrganizationChart(String dept_number){
+		List<MemberVO> member = memberInformationDao.SI_selectOrganizationChart(dept_number);
+		return member;
+	}
 	
+	//부서번호로 이름찾기
+	public String SI_selectDepartment(String dept_number){
+		String dept_name = memberInformationDao.SI_selectDepartment(dept_number);
+		return dept_name;
+	}
+	
+	//직위번호로 직급이름찾기
+	public String SI_selectPosition(String position_number){
+		String position_name = memberInformationDao.SI_selectPosition(position_number);
+		return position_name;
+	}
 }

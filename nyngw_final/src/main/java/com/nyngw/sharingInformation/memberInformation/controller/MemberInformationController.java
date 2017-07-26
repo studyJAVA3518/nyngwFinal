@@ -1,6 +1,8 @@
 package com.nyngw.sharingInformation.memberInformation.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nyngw.dto.Approval_HistoryVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.sharingInformation.memberInformation.service.MemberInformationServiceImpl;
 
 @Controller
@@ -66,9 +70,20 @@ public class MemberInformationController {
 	 * @return 부서 상세페이지 url 반환
 	 */
 	@RequestMapping("/organizationChartDetail")
-	public String organizationChartDetail(){
-		
-		return "sharingInformation/memberInformation/organizationChartDetail";
+	public @ResponseBody List<Map> organizationChartDetail(String dept_number){
+		List<MemberVO> member = memberInformationService.SI_selectOrganizationChart(dept_number);
+		List<Map> memberAddress = new ArrayList<Map>();
+		for(int i = 0; i < member.size(); i++){
+			Map<String, String> addr = new HashMap<String, String>();
+			addr.put("mem_dept_name", memberInformationService.SI_selectDepartment(member.get(i).getMem_dept_number()));//부서
+			addr.put("mem_name", member.get(i).getMem_name());//이름
+			addr.put("mem_position_name", memberInformationService.SI_selectPosition(member.get(i).getMem_position_number()));//직위
+			addr.put("mem_email", member.get(i).getMem_email());//이메일
+			addr.put("mem_tel", member.get(i).getMem_tel());//연락처
+			addr.put("mem_addr1", member.get(i).getMem_addr1());//주소
+			memberAddress.add(addr);
+		}
+		return memberAddress;
 	}
 	
 	/**
@@ -84,6 +99,5 @@ public class MemberInformationController {
 		model.addAttribute("month",month);
 		return "sharingInformation/memberInformation/birthday";
 	}
-	
 	
 }
