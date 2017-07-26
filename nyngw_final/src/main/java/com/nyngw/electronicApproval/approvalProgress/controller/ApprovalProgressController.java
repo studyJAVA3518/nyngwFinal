@@ -79,21 +79,24 @@ public class ApprovalProgressController {
 	//미결재 문서 상세 페이지
 	@RequestMapping("/waitingApprovalDetail")
 	public String waitingApprovalDetail(Model model,String ea_number,Principal principal){
-		ApprovalProgressService.waDetail(model, ea_number,principal);
+		int check = 1;	//미결재
+		ApprovalProgressService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/approvalProgress/waitingApprovalDetail";
 	}
 	
 	//완료 문서 상세 페이지
 	@RequestMapping("/completeApprovalDetail")
 	public String completeApprovalDetail(Model model,String ea_number, Principal principal){
-		ApprovalProgressService.caDetail(model, ea_number,principal);
+		int check = 2;	//완료
+		ApprovalProgressService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/approvalProgress/completeApprovalDetail";
 	}
 	
 	//반려 문서 상세 페이지
 	@RequestMapping("/refusedApprovalDetail")
 	public String refusedApprovalDetail(Model model,String ea_number, Principal principal){
-		ApprovalProgressService.waDetail(model, ea_number,principal);
+		int check = 3;	//반려
+		ApprovalProgressService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/approvalProgress/refusedApprovalDetail";
 	}
 	

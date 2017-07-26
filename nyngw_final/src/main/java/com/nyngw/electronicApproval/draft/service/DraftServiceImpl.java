@@ -274,7 +274,9 @@ public class DraftServiceImpl implements DraftService {
 		//기안자 정보 (기안부서, 기안자) setting
 		model.addAttribute("member",member);
 		
-		//문서 번호(종류) setting
+		//문서 content setting
+		String doc_content = draftDao.ea_selectDocContent(doc_number);
+		model.addAttribute("doc_content", doc_content);
 		model.addAttribute("doc_number", doc_number);
 	}
 

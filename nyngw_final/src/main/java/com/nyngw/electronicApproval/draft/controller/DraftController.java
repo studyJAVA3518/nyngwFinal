@@ -92,10 +92,8 @@ public class DraftController {
 			@RequestParam(value="content") String ea_content,
 			String param_ea_number,
 			ApprovalParamVO apVO){
-		System.out.println(apVO.getImplementMembers());
-		System.out.println(apVO.getReferenceMembers());
 		draftService.submitApproval(model,eaVO,ea_content,apVO,param_ea_number);
-		return "electronicApproval/individualDocumentBox/submitApprovalBox";
+		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	
 

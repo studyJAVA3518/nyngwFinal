@@ -156,12 +156,14 @@ $(function(){
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
 		 				alert("결재가 완료되었습니다.");
+		 				location.href="/electronicApproval/approvalProgress/waitingApproval";
 					}else if(result.al_number=='B'){
 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#agree_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("합의가 완료되었습니다.");
+		 				location.href="/electronicApproval/approvalProgress/waitingApproval";
 					}
 				}else{
 					alert("잘못된 비밀번호입니다.");
@@ -187,12 +189,14 @@ $(function(){
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
 		 				alert("결재가 완료되었습니다.");
+		 				location.href="/electronicApproval/approvalProgress/waitingApproval";
 					}else if(result.al_number=='B'){
 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/"+result.mem_sign+"\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#agree_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("합의가 완료되었습니다.");
+		 				location.href="/electronicApproval/approvalProgress/waitingApproval";
 					}
 				}else{
 					alert("잘못된 비밀번호입니다.");
@@ -218,12 +222,14 @@ $(function(){
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
 		 				alert("반려가 완료되었습니다.");
+		 				location.href="/electronicApproval/individualDocumentBox/refusedApprovalBox";
 					}else if(result.al_number=='B'){
 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#agree_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("거부가 완료되었습니다.");
+		 				location.href="/electronicApproval/individualDocumentBox/refusedApprovalBox";
 					}
 				}else{
 					alert("잘못된 비밀번호입니다.");
@@ -234,7 +240,7 @@ $(function(){
 	}	
 	disapproveSubmitCall=disapproveSubmit;
 
-	//반려하기//
+	//거부하기//
 	var refuseSubmitCall = null;
 	function refuseSubmit(){
 		$.ajax({
@@ -249,12 +255,14 @@ $(function(){
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
 		 				alert("반려가 완료되었습니다.");
+		 				location.href="/electronicApproval/individualDocumentBox/refusedApprovalBox";
 					}else if(result.al_number=='B'){
 						var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
 		 				$("#agreementStatus"+result.priority).html(code);
 		 				$("#agree_go").attr("disabled",true);
 		 				$("#refuse_go").attr("disabled",true);
 		 				alert("거부가 완료되었습니다.");
+		 				location.href="/electronicApproval/individualDocumentBox/refusedApprovalBox";
 					}
 				}else{
 					alert("잘못된 비밀번호입니다.");
@@ -526,4 +534,5 @@ $(function(){
 			</td>	
 		</tr>
 	</table>
+	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button">뒤로</button></a>
 </div>

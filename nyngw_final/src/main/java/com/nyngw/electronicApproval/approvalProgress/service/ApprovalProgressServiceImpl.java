@@ -83,7 +83,8 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 	}
 	
 	//미결제문서 자세히보기
-	public void waDetail(Model model, String ea_number,Principal principal) {
+	public void waDetail(Model model, String ea_number,Principal principal,int check) {
+
 		//결재정보 setting
 		Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 		model.addAttribute("eaVO",eaVO);
@@ -113,15 +114,16 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
 		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);	//결재 이력에 등록된 마지막 우선순위를 검색
-		int index=1;
-		int indexA = 0;
-		int indexB = 0;
+		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
+		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
+		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
 		
 		//합의자의 싸인을 담기 위함
 		for (Approval_StepVO approval_StepVO : agreementMemberList) {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
 			agreementMember.add(member2);
 			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
+//				if()
 				agreementMem_sign.add(member2.getMem_sign());
 				indexB++;
 			}
@@ -320,6 +322,14 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
 		model.addAttribute("ast_number","ast"+memberAstPriority);
 		
+		//자신의 결재 종류 (합의인지 결재인지)
+		paramMap = new HashMap<String,String>();
+		paramMap.put("ea_number", ea_number);
+		paramMap.put("mem_id", principal.getName());
+		
+		String mem_al_number = approvalProgressDao.EA_selectAstALNumber(paramMap);
+		model.addAttribute("mem_al_number",mem_al_number);
+		
 		//전체 결재선의 크기
 		int lastAstPriorityOfA = approvalProgressDao.selectLastAstPriorityOfA(ea_number);
 		int lastAstPriorityOfB = approvalProgressDao.selectLastAstPriorityOfB(ea_number);
@@ -328,7 +338,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		
 		//결재 이력중 A와 B의 갯수
 		List<String> ahAstNumberList = approvalProgressDao.selectAhAstNumberByEaNumber(ea_number);
-		System.out.println(ahAstNumberList.size()+"123");
 		int countA = 0;
 		int countB = 0;
 		for (String ast_number : ahAstNumberList) {
@@ -342,8 +351,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			}
 		}
 
-		System.out.println(indexA);
-		System.out.println(lastAstPriorityOfA);
 		model.addAttribute("emptyStartA",lastAstPriorityOfA+1);	//3
 		model.addAttribute("emptyStartB",lastAstPriorityOfB+1);
 		model.addAttribute("noStartA",indexA+1);
@@ -351,7 +358,17 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		model.addAttribute("noEndA",lastAstPriorityOfA);
 		model.addAttribute("noEndB",lastAstPriorityOfB);
 		
+		
+		//A
+		//총 5
+		//A 결재선 2 lastAstPriorityOfA
+		
+		//A 2중 1 결재했으면 1	1부터  // indexA = 1 까지 
+		//A 2중 결재 안한 거 1	indexA+1 = 2부터 // lastAstPriorityOfA =1개		2-1 = 1
+		
+		//A 빈칸 3- 시작lastAstPriorityOfA+1=3부터 // 5까지
 	}
+	
 	
 	//로그인한 사원이 기안한 문서 중 모든 완료문서를 가져옴
 	public List<Electronic_ApprovalVO> defaultCA(Model model, Principal principal) {
@@ -397,7 +414,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			
 		}
 		
-		
 		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
 		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		//결제완료일자 받아오는 리스트
@@ -414,13 +430,14 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			completeDateFormatList.add(to);
 		}
 		
-		
 		model.addAttribute("code_nameList",code_nameList);
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("completeDateFormatList", completeDateFormatList);
 		
 		return null;
 	}
+	
+	
 	
 	//로그인한 사원이 기안한 문서 중 모든 반려문서를 가져옴
 	public List<Electronic_ApprovalVO> defaultRA(Model model, Principal principal) {

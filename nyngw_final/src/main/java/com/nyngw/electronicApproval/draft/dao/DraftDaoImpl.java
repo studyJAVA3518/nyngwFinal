@@ -102,11 +102,15 @@ public class DraftDaoImpl implements DraftDao {
 	}
 	
 	public void draft_insertApproval(Electronic_ApprovalVO eaVO) {
-		sqlSession.selectOne("draft_insertApproval",eaVO);
+		sqlSession.insert("draft_insertApproval",eaVO);
 	}
 
 	public void draft_insertApprovalStep(Map<String, String> paramMap) {
-		sqlSession.selectOne("draft_insertApprovalStep",paramMap);
+		sqlSession.insert("draft_insertApprovalStep",paramMap);
+	}
+
+	public String ea_selectDocContent(String doc_number) {
+		return (String) sqlSession.selectOne("ea_selectDocContent",doc_number);
 	}
 
 }
