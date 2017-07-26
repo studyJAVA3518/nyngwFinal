@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,7 +104,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/documentInsertComplete", method=RequestMethod.POST)
-	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_explanation) throws IOException{
+	public String documentInsertComplete(Model model , CommandDocumentVO document,@RequestParam( value="content") String doc_content, String doc_name) throws IOException{
 		String url="";
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/document";
 		
@@ -124,7 +125,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 //			if(document.getDoc_eadoc() != null){
 //				doc.setDoc_eadoc("y");
 //			}
-			doc.setDoc_explanation(doc_explanation);
+			doc.setDoc_explanation(doc_name);
 			doc.setDoc_mem_number(mem_number);
 			doc.setDoc_file_name(multipartFile.getOriginalFilename());
 			
@@ -134,23 +135,24 @@ public class DocumentManagerController implements ApplicationContextAware{
 			url="redirect:/documentManagement/documentManager/documentSelect";
 			return url;
 		}
+			User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String mem_id = user.getUsername(); 
+			MemberVO mem = basicSettingService.selectMember(mem_id);
+			String mem_number = mem.getMem_number();
+			
+			DocumentVO doc=document.toDocumentVO();
+			doc.setDoc_eadoc("n");
+			doc.setDoc_file_name("다운받을 파일이 없습니다.");
+			doc.setDoc_explanation(doc_name);
+			doc.setDoc_mem_number(mem_number);
+			
+			model.addAttribute(doc);
+			
+			documentManagerService.documentInsertComplete(doc);
+			
+			url="redirect:/documentManagement/documentManager/documentSelect";
 		
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String mem_id = user.getUsername(); 
-		MemberVO mem = basicSettingService.selectMember(mem_id);
-		String mem_number = mem.getMem_number();
 		
-		DocumentVO doc=document.toDocumentVO();
-		doc.setDoc_eadoc("n");
-		doc.setDoc_file_name("다운받을 파일이 없습니다.");
-		doc.setDoc_explanation(doc_explanation);
-		doc.setDoc_mem_number(mem_number);
-		
-		model.addAttribute(doc);
-		
-		documentManagerService.documentInsertComplete(doc);
-		
-		url="redirect:/documentManagement/documentManager/documentSelect";
 		return url;
 	}
 	/**
@@ -277,8 +279,8 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/edocumentInsertComplete", method=RequestMethod.POST)
-	public String edocumentInsertComplete(Model model , CommandDocumentVO2 document,@RequestParam( value="content") String doc_content) throws IOException{
-		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등록");
+	public String edocumentInsertComplete(Model model , CommandDocumentVO2 document,@RequestParam( value="content") String doc_content,String doc_name) throws IOException{
+		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등록"+doc_name);
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String mem_id = user.getUsername(); 
 		MemberVO mem = basicSettingService.selectMember(mem_id);
@@ -288,6 +290,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 		doc.setDoc_eadoc("y");
 		doc.setDoc_content(doc_content);
 		doc.setDoc_mem_number(mem_number);
+		doc.setDoc_explanation(doc_name);
 		model.addAttribute(doc);
 		
 		documentManagerService.edocumentInsertComplete(doc);
