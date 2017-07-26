@@ -1,6 +1,11 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.userdetails.User"%>
+<%@page import="java.security.Principal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
 	.tableTd{
@@ -10,7 +15,17 @@
 	.tableSign{
  		height: 80px;
 	}
+	.memSign {                                                                                                                                                                                   
+		display : block;                                                                                                                                                                         
+		width : 80px;                                                                                                                                                                            
+		height : 60px;                                                                                                                                                                           
+		margin :0 auto;                                                                                                                                                                          
+		background-size: contain;                                                                                                                                                                
+		background-repeat: no-repeat;                                                                                                                                                            
+		background-position : top center;                                                                                                                                                        
+	}  
 </style>
+
 
 <script>
 	$(function(){
@@ -95,14 +110,6 @@
 	});
 </script>
 
-<script type="text/javascript">
-	function file_change(file){
-	var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
-	file = file.substring(str, file.length);
-// 	document.getElementsByName('board_file_name')[0].value=file;
-	}
-</script>
-
 <script>
 	function approvalLine_go(){
 		location.href="/electronicApproval/draft/approvalLineManager";
@@ -114,25 +121,29 @@
 	}
 </script>
 
+기안하기>결재 재상신 페이지<br>
+
+
 <div id="linePopup" style="height:100%;width:100%;">
 	<jsp:include page="../draft/approvalLineManager.jsp" flush="false"/>
 </div>
-
-기안하기>결재상신페이지
 <button type="button" id="linePopup_go">결재라인</button>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/individualDocumentBox/submit" method="post" accept-charset="utf-8">
-	<input type="hidden" name="ea_doc_number" value="${doc_number }">
+<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/individualDocumentBox/editDraft" method="post" accept-charset="utf-8">
+	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
 	<table class="table table-bordered">
 		<tr>
 			<th>품의번호</th>
-			<td colspan="5">${ea_number }</td>
-			<input type="hidden" name="ea_number" value="${param_ea_number }">
-			<input type="hidden" name="param_ea_number" value="${ea_number }">
+			<td colspan="5">
+				${eaVO.ea_number }
+				<input type="hidden" name="ea_number" value="${eaVO.ea_number }">
+			</td>
+			
 		</tr>
 		<tr>
 			<th>작성일자</th>
-			<td colspan="5">${ea_writedate }</td>
-			<input type="hidden" name="param_ea_writedate" value="${ea_writedate }">
+			<td colspan="5">
+				${eaVO.ea_writedate }
+			</td>
 		</tr>
 		<tr>
 			<th>기안부서</th>
@@ -140,54 +151,76 @@
 		</tr>
 		<tr>
 			<th>기안자</th>
-			<td colspan="5">${member.mem_name }</td>
-			<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
+			<td colspan="5">
+				${member.mem_name }
+				<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
+			</td>
+			
 		</tr>
+		<!-- 결재자 이름-->
 		<tr id="approvalMember">
 			<th rowspan="2">결재</th>
-			<th id="approvalMember1" class="tableTd"></th>
-			<th id="approvalMember2" class="tableTd"></th>
-			<th id="approvalMember3" class="tableTd"></th>
-			<th id="approvalMember4" class="tableTd"></th>
-			<th id="approvalMember5" class="tableTd"></th>
-		</tr>                                
+			<c:forEach items="${approvalMember}" var="member" varStatus="index">
+				<th id="approvalMember${index.count }" class="tableTd">${member.mem_name }</th>
+			</c:forEach>
+			<c:forEach var="i" begin="${emptyStartA }" end="5" step="1">
+				<td id="approvalMember${i}" class="tableTd"></td>
+			</c:forEach>
+		</tr>   
+		<!-- 결재자 서명 -->                              
 		<tr id="approvalStatus">                                 
-			<td id="approvalStatus1" class="tableSign"></td>
-			<td id="approvalStatus2" class="tableSign"></td>
-			<td id="approvalStatus3" class="tableSign"></td>
-			<td id="approvalStatus4" class="tableSign"></td>
-			<td id="approvalStatus5" class="tableSign"></td>
-		</tr>                                
+			<c:forEach items="${approvalMem_sign}" var="sign" varStatus="index">
+				<td id="approvalStatus${index.count}"><div class="tableTd tableSign memSign" style="background-image:url('/resources/memsign/${sign }')"></div></td>
+			</c:forEach>
+			<c:forEach var="i" begin="${noStartA }" end="${noEndA }" step="1">
+				<td id="approvalStatus${i}" class="tableTd tableSign"></td>
+			</c:forEach>
+			<c:forEach var="i" begin="${emptyStartA }" end="5" step="1">
+				<td id="approvalStatus${i}" class="tableTd tableSign"></td>
+			</c:forEach>
+		</tr>      
+		
+		<!-- 합의자 이름 -->                          
 		<tr id="agreementMember">                                 
 			<th rowspan="2">합의</th>        
-			<th id="agreementMember1" class="tableTd"></th>
-			<th id="agreementMember2" class="tableTd"></th>
-			<th id="agreementMember3" class="tableTd"></th>
-			<th id="agreementMember4" class="tableTd"></th>
-			<th id="agreementMember5" class="tableTd"></th>
-		</tr>                                
-		<tr id="agreementStatus">                               
-			<td id="agreementStatus1" class="tableSign"><input type="hidden" name="agreementStatus1"></td>
-			<td id="agreementStatus2" class="tableSign"><input type="hidden" name="agreementStatus2"></td>
-			<td id="agreementStatus3" class="tableSign"><input type="hidden" name="agreementStatus3"></td>
-			<td id="agreementStatus4" class="tableSign"><input type="hidden" name="agreementStatus4"></td>
-			<td id="agreementStatus5" class="tableSign"><input type="hidden" name="agreementStatus5"></td>
+			<c:forEach items="${agreementMember}" var="member" varStatus="index">
+				<th id="agreementMember${index.count}" class="tableTd">${member.mem_name }</th>
+			</c:forEach>
+			<c:forEach var="i" begin="${emptyStartB }" end="5" step="1">
+				<td id="agreementMember${i}"  class="tableTd"></td>
+			</c:forEach>
+		</tr>   
+		
+		<!-- 합의자 서명 -->                               
+		<tr id="agreementStatus"> 
+			<c:forEach items="${agreementMem_sign}" var="sign" varStatus="index">  
+				<td id="agreementStatus${index.count}"><div class="memSign tableTd tableSign" style="background-image:url('/resources/memsign/${sign }')"></div></td>                            
+			</c:forEach>
+			<c:forEach var="i" begin="${noStartB }" end="${noEndB}" step="1">
+				<td id="agreementStatus${i}"  class="tableTd tableSign"></td>
+			</c:forEach>
+			<c:forEach var="i" begin="${emptyStartB }" end="5" step="1">
+				<td id="agreementStatus${i}"  class="tableTd tableSign"></td>
+			</c:forEach>
 		</tr>
+		
 		<tr>
-			<th>시행자</th>
-			<td id="implementMembers" colspan="5"></td>
+			<th class="tableTh">시행자</th>
+			<td id="implementMembers" colspan="5">${implementMemberName}</td>
 		</tr>
+		
 		<tr>
-			<th>수신 및 참조</th>
-			<td id="referenceMembers" colspan="5"></td>
+			<th class="tableTh">수신 및 참조</th>
+			<td id="referenceMembers" colspan="5">${referenceMemberName}</td>
 		</tr>
+		
 		<tr>
 			<th>시행일자</th>
-			<td colspan="5"><input type="date" name="param_ea_startdate">~<input type="date" name="param_ea_enddate"></td>
+			<td colspan="5"><input type="date" name="param_ea_startdate" value="${eaVO.ea_startdate }">~<input type="date" name="param_ea_enddate" value="${eaVO.ea_enddate }"></td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="5"><input type="text" name="ea_title"></td>
+			<td colspan="5"><input type="text" name="ea_title" value="${eaVO.ea_title }"></td>
 		</tr>
 		<tr>
 			<th colspan="6">내용</th>
@@ -195,20 +228,15 @@
 	</table>
 	<!-- ea_content -> content -->
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<th>첨부파일</th> -->
-<!-- 			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	 -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
 </form>
-<button type="button" onclick="saveContent();">수정</button>
+<input type="hidden" value="${page}">
+<button type="button" onclick="saveContent();">등록</button>
 <input type="reset" value="초기화" />	
-<button type="button"><a href="">취소</a></button>
+<a href="/sharingInformation/board/list?page=${page }"><button type="button">취소</button></a>
 
 
 <textarea id="text_content" style="display:none;">
-${doc_content}
+${eaVO.ea_content}
 </textarea>
 <script type="text/javascript">
 	$(function(){   

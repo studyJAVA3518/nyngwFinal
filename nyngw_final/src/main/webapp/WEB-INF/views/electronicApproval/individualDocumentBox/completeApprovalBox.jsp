@@ -50,6 +50,9 @@
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
+	<c:if test="${empty myEaList }">
+		<tr><td colspan="7">결재 완료 문서가 없습니다!</td></tr>
+	</c:if>
 	<c:forEach items="${myEaList }" var="EA" varStatus="status">
 		<tr>
 			<td class="ea_number">${EA.ea_number }</td>

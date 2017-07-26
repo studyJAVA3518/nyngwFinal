@@ -25,13 +25,6 @@
 	}
 </style>
 
-개인문서함>상신문서함>디테일
-<%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
-<form name="hiddenForm">
-	<input type="hidden" id="ea_number" value="${ea_number }">
-	<button type="button" id="editDraft_go">수정</button>
-</form>
-
 <script type="text/javascript">
 $(function(){
 	 $('#editHistoryDialog').css('display', 'none');
@@ -53,9 +46,9 @@ $(function(){
 	    });
     })
     ///////////////////////////////////////////////
-	$("#editDraft_go").click(function(){
-		location.href="/electronicApproval/individualDocumentBox/editDraftForm?doc_number=${eaVO.ea_doc_number }&ea_number=${eaVO.ea_number }";
-	});
+// 	$("#editDraft_go").click(function(){
+// 		location.href="/electronicApproval/individualDocumentBox/editDraftForm?doc_number=${eaVO.ea_doc_number }&ea_number=${eaVO.ea_number }";
+// 	});
 	
 })
 </script>
@@ -93,9 +86,15 @@ $(function(){
 	</table>
 </div>
 
-<div>
-	상신한 (수정할) 기안 문서
-</div>
+개인문서함>상신문서함>디테일
+<%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
+<c:if test="${indexA == 0 and indexB == 0}">
+	<form name="hiddenForm">
+		<input type="hidden" name="ea_number" value="${eaVO.ea_number }">
+		<button type="button" onclick="editDraft_go(this.form)">수정</button>
+	</form>
+</c:if>
+
 
 <div>
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
@@ -184,3 +183,11 @@ $(function(){
 	</table>
 	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button">뒤로</button></a>
 </div>
+
+<script>
+	function editDraft_go(form){
+		form.method="get";
+		form.action="/electronicApproval/individualDocumentBox/editDraftForm";
+		form.submit();
+	} 
+</script>

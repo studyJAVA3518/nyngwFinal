@@ -115,11 +115,20 @@ public class IndividualDocumentBoxController {
 	//상신문서수정페이지
 	@RequestMapping("/editDraftForm")
 	public String editDraftForm(Model model,Principal principal,String doc_number,String ea_number){
-		
-		String mem_id = principal.getName();
-		individualDocumentBoxService.searchMemberByMemberId(mem_id,model,doc_number,ea_number);
-		
+		individualDocumentBoxService.editApprovalSet(model,ea_number,principal);
 		return "electronicApproval/individualDocumentBox/editDraftForm";
+	}
+	
+	//상신문서수정
+	@RequestMapping("/editDraft")
+	public String editDraft(Model model,Electronic_ApprovalVO eaVO, 
+			@RequestParam(value="content") String ea_content,
+			@RequestParam(value="param_ea_startdate") String ea_startdate,
+			@RequestParam(value="param_ea_enddate") String ea_enddate,
+			ApprovalParamVO apVO){
+		System.out.println("인");
+		individualDocumentBoxService.editApproval(model,eaVO,ea_content,apVO,ea_startdate,ea_enddate);
+		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
 	
 	@RequestMapping("/submit")
