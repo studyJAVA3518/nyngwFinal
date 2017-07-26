@@ -23,13 +23,17 @@
   			<div class="container">
   				<div class="row">
   					<!-- 로고 (이동시)-->
-  					<div class="col-md-2">
+  					<div class="col-md-3">
   						<!-- image를 사용할 때에는 클래스에 img-responsive -->
-  						<a href="/homeMain/main">
-  							<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive">
-  						</a>
+  						<div class="row">
+  							<div class="col-md-6 col-md-offset-3">
+		  						<a href="/homeMain/main">
+		  							<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive">
+		  						</a>
+		  					</div>
+  						</div>
   					</div>
-  					<div class="col-md-10">
+  					<div class="col-md-9">
 						<div class="row">
 							<div class="headerBottom">
 								
