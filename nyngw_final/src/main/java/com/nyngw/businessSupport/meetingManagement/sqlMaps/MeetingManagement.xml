@@ -104,6 +104,10 @@
 		delete from meeting where
 		mt_number = #{mt_number}
 	</update>
+	<update id="attendDelete" parameterType="java.lang.String">
+		delete from attendance where
+		ad_mt_number = #{mt_number}
+	</update>
 	
 	
 <!-- ======================= 회으록 ================================ -->

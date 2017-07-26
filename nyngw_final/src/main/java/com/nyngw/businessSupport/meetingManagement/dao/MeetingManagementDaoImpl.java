@@ -87,6 +87,10 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	public void meetingDelete(String mt_number) {
 		sqlSession.delete("meetingDelete", mt_number);
 	}
+	@Override
+	public void attendDelete(String mt_number) {
+		sqlSession.delete("attendDelete", mt_number);
+	}
 	
 //	----------------------------------------회의록 ---------------------
 	@Override

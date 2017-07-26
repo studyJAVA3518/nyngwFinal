@@ -87,6 +87,10 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public void meetingDelete(String mt_number) {
 		meetingManagementDao.meetingDelete(mt_number);
 	}
+	@Override
+	public void attendDelete(String mt_number) {
+		meetingManagementDao.attendDelete(mt_number);
+	}
 	
 //	--------------------------------------회의록------------------------
 	@Override

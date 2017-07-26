@@ -24,6 +24,7 @@ public interface MeetingManagementService {
 	public void updateMeeting(MeetingVO mt_number);
 
 	public void meetingDelete(String mt_number);
+	public void attendDelete(String mt_number);
 
 	
 	
@@ -37,4 +38,5 @@ public interface MeetingManagementService {
 	public void attendInsert(AttendanceVO attend);
 
 	public List<MeetingVO> selectMeetingAll();
+
 }
