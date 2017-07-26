@@ -123,7 +123,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
 			agreementMember.add(member2);
 			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
-				if()
+//				if()
 				agreementMem_sign.add(member2.getMem_sign());
 				indexB++;
 			}
