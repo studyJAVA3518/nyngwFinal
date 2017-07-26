@@ -18,10 +18,12 @@ import com.nyngw.dto.AddressBookVO;
 import com.nyngw.dto.BigMenuVO;
 import com.nyngw.dto.BirthdayVO;
 import com.nyngw.dto.BoardVO;
+import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.CompanyVO;
 import com.nyngw.dto.DocumentViewVO;
 import com.nyngw.dto.Duty_DocumentVO;
 import com.nyngw.dto.Duty_ReportVO;
+import com.nyngw.dto.Electronic_ApprovalVO;
 import com.nyngw.dto.MainUserUiSelectSetting;
 import com.nyngw.dto.MainUserUiSelectVO;
 import com.nyngw.dto.MemberVO;
@@ -29,6 +31,8 @@ import com.nyngw.dto.MiddleMenuVO;
 import com.nyngw.dto.ScheduleVO;
 import com.nyngw.dto.UserInterfaceVO;
 import com.nyngw.dto.UserUiVO;
+import com.nyngw.electronicApproval.individualDocumentBox.dao.IndividualDocumentBoxDaoImpl;
+import com.nyngw.electronicApproval.individualDocumentBox.service.IndividualDocumentBoxServiceImpl;
 import com.nyngw.homeMain.appointedUI.dao.AppointedUIDaoImpl;
 import com.nyngw.sharingInformation.scheduleManagement.dao.ScheduleManagementDaoImpl;
 
@@ -43,6 +47,9 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 	
 	@Autowired
 	private ScheduleManagementDaoImpl scheduleManagementDao; 
+
+	@Autowired
+	private IndividualDocumentBoxDaoImpl individualDocumentBoxDao;
 	
 	@Override
 	public CompanyVO checkCompany() throws SQLException {
@@ -144,6 +151,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		List<DocumentViewVO> documentManagerList = null; //문서조회
 		List<ScheduleVO> scheduleList = null;//일정관리 
 		List<Duty_ReportVO> dutyReportList = null; //받은업무보고
+		List<Electronic_ApprovalVO> EARefusedList = null;//반려문서
 		MainUserUiSelectSetting mUUSS = new MainUserUiSelectSetting();//제목리스트, 내용리스트, 테이블명, More주소
 		List<MainUserUiSelectVO> list = null; //내용을 담을 리스트
 		MainUserUiSelectVO mUUSVO = null;//내용이들어가는곳
@@ -790,6 +798,90 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 							mUUSS.setContent3(list);
 							mUUSS.setMenu3("받은업무보고");
 							mUUSS.setUriAddr3("/businessSupport/dutyReport/dutyReport");
+						}
+					}
+					break;
+//				case "mid_10": //미결재문서
+//					dutyReportList = appointedUIDao.userUiDutyReportList_UI(loginUser);
+//					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
+//					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+//					titleList = new ArrayList<String>();//제목이 들어가는 곳
+//					titleList.add("번호");
+//					titleList.add("제목");
+//					titleList.add("보고유형");
+//					titleList.add("보고자");
+//					if(one.equals(uiCodeName.get(i))){
+//						mUUSS.setTitle1(titleList);
+//					}else if(two.equals(uiCodeName.get(i))){
+//						mUUSS.setTitle2(titleList);
+//					}else{
+//						mUUSS.setTitle3(titleList);
+//					}
+//					
+//					break;
+				case "mid_11": //반려문서
+					EARefusedList = individualDocumentBoxDao.selectRAB(loginUser);
+					for(int j = 0; i < EARefusedList.size(); i++){
+						Common_CodeVO ccVO = CommonDao.selectCodeNameByDocNumber(EARefusedList.get(i).getEa_doc_number());
+						EARefusedList.get(i).setCommon_name(ccVO.getCode_name());
+					}
+					list = new ArrayList<MainUserUiSelectVO>(); //내용을 담을 리스트
+					mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+					titleList = new ArrayList<String>();//제목이 들어가는 곳
+					titleList.add("품의번호");
+					titleList.add("제목");
+					titleList.add("문서분류");
+					titleList.add("기안자");
+					if(one.equals(uiCodeName.get(i))){
+						mUUSS.setTitle1(titleList);
+					}else if(two.equals(uiCodeName.get(i))){
+						mUUSS.setTitle2(titleList);
+					}else{
+						mUUSS.setTitle3(titleList);
+					}
+					if(EARefusedList.size()>count){
+						for(int j = 0; j < count; j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
+							mUUSVO.setContent3(EARefusedList.get(j).getCommon_name());
+							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number="+EARefusedList.get(j).getEa_doc_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("반려문서함");
+							mUUSS.setUriAddr1("/electronicApproval/individualDocumentBox/refusedApprovalBox");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("반려문서함");
+							mUUSS.setUriAddr2("/electronicApproval/individualDocumentBox/refusedApprovalBox");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("반려문서함");
+							mUUSS.setUriAddr3("/electronicApproval/individualDocumentBox/refusedApprovalBox");
+						}
+					}else{
+						for(int j = 0; j < EARefusedList.size(); j++){
+							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
+							mUUSVO.setContent1(EARefusedList.get(j).getEa_doc_number());
+							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
+							mUUSVO.setContent3(EARefusedList.get(j).getCommon_name());
+							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalDetail?ea_number="+EARefusedList.get(j).getEa_doc_number());
+							list.add(mUUSVO);
+						}
+						if(one.equals(uiCodeName.get(i))){
+							mUUSS.setContent1(list);
+							mUUSS.setMenu1("반려문서함");
+							mUUSS.setUriAddr1("/electronicApproval/individualDocumentBox/refusedApprovalBox");
+						}else if(two.equals(uiCodeName.get(i))){
+							mUUSS.setContent2(list);
+							mUUSS.setMenu2("반려문서함");
+							mUUSS.setUriAddr2("/electronicApproval/individualDocumentBox/refusedApprovalBox");
+						}else{
+							mUUSS.setContent3(list);
+							mUUSS.setMenu3("반려문서함");
+							mUUSS.setUriAddr3("/electronicApproval/individualDocumentBox/refusedApprovalBox");
 						}
 					}
 					break;
