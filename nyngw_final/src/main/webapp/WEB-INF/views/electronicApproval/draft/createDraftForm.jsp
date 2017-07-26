@@ -208,9 +208,8 @@
 <button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
 
 
-
 <textarea id="text_content" style="display:none;">
-${board.board_content}
+${doc_content}
 </textarea>
 <script type="text/javascript">
 	$(function(){   

@@ -35,6 +35,10 @@
 		select nvl(max(substr(ah_ast_number,4)),0) from approval_history where ah_ea_number= #{ah_ea_number}
 	</select>
 	
+	<select id="selectLastAhStatus" parameterType="string" resultType="string">
+		
+	</select>
+	
 	<!-- 결재번호로 하나의 결재를 가져오기 -->
 	<select id="selectEA" resultType="com.nyngw.dto.Electronic_ApprovalVO" parameterType="string">
 		select * from Electronic_Approval where ea_number = #{ea_number}
