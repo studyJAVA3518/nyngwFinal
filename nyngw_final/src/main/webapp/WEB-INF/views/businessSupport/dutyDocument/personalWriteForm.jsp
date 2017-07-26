@@ -30,7 +30,7 @@
 				<th>제목</th>
 				<td colspan="3"><input type="text" name="dd_title"></td>
 				<th>업무시작일</th>
-				<td><input type="date" name="start_date"></td>
+				<td><input type="text" class="inputTypeDate" name="start_date"></td>
 			</tr>
 			<tr>
 				<th colspan="6">내용</th>

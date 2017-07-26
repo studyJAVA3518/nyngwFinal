@@ -23,7 +23,7 @@
 				<th >제목<input type="hidden" name="dd_number" value="${dutyDocument.dd_number}"></th>
 				<td><input type="text" name="dd_title" value="${dutyDocument.dd_title}"></td>
 				<th >업무시작일</th>
-				<td><input type="date" name="dd_start_date" id="dd_start_date" value="${dt}"></td>
+				<td><input type="text" class="inputTypeDate" name="dd_start_date" id="dd_start_date" value="${dt}"></td>
 			</tr>
 			<tr>
 				<th>업무일지</th>
