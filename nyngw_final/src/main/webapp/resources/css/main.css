@@ -17,7 +17,12 @@
 .rowBar {
 	border-right : 1px solid #ccc;
 }
-
+a {
+    color: #333;
+}
+a:hover {
+    color: #00a0c7;
+}
 /**********video**********/
 .BigWrap{
     width: 100%;
@@ -130,9 +135,11 @@ h5 {
 
 /**********contents(서브메뉴+내용)**********/
 #contents {
-	margin : 165px auto 50px;
+	margin : 0 auto 50px;
 }
-
+.content {
+	margin-top : 160px;
+}
 /**********드롭다운**********/
 .dropdown {
 	display : inline-block;
@@ -146,7 +153,7 @@ h5 {
 }
 /**********sidebar**********/
 .sidebarBtn{
-	position : absolute;
+	position : fixed;
 	top : 150px;
 	right :0;
 	-webkit-transition: all 0.5s ease;
@@ -154,8 +161,16 @@ h5 {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     z-index : 10000;
+    color : #fff;
+    background-color : #293348;
+    padding : 15px;
+    border-top-left-radius : 10px;
+    border-bottom-left-radius : 10px;
 }
-
+.sidebarBtn:hover, .sidebarBtn:focus {
+	color : #ccc;
+	font-weight : bold;
+}
 
 /**********메인화면-왼쪽섹션**********/
 .contentBorder {
@@ -211,19 +226,28 @@ h5 {
 .topBorderBar {
 	border-top : 1px dashed #ddd;
 }
-
+.sideImg {
+	margin-top : 100px;
+	text-align : center;
+	opacity : 0.5;
+}
+.sideImg img {
+	width : 180px;
+	height : 180px;
+}
 /**********메인화면-오른쪽섹션**********/
 .clock {
-	color:#666;
+	text-align : center;
+	color:#aaa;
 	font-size:24px; 
-	text-align:left;
+	text-align:center;
 	padding-top : 8px;
 }
 .middleBar {
-	margin : 15px 0 15px;
+	margin : 0 0 15px;
 	padding : 15px;
 	border-radius : 10px;
-	background-color : #eee;
+	background-color : #f1f5f8;
 }
 
 /**********table**********/
@@ -245,8 +269,8 @@ h5 {
 	color : #0092c5;
 }
 .table {
-	border-top : 2px solid #ccc;
-	border-bottom : 1px solid #ddd;
+	border-top : 3px solid #3695eb;
+	border-bottom : 2px solid #ddd;
 }
 
 .table th{
@@ -257,18 +281,29 @@ h5 {
 	text-align : center;
 }
 
+/*homeMain*/
+.uiBtn {
+	margin-top : 15px;
+}
 
 /**********footer**********/
 .footer {
 	height : 70px;
 	margin-top : 50px;
-	line-height : 70px;
 	text-align : center;
-	background-color : #ccc;
-	color : #666;
+	background-color : #293348;
+	color : #d2d9e8;
+}
+.footer p {
+	margin-top : 20px;
+	font-size : 12px;
+	line-height : 18px;
+}
+.footer p span {
+	margin-right : 15px;
+	font-size : 12px;
 	
 }
-
 
 /**********sub-menu 공통**********/
 #side article .lst_snb ul {
@@ -330,6 +365,7 @@ h5 {
 	display : block;
 	margin : 10px;
 	overflow : hidden;
+	padding-left:20px;
 }
 .sideIcon {
 	display : block;
@@ -345,9 +381,10 @@ h5 {
 .companyInfoDown {
 	display : block;
 	float:left;
-	width : 135px;
+	width : 110px;
 	font-size : 14px;
 	line-height : 20px;
 	height : 70px;
 	margin : 5px 5px 0;
+	padding-left : 20px;
 }

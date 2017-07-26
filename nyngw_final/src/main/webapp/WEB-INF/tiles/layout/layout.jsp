@@ -76,64 +76,64 @@
     <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
     
     <script>
-		$(function(){
-          
-			$('#codeDialog').css('display', 'none');
-			$('#memoDialog').css('display', 'none');
-          
-			//사이드바
-			$("#menu-toggle").click(function(e) {
-			    e.preventDefault();
-			    $("#wrapper").toggleClass("toggled");
-			    $("#menu-toggle").toggleClass("sidebarBtnClick");
-			});
-			
-			$('.downMenu').hide();
-			
-			$(".headerBottom a").hover(function(){
-			   $('.downMenu').show();
-			    }, function(){
-			    $('.downMenu').hide();
-			});
-          
-			$.ajax({
-			   url : '/memo/list',
-			   type : 'post',
-			   data : "",
-			   success : function(res) {
-			      if(res.su=="ok"){
-			         var list= res.list;
-			      	var code="";
-			             $.each(list, function( index, list ) {
-			          	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
-			             });
-			          code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
-			             $('#memo').html(code);
-			   	   }
-			 		} ,
+	$(function(){
+	        
+		$('#codeDialog').css('display', 'none');
+		$('#memoDialog').css('display', 'none');
+	        
+		//사이드바
+		$("#menu-toggle").click(function(e) {
+		    e.preventDefault();
+		    $("#wrapper").toggleClass("toggled");
+		    $("#menu-toggle").toggleClass("sidebarBtnClick");
+		});
+		
+		$('.downMenu').hide();
+		
+		$(".headerBottom a").hover(function(){
+		   $('.downMenu').show();
+		    }, function(){
+		    $('.downMenu').hide();
+		});
+	        
+		$.ajax({
+			url : '/memo/list',
+			type : 'post',
+			data : "",
+			success : function(res) {
+				if(res.su=="ok"){
+					var list= res.list;
+					var code="";
+					$.each(list, function( index, list ) {
+						code += "<tr style='border-bottom:1px solid #99a3b6;'><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');><i class='fa fa-trash' aria-hidden='true'></i></a></td></tr>";
+					});
+		          	code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
+					$('#memo').html(code);
+				}
+			},
 			dataType : 'json'
-			})
 		})
+	})
        
     function paging(page){
 		page=parseInt(page, 10)+1;
 		$.ajax({
-		       url : '/memo/list',
-		       type : 'post',
-		       data : {"page":page},
-		       success : function(res) {
-		          if(res.su=="ok"){
-		             var list= res.list;
-		          	var code="";
-		             $.each(list, function( index, list ) {
-		              	 code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
-		                 });
-		              code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
-		                 $('#memo').html(code);
-		       	   }
-		     		} ,
+			url : '/memo/list',
+			type : 'post',
+			data : {"page":page},
+			success : function(res) {
+				if(res.su=="ok"){
+					var list= res.list;
+					var code="";
+					$.each(list, function( index, list ) {
+						code += "<tr style='border-bottom:1px solid #99a3b6;'><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');><i class='fa fa-trash' aria-hidden='true'></i></a></td></tr>";
+					});
+				    code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.currentPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
+					$('#memo').html(code);
+				}
+			} ,
 		    dataType : 'json'
-		    })	   
+		})	   
     }
        
 	$(document).ready(function() {
@@ -147,8 +147,8 @@
 		    theme: true,
 		    header: {
 		        left: 'title',
-		        center:'',   
-		        right:'prev, today, next'
+		        center:'prev, today, next',   
+		        right:''
 		    },
 		    editable: true,
 		    dayClick :function(date,allDay,jsEvent,view){
@@ -159,45 +159,45 @@
 		     
 		         day=yy+"-"+mm+"-"+dd;
 		         
-		      $.ajax({
-		     url : '/sharingInformation/scheduleManagement/side',
-		     type : 'post',
-		     data : {"date":day},
-		     success : function(res) {
-		        if(res.su=="ok"){
-		           
-		           var code="<tr><th>번호</th><th>제목</th><th>시간</th></tr>";
-		           var list= res.sc;
-		                
-		               $.each(list, function( index, list ) {
-		                 code+="<tr onclick=location.href='/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+list.sc_number+"'>"
-		                 +"<td>"+(index+1)+"</td><td>"+list.sc_title+"</td>"
-		                 +"<td>"+list.sc_time+"</td></tr>";
-		               });
-		               
-		               $('#schduleList').html(code);
-		           $('#codeDialog').dialog({
-		              width: 500,
-		              height: 300,
-		              modal: true,
-		              buttons: {
-		                  "취소": function() {
-		                    $(this).dialog("close");
-		                 }
-		              },
-		              close: function() {
-		                                
-		              }
-		             });
-		        }else{
-		           if(confirm(day+" -> 일정을 등록?")){
-		              location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
-		           }
-		        }
-		     },
-		     error : function() {
+			$.ajax({
+				url : '/sharingInformation/scheduleManagement/side',
+				type : 'post',
+				data : {"date":day},
+				success : function(res) {
+			        if(res.su=="ok"){
+			           
+						var code="<tr><th>번호</th><th>제목</th><th>시간</th></tr>";
+						var list= res.sc;
+			                
+						$.each(list, function( index, list ) {
+							code+="<tr onclick='location.href='/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+list.sc_number+"'>"
+							+"<td>"+(index+1)+"</td><td>"+list.sc_title+"</td>"
+							+"<td>"+list.sc_time+"</td></tr>";
+						});
+			               
+						$('#schduleList').html(code);
+						$('#codeDialog').dialog({
+							width: 500,
+							height: 300,
+							modal: true,
+							buttons: {
+								"취소": function() {
+									$(this).dialog("close");
+								}
+							},
+							close: function() {
+							                     
+							}
+						});
+			        }else{
+			           if(confirm(day+" -> 일정을 등록하시겠습니까?")){
+			              location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
+			           }
+			        }
+				},
+		     	error : function() {
 		
-		     },dataType : 'json'
+		     	},dataType : 'json'
 		     })
 		    },
 		    // add event name to title attribute on mouseover
@@ -212,8 +212,8 @@
        
 	function addMemo(){
 		$('#memoDialog').dialog({
-	        width: 300,
-	        height: 300,
+	        width: 400,
+	        height: 400,
 	        modal: true,
 	        buttons: {
 				"저장" :function(){
@@ -229,7 +229,7 @@
 								var list= res.list;
 								var code="";
 								$.each(list, function( index, list ) {
-									code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+									code += "<tr style='border-bottom:1px solid #99a3b6;'><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');><i class='fa fa-trash' aria-hidden='true'></i></a></td></tr>";
 								});
 								code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
 								$('#memo').html(code);
@@ -249,7 +249,7 @@
 		});
 	}
 	function deleteMemo(memo_number){
-		if(confirm("??")){
+		if(confirm("정말로 삭제하시겠습니까?")){
 			$.ajax({
 				url : '/memo/delete',
 				type : 'post',
@@ -260,7 +260,7 @@
 						var list= res.list;
 						var code="";
 						$.each(list, function( index, list ) {
-							code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+							code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');><i class='fa fa-trash' aria-hidden='true'></i></a></td></tr>";
 						});
 		                code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
 						$('#memo').html(code);
@@ -279,8 +279,8 @@
 				$('#memo_content').val(res.memo.memo_content);
 				$('#memo_number').val(res.memo.memo_number);
 	            $('#memoDialog').dialog({
-					width: 300,
-					height: 300,
+					width: 400,
+					height: 400,
 					modal: true,
 					buttons: {
 						"수정" :function(){
@@ -295,7 +295,7 @@
 									    var list= res.list;
 										var code="";
 									$.each(list, function( index, list ) {
-										code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;</a></td></tr>";
+										code += "<tr><td><a href='#' onclick=modifyMemo('"+list.memo_number+"');>"+list.memo_title+"</a></td><td style='width:25px'><a href='#' onclick=deleteMemo('"+list.memo_number+"');><i class='fa fa-trash' aria-hidden='true'></i></a></td></tr>";
 									});
 									code+="<tr><td style='color:red;'>"+res.page.currentPageNo+"</td><td><a href='#' onclick=paging('"+res.page.nextPageNo+"');>next&nbsp;&nbsp;&nbsp;</a></td></tr>";
 										$('#memo').html(code);
@@ -320,11 +320,9 @@
 <style>
 /*side bar*/
 .sidebarBtnClick {
-   position: absolute;
-   top: 150px;
    right: 250px;
 }
- 
+
 #calendarmini {
     width: 250px;
     margin: 0 0;
@@ -367,6 +365,47 @@
 #caledarmini .fc-day-header ui-widget-heade{
    height:20px;
 }
+.fc-left {
+	text-align : center;
+}
+.fc-toolbar.fc-header-toolbar {
+	margin : 0 auto 1em;
+	padding : 10px;
+}
+.fc-toolbar h2 {
+	text-align : center;
+	margin :5px 0;
+	display : block;
+	margin : 0 auto;
+	font-size : 20px;
+}
+.fc-view-container {
+	padding : 5px;
+	opacity : 0.9;
+	
+}
+.fc-basic-view {
+	border-radius : 5px;
+}
+.sideTitle {
+	color : #fff;
+	margin : 15px auto 5px;
+}
+
+#memoform h4{
+	margin : 12px 0;
+}
+#memoform input {
+	display : inline-block;
+	width : 300px;
+}
+#memoform textarea {
+	resize: none;
+	wrap:hard;
+}
+#memoform p {
+	margin : 10px 0;
+}
 </style>
 
 </head>
@@ -376,7 +415,7 @@
 	<div class="container-fliud" id="wrapper">
         
 		<!-- side-bar -->
-		<a href="#menu-toggle" class="btn btn-default sidebarBtn" id="menu-toggle">사<br/>이<br/>드<br/>바</a>
+		<a href="#menu-toggle" class="sidebarBtn" id="menu-toggle">사<br/>이<br/>드<br/>바</a>
 		
 		<div id="sidebar-wrapper">
 		    <ul class="sidebar-nav">
@@ -384,16 +423,21 @@
 		            <div class="clock" id="clock"></div>
 		        </li>
 				<li>
+					<label class="sideTitle">${memberName}님의 일정</label>
+				</li>
+				<li>
 				   <div id='calendarmini'></div>
 				</li>
-				<li><label style="color: white;">${memberName}님의 일정</label></li>
 				<li>
 				   <div id='todayschdule'></div>
 				</li>
-				<li><a href="#" onclick="addMemo();">+ 메모추가</a></li>
 				<li>
-				   <table id='memo' class="table table-bordered"></table>
+					<label class="sideTitle"><i class="fa fa-smile-o" aria-hidden="true"></i> ${memberName}님의 메모</label>
 				</li>
+				<li style="box-sizing: border-box;">
+					<table id='memo' class="table"></table>
+				</li>
+				<li><a href="#" onclick="addMemo();"><i class="fa fa-plus-circle" aria-hidden="true"></i> 메모추가</a></li>
 			</ul>
 		</div>
 	        
@@ -435,9 +479,11 @@
    
 	<div id="memoDialog">
 		<form id="memoform">
-			<input type="text" id="memo_title" name="memo_title" />
+			<h4>메모 입력</h4>
+			제목&nbsp;&nbsp;&nbsp;<input type="text" id="memo_title" name="memo_title" class="form-control"/>
 			<input type="hidden" id="memo_number" name="memo_number" />
-			<textarea rows="10" cols="25" id="memo_content" name="memo_content"></textarea>
+			<p>내용</p> 
+			<textarea rows="7" cols="25" id="memo_content" name="memo_content" class="form-control"></textarea>
 		</form>
 	</div>
 

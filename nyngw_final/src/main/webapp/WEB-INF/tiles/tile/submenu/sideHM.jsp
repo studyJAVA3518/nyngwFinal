@@ -29,7 +29,7 @@
 		</a>
 		<a href="<%=request.getContextPath()%>/resources/companyInfo/최종_그룹웨어_사용자가이드.pdf" target="_blank">
 			<div class="sideIcon textCenter">
-				<i class="fa fa-building" aria-hidden="true"></i>
+				<i class="fa fa-user-secret" aria-hidden="true"></i>
 			</div>	
 			<div class="companyInfoDown">
 				그룹웨어
@@ -41,5 +41,5 @@
 </div>
 
 <div class="sideImg">
-	
+	<img src="<%=request.getContextPath()%>/resources/images/computer.png" alt="sub_image"/>
 </div>
