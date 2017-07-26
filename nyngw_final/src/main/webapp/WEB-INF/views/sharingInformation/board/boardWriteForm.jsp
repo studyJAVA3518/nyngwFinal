@@ -15,7 +15,7 @@ function file_change(file){
 			<table class="table table-bordered">
 				<tr>
 					<th>게시판종류</th>
-					<td>공지사항</td>
+					<td>게시판</td>
 				</tr>
 				<tr>
 					<th>제목</th>
