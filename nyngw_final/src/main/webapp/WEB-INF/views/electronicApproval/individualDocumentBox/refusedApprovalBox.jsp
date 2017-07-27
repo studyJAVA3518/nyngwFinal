@@ -89,7 +89,8 @@
 	           type:'get',
 	           data: {'ea_number' : tmp},
 	           success : function(res){
-	       		   var code = "";
+	       		   var code = "<tbody>";
+	       			$("#historyList").html(code);
 	        	   $.each(res, function (i,value){
 	        		   code+='<tr><td>'+value.dept_name+'</td>';
 	        		   code+='<td>'+value.position_name+'</td>';
@@ -97,6 +98,7 @@
 	        		   code+='<td>'+value.ah_status+'</td>';
 	        		   code+='<td>'+value.ah_time+'</td></tr>';
 	        	   });
+	        	   code+="</tbody>";
 					$("#historyList").append(code);
 	           },
 	           dataType : 'json'
