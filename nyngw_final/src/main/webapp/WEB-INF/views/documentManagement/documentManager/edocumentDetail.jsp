@@ -29,9 +29,13 @@ th{
 	width: 120px;
 }
 </style>
- 상세정보페이지 입니다.<br>
+
+<h2>전자 문서 상세보기</h2>
+<p class="description">
+	전자문서 상세정보 페이지 입니다.
+</p>
 	<div>
-		<table class="table table-bordered">
+		<table class="table table-bordered tableGray">
 			<tr>
 				<th>문서번호</th><td>${document.doc_number }</td>
 				<th>등록자</th><td>${mem.mem_name } </td>
@@ -49,12 +53,12 @@ th{
 			</tr>
 		</table>
 	</div>
-	<div>
+	<div class="textCenter">
 	<c:choose>
 		<c:when test="${mem.mem_number eq document.doc_mem_number}">
-			<button class="btn"><a href="/documentManagement/documentManager/edocumentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
-			<button class="btn"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
-			<button class="btn"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">목록</a></button>
+			<button class="btn btn-default"><a href="/documentManagement/documentManager/edocumentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
+			<button class="btn btn-default"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
+			<button class="btn btn-default"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">목록</a></button>
 		</c:when>
 		<c:otherwise>
 			<button class="btn"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">목록</a></button>

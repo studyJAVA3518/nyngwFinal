@@ -146,7 +146,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 			doc.setDoc_file_name("다운받을 파일이 없습니다.");
 			doc.setDoc_explanation(doc_content);
 			doc.setDoc_mem_number(mem_number);
-			
+			System.out.println(doc.getDoc_lifetime());
 			model.addAttribute(doc);
 			
 			documentManagerService.documentInsertComplete(doc);

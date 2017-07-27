@@ -3,24 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>공지사항</h1>
+	<h2>공지사항</h2>
+	<p class="description">
+		회사의 공지사항을 확인할 수 있습니다.
+	</p>
 	<form action="/sharingInformation/noticeMatter/nmList">
-		<select name="index">
+		<select name="index" class="form-control docInputSelect">
 				<option value="board_mem_number" selected="selected">작성자</option>
 				<option value="board_title">제목</option>
 		</select>
 		<input type="hidden" value="${select.index}">
-		<input type="text" name="val" value="${select.val}">
-		<input type="submit" value="검색">
-		<button type="button"><a href="/sharingInformation/noticeMatter/nmWriteForm?page=${pageNumber }">등록</a></button>
+		<input type="text" name="val" value="${select.val}" class="form-control docInputSearch">
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
+	<div class="textRight docBtnSpace">
+		<button type="button" class="btn btn-default">
+			<a href="/sharingInformation/noticeMatter/nmWriteForm?page=${pageNumber }">등록</a>
+		</button>
+	</div>
 	<table class="table table-bordered">
 		<tr>
 			<th>글번호</th>
@@ -48,7 +48,7 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div id="pageNum">
+	<div id="pageNum" class="textCenter">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>
@@ -59,5 +59,3 @@
 			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 	</div>
-</body>
-</html>

@@ -282,6 +282,14 @@ h5 {
 	text-align : center;
 }
 
+.tableGray {
+	border-top : 3px solid #dad8d7;
+	border-bottom : 2px solid #ddd;
+}
+table caption {
+	display : none;
+}
+
 /*homeMain*/
 .uiBtn {
 	margin-top : 15px;
@@ -289,7 +297,7 @@ h5 {
 
 /**********footer**********/
 .footer {
-	height : 70px;
+	height : 100px;
 	margin-top : 50px;
 	text-align : center;
 	background-color : #293348;
@@ -398,4 +406,10 @@ h5 {
 .docInputSearch {
 	display : inline-block;
 	width : 400px;
+}
+.docBtnSpace {
+	margin : 15px 0 20px;
+}
+.description {
+	margin : 0 5px 10px 10px;
 }

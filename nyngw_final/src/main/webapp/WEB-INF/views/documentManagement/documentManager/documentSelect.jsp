@@ -9,6 +9,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<h2>문서조회</h2>
+	<p class="description">
+		그룹웨어에 등록되어있는 문서들을 조회하고 등록할 수 있습니다.
+	</p>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
 			<form action="/documentManagement/documentManager/documentSelect">
@@ -22,13 +25,10 @@
 				<input type="submit" value="검색"  class="btn btn-default">
 			</form>
 		</div>
-		<div>
-		</div>
 	</div>
 	<br>
-	<div></div>
 	<br>
-	<div style="text-align: right;">
+	<div class="textRight docBtnSpace">
 		<button type="button"class="btn btn-default">
 			<a href="/documentManagement/documentManager/documentInsert">
 				문서 등록

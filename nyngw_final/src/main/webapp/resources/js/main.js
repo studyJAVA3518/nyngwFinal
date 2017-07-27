@@ -2,7 +2,6 @@
 $(function() {
     $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
     $( ".inputTypeDate2" ).datepicker({ dateFormat: 'yy/mm/dd'}); 
-    $( ".inputTypeDate3" ).datepicker({ dateFormat: 'yyyy/mm/dd'}); 
 	$( ".inputTypeMonth" ).MonthPicker({ 
 		pattern:'yy/mm',
 		dateFormat: 'yy/mm',

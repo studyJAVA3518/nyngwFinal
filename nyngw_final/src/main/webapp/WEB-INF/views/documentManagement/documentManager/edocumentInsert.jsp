@@ -10,6 +10,14 @@
 <script>
 function insert_error_go(){
     
+	//DatePicker사용시 정규식 사용
+	var doc_lifetime = document.getElementById("doc_lifetime").value;
+	var format = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+	if(!format.test(doc_lifetime)){
+		alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+		return false;
+	}
+	
     if(!document.getElementById("doc_name").value){
        alert("제목을 입력하십시오.");
        return;
@@ -22,13 +30,19 @@ function insert_error_go(){
     
  }
 </script>
+
+<h2>전자 문서 작성</h2>
+<p class="description">
+	전자 문서를 작성할 수 있습니다.
+</p>
+
 <form name="tx_editor_form"	style="width: 750px;" id="tx_editor_form" action="edocumentInsertComplete" method="POST" accept-charset="utf-8">
-	<table class="table table-bordered">
+	<table class="table table-bordered tableGray">
 		<caption>문서 작성</caption>
 		<tbody>
 			<tr>
 				<th>문서종류</th>
-				<td colspan="2"><select name="doc_code_number">
+				<td colspan="2"><select name="doc_code_number" class="form-control docInputSelect">
 						<c:forEach items="${codeList2 }" var="codeList2">
 							<option value="${codeList2.code_number }">${codeList2.code_name }</option>
 						</c:forEach>
@@ -37,18 +51,18 @@ function insert_error_go(){
 			</tr>
 			<tr>
 				<th>보존기간</th>
-				<td colspan="3"><input type="date" id="doc_lifetime"
-					name="doc_lifetime"></td>
+				<td colspan="3"><input type="text" id="doc_lifetime"
+					name="doc_lifetime" class="form-control docInputSelect inputTypeDate"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td colspan="3"><input type="text" id="doc_mem_number"
+				<td colspan="3"><input type="text" id="doc_mem_number" class="form-control docInputSelect"
 					name="doc_mem_number" value="${mem.mem_name }" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<th>문서명</th>
 				<td colspan="3"><input type="text" id="doc_name"
-					name="doc_name"></td>
+					name="doc_name" class="form-control"></td>
 			</tr>
 			<tr>
 				<th colspan="4">내용</th>
@@ -57,10 +71,10 @@ function insert_error_go(){
 	</table>
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp"	flush="false" />
 
-	<div>
-		<button type="button" onclick="insert_error_go();" class="btn">등록</button>
-		<button class="btn">
-			<a href="/documentManagement/documentManager/edocumentSelect"id="edocumentSelect">취소</a>
+	<div class="textCenter">
+		<button type="button" onclick="insert_error_go();" class="btn btn-default">등록</button>
+		<button class="btn btn-default">
+			<a href="/documentManagement/documentManager/edocumentSelect" id="edocumentSelect">취소</a>
 		</button>
 	</div>
 </form>
