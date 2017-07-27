@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="apple-touch-icon" sizes="57x57" href="https://fullcalendar.io/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="114x114" href="https://fullcalendar.io/apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon" sizes="72x72" href="https://fullcalendar.io/apple-touch-icon-72x72.png">
@@ -65,7 +65,6 @@
 	margin: 0 auto;
 }
 </style>
-
 <a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button>일정등록</button></a>
 <div id='body' class='section'>
 	<div>

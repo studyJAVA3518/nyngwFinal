@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 			
 
 <!-- 헤더 가운데 감싸는 부분 -->
 <div class="container-fliud headerTopColor">
@@ -92,48 +92,61 @@
 							<li><a href="/businessSupport/meetingManagement/meetingFile">회의록 관리</a></li>
 						</ul>
 					</div>
-				        
+
 					<div class="dropdown">
-						<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">
+						<a href="#" class="dropdown-toggle menuDetail"
+							data-toggle="dropdown" role="button" aria-expanded="false">
 							전자결재 <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/electronicApproval/draft/draft">기안하기</a></li>
 							<li class="divider"></li>
 							<li class="topMenuTitle">결재진행</li>
-							<li><a href="/electronicApproval/approvalProgress/waitingApproval">미결재문서</a></li>
-							<li><a href="/electronicApproval/approvalProgress/completeApproval">결재완료문서</a></li>
-							<li><a href="/electronicApproval/approvalProgress/refusedApproval">반려문서</a></li>
+							<li><a
+								href="/electronicApproval/approvalProgress/waitingApproval">미결재문서</a></li>
+							<li><a
+								href="/electronicApproval/approvalProgress/completeApproval">결재완료문서</a></li>
+							<li><a
+								href="/electronicApproval/approvalProgress/refusedApproval">반려문서</a></li>
 							<li class="divider"></li>
 							<li class="topMenuTitle">개인문서함</li>
-							<li><a href="/electronicApproval/individualDocumentBox/submitApprovalBox">상신문서함</a></li>
-							<li><a href="/electronicApproval/individualDocumentBox/completeApprovalBox">결재완료문서함</a></li>
-							<li><a href="/electronicApproval/individualDocumentBox/refusedApprovalBox">반려문서함</a></li>
+							<li><a
+								href="/electronicApproval/individualDocumentBox/submitApprovalBox">상신문서함</a></li>
+							<li><a
+								href="/electronicApproval/individualDocumentBox/completeApprovalBox">결재완료문서함</a></li>
+							<li><a
+								href="/electronicApproval/individualDocumentBox/refusedApprovalBox">반려문서함</a></li>
 							<li class="divider"></li>
 							<li class="topMenuTitle">그외문서함</li>
-							<li><a href="/electronicApproval/theRestDocumentBox/implementDocumentBox">시행문서함</a></li>  
-							<li><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">참조문서함</a></li>  
-							<li><a href="/electronicApproval/theRestDocumentBox/overallDocumentBox">전체문서함</a></li>  
-				    	</ul>
-					</div>
-				        
-					<div class="dropdown">
-						<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">
-							인사관리 <span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="topMenuTitle">사원 관리</li>
-							<li><a href="/humanResource/dalManagement/hrm">근태관리</a></li>
-							<li><a href="/humanResource/vacationManagement/vmtm">휴가관리</a></li>
-							<li><a href="/humanResource/payManagement/pmm">급여관리</a></li>
-							<li class="divider"></li>
-							<li class="topMenuTitle">인사 관리</li>
-							<li><a href="/humanResource/memberJoin/mjm">사원 가입</a></li>
-							<li><a href="/humanResource/joinMemberList/jlm">사원 목록</a></li>
-							<li><a href="/humanResource/retiredMemberList/rmm">퇴사자 목록</a></li>
+							<li><a
+								href="/electronicApproval/theRestDocumentBox/implementDocumentBox">시행문서함</a></li>
+							<li><a
+								href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">참조문서함</a></li>
+							<li><a
+								href="/electronicApproval/theRestDocumentBox/overallDocumentBox">전체문서함</a></li>
 						</ul>
 					</div>
-				        
+
+					<sec:authorize
+						access="hasAnyRole('role_master','role_hr_admin','role_hr_user')">
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">인사관리 <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="topMenuTitle">사원 관리</li>
+								<li><a href="/humanResource/dalManagement/hrm">근태관리</a></li>
+								<li><a href="/humanResource/vacationManagement/vmtm">휴가관리</a></li>
+								<li><a href="/humanResource/payManagement/pmm">급여관리</a></li>
+								<li class="divider"></li>
+								<li class="topMenuTitle">인사 관리</li>
+								<sec:authorize access="hasAnyRole('role_master','role_hr_admin')">
+									<li><a href="/humanResource/memberJoin/mjm">사원 가입</a></li>
+								</sec:authorize>
+								<li><a href="/humanResource/joinMemberList/jlm">사원 목록</a></li>
+								<li><a href="/humanResource/retiredMemberList/rmm">퇴사자 목록</a></li>
+							</ul>
+						</div>
+					</sec:authorize>
+
 					<div class="dropdown">
 						<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">
 							마이페이지 <span class="caret"></span>
@@ -150,12 +163,14 @@
 							<li><a href="/mypage/basicSetting/sign">개인 정보 수정</a></li>
 						</ul>
 					</div>
-				        
+					
+					<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_hr_user','role_ppr_admin','role_ppr_user')">
 					<div class="dropdown">
 						<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">
 							환경설정관리 <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
+							<sec:authorize access="hasAnyRole('role_master','role_ppr_admin','role_ppr_user')">
 							<li class="topMenuTitle">기획홍보부 설정</li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">근무일 및 출결정보 등록시간 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">회사 정보 설정</a></li>
@@ -163,12 +178,16 @@
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">회사 직급 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm">급여종류 및 퇴직금 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm">급여정책 설정</a></li>
+							</sec:authorize>
 							<li class="divider"></li>
+							<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_hr_user')">
 							<li class="topMenuTitle">인사부부 설정</li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">휴가 일수 설정</a></li>
+							</sec:authorize>
 						</ul>
 					</div>
+					</sec:authorize>
 				</div>
 			</div>
 		</div>

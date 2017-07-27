@@ -8,6 +8,6 @@
 <body>
 요청한 페이지에 접근 권한이 없습니다.
 <br/>
-<a href="<c:url value='/main'/>">메인화면으로</a>
+<a href="<c:url value='/homeMain/main'/>">메인화면으로</a>
 </body>
 </html>  

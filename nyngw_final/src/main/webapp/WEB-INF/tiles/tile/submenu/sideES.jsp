@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>					
-				
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>				
 	<script>
     	$(function(){
     		
@@ -26,6 +26,7 @@
 					<article>
 						<div class="lst_snb" id="accordion">
 							<ul>
+								<sec:authorize access="hasAnyRole('role_master','role_ppr_admin','role_ppr_user')">
 								<li>
 									<h3>기획홍보부 설정</h3>
 									<ul>
@@ -37,7 +38,8 @@
 										<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm/">&nbsp;&nbsp;&nbsp;└ 급여정책 설정</a></li>
 									</ul>
 								</li>
-							
+								</sec:authorize>
+								<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_hr_user')">
 								<li>
 									<h3>인사부 설정</h3>
 									<ul>
@@ -45,6 +47,7 @@
 										<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">&nbsp;&nbsp;&nbsp;└ 휴가 일수 설정</a></li>
 									</ul>
 								</li>
+								</sec:authorize>
 							</ul>
 						</div><!-- side_list -->
 					</article>

@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 	
 	<h2>문서조회</h2>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
@@ -28,6 +29,8 @@
 	<br>
 	<div></div>
 	<br>
+	
+	<sec:authorize access="hasAnyRole('role_admin','role_hr_admin','role_ppr_admin','role_master')">
 	<div style="text-align: right;">
 		<button type="button"class="btn btn-default">
 			<a href="/documentManagement/documentManager/documentInsert">
@@ -35,6 +38,7 @@
 			</a>
 		</button>
 	</div>
+	</sec:authorize>
 	
 	<div>
 		<table class="table table-bordered">
