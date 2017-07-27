@@ -25,7 +25,7 @@
 						<div class="lst_snb" id="accordion">
 							<ul>
 								<li>
-									<h3>사원 관리</h3>
+									<h3>근태 관리</h3>
 									<ul>
 										<li><a href="/humanResource/dalManagement/hrm">&nbsp;&nbsp;&nbsp;└ 근태관리</a></li>
 										<li><a href="/humanResource/vacationManagement/vmtm">&nbsp;&nbsp;&nbsp;└ 휴가관리</a></li>
@@ -35,7 +35,7 @@
 								</li>
 							
 								<li>
-									<h3>인사 관리</h3>
+									<h3>사원 관리</h3>
 									<ul>
 									<sec:authorize access="hasAnyRole('role_master','role_hr_admin')">
 										<li><a href="/humanResource/memberJoin/mjm">&nbsp;&nbsp;&nbsp;└ 사원 등록</a></li>

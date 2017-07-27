@@ -176,13 +176,20 @@ $(function(){
 			<th colspan="6">내용</th>
 		</tr>
 		<tr>
-			<td colspan="6">
-				${eaVO.ea_content }
+			<td colspan="6" >
+				<div class="textCenter aa">
+					${eaVO.ea_content }
+				</div>
 			</td>	
 		</tr>
 	</table>
 	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button">뒤로</button></a>
 </div>
+<style>
+	div.aa table {
+		 margin : 0 auto;
+	}
+</style>
 
 <script>
 	function editDraft_go(form){

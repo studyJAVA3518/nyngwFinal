@@ -132,12 +132,12 @@
 						<div class="dropdown">
 							<a href="#" class="dropdown-toggle menuDetail" data-toggle="dropdown" role="button" aria-expanded="false">인사관리 <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li class="topMenuTitle">사원 관리</li>
+								<li class="topMenuTitle">근태 관리</li>
 								<li><a href="/humanResource/dalManagement/hrm">근태관리</a></li>
 								<li><a href="/humanResource/vacationManagement/vmtm">휴가관리</a></li>
 								<li><a href="/humanResource/payManagement/pmm">급여관리</a></li>
 								<li class="divider"></li>
-								<li class="topMenuTitle">인사 관리</li>
+								<li class="topMenuTitle">사원 관리</li>
 								<sec:authorize access="hasAnyRole('role_master','role_hr_admin')">
 									<li><a href="/humanResource/memberJoin/mjm">사원 가입</a></li>
 								</sec:authorize>
