@@ -73,6 +73,8 @@ public class MemoController {
 		this.page=page;
 		map.put("su", "no");
 		
+		System.out.println("들어오니??????????????????????????????");
+		
 		memo = commonService.getMemo(memo); 
 		map.put("su", "ok");
 		
@@ -109,6 +111,7 @@ public class MemoController {
 			map.put("page", paging);
 			map.put("list", memoList);
 			map.put("su", "ok");
+			System.out.println(memoList.size());
 		}catch(Exception e){
 		}
 		return map;
@@ -118,7 +121,6 @@ public class MemoController {
 		MemberVO member = commonService.findMemberByMemId(principal.getName());
 		memo.setMemo_mem_number(member.getMem_number());
 
-		
 		int p=1;
 		if(page != null){
 			p=Integer.valueOf(page);
@@ -145,7 +147,6 @@ public class MemoController {
 		
 		memo.setStartPage(firstRow-1);	
 		memo.setEndPage(endRow);
-		
 		return commonService.getMemoList(memo);
 	}
 }

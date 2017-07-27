@@ -286,7 +286,7 @@
 						"수정" :function(){
 							var metadata = $("#memoform").serialize();
 							$.ajax({
-								url : '/memo/add',
+								url : '/memo/modify',
 								type : 'post',
 								data : metadata,
 								success : function(res) {

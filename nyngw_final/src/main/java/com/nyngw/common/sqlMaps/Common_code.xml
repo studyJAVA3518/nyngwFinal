@@ -35,10 +35,10 @@
 		FROM   ( SELECT  A.*,ROWNUM AS RNUM,COUNT(*) OVER() AS TOTCNT from (
 		select *
 		from memo
+		where memo_mem_number = #{memo_mem_number}
 		<![CDATA[
 		ORDER BY memo_number ) A)
-		where memo_mem_number = #{memo_mem_number}
-		and  RNUM > #{startPage} AND RNUM <= #{endPage} 
+		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
 		]]>
 	</select>
 	
