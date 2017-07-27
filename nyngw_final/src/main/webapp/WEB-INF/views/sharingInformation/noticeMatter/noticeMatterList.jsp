@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +20,9 @@
 		<input type="hidden" value="${select.index}">
 		<input type="text" name="val" value="${select.val}">
 		<input type="submit" value="검색">
+		<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_admin','role_ppr_admin')">
 		<button type="button"><a href="/sharingInformation/noticeMatter/nmWriteForm?page=${pageNumber }">등록</a></button>
+		</sec:authorize>
 	</form>
 	<table class="table table-bordered">
 		<tr>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>					
-				
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>				
 	<script>
     	$(function(){
     		
@@ -37,7 +37,9 @@
 								<li>
 									<h3>인사 관리</h3>
 									<ul>
+									<sec:authorize access="hasAnyRole('role_master','role_hr_admin')">
 										<li><a href="/humanResource/memberJoin/mjm">&nbsp;&nbsp;&nbsp;└ 사원 등록</a></li>
+									</sec:authorize>
 										<li><a href="/humanResource/joinMemberList/jlm">&nbsp;&nbsp;&nbsp;└ 사원 목록</a></li>
 										<li><a href="/humanResource/retiredMemberList/rmm">&nbsp;&nbsp;&nbsp;└ 퇴사자 목록</a></li>
 									</ul>

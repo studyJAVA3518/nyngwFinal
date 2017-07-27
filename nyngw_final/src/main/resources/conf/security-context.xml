@@ -2,6 +2,8 @@
 <beans:bean xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
@@ -14,36 +16,39 @@
 										 from member
 										 where mem_id=?"
 				authorities-by-username-query="select mem_id as username,
-													  mngr_name as authority
-											   from member,manager
-											   where mem_mngr_number = mngr_number and mem_id=?" />
+													  mem_mngr_number as authority
+											   from member
+											   where mem_id=?" />
 		</authentication-provider>
 	</authentication-manager>
 
 
-	<http use-expressions="true" >
-	<form-login 
-			login-page="/user/loginForm" 
-			login-processing-url="/user/login"
-			username-parameter="mem_id" 
+	<http use-expressions="true">
+		<form-login login-page="/user/loginForm"
+			login-processing-url="/user/login" 
+			username-parameter="mem_id"
 			password-parameter="mem_pwd" 
 			default-target-url="/homeMain/main"
 			authentication-failure-url="/user/loginForm?error=true"
-			always-use-default-target="true"
-
-			 />
+			always-use-default-target="true" />
+			
 		<logout logout-success-url="/user/logout" delete-cookies="true" />
-		<access-denied-handler error-page="/user/accessDenied"/>
+		
+		<access-denied-handler error-page="/user/accessDenied" />
+		
+		<intercept-url pattern="/homeMain/main" access="isAuthenticated()" />
+		<intercept-url pattern="/humanResource/**" access="hasAnyRole('role_hr_admin','role_master','role_hr_user')" />
+		<intercept-url pattern="/enovironmentSetting/planPublicRelationsSetting/**" access="hasAnyRole('role_master','role_ppr_admin','role_ppr_user')"/>
+		<intercept-url pattern="/enovironmentSetting/humanResourceSetting" access="hasAnyRole('role_master','role_hr_admin','role_hr_user')"/>
+		
 		<intercept-url pattern="/login/loginForm" access="permitAll" />
 		<intercept-url pattern="/login/login" access="permitAll" />
 		<intercept-url pattern="/login/**" access="permitAll" />
-		
-		<intercept-url pattern="/main" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="permitAll" />
-		
-		
+
+
 		<session-management>
-			<concurrency-control max-sessions="1" expired-url="/user/login_duplicate"/>
+			<concurrency-control max-sessions="1" expired-url="/user/login_duplicate" />
 		</session-management>
 
 	</http>

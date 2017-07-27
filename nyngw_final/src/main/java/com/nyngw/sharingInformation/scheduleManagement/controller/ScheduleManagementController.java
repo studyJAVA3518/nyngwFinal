@@ -1,6 +1,7 @@
 package com.nyngw.sharingInformation.scheduleManagement.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class ScheduleManagementController {
 		String mem_number = member.getMem_number();
 		if(sc_code_number.equals("code5")){
 			List<ScheduleVO> schedule = scheduleManagementService.SI_schedule_sc_mem_number(model, sc_code_number);
+			List<ScheduleVO> scheduleList = new ArrayList<ScheduleVO>();
+			model.addAttribute("scheduleList",scheduleList);
 			for(int i = 0; i<schedule.size(); i++){
 				MemberVO member2 = commonService.findMemberByMemNumber(schedule.get(i).getSc_mem_number());
 				if(member.getMem_dept_number().equals(member2.getMem_dept_number())){

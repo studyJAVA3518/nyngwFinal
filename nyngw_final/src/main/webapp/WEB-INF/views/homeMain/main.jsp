@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-  				
+	
 <div class="row middleBar">
 	
 	<!-- 내가 결제할 내용 확인 -->
