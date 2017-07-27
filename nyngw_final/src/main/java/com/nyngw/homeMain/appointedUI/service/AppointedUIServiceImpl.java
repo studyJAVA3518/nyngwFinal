@@ -922,7 +922,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
 							mUUSVO.setContent3(EARefusedList.get(j).getDoc_name());
 							mUUSVO.setContent4(EARefusedList.get(j).getMem_name());
-							mUUSVO.setDetailUri("");
+							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalBox");
 							list.add(mUUSVO);
 						}
 						if(one.equals(uiCodeName.get(i))){
@@ -945,7 +945,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 							mUUSVO.setContent2(EARefusedList.get(j).getEa_title());
 							mUUSVO.setContent3(EARefusedList.get(j).getDoc_name());
 							mUUSVO.setContent4(EARefusedList.get(j).getMem_name());
-							mUUSVO.setDetailUri("");
+							mUUSVO.setDetailUri("/electronicApproval/individualDocumentBox/refusedApprovalBox");
 							list.add(mUUSVO);
 						}
 						if(one.equals(uiCodeName.get(i))){
