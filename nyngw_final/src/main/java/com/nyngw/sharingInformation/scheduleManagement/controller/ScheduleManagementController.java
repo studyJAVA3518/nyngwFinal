@@ -65,8 +65,13 @@ public class ScheduleManagementController {
 			scheduleManagementService.getAllSchedule(model, sc_code_number,member.getMem_number());
 		}
 
-		if(sc_code_number.equals("code4")||sc_code_number.equals("code5")){
+		if(sc_code_number.equals("code4")){
 			model.addAttribute("au", "ok");
+		}else if(sc_code_number.equals("code5")){
+			model.addAttribute("au", "");
+			if(member.getMem_mngr_number().equals("role_admin")){
+				model.addAttribute("au", "ok");
+			}
 		}else{
 			model.addAttribute("au", "");
 			if(member.getMem_mngr_number().equals("role_master")||member.getMem_mngr_number().equals("role_prr_admin")){
