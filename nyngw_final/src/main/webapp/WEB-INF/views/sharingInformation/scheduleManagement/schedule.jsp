@@ -57,6 +57,9 @@
 			]
 		});
 	});
+	
+	
+	
 	</script>
 
 <style>
@@ -65,7 +68,11 @@
 	margin: 0 auto;
 }
 </style>
+
+<c:if test="${au == 'ok'}">
 <a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button>일정등록</button></a>
+</c:if>
+
 <div id='body' class='section'>
 	<div>
 		<div class='two-col'>

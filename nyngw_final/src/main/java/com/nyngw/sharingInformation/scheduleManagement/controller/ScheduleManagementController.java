@@ -64,6 +64,15 @@ public class ScheduleManagementController {
 		}else{
 			scheduleManagementService.getAllSchedule(model, sc_code_number,member.getMem_number());
 		}
+
+		if(sc_code_number.equals("code4")||sc_code_number.equals("code5")){
+			model.addAttribute("au", "ok");
+		}else{
+			model.addAttribute("au", "");
+			if(member.getMem_mngr_number().equals("role_master")||member.getMem_mngr_number().equals("role_prr_admin")){
+				model.addAttribute("au", "ok");
+			}
+		}
 		model.addAttribute("sc_code_number",sc_code_number);
 		return "sharingInformation/scheduleManagement/schedule";
 	}
