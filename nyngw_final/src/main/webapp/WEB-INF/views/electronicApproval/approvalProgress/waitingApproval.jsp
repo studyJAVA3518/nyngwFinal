@@ -8,7 +8,7 @@
 미결재문서는 본인이 결재자로 지정된 결재 문서 중 결재 처리를 하지 않은 문서들을 검색, 처리 할 수 있는 메뉴입니다.
 
 <form>
-	<table class="table">
+	<table class="table tableGray eaTableMagin">
 		<tr>
 			<td>검색일자</td>
 			<td>
@@ -20,8 +20,8 @@
 			<td>
 				<input type="text" class="form-control inputTypeDate2" id="EADate" name="EADate"/>
 			</td>
-		</tr>
-		<tr>
+<!-- 		</tr> -->
+<!-- 		<tr> -->
 			<td>결재상태</td>
 			<td colspan="2">
 				<select name="EAStatusOption" class="form-control">
@@ -44,8 +44,8 @@
 					<option>후결</option>
 				</select>
 			</td>
-		</tr>		
-		<tr>
+<!-- 		</tr>		 -->
+<!-- 		<tr> -->
 			<td>문서검색</td>
 			<td>
 				<select name="docSearchOption" class="form-control">
@@ -60,10 +60,12 @@
 			</td>	
 		</tr>		
 	</table>
-	<button type="button" onclick="searchwaitingApproval_go(this.form);">검색</button>
+	<div class="textCenter">
+		<button type="button" onclick="searchwaitingApproval_go(this.form);" class="btn btn-default">검색</button>
+	</div>
 </form>
 
-<table class="table" border="1">
+<table class="table" border="1" style="margin-top: 20px;">
 	<tr>
 		<th>품의번호</th>
 		<!-- <th>결재분류</th> -->

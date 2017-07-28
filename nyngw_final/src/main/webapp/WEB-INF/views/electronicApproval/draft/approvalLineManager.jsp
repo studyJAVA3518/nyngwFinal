@@ -431,7 +431,8 @@ td {
 
 <!-- 다이얼로그 전체 -->
 <div id="treeDialog" style="width:900px;height:600px;">
-	기안하기>결재라인설정
+	<h5>결재라인설정</h5>
+	<br>
 	
 	<!-- 트리 디브 전체 -->
 	<div id="treeWrap" class="row">
@@ -447,13 +448,14 @@ td {
 		<!-- 2. 트리 메인 -->
 		<div id="treeMain" class="col-md-9">
 			<!-- 2.1 트리 메인 탑 -->
-			<div id="treeMainTop" class="row" style="height:200px;overflow:auto;border:1px solid black;">
-				<form id="search" onsubmit="javascript:goThere2(); return false;">
-					사원명 <input name="searchText"><button type="button" onclick="javascript:goThere2()">검색</button>
-					<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
-				</form>
-				
-				<table class="table" id="memberTable">
+				<div class="divALM">
+					<form id="search" onsubmit="javascript:goThere2(); return false;">
+						<a style="margin: 0px 10px; font-weight: bold;">사원명</a> <input name="searchText" class="form-control eaInputSearch"><button type="button" onclick="javascript:goThere2()" class="btn btn-default" style="margin-left: 10px;">검색</button>
+						<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
+					</form>
+				</div>
+			<div id="treeMainTop" class="row" style="height:200px;overflow:auto; margin-bottom:10px; border-bottom: 1px solid gray;">
+				<table class="table textCenter" id="memberTable">
 					<tr>
 						<th><input type="checkbox" id="allCheck"></th>
 						<th>부서</th>
@@ -464,64 +466,65 @@ td {
 			</div>
 			
 			<!-- 2.2 트리 메인 미들 -->
-			<div id="treeMainMiddle">
-				<button type="button" id="addToApproval">결재</button>
-				<button type="button" id="addToAgreement">합의</button>
-				<button type="button" id="addToImplement">시행</button>
-				<button type="button" id="addToReference">참조</button>
-			</div>	
-			
+			<div class="textCenter">
+				<div id="treeMainMiddle">
+					<button type="button" id="addToApproval" class="btn btn-default">결재</button>
+					<button type="button" id="addToAgreement" class="btn btn-default">합의</button>
+					<button type="button" id="addToImplement" class="btn btn-default">시행</button>
+					<button type="button" id="addToReference" class="btn btn-default">참조</button>
+				</div>	
+			</div>
 			<!-- 2.3 트리 메인 바텀 -->
-			<div id="treeMainBottom" class="row" style="border:1px solid black;">
+			<div id="treeMainBottom" class="row" style="margin-top: 10px;">
 				<div id="treeMainBottomTop" class="row">
 					<div id="treeMainBottomA" class="col-md-6" style="height:150px;">
-						<p>결재자</p>
+						<p class="docTitleDescription" style="font-weight: bold; margin-left: 120px;">결재자</p>
 						<div style="float:left;width:280px;">
-							<select id="approval" name="approval" size="5" style="width:280px;height:90px;">
+							<select id="approval" name="approval" size="5" style="width:280px;height:93px;">
 							</select>
 						</div>
 						<div id ="but" style="float:left;width:40px">
-							<p><input type = "button" value="▲" id="moveUpA"></p>
-							<p><input type = "button" value="▼" id="moveDownA"></p>
-							<p><input type = "button" value="ⓧ" id="deleteA"></p>
+							<p><input type = "button" value="▲" id="moveUpA" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="▼" id="moveDownA" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="ⓧ" id="deleteA" class="btn btn-default eabtn"></p>
 						</div>
 					</div>
 					<div id="treeMainBottomB" class="col-md-6" style="height:150px;">
-						<p>합의자</p>
+							<p class="docTitleDescription"style="font-weight: bold; margin-left: 120px;">합의자</p>
 						<div style="float:left;width:280px;">
-							<select id="agreement" size="5" style="width:280px;height:90px;">
+							<select id="agreement" size="5" style="width:280px;height:93px;">
 							</select>
 						</div>
 						<div id ="but" style="float:left;width:40px">
-							<p><input type = "button" value="▲" id="moveUpB"></p>
-							<p><input type = "button" value="▼" id="moveDownB"></p>
-							<p><input type = "button" value="ⓧ" id="deleteB"></p>
+							<p><input type = "button" value="▲" id="moveUpB" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="▼" id="moveDownB" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="ⓧ" id="deleteB" class="btn btn-default eabtn"></p>
 						</div>	
 					</div>
 				</div>
 				<div id="treeMainBottomBottom" class="row">
 					<div id="treeMainBottomC" class="col-md-6" style="height:150px;">
-						<p>시행자</p>
+							<p class="docTitleDescription"style="font-weight: bold; margin-left: 120px;">시행자</p>
 						<div style="float:left;width:280px;">
-							<select id="implement" size="5" style="width:280px;height:90px;">
+							<select id="implement" size="5" style="width:280px;height:93px;">
 							</select>
 						</div>
 						<div id ="but" style="float:left;width:40px">
-							<p><input type = "button" value="▲" id="moveUpC"></p>
-							<p><input type = "button" value="▼" id="moveDownC"></p>
-							<p><input type = "button" value="ⓧ" id=deleteC></p>
+							<p><input type = "button" value="▲" id="moveUpC" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="▼" id="moveDownC" class="btn btn-default eabtn"></p>
+							<p><input type = "button" value="ⓧ" id=deleteC class="btn btn-default eabtn"></p>
 						</div>	
 					</div>
 					<div id="treeMainBottomD" class="col-md-6" style="height:150px; width : 350px;">
-						<p>수신참조자</p>
+							<p class="docTitleDescription"style="font-weight: bold; margin-left: 120px;">수신참조자</p>
 						<div style="float:left;width:280px;">
-							<select id="reference" size="5" style="width:280px;height:90px;">
+							<select id="reference" size="5" style="width:280px;height:93px;">
 							</select>
 						</div>
 						<div id ="but" style="float:left;width:40px">
-							<input type = "button" value="▲" id="moveUpD">
-							<input type = "button" value="▼" id="moveDownD">
-							<input type = "button" value="ⓧ" id="deleteD">
+							<input type = "button" value="▲" id="moveUpD" class="btn btn-default eabtn">
+							<input type = "button" value="▼" id="moveDownD" class="btn btn-default eabtn">
+							<input type = "button" value="ⓧ" id="deleteD" class="btn btn-default eabtn">
 						</div>	
 					</div>
 				</div>
