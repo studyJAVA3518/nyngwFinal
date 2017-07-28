@@ -6,24 +6,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>게시판</h1>
-	
+<h2>게시판</h2>
+	<p class="docTitleDescription">
+		게시판 게시글을 확인할 수 있습니다.
+	</p>
+	<div id="searchDiv" style="text-align: center;">
+	<div>
 	<form action="/sharingInformation/board/list">
-		<select name="index">
+		<select name="index" class="form-control docInputSelect">
 				<option value="board_mem_number">작성자</option>
 				<option value="board_title" selected="selected">제목</option>
 		</select>
 		<input type="hidden" value="${select.index}">
-		<input type="text" name="val" value="${select.val}">
-		<input type="submit" value="검색">
-		<button type="button"><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
+		<input type="text" name="val" value="${select.val}" class="form-control docInputSearch">
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
+	</div>
+	</div>
+	<br>
+	<div></div>
+	<br>
+		<div class="insertDocBtnWrap textRight">
+		<button type="button"class="btn btn-default"><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
+		</div>
+	
 	<table class="table table-bordered">
 		<tr>
 			<th>글번호</th>
@@ -51,7 +57,9 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div id="pageNum">
+	
+	
+	<div id="pageNum" class="textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/sharingInformation/board/list?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>
@@ -62,6 +70,3 @@
 			<a href="<c:url value="/sharingInformation/board/list?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
 	</div>
-
-</body>
-</html>

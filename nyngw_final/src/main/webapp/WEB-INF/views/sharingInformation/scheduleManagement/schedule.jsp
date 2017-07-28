@@ -69,11 +69,12 @@
 }
 </style>
 
-<c:if test="${au == 'ok'}">
-<a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button>일정등록</button></a>
-</c:if>
+
 
 <div id='body' class='section'>
+<c:if test="${au == 'ok'}">
+<a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button class="btn btn-default">일정등록 </button></a>
+</c:if>
 	<div>
 		<div class='two-col'>
 			<div class='content'>

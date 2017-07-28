@@ -530,11 +530,11 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 	public Map<String,String>  conformApproval(Approval_HistoryVO ahVO, String mem_pwd,
 			Principal principal) {
 		Map<String,String> map = new HashMap<String, String>();
-		MemberVO member = commonServiceImpl.findMemIdByMemPwd(mem_pwd);
+		MemberVO member = commonServiceImpl.findMemberByMemId(principal.getName());
 		//이사람이 결재잔지 합의잔지 체크해줘야함
 		if(ahVO.getAh_code_number() .equals("code14")||ahVO.getAh_code_number() .equals("code12")){	//결재,합의자
 			if(member!=null){
-				if(principal.getName() .equals(member.getMem_id())){
+				if(mem_pwd .equals(member.getMem_pwd())){
 					approvalProgressDao.insertApprovalHistory(ahVO);
 					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
 					map.put("al_number",al_number);

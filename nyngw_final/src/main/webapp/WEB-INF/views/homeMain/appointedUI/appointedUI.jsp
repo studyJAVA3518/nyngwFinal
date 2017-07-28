@@ -288,6 +288,6 @@ $(function(){
 	</div>
 	<div class="row uiBottomWrap">
 		<button type="button" id="userInterFaceButton" onclick="userUiSave()" class="btn btn-default">저장</button>
-		<button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/homeMain/main'">취소</button>
+		<button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/homeMain/main'">홈으로</button>
 	</div>
 </div>
