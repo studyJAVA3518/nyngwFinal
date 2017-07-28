@@ -47,19 +47,17 @@ $(function(){
 <div class="row">
 	<ul id="myTab" class="nav nav-tabs" role="tablist">
 		<li class="active" role="presentation">
-			<a href="#resentVac" aria-controls="home" role="tab" data-toggle="tab"> 
+			<a data-target="#resentVac" href="#resentVac" aria-controls="resentVac" role="tab" data-toggle="tab" aria-expanded="true"> 
 				최근 휴가 근황 
 			</a>
 		</li>
 		<li role="presentation">
-			<a data-target="#computer" role="tab" id="com-tab"
-			data-toggle="tab" aria-controls="computer" aria-expanded="false">
+			<a data-target="#personVac" href="#personVac" aria-controls="personVac" role="tab" data-toggle="tab" aria-expanded="false">
 				직원 현황
 			</a>
 		</li>
 		<li role="presentation">
-			<a data-target="#korean" role="tab" id="kor-tab"
-			data-toggle="tab" aria-controls="korean" aria-expanded="false">
+			<a data-target="#deptVac" href="#deptVac" aria-controls="deptVac" role="tab" data-toggle="tab" aria-expanded="false">
 				부서 휴가 현황
 			</a>
 		</li>
@@ -71,7 +69,7 @@ $(function(){
 		<div role="tabpanel" class="tab-pane fade active in" id="resentVac"
 			aria-labelledby="eng-tab">
 
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>이름</th>
@@ -97,10 +95,11 @@ $(function(){
 				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}&list=${list}">다음</a>
 			</c:if>
 		</div>
-
-		<div role="tabpanel" class="tab-pane fade" id="computer"
+		
+		<!-- 직원 현황 -->
+		<div role="tabpanel" class="tab-pane fade" id="personVac"
 			aria-labelledby="com-tab">
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>이름</th>
@@ -138,9 +137,11 @@ $(function(){
 				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">다음</a>
 			</c:if>
 		</div>
-		<div role="tabpanel" class="tab-pane fade" id="korean"
+		
+		<!-- 부서 휴가 현황 -->
+		<div role="tabpanel" class="tab-pane fade" id="deptVac"
 			aria-labelledby="kor-tab">
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>휴가자</th>
@@ -161,6 +162,7 @@ $(function(){
 				</c:forEach>
 			</table>
 		</div>
+		
 	</div>
 </div>
 
