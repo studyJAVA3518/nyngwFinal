@@ -39,7 +39,6 @@ public class MemberInformationServiceImpl implements MemberInformationService {
 			treejsonMap.put("label", department.getDept_name());
 			treejsonMap.put("itemId", department.getDept_number());
 			treejsonMap.put("parentId", department.getDept_parents());
-			treejsonMap.put("url", "https://www.naver.com/");
 			
 			treeJsonList.add(treejsonMap);
 		}
