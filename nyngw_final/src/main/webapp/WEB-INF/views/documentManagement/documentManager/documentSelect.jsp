@@ -10,6 +10,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 	
 	<h2>문서조회</h2>
+	<p class="docTitleDescription">
+		일반 문서를 확인할 수 있습니다.
+	</p>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
 			<form action="/documentManagement/documentManager/documentSelect">
@@ -31,7 +34,7 @@
 	<br>
 	
 	<sec:authorize access="hasAnyRole('role_admin','role_hr_admin','role_ppr_admin','role_master')">
-	<div style="text-align: right;">
+	<div class="insertDocBtnWrap textRight">
 		<button type="button"class="btn btn-default">
 			<a href="/documentManagement/documentManager/documentInsert">
 				문서 등록
@@ -72,7 +75,7 @@
 			
 		</table>
 	</div>
-	<div id="pageNum" style="text-align: center;">
+	<div id="pageNum" class="textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/documentManagement/documentManager/documentSelect?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>

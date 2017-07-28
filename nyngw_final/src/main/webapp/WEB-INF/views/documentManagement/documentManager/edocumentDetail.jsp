@@ -51,7 +51,7 @@ th{
 	</div>
 	<div>
 	<c:choose>
-		<c:when test="${mem.mem_number eq document.doc_mem_number}">
+		<c:when test="${mem.mem_id eq loginuser}">
 			<button class="btn"><a href="/documentManagement/documentManager/edocumentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
 			<button class="btn"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
 			<button class="btn"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">목록</a></button>

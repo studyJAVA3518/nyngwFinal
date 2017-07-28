@@ -6,6 +6,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%
+User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+%>
 <script>
 	function documentDelete(id){
 		var con_test = confirm("정말 삭제 하시겠습니까?");
@@ -29,9 +32,13 @@ th{
 	width: 120px;
 }
 </style>
- 상세정보페이지 입니다.<br>
+
+<h2>문서 상세조회</h2>
+<p class="docTitleDescription">
+	일반 문서의 상세보기입니다.
+</p>
 	<div>
-		<table class="table table-bordered">
+		<table class="table table-bordered tableGray">
 			<tr>
 				<th>문서번호</th><td>${document.doc_number }</td>
 				<th>등록자</th><td>${mem.mem_name }</td>
@@ -53,15 +60,16 @@ th{
 			</tr>
 		</table>
 	</div>
-	<div>
+	<div class="textCenter">
 	<c:choose>
-		<c:when test="${mem.mem_number eq document.doc_mem_number}">
-			<button class="btn"><a href="/documentManagement/documentManager/documentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
-			<button class="btn"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
-			<button class="btn"><a href="/documentManagement/documentManager/documentSelect?page=${page }">목록</a></button>
+		<c:when test="${mem.mem_id eq loginuser}">
+			<button class="btn btn-default"><a href="/documentManagement/documentManager/documentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
+			<button class="btn btn-default"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
+			<button class="btn btn-default"><a href="/documentManagement/documentManager/documentSelect?page=${page }">목록</a></button>
+
 		</c:when>
 		<c:otherwise>
-			<button class="btn"><a href="/documentManagement/documentManager/documentSelect?page=${page }">목록</a></button>
+			<button class="btn btn-default"><a href="/documentManagement/documentManager/documentSelect?page=${page }">목록</a></button>
 		</c:otherwise>
 	</c:choose>
 	</div>

@@ -191,9 +191,11 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 * @return 해당문서의 상세정보를 보여줌
 	 */
 	@RequestMapping("/documentDetail")
-	public String documentDetail(String dv_doc_number, Model model, String page){
+	public String documentDetail(String dv_doc_number, Model model, String page, Principal principal){
 		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
 		MemberVO mem = commonService.findMemberByMemNumber(document.getDoc_mem_number());
+		String loginuser = principal.getName();
+		model.addAttribute("loginuser",loginuser);
 		model.addAttribute("mem",mem);
 		model.addAttribute("document",document);
 		model.addAttribute("page",page);
@@ -304,9 +306,11 @@ public class DocumentManagerController implements ApplicationContextAware{
 		return resultMap;
 	}
 	@RequestMapping("/edocumentDetail")
-	public String edocumentDetail(String dv_doc_number, Model model, String page){
+	public String edocumentDetail(String dv_doc_number, Model model, String page, Principal principal){
 		DocumentVO document = documentManagerService.selectDocumentDetail(dv_doc_number);
 		MemberVO mem = commonService.findMemberByMemNumber(document.getDoc_mem_number());
+		String loginuser = principal.getName();
+		model.addAttribute("loginuser",loginuser);
 		model.addAttribute("mem",mem);
 		model.addAttribute("document",document);
 		model.addAttribute("page",page);
