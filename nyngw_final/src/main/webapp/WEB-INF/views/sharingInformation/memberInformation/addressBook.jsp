@@ -3,19 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>주소록조회</h1>
+
+	<h2>주소록조회</h2>
+	<p class="docTitleDescription">
+		사원들의 주소록을 확인할 수 있습니다.
+	</p>
 	<form action="/sharingInformation/memberInformation/addressBook">
 		<label>이름</label>
-		<input type="text" name="mem_name">
-		<input type="submit" value="검색">
+		<input type="text" name="mem_name" class="form-control docInputSearch">
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
+	<br><br>
 	<table class="table table-bordered">
 		<tr>
 			<th>부서</th>
@@ -45,7 +43,7 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div id="pageNum">
+	<div id="pageNum" class="textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/sharingInformation/memberInformation/addressBook?page=${beginPage-1}&mem_name=${mem_name }"/>">이전</a>
 		</c:if>

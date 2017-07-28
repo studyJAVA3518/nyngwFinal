@@ -10,7 +10,11 @@
 	});
 </script>
 
-<h1>생일자 조회</h1>
+<h2>생일자 조회</h2>
+	<p class="docTitleDescription">
+		사원들의 생일을 확인할 수 있습니다.
+	</p>
+	<div style="text-align: right;">
 	<form action="/sharingInformation/memberInformation/birthdayCheck">
 	<label>날짜 : </label>
 	<select name="month" id="monthSelect">
@@ -28,9 +32,12 @@
 		<option value="12">12</option>
 	</select>
 	월&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="submit" value="검색">
+	<input type="submit" value="검색" class="btn btn-default">
 </form>
-<h1>${month} 월 생일자</h1>
+</div>
+<div style="text-align: center;">
+<h2>${month} 월 생일자</h2>
+</div>
 <table class="table table-bordered">
 	<tr>
 		<th>날짜</th>
@@ -61,7 +68,7 @@
 	</c:choose>
 
 </table>
-<div id="pageNum">
+<div id="pageNum" class="textCenter pageBottoWrap">
 	<c:if test="${beginPage > perPage}">
 		<a href="<c:url value="/sharingInformation/memberInformation/birthdayCheck?page=${beginPage-1}&month=${month }"/>">이전</a>
 	</c:if>

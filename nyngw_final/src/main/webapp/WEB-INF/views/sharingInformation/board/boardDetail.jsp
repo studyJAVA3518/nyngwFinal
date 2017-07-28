@@ -71,6 +71,7 @@
    function answerUpdateClick(board_number,comment_number,comment_mem_number,comment_content){
       var aa = "#"+comment_number;
       $(aa).prop('readonly',!$(aa).prop('readonly'));
+      $(aa).focus();
 //       $('#con').prop('readonly',!$('#con').prop('readonly'));
 //       alert(board_number);
 //       alert(comment_number);
@@ -95,8 +96,12 @@
    }
 //          #con
 </script>
+<h2>게시판 상세조회</h2>
+<p class="docTitleDescription">
+	게시판 문서의 상세보기입니다.
+</p>
 <div>
-   <table class="table table-bordered">
+   <table class="table table-bordered tableGray">
       <tr>
          <th>제목</th>
          <td>${board.board_title}</td>
@@ -114,27 +119,28 @@
       </tr>
    </table>
       ${board.board_content }
-   <table  class="table table-bordered">
+   <table  class="table table-bordered tableGray">
       <tr>
          <th>첨부파일</th>
          <td><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
       </tr>
    </table>   
+   </div>
+   <div class="textCenter">
 	<c:choose>
 		<c:when test="${mem.mem_number eq board.board_mem_number}">
-	      	<button class="btn"><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
-	      	<button class="btn" type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
-	    	<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+	      	<button class="btn btn-default"><a href="/sharingInformation/board/updateForm?board_number=${board.board_number}">수정하기</a></button>
+	      	<button class="btn btn-default" type="button" onclick="boardDelete('${board.board_number}');">삭제하기</button>
+	    	<button class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
 		</c:when>
 		<c:otherwise>
-			<button class="btn"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+			<button class=class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
 		</c:otherwise>
 	</c:choose>
 </div>
-<div>
-   
+   <br>
    <form action="/sharingInformation/board/answerUpdate">
-      <table class="table table-bordered">
+      <table class="table table-bordered tableGray">
          <tr>
             <th>작성자</th>
             <th colspan="2">댓글</th>
@@ -144,13 +150,13 @@
          <c:forEach items="${comment}" var="i">
             <tr>
                <td><input id="${i.comment_mem_number}" type="hidden" value="${i.comment_mem_number }">${i.comment_mem_name }<input type="hidden" value="${i.comment_number }"></td>
-               <td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;" readonly>${i.comment_content }</textarea></td>
+               <td colspan="2"><textarea  id="${i.comment_number}" rows="2" cols="70" style="resize: none;border:0" readonly >${i.comment_content }</textarea></td>
                <td><fmt:formatDate value="${i.comment_date }" pattern="yyyy/MM/dd"/></td>
                <c:choose>
 					<c:when test="${mem.mem_number eq board.board_mem_number}">
 		               <td>
-		                  <button id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
-		                  <button type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
+		                  <button class="btn btn-default" id="btn" type="button" onclick="answerUpdateClick('${board.board_number}','${i.comment_number}','${i.comment_mem_number}','${i.comment_content}');">수정</button>
+		                  <button class="btn btn-default" type="button" onclick="answerDeleteClick('${i.comment_number}','${board.board_number}')">삭제</button>
 		               </td>
                		</c:when>
 					<c:otherwise>
@@ -163,14 +169,14 @@
    </form>
       
    <form action="/sharingInformation/board/answerWrite">
-      <table class="table table-bordered">
+      <table class="table table-bordered tableGray">
          <tr>
             <th colspan="4">
-               <textarea rows="5" cols="71" style="resize: none;" name="comment_content"></textarea>
+               <textarea rows="5" cols="71" style="resize: none;" name="comment_content" ></textarea>
             </th>
             <td>
                <input type="hidden" name="board_number" value="${board.board_number}">
-               <button type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
+               <button class="btn btn-default" type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
             </td>
          </tr>
       </table>

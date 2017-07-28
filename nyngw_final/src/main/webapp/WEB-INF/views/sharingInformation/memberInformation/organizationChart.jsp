@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h1>조직도조회</h1>
-http://info.korail.com/mbs/www/subview.jsp?id=www_010604010000   를 참고하였음
-링크를 각각 잡아줘야함 (현재 22번째 줄에서 구글로 잡아주고 있다)
+<h2>조직도 조회</h2>
+	<p class="docTitleDescription">
+		사내 조직도를 확인할 수 있습니다.
+	</p>
+<!-- http://info.korail.com/mbs/www/subview.jsp?id=www_010604010000   를 참고하였음 -->
+<!-- 링크를 각각 잡아줘야함 (현재 22번째 줄에서 구글로 잡아주고 있다) -->
 
 <style>
 	.tableTd1{

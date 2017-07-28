@@ -22,7 +22,7 @@ function noticeMatterDelete(id){
 }
 </script>
 		<div>
-		<table class="table table-bordered">
+		<table class="table table-bordered tableGray">
 			<tr>
 				<th>제목</th>
 				<td>${board.board_title}</td>
@@ -48,12 +48,12 @@ function noticeMatterDelete(id){
 		</table>
 		<c:choose>
 			<c:when test="${mem.mem_number eq board.board_mem_number}">
-				<button><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
-				<button type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
-				<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
+				<button class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
+				<button class="btn btn-default" type="button" onclick="noticeMatterDelete('${board.board_number}');">삭제하기</button>
+				<button class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 			</c:when>
 			<c:otherwise>
-				<button><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
+				<button class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 			</c:otherwise>
 	</c:choose>
 	</div>
