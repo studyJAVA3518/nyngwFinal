@@ -185,6 +185,13 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 		List<Duty_ReportVO> list = sqlSession.selectList("userUiDutyReportList_UI",mem_id);
 		return list;
 	}
+
+
+	@Override
+	public int userUiApprovalCount(String mem_number) {
+		int count = (int) sqlSession.selectOne("userUiApprovalCount",mem_number);
+		return count;
+	}
 	
 	
 

@@ -9,16 +9,16 @@
 	<div class="col-md-10 rowBar">
 		<div class="row">
 			<div class="col-md-4 textCenter marginEA">
-				<p>결제할 문서</p>
-				<p><a href="#">2</a></p>
+				<p>미결재 문서</p>
+				<p><a href="/electronicApproval/approvalProgress/waitingApproval">${eaListCount}</a></p>
 			</div>
 			<div class="col-md-4 textCenter marginEA">
-				<p>진행중 문서</p>
-				<p><a href="#">2</a></p>
+				<p>상신 문서</p>
+				<p><a href="/electronicApproval/individualDocumentBox/submitApprovalBox">${userUiApprovalCount}</a></p>
 			</div>
 			<div class="col-md-4 textCenter marginEA">
-				<p>참조된 문서</p>
-				<p><a href="#">2</a></p>
+				<p>참조 문서</p>
+				<p><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">${theRestDocumentBoxCount}</a></p>
 			</div>
 		</div>
 	</div>
