@@ -102,7 +102,7 @@ $(function(){
 				dataType : 'json'                                                                                                                                                                    
 		}) 
 		
-		$('#deptAddress').dialog({                                                                                                                                                     
+		$('#deptAddress').dialog({  
 			width: 870,                                                                                                                                                                          
 			height: 500,                                                                                                                                                                         
 			modal: true,                                                                                                                                                                         
@@ -110,7 +110,7 @@ $(function(){
 			   "확인": function() {                                                                                                                                                                
 					$(this).dialog("close");
 				}                                                                                                                                                                                
-			},                                                                                                                                                                                   
+			},                                                                                                                                                                                    
 			close: function() {                                                                                                                                                                  
 				$('#deptAddressList').html('<tr><th class="tableTd1">이름</th><th class="tableTd2">직위</th><th class="tableTd3">메일주소</th><th class="tableTd4">연락처</th><th class="tableTd5">주소</th></tr>'); 
 				$("#dept_name").html('');
@@ -127,7 +127,6 @@ $(function(){
 </div>
 
 <div id="deptAddress" style="text-align: center;">                                                                                                                                                                 
-	조직도 클릭시 해당 부서의 값을 가지고있는 사원리스트를 가져옴   
 	<div id="dept_name"></div>                                                                                                                                                                              
 	<table class="table" id="deptAddressList">                                                                                                                                                       
 		<tr>                                                                                                                                                                                     
