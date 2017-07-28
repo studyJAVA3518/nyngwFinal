@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div>
-			<table class="table table-border">
+			<table class="table table-border textCenter">
 			<tr>
 				<th>회의록명</th>
 				<td>

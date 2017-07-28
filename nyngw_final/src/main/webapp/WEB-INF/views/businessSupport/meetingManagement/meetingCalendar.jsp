@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 회의 일정!!!!!!!!!!!!!!!
-			<table class="table table-border">
+			<table class="table table-border textCenter">
 				<tr>
 					<th>검색입력</th>
 					<td colspan="4">

@@ -60,7 +60,6 @@
 	</select>
 	
 	<select id="draft_selectDepartmentList" resultType="com.nyngw.dto.DepartmentVO">
-		
 		 select A.dept_number, A.dept_parents ,A.dept_name , A.dept_level, A.order2 
 				from (select dept_number, dept_parents, dept_name,dept_level, SYS_CONNECT_BY_PATH(to_char(dept_level,'fm000')||dept_number,'/') order2 
 				from department 
@@ -72,7 +71,11 @@
 	
 	<!-- 선택한 부서의 멤버검색 -->
 	<select id="dreat_selectMemberListByDepartment" resultType="com.nyngw.dto.MemberVO" parameterType="string">
-		select * from member_view where mem_dept_number = #{dept_number}
+		select m.*, p.position_level 
+		from member_view m, position p  
+		where p.position_number = m.mem_position_number
+		and m.mem_dept_number = #{dept_number}
+		order by p.position_level
 	</select>
 	
 	<!-- 검색한 멤버와 부서의 멤버검색 -->

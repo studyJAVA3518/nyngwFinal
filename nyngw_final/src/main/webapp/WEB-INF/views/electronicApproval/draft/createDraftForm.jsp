@@ -13,6 +13,13 @@
 </style>
 
 <script>
+//DatePicker사용시 정규식 사용
+// var doc_lifetime = document.getElementById("doc_lifetime").value;
+// var format = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+// if(!format.test(doc_lifetime)){
+//    alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+//    return false;
+// }
 	$(function(){
 		$.ajax({
 			url:'approvalLineManager',
@@ -29,8 +36,8 @@
 		//부서 수정 보여주기
 		$("#linePopup_go").click(function(){
 			$('#linePopup').dialog({
-				width:950,
-				height: 700,
+				width:1000,
+				height: 750,
 				modal: true,
 				buttons: [{
 					text: "등록",
@@ -117,12 +124,10 @@
 <div id="linePopup" style="height:100%;width:100%;">
 	<jsp:include page="approvalLineManager.jsp" flush="false"/>
 </div>
-
-기안하기>결재상신페이지
-<button type="button" id="linePopup_go">결재라인</button>
+<h2>결재상신페이지</h2>
 <form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
 	<input type="hidden" name="ea_doc_number" value="${doc_number }">
-	<table class="table table-bordered">
+	<table class="table table-bordered tableGray">
 		<tr>
 			<th>품의번호</th>
 			<td colspan="5">${ea_number }</td>
@@ -144,7 +149,7 @@
 			<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
 		</tr>
 		<tr id="approvalMember">
-			<th rowspan="2">결재</th>
+			<th rowspan="2">결재<br><button type="button" id="linePopup_go" class="btn btn-default">결재라인</button></th>
 			<th id="approvalMember1" class="tableTd"></th>
 			<th id="approvalMember2" class="tableTd"></th>
 			<th id="approvalMember3" class="tableTd"></th>
@@ -183,11 +188,11 @@
 		</tr>
 		<tr>
 			<th>시행일자</th>
-			<td colspan="5"><input type="date" name="param_ea_startdate">~<input type="date" name="param_ea_enddate"></td>
+			<td colspan="5"><input type="text" name="param_ea_startdate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01">&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="param_ea_enddate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"></td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="5"><input type="text" name="ea_title"></td>
+			<td colspan="5"><input type="text" name="ea_title" class="form-control"></td>
 		</tr>
 		<tr>
 			<th colspan="6">내용</th>
@@ -203,10 +208,11 @@
 <!-- 	</table> -->
 </form>
 <input type="hidden" value="${page}">
-<button type="button" onclick="saveContent();">등록</button>
-<input type="reset" value="초기화" />	
-<button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
-
+<div class="textCenter">
+	<button type="button" onclick="saveContent();"  class="btn btn-default">등록</button>
+	<input type="reset" value="초기화" class="btn btn-default" />	
+	<button type="button"  class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
+</div>
 
 <textarea id="text_content" style="display:none;">
 ${doc_content}

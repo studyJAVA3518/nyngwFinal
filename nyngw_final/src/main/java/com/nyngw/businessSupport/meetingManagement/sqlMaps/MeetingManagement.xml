@@ -76,8 +76,8 @@
 		values('mt'||mt_seq.nextVal, 'md'||md_seq.nextVal, #{mt_reader},to_date(to_char(#{mt_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{mt_title}, #{mt_content}, #{mt_mr_number},#{mt_members})
 	</insert>
 	<insert id="attendInsert" parameterType="com.nyngw.dto.AttendanceVO">
-		insert into attendance(ad_mem_number, ad_mt_number)
-		values(#{ad_mem_number},#{ad_mt_number})
+		insert into attendance(ad_number,ad_mem_number, ad_mt_number)
+		values('ad'||ad_seq.nextval,#{ad_mem_number},#{ad_mt_number})
 	</insert>
 	
 	

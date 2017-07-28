@@ -29,7 +29,7 @@
 		</sec:authorize>
 		
 		
-	<table class="table table-bordered">
+	<table class="table table-bordered textCenter">
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>

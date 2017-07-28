@@ -35,6 +35,11 @@
 		select nvl(max(substr(ah_ast_number,4)),0) from approval_history where ah_ea_number= #{ah_ea_number}
 	</select>
 	
+	<!-- 결재스탭번호의 숫자가 가장 높은 번호 ah_ea_number-->
+	<select id="selectLastApprovalStep" parameterType="string" resultType="int">
+		select nvl(max(substr(ast_number,4)),0) from approval_step where ast_ea_number= #{ea_number}
+	</select>
+	
 	<!-- 가장 마지막의 결재상태 -->
 	<select id="selectLastAhStatus" parameterType="string" resultType="string">
 		select ah_status 

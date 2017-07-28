@@ -47,7 +47,7 @@ function meetingDelete(mt_number){
 
 <div>
 <form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingUpdate" method="post"  accept-charset="utf-8">
-			<table class="table table-border">
+			<table class="table table-border textCenter">
 			<input type="hidden" name="mt_number" value="${meeting.mt_number }">
 			<tr>
 				<th>회의제목</th>

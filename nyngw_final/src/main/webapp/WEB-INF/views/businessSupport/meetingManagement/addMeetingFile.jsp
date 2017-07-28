@@ -77,7 +77,9 @@ $(function(){
 	</div>
 
 	<div id="meetPopup" style="height:100%;width:100%;">
-	<table>
+	<div class="textCenter"><h2>회의 리스트</h2></div>
+	
+	<table class="table textCenter" >
 	<tr>
 		<th></th>
 		<th>회의명</th>

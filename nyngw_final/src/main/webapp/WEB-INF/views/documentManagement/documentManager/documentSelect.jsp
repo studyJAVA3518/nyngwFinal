@@ -44,14 +44,13 @@
 	</sec:authorize>
 	
 	<div>
-		<table class="table table-bordered">
+		<table class="table table-bordered textCenter">
 			<tr>
 				<th>번호</th>
 				<th>문서종류</th>
-				<th>등록일</th>
-				<th>문서번호</th>
 				<th>문서명</th>
 				<th>등록자</th>
+				<th>등록일</th>
 			</tr>
 		<c:choose>
 			<c:when test="${viewData.documentCountPerPage>0 }">
@@ -59,10 +58,9 @@
 					<tr>
 						<td>${fn:substring(documentView.dv_doc_number,3,10077777)}</td>
 						<td>${documentView.dv_code_name }</td>
-						<td>${documentView.dv_doc_date }</td>
-						<td>${documentView.dv_doc_number }</td>
 						<td><a href="/documentManagement/documentManager/documentDetail?dv_doc_number=${documentView.dv_doc_number }&page=${pageNumber}">${documentView.dv_doc_name }</a></td>
 						<td>${documentView.dv_mem_name }</td>
+						<td>${documentView.dv_doc_date }</td>
 					</tr>
 				</c:forEach>
 			</c:when>

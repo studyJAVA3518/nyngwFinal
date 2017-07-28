@@ -7,7 +7,7 @@
 미팅파일!!!!!!!!!!!!!!!
 <div>
 		<form action="/businessSupport/meetingManagement/meetingFile">
-			<table class="table table-border">
+			<table class="table table-border textCenter">
 				<tr>
 					<th>검색입력</th>
 					<td colspan="3">
@@ -24,7 +24,7 @@
 		</form>
 		<br>
 		<br>
-		<table class="table table-border">
+		<table class="table table-border textCenter">
 			<tr>
 				<th>번호</th>
 				<th>회의록명</th>

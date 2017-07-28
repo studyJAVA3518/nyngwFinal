@@ -38,7 +38,7 @@
 <div style="text-align: center;">
 <h2>${month} 월 생일자</h2>
 </div>
-<table class="table table-bordered">
+<table class="table table-bordered textCenter">
 	<tr>
 		<th>날짜</th>
 		<th>부서</th>
