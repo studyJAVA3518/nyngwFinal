@@ -8,6 +8,10 @@
 <!-- 링크를 각각 잡아줘야함 (현재 22번째 줄에서 구글로 잡아주고 있다) -->
 
 <style>
+	.verticalTree li a {
+	    padding: 8px 15px;
+	    font-size: 16px;
+	}
 	.tableTd1{
 		 width:111px; 
 		 height:37px;
@@ -37,6 +41,9 @@
 		 height:37px;
 		 border-bottom: 1px solid #ddd;
 		 vertical-align: middle;
+	}
+	.verticalTree {
+		margin : 0 auto;
 	}
 </style>
 
@@ -115,7 +122,9 @@ $(function(){
 
 </script>
 
-<div class="verticalTree"></div>
+<div class="row">
+	<div class="verticalTree"></div>
+</div>
 
 <div id="deptAddress" style="text-align: center;">                                                                                                                                                                 
 	조직도 클릭시 해당 부서의 값을 가지고있는 사원리스트를 가져옴   

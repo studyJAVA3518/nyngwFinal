@@ -134,7 +134,7 @@
 	    	<button class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
 		</c:when>
 		<c:otherwise>
-			<button class=class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
+			<button class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">목록</a></button>
 		</c:otherwise>
 	</c:choose>
 </div>

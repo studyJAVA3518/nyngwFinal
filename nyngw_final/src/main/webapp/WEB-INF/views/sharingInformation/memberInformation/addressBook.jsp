@@ -9,7 +9,7 @@
 		사원들의 주소록을 확인할 수 있습니다.
 	</p>
 	<form action="/sharingInformation/memberInformation/addressBook">
-		<label>이름</label>
+		<label>이름 : </label>
 		<input type="text" name="mem_name" class="form-control docInputSearch">
 		<input type="submit" value="검색" class="btn btn-default">
 	</form>
