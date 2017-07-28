@@ -145,15 +145,17 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			}
 			index++;
 		}
-		if(lastAhStatus.equals("거부")){
-			agreementMem_sign.remove(agreementMem_sign.size()-1);
-			agreementMem_sign.add("refuse.jpg");
-			indexB++;
-		}
-		if(lastAhStatus.equals("반려")){
-			approvalMem_sign.remove(approvalMem_sign.size()-1);
-			approvalMem_sign.add("disapprove.jpg");
-			indexB++;
+		if(lastAhStatus!=null){
+			if(lastAhStatus.equals("거부")){
+				agreementMem_sign.remove(agreementMem_sign.size()-1);
+				agreementMem_sign.add("refuse.jpg");
+				indexB++;
+			}
+			if(lastAhStatus.equals("반려")){
+				approvalMem_sign.remove(approvalMem_sign.size()-1);
+				approvalMem_sign.add("disapprove.jpg");
+				indexB++;
+			}
 		}
 		
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
@@ -528,11 +530,11 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 	public Map<String,String>  conformApproval(Approval_HistoryVO ahVO, String mem_pwd,
 			Principal principal) {
 		Map<String,String> map = new HashMap<String, String>();
-		MemberVO member = commonServiceImpl.findMemIdByMemPwd(mem_pwd);
+		MemberVO member = commonServiceImpl.findMemberByMemId(principal.getName());
 		//이사람이 결재잔지 합의잔지 체크해줘야함
 		if(ahVO.getAh_code_number() .equals("code14")||ahVO.getAh_code_number() .equals("code12")){	//결재,합의자
 			if(member!=null){
-				if(principal.getName() .equals(member.getMem_id())){
+				if(mem_pwd .equals(member.getMem_pwd())){
 					approvalProgressDao.insertApprovalHistory(ahVO);
 					String al_number = approvalProgressDao.selectAllByApprovalAstNumber(ahVO);
 					map.put("al_number",al_number);

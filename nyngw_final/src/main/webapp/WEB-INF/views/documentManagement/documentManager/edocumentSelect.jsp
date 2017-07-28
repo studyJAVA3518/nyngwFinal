@@ -9,18 +9,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-	<h1>문서조회</h1>
+	<h2>전자문서조회</h2>
+	<p class="docTitleDescription">
+		전자 문서를 확인할 수 있습니다.
+	</p>
 	<div id="searchDiv" style="text-align: center;">
 		<div>
 			<form action="/documentManagement/documentManager/edocumentSelect">
-				<select name="index">
+				<select name="index" class="form-control docInputSelect">
 					<option value="dv_code_name">문서종류</option>
 					<option value="dv_doc_name">문서명</option>
 					<option value="dv_mem_name">등록자</option>
 				</select>
 				<input type="hidden" value="${select.index }">
-				<input type="text" name="val" value="${select.val }">
-				<input type="submit" value="검색">
+				<input type="text" name="val" value="${select.val }" class="form-control docInputSearch">
+				<input type="submit" value="검색" class="btn btn-default">
 			</form>
 		</div>
 		<div>
@@ -30,8 +33,10 @@
 	<div></div>
 	<br>
 	<sec:authorize access="hasAnyRole('role_admin','role_hr_admin','role_ppr_admin','role_master')">
-	<div style="text-align: right;">
-		<button type="button"class="btn"> <a href="/documentManagement/documentManager/edocumentInsert">등록</a></button>
+	<div class="insertDocBtnWrap textRight">
+		<button type="button" class="btn btn-default"> 
+			<a href="/documentManagement/documentManager/edocumentInsert">등록</a>
+		</button>
 	</div>
 	</sec:authorize>
 	<div>
@@ -66,7 +71,7 @@
 			
 		</table>
 	</div>
-	<div id="pageNum" style="text-align: center;">
+	<div id="pageNum" class="textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/documentManagement/documentManager/edocumentSelect?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>

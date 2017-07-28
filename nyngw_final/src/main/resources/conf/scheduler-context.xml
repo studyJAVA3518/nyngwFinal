@@ -5,9 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!-- 	<task:scheduler id="scheduler" pool-size="100"/> -->
-<!-- 	<task:scheduled-tasks scheduler = "scheduler"> -->
-<!-- 		<task:scheduled ref="commonServiceImpl" method="autoCompute" cron = "0/5 * * * * *" /> -->
-<!-- 	</task:scheduled-tasks> -->
+	<!-- <task:scheduler id="scheduler" pool-size="100"/>
+	<task:scheduled-tasks scheduler = "scheduler">
+		<task:scheduled ref="commonServiceImpl" method="autoCompute" cron = "0/5 * * * * *" />
+	</task:scheduled-tasks> -->
+
 	
 </beans>

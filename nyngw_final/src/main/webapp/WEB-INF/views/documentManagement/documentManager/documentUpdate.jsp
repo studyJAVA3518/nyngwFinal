@@ -7,7 +7,7 @@
 		width:200px;
 	}
 </style>
-<h2>문서 상세조회</h2>
+<h2>문서 수정하기</h2>
 <p class="docTitleDescription">
 	일반 문서를 수정할 수 있습니다.
 </p>

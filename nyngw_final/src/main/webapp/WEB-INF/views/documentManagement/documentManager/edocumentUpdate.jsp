@@ -7,32 +7,40 @@
 		width:200px;
 	}
 </style>
- 수정페이지입니다.
+
+<h2>전자문서 수정하기</h2>
+<p class="docTitleDescription">
+	전자 문서를 수정할 수 있습니다.
+</p>
+
 	 <div>
 		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/documentManagement/documentManager/edocumentUpdate" method="post">
-		<table class="table table-bordered">
-			<tr>
-				<th>문서구분번호</th><td>${document.doc_code_number }<input type="hidden" value="${document.doc_code_number}" name="doc_code_number" readonly="readonly"></td>
-				<th>문서번호</th><td>${document.doc_number }<input type="hidden" value="${document.doc_number}" name="doc_number" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<th>문서명</th><td><input type="text" value="${document.doc_name }" name="doc_name"></td>
-				<th>등록자</th><td>${document.doc_mem_number }<input type="hidden" value="${document.doc_mem_number}" name="doc_mem_number" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<th>등록일자</th><td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
-				<th>보존기간</th><td><fmt:formatDate value="${document.doc_lifetime}" pattern="yyyy/MM/dd"/></td>
-			</tr>
-			<tr>
-				<th colspan="4">내용</th>
-			</tr>
-		</table>
-		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		
-			<input type="hidden" value="${page}">
-			<button type="button" onclick="saveContent();" class="btn">수정</button>
-			<input type="reset" value="초기화" />		
-			<button type="button"><a href="/documentManagement/documentManager/edocumentSelect?page=${page }">취소</a></button>
+			<table class="table table-bordered tableGray">
+				<tr>
+					<th>문서구분번호</th><td>${document.doc_code_number }<input type="hidden" value="${document.doc_code_number}" name="doc_code_number" readonly="readonly"></td>
+					<th>문서번호</th><td>${document.doc_number }<input type="hidden" value="${document.doc_number}" name="doc_number" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>문서명</th><td><input type="text" value="${document.doc_name }" name="doc_name" class="form-control"></td>
+					<th>등록자</th><td>${document.doc_mem_number }<input type="hidden" value="${document.doc_mem_number}" name="doc_mem_number" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>등록일자</th><td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
+					<th>보존기간</th><td><fmt:formatDate value="${document.doc_lifetime}" pattern="yyyy/MM/dd"/></td>
+				</tr>
+				<tr>
+					<th colspan="4">내용</th>
+				</tr>
+			</table>
+			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+			<div class="textCenter">
+				<input type="hidden" value="${page}">
+				<button type="button" onclick="saveContent();"  class="btn btn-default">수정</button>
+				<input type="reset" value="초기화" class="btn btn-default"/>		
+				<button type="button" class="btn btn-default">
+					<a href="/documentManagement/documentManager/edocumentSelect?page=${page }">취소</a>
+				</button>
+			</div>
 		</form>
 	</div> 
 <textarea id="text_content" style="display:none;">

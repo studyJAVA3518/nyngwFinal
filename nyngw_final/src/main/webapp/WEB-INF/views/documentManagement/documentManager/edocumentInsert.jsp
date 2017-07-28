@@ -22,8 +22,14 @@ function insert_error_go(){
     
  }
 </script>
+
+<h2>전자문서 등록하기</h2>
+<p class="docTitleDescription">
+	전자 문서를 등록할 수 있습니다.
+</p>
+
 <form name="tx_editor_form"	style="width: 750px;" id="tx_editor_form" action="edocumentInsertComplete" method="POST" accept-charset="utf-8">
-	<table class="table table-bordered">
+	<table class="table table-bordered tableGray">
 		<caption>문서 작성</caption>
 		<tbody>
 			<tr>
@@ -57,9 +63,9 @@ function insert_error_go(){
 	</table>
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp"	flush="false" />
 
-	<div>
-		<button type="button" onclick="insert_error_go();" class="btn">등록</button>
-		<button class="btn">
+	<div class="textCenter">
+		<button type="button" onclick="insert_error_go();" class="btn btn-default">등록</button>
+		<button class="btn btn-default">
 			<a href="/documentManagement/documentManager/edocumentSelect"id="edocumentSelect">취소</a>
 		</button>
 	</div>

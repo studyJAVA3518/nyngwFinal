@@ -57,5 +57,9 @@ public interface AppointedUIDao {
 	//메뉴의 값을 초기화 해주기위해 쓰는 메서드
 	public MiddleMenuVO selectMiddleMenuFind_UI(String mid_name);
 	public MiddleMenuVO selectBigMiddleMenuFind_UI(String mid_number);
+	
+	//카운트 세는것
+	//상신문서 카운트
+	public int userUiApprovalCount(String mem_number);
 }
 
