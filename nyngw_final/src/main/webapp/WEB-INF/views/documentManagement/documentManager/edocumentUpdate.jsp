@@ -46,7 +46,6 @@
 <textarea id="text_content" style="display:none;">
 ${document.doc_content}
 </textarea>
-
 <script>
 $(function(){   
 	var loadContent = function() {
