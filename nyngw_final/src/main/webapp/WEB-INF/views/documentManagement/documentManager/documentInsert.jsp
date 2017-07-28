@@ -32,7 +32,7 @@ function insert_error_go(){
     	saveContent();
     }
     
- }
+}
 </script>
 
 

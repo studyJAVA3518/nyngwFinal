@@ -5,32 +5,42 @@
 
 
 <script>
+    
+	//DatePicker사용시 정규식 사용
+   var startdal_date = document.getElementById("startdal_date").value;
+   var enddal_date = document.getElementById("enddal_date").value;
+   var format = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+   
+   if(!format.test(startdal_date)){
+      alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+      return false;
+   }
+   if(!format.test(enddal_date)){
+      alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+      return false;
+   }
 	
+    
+    
 	
 </script>
 
+<h2>근태현황</h2>
+<p class="docTitleDescription">
+	사원들의 근태현황을 확인할 수 있습니다.
+</p>
 
 <form action="hrm" method="post">
-	<table class="table table-bordered">
-		<tr>
-			<th colspan='4'>근태현황</th>
-		</tr>
-		<tr>
-			<td>
-				<input type="date" name="startdal_date" class="form-control" />
-			</td>
-			<td>
-				<input type="date" name="enddal_date" class="form-control" />
-			</td>
-			<td>
-				<input type="text" name="mem_name" placeholder="사원 이름을 입력" class="form-control"></td>
-			<td>
-				<button class="btn btn-default">조회</button>
-			</td>
-		</tr>
-	</table>
+	<div class="hrmTopSpace">
+		날짜 선택
+		<input type="text" name="startdal_date" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/>
+		<input type="text" name="enddal_date" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/>
+		<input type="text" name="mem_name" placeholder="사원 이름을 입력" class="form-control hrmInputSearch">
+		<button class="btn btn-default">조회</button>
+	</div>
 </form>
 
+<h4>사원별 근태현황</h4>
 
 <table class="table table-bordered">
 	<tr>
@@ -62,7 +72,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<div >
+<div class="textCenter pageWrap">
 		<c:if test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
 			<a href="/humanResource/dalManagement/hrm?page=${page.startPageNo-1}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">이전</a>
 		</c:if>
@@ -73,33 +83,36 @@
 			<a href="/humanResource/dalManagement/hrm?page=${page.endPageNo+1}&startdal_date=${startdal_date}&enddal_date=${enddal_date}">다음</a>
 		</c:if>
 </div>
+<h4>부서별 근태현황</h4>
 <div id="btngroup"></div>
-<table class="table table-bordered">
-	<tr>
-		<th colspan='5'>부서별현황</th>
-		<th colspan='3'><form action="excelCountRank">
-				<button class="btn btn-default">엑셀출력</button>
-			</form>
-		</th>
-	</tr>
-	<tr>
-		<th>부서</th>
-		<th>직원수</th>
-		<th>휴가</th>
-		<th>조퇴</th>
-		<th>외근</th>
-		<th>야근</th>
-		<th>결근</th>
-	</tr>
-	<c:forEach items="${countTotal}" var="mem">
+<div class="">
+	<table class="table table-bordered">
 		<tr>
-			<td>${mem.dept_name }</td>
-			<td>${mem.dept_total }</td>
-			<td>${mem.dept_sf1 }</td>
-			<td>${mem.dept_sf2 }</td>
-			<td>${mem.dept_sf3 }</td>
-			<td>${mem.dept_sf4 }</td>
-			<td>${mem.dept_sf5 }</td>
+			<th colspan='5'>부서별현황</th>
+			<th colspan='3'><form action="excelCountRank">
+					<button class="btn btn-default">엑셀출력</button>
+				</form>
+			</th>
 		</tr>
-	</c:forEach>
-</table>
+		<tr>
+			<th>부서</th>
+			<th>직원수</th>
+			<th>휴가</th>
+			<th>조퇴</th>
+			<th>외근</th>
+			<th>야근</th>
+			<th>결근</th>
+		</tr>
+		<c:forEach items="${countTotal}" var="mem">
+			<tr>
+				<td>${mem.dept_name }</td>
+				<td>${mem.dept_total }</td>
+				<td>${mem.dept_sf1 }</td>
+				<td>${mem.dept_sf2 }</td>
+				<td>${mem.dept_sf3 }</td>
+				<td>${mem.dept_sf4 }</td>
+				<td>${mem.dept_sf5 }</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
