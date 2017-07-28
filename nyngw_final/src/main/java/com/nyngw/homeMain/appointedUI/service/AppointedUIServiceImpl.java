@@ -136,11 +136,11 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		System.out.println("-----------------------------------");
 		System.out.println(member.getMem_number());
 		System.out.println("-----------------------------------");
-		int eaListCount = eaListCount(member.getMem_number());
+		int eaListCount = eaListCount(member.getMem_number()); //미결재
 		model.addAttribute("eaListCount",eaListCount);
-		int userUiApprovalCount = userUiApprovalCount(member.getMem_number());
+		int userUiApprovalCount = userUiApprovalCount(member.getMem_number()); //상신
 		model.addAttribute("userUiApprovalCount", userUiApprovalCount);
-		int theRestDocumentBoxCount = theRestDocumentBoxCount(member.getMem_number());
+		int theRestDocumentBoxCount = theRestDocumentBoxCount(member.getMem_number()); //참조
 		model.addAttribute("theRestDocumentBoxCount", theRestDocumentBoxCount);
 		UserInterfaceVO userInterface =  appointedUIDao.userSelectInterface(member.getMem_number());
 		List<String> uiCodeName = new ArrayList<String>();

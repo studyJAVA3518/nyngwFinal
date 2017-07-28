@@ -3,6 +3,110 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+	.tableTd1{
+		 width:111px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd2{
+		 width:75px;
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd3{
+		 width:233px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd4{
+		 width:160px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd5{
+		 width:213px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd6{
+		 width:700px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+</style>
+<script>
+	function searchImplementDocument_go(form){
+		form.method="get";
+		form.action="/electronicApproval/theRestDocumentBox/searchImplementDocument";
+		form.submit();
+	} 
+	
+	$(function(){
+		$('#approvalHistoryDialog').css('display', 'none');
+		$(".approvalHistory_go").click(function(){
+			
+			var tmp = $(this).siblings('.ea_number').text();
+	        $.ajax({
+	           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
+	           type:'get',
+	           data: {'ea_number' : tmp},
+	           success : function(res){
+	       		   var code = "<tr><th class='tableTd1'>부서</th><th class='tableTd2'>직급</th><th class='tableTd3'>이름</th><th class='tableTd4'>결재상태</th><th class='tableTd5'>결재일</th></tr>";
+	        	   if(res == ""){
+						code +="<tr><td colspan='5' class='tableTd6'>결재이력이 없습니다.</td></tr>";
+	        	   }
+	        	   $.each(res, function (i,value){
+	        		   code+='<tr><td class="tableTd1">'+value.dept_name+'</td>';
+	        		   code+='<td class="tableTd2">'+value.position_name+'</td>';
+	        		   code+='<td class="tableTd3">'+value.mem_name+'</td>';
+	        		   code+='<td class="tableTd4">'+value.ah_status+'</td>';
+	        		   code+='<td class="tableTd5">'+value.ah_time+'</td></tr>';
+	        	   });
+					$("#historyList").html(code);
+	           },
+	           dataType : 'json'
+	        })
+			
+			$('#approvalHistoryDialog').dialog({
+				width: 700,
+				height: 500,
+				modal: true,
+				buttons: {
+			       "취소": function() {
+						$(this).dialog("close");
+					}
+				},
+				close: function() {
+// 					$('#textArea').val('');
+				}
+		    });
+	    })
+	    ///////////////////////////////////////////////
+		$("#editDraft_go").click(function(){
+			location.href="/electronicApproval/individualDocumentBox/editDraftForm";
+		});
+		
+	})
+</script>
+<div id="approvalHistoryDialog">
+	결재상태 이력보기
+	<table class="table" id="historyList">
+		<tr>
+			<th>부서</th>
+			<th>직급</th>
+			<th>이름</th>
+			<th>결재상태</th>
+			<th>결재일</th>
+		</tr>
+	</table>
+</div>
 그외문서함>시행문서함
 시행문서함은 본인이 시행자로 지정되어 있는 결재 문서가 결재 완료된 후 이동하는 곳으로 보관된 결재 
 문서들을 확인, 처리할 수 있는 메뉴입니다
@@ -44,7 +148,6 @@
 		<th>기안자</th>
 		<th>기안일</th>
 		<th>시행일</th>
-		<th>상태</th> 
 	</tr>
 
 	<!-- EA=electronicApproval (전자결재) -->
@@ -62,70 +165,7 @@
 					~
 				<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
 			</td>
-			<td>${EA.ah_status }</td>
 		</tr>
 	</c:forEach>
 </table>
-<div id="approvalHistoryDialog">
-	결재상태 이력보기
-	<table class="table" id="historyList">
-		<tr>
-			<th>부서</th>
-			<th>직급</th>
-			<th>이름</th>
-			<th>결재종류</th>
-			<th>결재시간</th>
-		</tr>
-	</table>
-</div>
-<script>
-	function searchImplementDocument_go(form){
-		form.method="get";
-		form.action="/electronicApproval/theRestDocumentBox/searchImplementDocument";
-		form.submit();
-	} 
-	
-	$(function(){
-		$('#approvalHistoryDialog').css('display', 'none');
-		$(".approvalHistory_go").click(function(){
-			
-			var tmp = $(this).siblings('.ea_number').text();
-	        $.ajax({
-	           url:'/electronicApproval/individualDocumentBox/completeAllrovalDetail',
-	           type:'get',
-	           data: {'ea_number' : tmp},
-	           success : function(res){
-	       		   var code = "";
-	        	   $.each(res, function (i,value){
-	        		   code+='<tr><td>'+value.dept_name+'</td>';
-	        		   code+='<td>'+value.position_name+'</td>';
-	        		   code+='<td>'+value.mem_name+'</td>';
-	        		   code+='<td>'+value.ah_status+'</td>';
-	        		   code+='<td>'+value.ah_time+'</td></tr>';
-	        	   });
-					$("#historyList").append(code);
-	           },
-	           dataType : 'json'
-	        })
-			
-			$('#approvalHistoryDialog').dialog({
-				width: 700,
-				height: 500,
-				modal: true,
-				buttons: {
-			       "취소": function() {
-						$(this).dialog("close");
-					}
-				},
-				close: function() {
-					$('#textArea').val('');
-				}
-		    });
-	    })
-	    ///////////////////////////////////////////////
-		$("#editDraft_go").click(function(){
-			location.href="/electronicApproval/individualDocumentBox/editDraftForm";
-		});
-		
-	})
-</script>
+
