@@ -30,7 +30,7 @@
 		<button type="button"class="btn btn-default"><a href="/sharingInformation/board/writeForm?page=${pageNumber }">등록</a></button>
 		</div>
 	
-	<table class="table table-bordered">
+	<table class="table table-bordered textCenter">
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>
