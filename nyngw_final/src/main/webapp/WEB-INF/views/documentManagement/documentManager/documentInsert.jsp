@@ -14,7 +14,7 @@ function insert_error_go(){
    var doc_lifetime = document.getElementById("doc_lifetime").value;
    var format = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
    if(!format.test(doc_lifetime)){
-      alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+      alert("보존기간은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
       return false;
    }
 	

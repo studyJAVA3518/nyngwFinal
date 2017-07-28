@@ -9,17 +9,23 @@ var enddate = document.getElementsByName[0]("enddate").value;
 var format = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
 if(!format.test(startdate)){
-   alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
-   return false;
+	alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+	return false;
 }
 if(!format.test(enddate)){
-   alert("시작일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
-   return false;
+	alert("종료일은 2010-02-01 형식으로 입력해야합니다.\r\n(1970-01-01부터 2099-12-31까지 검색 가능합니다.)");
+	return false;
 }
-
 
 $(function(){  
     $('#list option[value=${list}]').prop('selected',true);
+	
+    $('#vacMyTab a').click(function (e) {
+		e.preventDefault()
+		$(this).tab('show')
+	})
+	$('#vacMyTab a[href="#resentVac"]').css('background-color','gray');
+    
 });
 
 
@@ -45,21 +51,19 @@ $(function(){
 </form>
 
 <div class="row">
-	<ul id="myTab" class="nav nav-tabs" role="tablist">
+	<ul id="vacMyTab" class="nav nav-tabs" role="tablist">
 		<li class="active" role="presentation">
-			<a href="#resentVac" aria-controls="home" role="tab" data-toggle="tab"> 
+			<a data-target="#resentVac" href="#resentVac" aria-controls="resentVac" role="tab" data-toggle="tab" aria-expanded="true"> 
 				최근 휴가 근황 
 			</a>
 		</li>
 		<li role="presentation">
-			<a data-target="#computer" role="tab" id="com-tab"
-			data-toggle="tab" aria-controls="computer" aria-expanded="false">
+			<a data-target="#personVac" href="#personVac" aria-controls="personVac" role="tab" data-toggle="tab" aria-expanded="false">
 				직원 현황
 			</a>
 		</li>
 		<li role="presentation">
-			<a data-target="#korean" role="tab" id="kor-tab"
-			data-toggle="tab" aria-controls="korean" aria-expanded="false">
+			<a data-target="#deptVac" href="#deptVac" aria-controls="deptVac" role="tab" data-toggle="tab" aria-expanded="false">
 				부서 휴가 현황
 			</a>
 		</li>
@@ -68,10 +72,9 @@ $(function(){
 	<div id="myTabContent" class="tab-content">
 		
 		<!-- 최근휴가현황 -->
-		<div role="tabpanel" class="tab-pane fade active in" id="resentVac"
-			aria-labelledby="eng-tab">
+		<div role="tabpanel" class="tab-pane fade active in" id="resentVac">
 
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>이름</th>
@@ -97,10 +100,10 @@ $(function(){
 				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}&list=${list}">다음</a>
 			</c:if>
 		</div>
-
-		<div role="tabpanel" class="tab-pane fade" id="computer"
-			aria-labelledby="com-tab">
-			<table class="table table-bordered">
+		
+		<!-- 직원 현황 -->
+		<div role="tabpanel" class="tab-pane fade" id="personVac">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>이름</th>
@@ -138,9 +141,10 @@ $(function(){
 				<a href="/humanResource/vacationManagement/vmtm?page=${i}&startdate=${startdate}&enddate=${enddate}">다음</a>
 			</c:if>
 		</div>
-		<div role="tabpanel" class="tab-pane fade" id="korean"
-			aria-labelledby="kor-tab">
-			<table class="table table-bordered">
+		
+		<!-- 부서 휴가 현황 -->
+		<div role="tabpanel" class="tab-pane fade" id="deptVac">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>부서</th>
 					<th>휴가자</th>
@@ -161,6 +165,7 @@ $(function(){
 				</c:forEach>
 			</table>
 		</div>
+		
 	</div>
 </div>
 

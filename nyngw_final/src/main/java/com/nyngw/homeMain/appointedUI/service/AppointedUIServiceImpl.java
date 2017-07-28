@@ -297,8 +297,8 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
 							mUUSVO.setContent1(noticeMatter.get(j).getBoard_number().substring(5));
 							mUUSVO.setContent2(noticeMatter.get(j).getBoard_title());
-							mUUSVO.setContent3(noticeMatter.get(j).getBoard_date().toString());
-							mUUSVO.setContent4(noticeMatter.get(j).getBoard_mem_number());
+							mUUSVO.setContent3(transFormat.format(noticeMatter.get(j).getBoard_date()));
+							mUUSVO.setContent4(userNameSetting(noticeMatter.get(j).getBoard_mem_number()));
 							mUUSVO.setDetailUri("/sharingInformation/noticeMatter/nmDetail?board_number="+noticeMatter.get(j).getBoard_number());
 							list.add(mUUSVO);
 						}

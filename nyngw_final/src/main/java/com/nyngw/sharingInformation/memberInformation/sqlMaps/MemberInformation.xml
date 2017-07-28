@@ -49,8 +49,10 @@
 	</select>
 	
 	<select id="SI_selectOrganizationChart" parameterType="java.lang.String" resultType="com.nyngw.dto.MemberVO">
-		select * from member
-		where    mem_dept_number = #{dept_number}
+		select m.*, p.position_level from member m ,position p
+		where position_number = mem_position_number
+		and mem_dept_number = #{dept_number} 
+		order by p.position_level
 	</select>
 	
 	<select id="SI_selectPosition" parameterType="java.lang.String" resultType="java.lang.String">
