@@ -145,15 +145,17 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			}
 			index++;
 		}
-		if(lastAhStatus.equals("거부")){
-			agreementMem_sign.remove(agreementMem_sign.size()-1);
-			agreementMem_sign.add("refuse.jpg");
-			indexB++;
-		}
-		if(lastAhStatus.equals("반려")){
-			approvalMem_sign.remove(approvalMem_sign.size()-1);
-			approvalMem_sign.add("disapprove.jpg");
-			indexB++;
+		if(lastAhStatus!=null){
+			if(lastAhStatus.equals("거부")){
+				agreementMem_sign.remove(agreementMem_sign.size()-1);
+				agreementMem_sign.add("refuse.jpg");
+				indexB++;
+			}
+			if(lastAhStatus.equals("반려")){
+				approvalMem_sign.remove(approvalMem_sign.size()-1);
+				approvalMem_sign.add("disapprove.jpg");
+				indexB++;
+			}
 		}
 		
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
