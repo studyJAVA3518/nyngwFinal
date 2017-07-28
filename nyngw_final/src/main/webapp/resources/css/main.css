@@ -210,7 +210,7 @@ h5 {
 }
 .personCompany{
 	font-size : 13px;
-	margin-bottom : 50px;
+	margin-bottom : 35px;
 }
 .personPosition {
 	font-size : 13px;
@@ -288,7 +288,7 @@ h5 {
 
 /*homeMain*/
 .uiBtn {
-	margin-top : 15px;
+	margin-top : 20px;
 }
 
 /**********footer**********/
@@ -416,4 +416,5 @@ h5 {
 .pageBottoWrap {
 	margin-bottom : 100px;
 }
+
 /**/

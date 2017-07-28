@@ -127,7 +127,6 @@ $(function(){
 </div>
 
 <div id="deptAddress" style="text-align: center;">                                                                                                                                                                 
-	조직도 클릭시 해당 부서의 값을 가지고있는 사원리스트를 가져옴   
 	<div id="dept_name"></div>                                                                                                                                                                              
 	<table class="table" id="deptAddressList">                                                                                                                                                       
 		<tr>                                                                                                                                                                                     

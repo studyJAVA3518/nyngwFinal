@@ -14,7 +14,7 @@
 		<input type="submit" value="검색" class="btn btn-default">
 	</form>
 	<br><br>
-	<table class="table table-bordered">
+	<table class="table table-bordered textCenter">
 		<tr>
 			<th>부서</th>
 			<th>이름</th>

@@ -2,24 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+
 <div class="row middleBar">
 	
 	<!-- 내가 결제할 내용 확인 -->
 	<div class="col-md-10 rowBar">
 		<div class="row">
-			<div class="col-md-4 textCenter marginEA">
-				<p>미결재 문서</p>
-				<p><a href="/electronicApproval/approvalProgress/waitingApproval">${eaListCount}</a></p>
-			</div>
-			<div class="col-md-4 textCenter marginEA">
-				<p>상신 문서</p>
-				<p><a href="/electronicApproval/individualDocumentBox/submitApprovalBox">${userUiApprovalCount}</a></p>
-			</div>
-			<div class="col-md-4 textCenter marginEA">
-				<p>참조 문서</p>
-				<p><a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">${theRestDocumentBoxCount}</a></p>
-			</div>
+			<a href="/electronicApproval/approvalProgress/waitingApproval">
+				<div class="col-md-4 textCenter marginEA">
+					<h4>미결재 문서</h4>
+					<h4>${eaListCount}</h4>
+				</div>
+			</a>
+			<a href="/electronicApproval/individualDocumentBox/submitApprovalBox">
+				<div class="col-md-4 textCenter marginEA">
+					<h4>상신 문서</h4>
+					<h4>${userUiApprovalCount}</h4>
+				</div>
+			</a>	
+			<a href="/electronicApproval/theRestDocumentBox/referenceDocumentBox">
+				<div class="col-md-4 textCenter marginEA">
+					<h4>참조 문서</h4>
+					<h4>${theRestDocumentBoxCount}</h4>
+				</div>
+			</a>	
 		</div>
 	</div>
 	
@@ -32,8 +38,8 @@
 <!-- 공지사항 -->
 <div class="row">
 	<div class="col-md-12">
-		<h2 class="tableTitle">${mUUSS.menu1}<a href="${mUUSS.uriAddr1 }">more</a></h2>
-		<table class="table">
+		<h2 class="tableTitle textCenter">${mUUSS.menu1}<a href="${mUUSS.uriAddr1 }">more</a></h2>
+		<table class="table textCenter">
 			<tr>
 				<c:forEach items="${mUUSS.title1}" var="title1">
 					<th>${title1}</th>
@@ -60,8 +66,8 @@
 	</div>
 	
 	<div class="col-md-6">
-		<h2 class="tableTitle">${mUUSS.menu2}<a href="${mUUSS.uriAddr2 }">more</a></h2>
-		<table class="table">
+		<h2 class="tableTitle textCenter">${mUUSS.menu2}<a href="${mUUSS.uriAddr2 }">more</a></h2>
+		<table class="table textCenter">
 			<tr>
 				<c:forEach items="${mUUSS.title2}" var="title2">
 					<th>${title2}</th>
@@ -88,8 +94,8 @@
 	</div>
 	
 	<div class="col-md-6">
-		<h2 class="tableTitle">${mUUSS.menu3}<a href="${mUUSS.uriAddr3 }">more</a></h2>
-		<table class="table">
+		<h2 class="tableTitle textCenter">${mUUSS.menu3}<a href="${mUUSS.uriAddr3 }">more</a></h2>
+		<table class="table textCenter">
 			<tr>
 				<c:forEach items="${mUUSS.title3}" var="title3">
 					<th>${title3}</th>

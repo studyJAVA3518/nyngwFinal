@@ -93,6 +93,17 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		}
 		return result;
 	}
+	
+	public int selectLastApprovalStep(String ea_number) {
+		int result = 0;
+		Object object = sqlSession.selectOne("selectLastApprovalStep",ea_number);
+		if(object==null){
+			result=0;
+		}else{
+			result = (int)object;
+		}
+		return result;
+	}
 
 	public String selectAllByApprovalAstNumber(Approval_HistoryVO ahVO) {
 		return (String) sqlSession.selectOne("selectAllByApprovalAstNumber",ahVO);

@@ -1014,6 +1014,9 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		for (String ea_number: ea_numberList) {
 			//한 결재의 마지막 결재우선순위 검색
 			int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
+			//한 결재의 마지막 결재스탭번호
+			int lastAstNumber = approvalProgressDao.selectLastApprovalStep(ea_number);
+			
 			//한 사원의 한 결재의 우선순위 검색 
 			Map<String, String> paramMap = new HashMap<String,String>();
 			paramMap.put("ast_ea_number", ea_number);
@@ -1026,13 +1029,16 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 			int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
 			//한 결재의 마지막 결재이력의 우선순위 검색
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
+			
 			//미결재문서 (자신의 우선순위 차례이면)
-			if(lastAhHistory+1==memberAstPriority){
-				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
-				eaList.add(eaVO);
-			}else if(lastAhHistory==lastAstPriority+1){
-				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
-				eaList.add(eaVO);
+			if(lastAstPriority!=lastAstNumber){
+				if(lastAhHistory+1==memberAstPriority){
+					Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+					eaList.add(eaVO);
+				}else if(lastAhHistory==lastAstPriority+1){
+					Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+					eaList.add(eaVO);
+				}
 			}
 		}
 		for(int j = 0; j < eaList.size(); j++){

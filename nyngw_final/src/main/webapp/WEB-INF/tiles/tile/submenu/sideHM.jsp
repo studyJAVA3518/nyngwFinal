@@ -2,13 +2,26 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core"%>				
-					
+			
+
+<style>
+	.profilePic {
+		display : block;
+		width : 90px;
+		height : 120px;
+		margin : 10px 10px 10px 15px;
+		padding : 10px;
+		border-radius : 10px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position : top center;
+	}
+</style>
+
 <!-- 개인사원 프로필사진 -->
 <div class="row contentBorder">
 	<div class="row leftTemplate textCenter">
-		<div class="col-md-6 personImg">
-			<img src="/resources/images/profile/${mem_img }" alt="profile image" class="img-responsive">
-		</div>
+		<div class="col-md-6 personImg profilePic" style="background-image:url('/resources/images/profile/${mem_img }')"></div>
 		<div class="col-md-6 personInfo">
 			<p class="personCompany">${company.company_name}</p>
 			<div class="personPosition">[${member.dept_name}&nbsp;${member.position_name}]</div>
