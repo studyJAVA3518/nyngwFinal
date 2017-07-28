@@ -35,6 +35,7 @@ import com.nyngw.dto.UserUiVO;
 import com.nyngw.electronicApproval.approvalProgress.dao.ApprovalProgressDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.dao.IndividualDocumentBoxDaoImpl;
 import com.nyngw.electronicApproval.individualDocumentBox.service.IndividualDocumentBoxServiceImpl;
+import com.nyngw.electronicApproval.theRestDocumentBox.dao.TheRestDocumentBoxDaoImpl;
 import com.nyngw.homeMain.appointedUI.dao.AppointedUIDaoImpl;
 import com.nyngw.sharingInformation.scheduleManagement.dao.ScheduleManagementDaoImpl;
 
@@ -55,6 +56,9 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 	
 	@Autowired
 	ApprovalProgressDaoImpl approvalProgressDao;
+
+	@Autowired
+	private TheRestDocumentBoxDaoImpl theRestDocumentBoxDao;
 	
 	@Override
 	public CompanyVO checkCompany() throws SQLException {
@@ -129,6 +133,15 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		String loginUser = principal.getName();
 		System.out.println(loginUser);
 		MemberVO member = CommonDao.common_selectMemberByMemID(loginUser);
+		System.out.println("-----------------------------------");
+		System.out.println(member.getMem_number());
+		System.out.println("-----------------------------------");
+		int eaListCount = eaListCount(member.getMem_number());
+		model.addAttribute("eaListCount",eaListCount);
+		int userUiApprovalCount = userUiApprovalCount(member.getMem_number());
+		model.addAttribute("userUiApprovalCount", userUiApprovalCount);
+		int theRestDocumentBoxCount = theRestDocumentBoxCount(member.getMem_number());
+		model.addAttribute("theRestDocumentBoxCount", theRestDocumentBoxCount);
 		UserInterfaceVO userInterface =  appointedUIDao.userSelectInterface(member.getMem_number());
 		List<String> uiCodeName = new ArrayList<String>();
 		if(userInterface == null){
@@ -994,5 +1007,58 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 		return mid;
 	}
 	
+	public int eaListCount(String mem_number){
+		List<Electronic_ApprovalVO> eaList = new ArrayList<Electronic_ApprovalVO>();//미완료문서
+		List<String> ea_numberList = approvalProgressDao.ap_selectEaNumberByMemId(mem_number);//접속자의 사원번호로 결재라인에 올라가있는 결재번호 검색
+		List<MemberVO> memberList = new ArrayList<MemberVO>();
+		for (String ea_number: ea_numberList) {
+			//한 결재의 마지막 결재우선순위 검색
+			int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
+			//한 사원의 한 결재의 우선순위 검색 
+			Map<String, String> paramMap = new HashMap<String,String>();
+			paramMap.put("ast_ea_number", ea_number);
+			paramMap.put("ast_mem_number", mem_number);
+			System.out.println(ea_number);
+			System.out.println(mem_number);
+			System.out.println(paramMap);
+			System.out.println(paramMap.get("ast_ea_number"));
+			System.out.println(paramMap.get("ast_mem_number"));
+			int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
+			//한 결재의 마지막 결재이력의 우선순위 검색
+			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
+			//미결재문서 (자신의 우선순위 차례이면)
+			if(lastAhHistory+1==memberAstPriority){
+				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+				eaList.add(eaVO);
+			}else if(lastAhHistory==lastAstPriority+1){
+				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+				eaList.add(eaVO);
+			}
+		}
+		for(int j = 0; j < eaList.size(); j++){
+			MemberVO nameVO = CommonDao.common_selectMemberByMemNumber(eaList.get(j).getEa_mem_number());
+			eaList.get(j).setWrite_name(nameVO.getMem_name());
+		}
+		int eaListCount = 0;
+		for(int i = 0; i < eaList.size(); i++){
+			eaListCount++;
+		}
+		return eaListCount;
+	}
 	
+	public int userUiApprovalCount(String mem_number){
+		int count = appointedUIDao.userUiApprovalCount(mem_number);
+		return count;
+	}
+	
+	public int theRestDocumentBoxCount(String mem_number){
+		CommonApproval_TOTALVO vo = new CommonApproval_TOTALVO();
+		vo.setEa_mem_number(mem_number);
+		int count = 0;
+		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxDao.getApprovalREList(vo);
+		for(int i = 0; i < appList.size(); i++){
+			count++;
+		}
+		return count;
+	}
 }

@@ -140,7 +140,11 @@
 		order by 1 desc
 	</select>
 	
-	
+<!-- 	상신문서 카운트 -->
+	<select id="userUiApprovalCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from Electronic_approval
+		where ea_mem_number = #{mem_number}
+	</select>
 	
 	
 	
