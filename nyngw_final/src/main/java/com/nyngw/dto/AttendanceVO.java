@@ -6,8 +6,17 @@ package com.nyngw.dto;
  *
  */
 public class AttendanceVO {
+	private String ad_number;//참석번호
 	private String ad_mem_number;	//회원번호
 	private String ad_mt_number;	//회의번호
+	
+	
+	public String getAd_number() {
+		return ad_number;
+	}
+	public void setAd_number(String ad_number) {
+		this.ad_number = ad_number;
+	}
 	public String getAd_mem_number() {
 		return ad_mem_number;
 	}
