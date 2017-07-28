@@ -25,7 +25,7 @@ function insert_error_go(){
     }else if(!document.getElementById("doc_lifetime").value){
     	alert("보존기간를 입력하시오.");
     	return;
-    }else if(!document.getElementsByName("doc_file_name").value){
+    }else if(!document.getElementsByName("doc_file_name")[0].value){
     	alert("파일을 첨부해 주세요.");
     	return;
     }else{
