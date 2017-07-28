@@ -52,7 +52,11 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 
 	//자신의 결재 우선순위 ast_ea_number / ast_mem_number
 	public int selectOneAstPriority(Map paramMap) {
-		return (int) sqlSession.selectOne("selectOneAstPriority",paramMap);
+		Integer result = (Integer) sqlSession.selectOne("selectOneAstPriority",paramMap);
+		if(result==null){
+			result=0;
+		}
+		return result; 
 	}
 	
 	//결재이력의 가장 높은 우선순위 ah_ea_number

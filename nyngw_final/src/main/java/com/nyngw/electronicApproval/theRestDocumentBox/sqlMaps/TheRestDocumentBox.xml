@@ -11,13 +11,11 @@
        mem_name  ,
        EA_WRITEDATE  ,
        EA_STARTDATE  ,
-       EA_ENDDATE  ,
-       ah_status  
-		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
+       EA_ENDDATE  
+		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,member
 		where  al_number = AST_AL_NUMBER
 		and ea_number = AST_EA_NUMBER
 		and doc_number = EA_DOC_NUMBER
-		and ah_ea_number = ea_number
 		and mem_number = EA_MEM_number
 		and al_number='C'
 		and AST_MEM_NUMBER=#{ea_mem_number}
@@ -46,13 +44,11 @@
        mem_name  ,
        EA_WRITEDATE  ,
        EA_STARTDATE  ,
-       EA_ENDDATE  ,
-       ah_status  
-		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
+       EA_ENDDATE  
+		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,member
 		where  al_number = AST_AL_NUMBER
 		and ea_number = AST_EA_NUMBER
 		and doc_number = EA_DOC_NUMBER
-		and ah_ea_number = ea_number
 		and mem_number = EA_MEM_number
 		and al_number='D'
 		and AST_MEM_NUMBER=#{ea_mem_number}
@@ -73,6 +69,7 @@
 		</if>
 		 order by to_number(substr(EA_NUMBER,INSTR (EA_NUMBER, '-') +6)) desc
 	</select>
+	
 
 	<select id="getApprovalTOList" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
 		select distinct EA_NUMBER,
@@ -81,13 +78,11 @@
        mem_name  ,
        EA_WRITEDATE  ,
        EA_STARTDATE  ,
-       EA_ENDDATE  ,
-       ah_status  
-		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
+       EA_ENDDATE  
+		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,member
 		where  al_number = AST_AL_NUMBER
 		and ea_number = AST_EA_NUMBER
 		and doc_number = EA_DOC_NUMBER
-		and ah_ea_number = ea_number
 		and mem_number = EA_MEM_number
 		and AST_MEM_NUMBER=#{ea_mem_number}
 		<if test="ea_title != null">
