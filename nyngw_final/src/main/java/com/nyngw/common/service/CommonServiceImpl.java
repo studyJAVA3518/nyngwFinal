@@ -67,7 +67,7 @@ public class CommonServiceImpl implements CommonService{
 		return codeManagerDao.selectMemIdByMemPwd(mem_pwd);
 	}
 	
-	public void autoCompute(){
+	/*public void autoCompute(){
 		
 //	    RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
 	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -89,6 +89,6 @@ public class CommonServiceImpl implements CommonService{
 	    		}
 	    	}
 	    }
-	}
+	}*/
 	
 }
