@@ -41,6 +41,9 @@ public class ScheduleManagementController {
 	public String scheduleCheck(Model model,String sc_code_number,Principal principal){
 		String mem_id = principal.getName();
 		MemberVO member = commonService.findMemberByMemId(mem_id);
+		if(sc_code_number ==null){
+			sc_code_number = "code4";
+		}
 		//로그인한 유저의 부서
 		String mem_number = member.getMem_number();
 		if(sc_code_number.equals("code5")){
