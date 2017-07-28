@@ -6,6 +6,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%
+User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+%>
 <script>
 	function documentDelete(id){
 		var con_test = confirm("정말 삭제 하시겠습니까?");
@@ -55,7 +58,8 @@ th{
 	</div>
 	<div>
 	<c:choose>
-		<c:when test="${mem.mem_number eq document.doc_mem_number}">
+	
+		<c:when test="${mem.mem_id eq loginuser}">
 			<button class="btn"><a href="/documentManagement/documentManager/documentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>
 			<button class="btn"type="button" onclick="documentDelete('${document.doc_number}');">삭제하기</button>
 			<button class="btn"><a href="/documentManagement/documentManager/documentSelect?page=${page }">목록</a></button>
