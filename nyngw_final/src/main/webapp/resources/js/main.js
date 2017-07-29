@@ -1,9 +1,12 @@
 
 $(function() {
-    $( ".inputTypeDate" ).datepicker({ dateFormat: 'yy-mm-dd'}); 
-    $( ".inputTypeDate2" ).datepicker({ dateFormat: 'yy/mm/dd'}); 
-    $( ".inputTypeDate3" ).datepicker({ dateFormat: 'yyyy/mm/dd'}); 
-	$( ".inputTypeMonth" ).MonthPicker({ 
+    $(".inputTypeDate").datepicker({ dateFormat: 'yy-mm-dd'});
+    $(".inputTypeDate").css('z-index','10000');
+    $(".inputTypeDate2").datepicker({ dateFormat: 'yy/mm/dd'}); 
+    $(".inputTypeDate2").css('z-index','10000');
+    $(".inputTypeDate3").datepicker({ dateFormat: 'yyyy/mm/dd'}); 
+    $(".inputTypeDate3").css('z-index','10000');
+    $(".inputTypeMonth").MonthPicker({ 
 		pattern:'yy/mm',
 		dateFormat: 'yy/mm',
 		yearSuffix: '',     // Additional text to append to the year in the month headers 

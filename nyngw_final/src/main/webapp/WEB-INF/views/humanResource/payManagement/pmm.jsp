@@ -159,37 +159,33 @@ $(function() {
  }
 </style>
 
+<h2>급여관리</h2>
+<p class="docTitleDescription">
+	사원들의 급여를 확인할 수 있습니다.
+	기본월급 : <br/> 
+	<b>기본급+직책수당+식대-(기본급*무급휴가일수/해당월수)</b><br/>
+</p>
+
 <form action ="/humanResource/payManagement/pmm">
-<table class="table table-bordered">
-	<tr>
-		<th>구분</th>
-		<td>급여명세서</td>
-	</tr>
-	<tr>
-		<th>수령연월</th>
-		<td>
-			<input type="month" class="form-control inputTypeMonth" name="mp_pay_date"/>
-		</td>
-	</tr>
-	<tr>
-		<th>
-			<select class="form-control" name="dept_name" style="display:inline-block;width:150px;">
-				<option value="">부서선택</option>
-				<option value="">전체</option>
-				<c:forEach items="${deptList}" var="dept">
-					<option value="${dept.dept_number }">${dept.dept_name}</option>
-				</c:forEach>
-				
-			</select>
-		</th>
-		<td>
-			<input type="text"  placeholder="검색할 사원 이름입력" name="mem_name" class="form-control" style="display:inline-block;width:150px;"/>
-			<button class="btn btn-default" type="submit">검색</button>
-		</td>
-	</tr>
-</table>
+	<div class="searchSpace">
+	수령연월 
+		<input type="month" class="form-control inputTypeMonth docInputSelect" name="mp_pay_date"/>
+		<select class="form-control docInputSelect" name="dept_name">
+			<option value="">부서선택</option>
+			<option value="">전체</option>
+			<c:forEach items="${deptList}" var="dept">
+				<option value="${dept.dept_number }">${dept.dept_name}</option>
+			</c:forEach>
+		</select>
+		<input type="text"  placeholder="검색할 사원 이름입력" name="mem_name" class="form-control" style="display:inline-block;width:335px;"/>
+		<button class="btn btn-default" type="submit">검색</button>
+	</div>
 </form>
-<p>기본월급은 (기본급+직책수당+식대)로 계산됩니다.</p>
+
+<div class="row insertDocBtnWrap textRight">
+	<button type="button" id="memPayInsertFormBtn" class="btn btn-default">급여 등록</button>
+</div>
+
 <table class="table table-bordered">
 	<tr>
 		<th>부서</th>
@@ -245,7 +241,7 @@ $(function() {
 		</c:otherwise>
 	</c:choose>
 </table>
-<div id="pageNum">
+<div id="pageNum" class="textCenter">
 	<c:if test="${beginPage > perPage}">
 		<a href="<c:url value="/humanResource/payManagement/pmm?page=${beginPage-1}&mem_name=${mem_name}&dept_name=${dept_name}"/>">이전</a>
 	</c:if>
@@ -262,12 +258,6 @@ $(function() {
 		검색어 url parameter로 넘겨주는 부분만 자기 것으로 수정하시면 되요~
 	-->	
 </div>
-
-<div class="row">
-	<button type="button" id="memPayInsertFormBtn" class="btn btn-default">급여 등록</button>
-</div>
-
-
 
 <div class="updateMemPayBox">
 	<!-- 급여 등록하는 팝업창 -->
