@@ -8,7 +8,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
-
+<h2>개인 정보 수정</h2>
+<p class="docTitleDescription">
+	자신의 정보를 수정할 수 있습니다.
+</p>
 <form>
 <table class="table table-bordered">
 	<tr>
@@ -46,6 +49,6 @@
 					
 </table>
 </form>
-<div class="textCenter">
+<div class="textCenter insertJoinBtnWrap textCenter">
 <button class="btn btn-default"><a href="/mypage/basicSetting/updateMemberForm">수정</a></button>
 </div>

@@ -44,12 +44,10 @@ function print(printArea)
       win.close();
 }
 </script>
-마이페이지 >> 나의 급여 관리 >> 급여명세서 보기
-<!-- <div class="guideBox"> -->
-<!--   <p><button class="btn btn-primary">급여확인하기!</button></p> -->
-<!--     <div> -->
-<!--       <dl> -->
-<!--         <dd> -->
+<h2>급여명세서</h2>
+<p class="docTitleDescription">
+	자신의 급여명세서를 확인할 수 있습니다.
+</p>
   <div id="printArea">
          <table class="table table-border textCenter">
 <!-- 			<tr> -->

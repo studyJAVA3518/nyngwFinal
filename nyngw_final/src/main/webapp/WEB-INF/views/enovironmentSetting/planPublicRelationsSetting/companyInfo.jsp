@@ -117,7 +117,7 @@
 </table>
 <br>
 <h4>회사 정보 등록</h4>
-<div id="callBackDiv">
+<div id="callBackDiv" class="insertJoinBtnWrap textCenter" >
 <table class="table tableGray">
 	<form class="form-inline" id="form" method="post" name="comInfo">
 		<tr>

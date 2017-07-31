@@ -136,6 +136,7 @@ function readURL2(input) {
 	</tr>
 </table>
 
-
+<div class="insertJoinBtnWrap textCenter" >
 <input type="submit" value="수정" onclick="chk()">
+</div>
 </form>
