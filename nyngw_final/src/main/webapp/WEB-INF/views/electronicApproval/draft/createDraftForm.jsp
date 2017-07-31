@@ -211,7 +211,7 @@
 <div class="textCenter">
 	<button type="button" onclick="saveContent();"  class="btn btn-default">등록</button>
 	<input type="reset" value="초기화" class="btn btn-default" />	
-	<button type="button"  class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
+	<button type="button"  class="btn btn-default"><a href="/electronicApproval/draft/draft">취소</a></button>
 </div>
 
 <textarea id="text_content" style="display:none;">
