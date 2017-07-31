@@ -41,8 +41,8 @@
 	</select>
 	
 	<!-- 가장 마지막의 결재상태 -->
-	<select id="selectLastAhStatus" parameterType="string" resultType="string">
-		select ah_status 
+	<select id="selectLastAhStatus" parameterType="string" resultType="com.nyngw.dto.Approval_HistoryVO">
+		select * 
 		from approval_history 
 		where ah_ea_number = #{ea_number} 
 		and 'ast'||(select max(substr(ah_ast_number,4)) 

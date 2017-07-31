@@ -179,8 +179,8 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		return returnDate;
 	}
 
-	public String selectLastAhStatus(String ea_number) {
-		return (String) sqlSession.selectOne("selectLastAhStatus",ea_number);
+	public Approval_HistoryVO selectLastAhStatus(String ea_number) {
+		return  (Approval_HistoryVO) sqlSession.selectOne("selectLastAhStatus",ea_number);
 	}
 
 	public void EA_updateApproval(Electronic_ApprovalVO eaVO) {
