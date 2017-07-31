@@ -43,9 +43,11 @@ public class ErrorController {
 		System.out.println("Exception page");
 		
 		model.addAttribute("message", "error Exception");
+		model.addAttribute("title", "Exception Error");
+		model.addAttribute("error", "exception");
 		model.addAttribute("url", "location.href='/user/loginForm';");
 		
-		return "error/error";		
+		return "error/pageError";		
 	}
 	
 	

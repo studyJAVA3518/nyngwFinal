@@ -37,7 +37,7 @@
 		from memo
 		where memo_mem_number = #{memo_mem_number}
 		<![CDATA[
-		ORDER BY memo_number ) A)
+		ORDER BY  to_number(substr(memo_number,(instr(memo_number,'o')+1))) desc) A)
 		where  RNUM > #{startPage} AND RNUM <= #{endPage} 
 		]]>
 	</select>
