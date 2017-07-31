@@ -168,6 +168,9 @@ public class IndividualDocumentBoxController {
 			paramMap.put("ast_mem_number", member.getMem_number());
 			int memberAstPriority = individualDocumentBoxService.selectOneAstPriority(paramMap);
 			
+			//한 결재의 마지막 결재스탭번호
+			int lastAstNumber = approvalProgressDao.selectLastApprovalStep(ea_number);
+			
 			//한 결재의 마지막 결재이력의 우선순위 검색
 			int lastAhHistory = individualDocumentBoxService.selectLastApprovalHistory(ea_number);
 			
@@ -176,9 +179,11 @@ public class IndividualDocumentBoxController {
 			param.put("mem_number", member.getMem_number());
 			param.put("ea_number", ea_number);
 			Approval_HistoryVO history = individualDocumentBoxService.selectAhMember(param);
+			
 			//자신의 우선순위보다 결재이력의 마지막 우선순위가 높을 시 
 			//결재처리를 한 것이므로 select를 해온다.
-			if(lastAhHistory>=memberAstPriority){
+			//이 때 만약 history가 null이면 
+			if(history!=null){
 				//검색조건에 따라서 xml 쿼리문 새로 만들어서 다시 불러와야할수 있음... 월요일에 참고하자!!
 				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 				eaVO.setEa_ah_time(history.getAh_time());
