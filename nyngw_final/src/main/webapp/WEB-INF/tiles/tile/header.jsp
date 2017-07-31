@@ -75,8 +75,8 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li class="topMenuTitle">업무일지</li>
-							<li><a href="/businessSupport/dutyDocument/department">부서 업무 조회</a></li>
 							<li><a href="/businessSupport/dutyDocument/personal">개인 업무 조회</a></li>
+							<li><a href="/businessSupport/dutyDocument/department">부서 업무 조회</a></li>
 							<li class="divider"></li>
 							<li class="topMenuTitle">업무보고상신</li>
 							<li><a href="/businessSupport/dutyReport/dutyReport">내 업무 보고</a></li>

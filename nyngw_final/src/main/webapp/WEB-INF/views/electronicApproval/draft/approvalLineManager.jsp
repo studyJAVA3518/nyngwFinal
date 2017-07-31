@@ -158,7 +158,11 @@ td {
 						}else if($("#approval").find("#"+$(this).attr('id')).val()===undefined){
 							$('#approval').append('<option name="approvalMember'+index+'" id="'+ $(this).attr('id')+'" value="'+$(this).val()+'">'+$(this).val()+'</option>');
 						}else{
-							alert($(this).val()+"님은 이미 추가되었습니다.");
+// 							alert($(this).val()+"님은 이미 추가되었습니다.");
+							swal({
+								text: $(this).val()+' 님은 이미 추가되었습니다.',
+								confirmButtonText: '확인'
+							});
 						}
 						
 					}	
