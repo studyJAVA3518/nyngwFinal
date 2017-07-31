@@ -270,6 +270,79 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		return null;
 	}
 	
+	//로그인한 사원이 기안한 문서 중 모든 완료문서를 가져옴
+	public List<Electronic_ApprovalVO> defaultCA(Model model, Principal principal) {
+		
+		//접속자의 정보 검색
+		String mem_id = principal.getName();
+		MemberVO member = commonServiceImpl.findMemberByMemId(mem_id);
+		
+		//접속자의 사원번호를 기안자로 한  결재번호 검색
+		List<Electronic_ApprovalVO> ea_numberVOList = approvalProgressDao.selectEaNumberList(member.getMem_number());
+		
+		//vo로 받은 결과값에서 ea_number만 추출해서 String형 리스트에 넣는다.
+		List<String> ea_numberList = new ArrayList<String>();
+		
+		for(int i = 0; i<ea_numberVOList.size();i++){
+			ea_numberList.add(ea_numberVOList.get(i).getEa_number());
+		}
+		
+		
+		//return할 결재정보 리스트
+		List<Electronic_ApprovalVO> ca_eaList = new ArrayList<Electronic_ApprovalVO>();
+		String statusResult = "";
+
+		//결재별 현황 검색
+		for (String ea_number : ea_numberList) {
+			//한 결재의 마지막 결재우선순위 검색
+			int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
+			//한 결재의 마지막 이력 count 검색
+			int lastHistory = approvalProgressDao.selectApprivalHistoryDoneCount(ea_number);
+			
+			//결재완료문서 (마지막 결재우선순위와 결재이력 개수가 같으면~!)
+			if(lastAstPriority==lastHistory){
+				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
+				ca_eaList.add(eaVO);
+				statusResult = "결재완료";
+			}
+		}
+		
+		if(ca_eaList.size()==0){
+			model.addAttribute("ca_eaList",Collections.emptyList());
+			model.addAttribute("completeDateList",Collections.emptyList());
+		}else{
+			model.addAttribute("ca_eaList",ca_eaList);
+			model.addAttribute("statusResult", statusResult);
+			
+		}
+		
+		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
+		List<MemberVO> memberList = new ArrayList<MemberVO>();
+		//결제완료일자 받아오는 리스트
+		List<Date> completeDateList = new ArrayList<Date>();
+		List<String> completeDateFormatList = new ArrayList<String>();
+		for (Electronic_ApprovalVO eaVO : ca_eaList) {
+			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(eaVO.getEa_doc_number()));
+			memberList.add(commonServiceImpl.findMemberByMemNumber(eaVO.getEa_mem_number()));
+			completeDateList.add(approvalProgressDao.selectResentHistoryDate(eaVO.getEa_number()));
+		}
+		
+		for(Date date : completeDateList){
+			if(date!=null){
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String to = transFormat.format(date);
+				completeDateFormatList.add(to);
+			}
+		}
+		
+		model.addAttribute("code_nameList",code_nameList);
+		model.addAttribute("memberList",memberList);
+		model.addAttribute("completeDateFormatList", completeDateFormatList);
+		
+		return null;
+	}
+	
+	
 	//완료문서 자세히보기
 	public void caDetail(Model model, String ea_number,Principal principal) {
 		//결재정보 setting
@@ -404,79 +477,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		
 		//A 빈칸 3- 시작lastAstPriorityOfA+1=3부터 // 5까지
 	}
-	
-	
-	//로그인한 사원이 기안한 문서 중 모든 완료문서를 가져옴
-	public List<Electronic_ApprovalVO> defaultCA(Model model, Principal principal) {
-		
-		//접속자의 정보 검색
-		String mem_id = principal.getName();
-		MemberVO member = commonServiceImpl.findMemberByMemId(mem_id);
-		//접속자의 사원번호를 기안자로 한  결재번호 검색
-		List<Electronic_ApprovalVO> ea_numberVOList = approvalProgressDao.selectEaNumberList(member.getMem_number());
-		//vo로 받은 결과값에서 ea_number만 추출해서 String형 리스트에 넣는다.
-		List<String> ea_numberList = new ArrayList<String>();
-		
-		for(int i = 0; i<ea_numberVOList.size();i++){
-			ea_numberList.add(ea_numberVOList.get(i).getEa_number());
-		}
-		
-		
-		//return할 결재정보 리스트
-		List<Electronic_ApprovalVO> ca_eaList = new ArrayList<Electronic_ApprovalVO>();
-		String statusResult = "";
-
-		//결재별 현황 검색
-		for (String ea_number : ea_numberList) {
-			//한 결재의 마지막 결재우선순위 검색
-			int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
-			//한 결재의 마지막 이력 count 검색
-			int lastHistory = approvalProgressDao.selectApprivalHistoryDoneCount(ea_number);
-			
-			//결재완료문서 (마지막 결재우선순위와 결재이력 개수가 같으면~!)
-			if(lastAstPriority==lastHistory){
-				Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
-				ca_eaList.add(eaVO);
-				statusResult = "결재완료";
-			}
-		}
-		
-		if(ca_eaList.size()==0){
-			model.addAttribute("ca_eaList",Collections.emptyList());
-			model.addAttribute("completeDateList",Collections.emptyList());
-		}else{
-			model.addAttribute("ca_eaList",ca_eaList);
-			model.addAttribute("statusResult", statusResult);
-			
-		}
-		
-		List<Common_CodeVO> code_nameList = new ArrayList<Common_CodeVO>();
-		List<MemberVO> memberList = new ArrayList<MemberVO>();
-		//결제완료일자 받아오는 리스트
-		List<Date> completeDateList = new ArrayList<Date>();
-		List<String> completeDateFormatList = new ArrayList<String>();
-		for (Electronic_ApprovalVO eaVO : ca_eaList) {
-			code_nameList.add(commonServiceImpl.findCodeNameByDocNumber(eaVO.getEa_doc_number()));
-			memberList.add(commonServiceImpl.findMemberByMemNumber(eaVO.getEa_mem_number()));
-			completeDateList.add(approvalProgressDao.selectResentHistoryDate(eaVO.getEa_number()));
-		}
-		
-		for(Date date : completeDateList){
-			if(date!=null){
-				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String to = transFormat.format(date);
-				completeDateFormatList.add(to);
-			}
-		}
-		
-		model.addAttribute("code_nameList",code_nameList);
-		model.addAttribute("memberList",memberList);
-		model.addAttribute("completeDateFormatList", completeDateFormatList);
-		
-		return null;
-	}
-	
-	
 	
 	//로그인한 사원이 기안한 문서 중 모든 반려문서를 가져옴
 	public List<Electronic_ApprovalVO> defaultRA(Model model, Principal principal) {

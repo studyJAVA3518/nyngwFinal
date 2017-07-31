@@ -44,7 +44,7 @@ function print(printArea)
       win.close();
 }
 </script>
-<h2>급여명세서</h2>
+<h2>급여명세서 페이지</h2>
 <p class="docTitleDescription">
 	자신의 급여명세서를 확인할 수 있습니다.
 </p>

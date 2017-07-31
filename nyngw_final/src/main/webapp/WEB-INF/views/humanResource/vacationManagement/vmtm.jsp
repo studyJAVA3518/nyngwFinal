@@ -58,7 +58,7 @@ $(function(){
 
 </script>
 
-<h2>휴가현황</h2>
+<h2>휴가 현황 페이지</h2>
 <p class="docTitleDescription">
 	사원들의 휴가현황을 확인할 수 있습니다.
 </p>

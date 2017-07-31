@@ -144,7 +144,7 @@
 		select count(*)
 		from approval_history
 		where ah_ea_number = #{ah_ea_number}
-		and ah_status='결재'
+		and (ah_status='결재' or ah_status='합의')  
 	</select>
 	
 	<!-- 결재이력에서 반려된 해당결재번호의 카운트를 세주는 쿼리 -->

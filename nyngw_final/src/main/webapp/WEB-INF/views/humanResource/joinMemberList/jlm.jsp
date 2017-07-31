@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>사원 리스트</h2>
+<h2>사원 정보 페이지</h2>
 <p class="docTitleDescription">
 	그룹웨어에 등록된 사원을 확인할 수 있습니다.
 </p>
