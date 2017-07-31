@@ -41,8 +41,8 @@
 				type : 'post',
 				data : memdata,
 				success : function(res) {
-					alert("화면전환만들어야되는데...");
-					location.href=result.url;
+					location.href="/humanResource/retiredMemberList/rmm";
+// 					location.href=result.url;
 				},
 				error : function() {
 					alert("회원 퇴사처리가 실패했습니다.");
@@ -53,46 +53,93 @@
 		}
 	}
 </script>
-<form id="memberDetail" method="post">
-	<h2>사원정보</h2>
-	<br> 
-	아이디 <input type="text" id="mem_id" name="mem_id" class="form-control" value="${member.mem_id }" readonly /> 
-	이름 <input type="text" id="mem_name" name="mem_name" class="form-control" value="${member.mem_name }" readonly /> 
-	<br> 
-	생년월일<input type="text" id="mem_reg" name="mem_reg" class="form-control" value="${member.mem_reg }" readonly /> 
-	<br> 
-	연락처<input type="tel" id="mem_tel" name="mem_tel" class="form-control" placeholder="${member.mem_tel }" value="${member.mem_tel }" readonly />
-	<br>
-	부서 ${member.dept_name} 수정할 부서 선택
-<%-- 	<input type="tel" class="form-control" placeholder="${member.dept_name }" value="${member.dept_name }" readonly />  --%>
-	<select class="form-control" name="mem_dept_number">
-		<c:forEach items="${depList}" var="depList">
-			<option value="${depList.dept_number}">${depList.dept_name}</option>
-		</c:forEach>
-	</select> 
-	<br>
-	직급 ${member.position_name} 수정할 직급 선택
-<%-- 	<input type="tel" class="form-control" placeholder="${member.position_name }" value="${member.position_name }" readonly />  --%>
-	<select class="form-control" name="mem_position_number">
-		<c:forEach items="${posList}" var="posList" begin="1" end="${posList.size()}">
-			<option value="${posList.position_number}">${posList.position_name}</option>
-		</c:forEach>
-	</select>
-	<br>
-	<div class="input-group">
-		주소 <input type="text" class="form-control" id="mem_zip" name="mem_zip" value="${member.mem_zip }" readonly />
-	</div>
-	<div class="input-group">
-		<input type="text" class="form-control" id="mem_addr1" name="mem_addr1" value="${member.mem_addr1 }" readonly /> 
-		상세주소 <input	type="text" class="form-control" id="mem_addr2" name="mem_addr2" value="${member.mem_addr2 }" readonly />
-	</div>
-	<br> 
-	이메일<input type="email" id="mem_email" name="mem_email" class="form-control" value="${member.mem_email }" readonly /> 
-	<br>
-	거래은행<input type="text" id="mdi_bank" name="mdi_bank" class="form-control" value="${member.mdi_bank }" readonly/> 
-	게좌번호<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control" value="${member.mdi_bank_account }" readonly/> 
-	<br>
 
-	<button onclick="modifyMember();" class="btn btn-default">사원수정</button>
-	<button onclick="modifyDeleteMember();" class="btn btn-default">byebye</button>
+<h2>사원 정보</h2>
+<p class="docTitleDescription">
+	사원 정보를 확인하고 수정할 수 있습니다.
+</p>
+<form id="memberDetail" method="post">
+	
+	<div class="form-group">
+		<label for="mem_id" class="labelMemInsert">아이디</label>
+		<input type="text" id="mem_id" name="mem_id" class="form-control inputTypeMemInsert" value="${member.mem_id }" readonly /> 
+	</div>
+	<br/>
+	<div class="form-group">
+		<label for="mem_name" class="labelMemInsert">이름</label>
+		<input type="text" id="mem_name" name="mem_name" class="form-control inputTypeMemInsert" value="${member.mem_name }" readonly /> 
+	</div>
+	<br> 
+	<div class="form-group">
+		<label for="mem_reg" class="labelMemInsert">생년월일</label>
+		<input type="text" id="mem_reg" name="mem_reg" class="form-control inputTypeMemInsert" value="${member.mem_reg }" readonly /> 
+	</div>
+	<br> 
+	<div class="form-group">
+		<label for="mem_tel" class="labelMemInsert">연락처</label>
+		<input type="tel" id="mem_tel" name="mem_tel" class="form-control inputTypeMemInsert" placeholder="${member.mem_tel }" value="${member.mem_tel }" readonly />
+	</div>
+	<br>
+	<div class="form-group">
+		<label class="labelMemInsert">부서</label>
+		현재부서 [${member.dept_name}] 
+	</div>
+	<br>
+	<div class="form-group">
+		<label for="mem_dept_number" class="labelMemInsert">수정할 부서 선택</label>
+		<select class="form-control docInputSelect" name="mem_dept_number">
+			<c:forEach items="${depList}" var="depList">
+				<option value="${depList.dept_number}">${depList.dept_name}</option>
+			</c:forEach>
+		</select> 
+	</div>
+	<br>
+	<div class="form-group">
+		<label class="labelMemInsert">직급</label>
+		${member.position_name}
+	</div>
+	<br/>
+	<div class="form-group">
+		<label for="mem_position_number" class="labelMemInsert">수정할 직급 선택</label>
+		<select class="form-control docInputSelect" name="mem_position_number">
+			<c:forEach items="${posList}" var="posList" begin="1" end="${posList.size()}">
+				<option value="${posList.position_number}">${posList.position_name}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<br>
+	<div class="form-group">
+		<label for="mem_zip" class="labelMemInsert">우편번호</label>
+		<input type="text" class="form-control inputTypeMemInsert" id="mem_zip" name="mem_zip" value="${member.mem_zip }" readonly />
+	</div>
+	<br/>
+	<div class="form-group">
+		<label for="mem_addr1" class="labelMemInsert">주소</label>
+		<input type="text" class="form-control inputTypeMemInsert" id="mem_addr1" name="mem_addr1" value="${member.mem_addr1 }" readonly /> 
+	</div>
+	<br>
+	<div class="form-group">
+		<label for="mem_addr2" class="labelMemInsert">상세주소</label>
+		<input type="text" class="form-control inputTypeMemInsert" id="mem_addr2" name="mem_addr2" value="${member.mem_addr2 }" readonly />
+	</div>
+	<br> 
+	<div class="form-group">
+		<label for="mem_email" class="labelMemInsert">이메일</label>
+		<input type="email" id="mem_email" name="mem_email" class="form-control inputTypeMemInsert" value="${member.mem_email }" readonly /> 
+	</div>
+	<br>
+	<div class="form-group">
+		<label for="mdi_bank" class="labelMemInsert">거래은행</label>
+		<input type="text" id="mdi_bank" name="mdi_bank" class="form-control inputTypeMemInsert" value="${member.mdi_bank }" readonly/> 
+	</div>
+	<br/>
+	<div class="form-group">
+		<label for="mdi_bank_account" class="labelMemInsert">게좌번호</label>
+		<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control inputTypeMemInsert" value="${member.mdi_bank_account }" readonly/> 
+	</div>
+	<br>
+	<div class="insertDocBtnWrap textCenter">
+		<button onclick="modifyMember();" class="btn btn-default">사원 수정</button>
+		<button onclick="modifyDeleteMember();" class="btn btn-default">퇴직 처리</button>
+	</div>
 </form>
