@@ -23,7 +23,40 @@
 		background-size: contain;                                                                                                                                                                
 		background-repeat: no-repeat;                                                                                                                                                            
 		background-position : top center;                                                                                                                                                        
-	}                                                                                                                                                                                            
+	}    
+	.tableTd1{
+		 width:111px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd2{
+		 width:75px;
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd3{
+		 width:233px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd4{
+		 width:160px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd5{
+		 width:213px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.txc-table{
+		margin: 0 auto;
+	}
 </style>                                                                                                                                                                                         
 <script type="text/javascript">                                                                                                                                                                  
 $(function(){                                                                                                                                                                                    
@@ -38,13 +71,13 @@ $(function(){
 			type:'get',                                                                                                                                                                          
 			data: $("#buttonForm").serialize(),                                                                                                                                                  
 			success : function(res){                                                                                                                                                             
-				var code = "";                                                                                                                                                                   
+				var code = '<tr><th class="tableTd1">부서</th><th class="tableTd2">직급</th><th class="tableTd3">이름</th><th class="tableTd4">결재종류</th><th class="tableTd5">결재시간</th></tr>';                                                                                                                                                                   
 					$.each(res, function (i,value){                                                                                                                                              
-					code+='<tr><td>'+value.dept_name+'</td>';                                                                                                                                    
-					code+='<td>'+value.position_name+'</td>';                                                                                                                                    
-					code+='<td>'+value.mem_name+'</td>';                                                                                                                                         
-					code+='<td>'+value.ah_status+'</td>';                                                                                                                                        
-					code+='<td>'+value.ah_time+'</td></tr>';                                                                                                                                     
+					code+='<tr><td class="tableTd1">'+value.dept_name+'</td>';                                                                                                                                    
+					code+='<td class="tableTd2">'+value.position_name+'</td>';                                                                                                                                    
+					code+='<td class="tableTd3">'+value.mem_name+'</td>';                                                                                                                                         
+					code+='<td class="tableTd4">'+value.ah_status+'</td>';                                                                                                                                        
+					code+='<td class="tableTd5">'+value.ah_time+'</td></tr>';                                                                                                                                     
 				});                                                                                                                                                                              
 				$("#historyList").append(code);                                                                                                                                                  
 			},                                                                                                                                                                                   
@@ -60,40 +93,43 @@ $(function(){
 					$(this).dialog("close");                                                                                                                                                     
 				}                                                                                                                                                                                
 			},                                                                                                                                                                                   
-			close: function() {                                                                                                                                                                  
-				$('#textArea').val('');                                                                                                                                                          
+			close: function() { 
+				$('#historyList').html('<tr><th class="tableTd1">부서</th><th class="tableTd2">직급</th><th class="tableTd3">이름</th><th class="tableTd4">결재종류</th><th class="tableTd5">결재시간</th></tr>');
+				$('#historyList').html('');                                                                                                                                                          
 			}                                                                                                                                                                                    
 		});                                                                                                                                                                                      
                                                                                                                                                                                                  
 	})	                                                                                                                                                                                         
 })      
 </script>                                                                                                                                                                                        
-
-결재진행>완료문서상세
+<h2>반려문서 상세페이지</h2>
                                                                                                                                                                                           
-<div id="approvalHistoryDialog">                                                                                                                                                                 
-	결재상태 이력보기                                                                                                                                                                                    
-	<table class="table" id="historyList">                                                                                                                                                       
-		<tr>                                                                                                                                                                                     
-			<th>부서</th>                                                                                                                                                                          
-			<th>직급</th>                                                                                                                                                                          
-			<th>이름</th>                                                                                                                                                                          
-			<th>결재종류</th>                                                                                                                                                                        
-			<th>결재시간</th>                                                                                                                                                                        
-		</tr>                                                                                                                                                                                    
-	</table>                                                                                                                                                                                     
+<div id="approvalHistoryDialog" class="textCenter">                                                                                                                                                                 
+	<h2>결재상태 이력보기</h2>                                                                                                                                                                                    
+	<table class="table tableGray" id="historyList">                                                                                                                                                       
+<!-- 		<tr>                                                                                                                                                                                      -->
+<!-- 			<th>부서</th>                                                                                                                                                                           -->
+<!-- 			<th>직급</th>                                                                                                                                                                           -->
+<!-- 			<th>이름</th>                                                                                                                                                                           -->
+<!-- 			<th>결재종류</th>                                                                                                                                                                         -->
+<!-- 			<th>결재시간</th>                                                                                                                                                                         -->
+<!-- 		</tr>                                                                                                                                                                                     -->
+	</table>
+	<h2>반려사유</h2>
+	<div id="historyReasonForreFusal">
+	
+	</div>                                                                                                                                                                                     
 </div>                                                                                                                                                                                           
         
-        
-<form name="hiddenForm" id="buttonForm">                                                                                                                                                         
-	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
-	<button type="button" id="approvalHistory_go">결재이력</button>                                                                                                                                  
-</form>                                                                                                                                                                                          
-       
+<div class="textCenter divALM">        
+	<form name="hiddenForm" id="buttonForm">                                                                                                                                                         
+		<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
+		<button type="button" id="approvalHistory_go"  class="btn btn-default">결재이력</button>                                                                                                                                  
+	</form>                                                                                                                                                                                          
+</div>  
 <div>
 	<form id="editForm">                                                                                                                                                                                            
-	<button type="button" onclick="rewriteApproval_go(this.form);">재작성</button>
-	<table class="table table-bordered">                                                                                                                                                         
+	<table class="table table-bordered tableGray">                                                                                                                                                         
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">품의번호</th>                                                                                                                                                        
 			<td colspan="5">
@@ -181,13 +217,16 @@ $(function(){
 			<th colspan="6">내용</th>                                                                                                                                                              
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
-			<td colspan="6">                                                                                                                                                                     
-				${eaVO.ea_content }                                                                                                                                                              
+			<td colspan="6">
+				${eaVO.ea_content }
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
 	</table>  
-	</form>                                                                                                                                                                                   
-	<a href="/electronicApproval/approvalProgress/refusedApproval"><button type="button">뒤로</button></a>                                                                                         
+	<div class="textCenter">                                                                                                                                                                      
+		<button type="button" onclick="rewriteApproval_go(this.form);"  class="btn btn-default">재작성</button>
+		<a href="/electronicApproval/approvalProgress/refusedApproval"><button type="button"  class="btn btn-default">뒤로</button></a>
+	</div>                                                                                         
+	</form>             
 </div>     
 
 <script>    
