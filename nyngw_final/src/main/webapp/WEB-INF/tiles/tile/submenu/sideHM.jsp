@@ -54,5 +54,5 @@
 </div>
 
 <div class="sideImg">
-	<img src="<%=request.getContextPath()%>/resources/images/computer.png" alt="sub_image"/>
+<%-- 	<img src="<%=request.getContextPath()%>/resources/images/computer.png" alt="sub_image"/> --%>
 </div>

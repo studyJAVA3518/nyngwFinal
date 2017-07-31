@@ -13,3 +13,15 @@
 .hrTapWrap {
 	padding : 15px;
 }
+.labelMemInsert {
+	display : inline-block;
+	width : 150px;
+}
+.inputTypeMemInsert {
+	display : inline-block;
+	width : 400px;
+}
+.inputTypeMemInsertNarrow {
+	display : inline-block;
+	width : 315px;
+}

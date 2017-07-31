@@ -12,7 +12,7 @@
 	<!-- 검색조건 연도o 부서o 사람o  -->	
 	<select id="MP_selectAllSelectedCount" resultType="int" parameterType="map">
 		select count(*) from member_pay_view 
-		where dept_name like '%'||#{dept_name}||'%'
+		where mem_dept_number like '%'||#{dept_name}||'%'
 		and mem_name like '%'||#{mem_name}||'%'
 		and mp_pay_date like '%'||#{mp_pay_date}||'%'
 	</select>
@@ -20,14 +20,14 @@
 	<!-- 검색조건 연도x 부서o 사람o  -->
 	<select id="MP_selectDeptMemberCount" resultType="int" parameterType="map">
 		select count(*) from member_pay_view 
-		where dept_name like '%'||#{dept_name}||'%'
+		where mem_dept_number like '%'||#{dept_name}||'%'
 		and mem_name like '%'||#{mem_name}||'%'
 	</select>
 	
 	<!-- 검색조건 연도x 부서o 사람x  -->
 	<select id="MP_selectDeptCount" parameterType="java.lang.String" resultType="int">
 		select count(*) from member_pay_view 
-		where dept_name like '%'||#{dept_name}||'%'
+		where mem_dept_number like '%'||#{dept_name}||'%'
 	</select>
 	
 	<!-- 검색조건 연도x 부서x 사람o  -->
@@ -52,7 +52,7 @@
 	<!-- 검색조건 연도o 부서o 사람x  -->	
 	<select id="MP_selectDateDeptCount" resultType="int" parameterType="map">
 		select count(*) from member_pay_view 
-		where dept_name like '%'||#{dept_name}||'%'
+		where mem_dept_number like '%'||#{dept_name}||'%'
 		and mp_pay_date like '%'||#{mp_pay_date}||'%'
 	</select>
 	
@@ -76,7 +76,7 @@
 			position_name
 		from member_pay_view
 		where mem_name like '%'||#{mem_name}||'%'
-		and dept_name like '%'||#{dept_name}||'%'
+		and mem_dept_number like '%'||#{dept_name}||'%'
 		and mp_pay_date like '%'||#{mp_pay_date}||'%'
 		order by mp_pay_date desc
 	</select>

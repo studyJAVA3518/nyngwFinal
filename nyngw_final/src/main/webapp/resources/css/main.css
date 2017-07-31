@@ -200,10 +200,15 @@ h5 {
 .personImg, .personInfo {
 	margin-top : 15px;
 }
-.personImg img {
-	border-radius : 10px;
-	border : 1px solid #ddd;
+
+.logoBg {
+	margin-top : 10px;
+	height : 80px;
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top center;
 }
+
 .leftTemplate, .leftTemplate  {
 	font-size : 13px;
 	margin-bottom : 10px;
@@ -284,6 +289,15 @@ h5 {
 }
 .table caption {
 	display : none;
+}
+.tableBoardSpace {
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+}
+.tableBottomBar {
+	border-bottom : 2px solid #dedede;
 }
 
 /*homeMain*/
@@ -398,6 +412,7 @@ h5 {
 /*문서관리*/
 .docTitleDescription {
 	margin : 10px 5px 15px;
+	line-height : 18px;
 }
 .docInputSelect {
 	display : inline-block;
@@ -416,5 +431,7 @@ h5 {
 .pageBottoWrap {
 	margin-bottom : 100px;
 }
-
+.searchSpace {
+	margin-bottom : 20px;
+}
 /**/

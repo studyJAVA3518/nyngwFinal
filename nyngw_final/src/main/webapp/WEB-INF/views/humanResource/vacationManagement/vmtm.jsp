@@ -160,7 +160,7 @@ $(function(){
 								${member.vp_totalday}
 							</td>
 						</tr>
-						<tr>
+						<tr class="tableBottomBar">
 							<td>${member.vp_kind }</td>
 							<td>
 								
