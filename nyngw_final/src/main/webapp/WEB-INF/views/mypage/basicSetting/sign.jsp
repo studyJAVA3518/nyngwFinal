@@ -13,7 +13,10 @@
 <table class="table table-bordered">
 	<tr>
 		<th>사진</th>
-		<td><img src="/resources/images/profile/${MemberVoDetail.mem_img }"></td>
+		<td>
+			<img src="/resources/images/profile/${MemberVoDetail.mem_img }" style="width: 150px; height: 200px">
+		</td>
+		
 	</tr>
 	<tr>
 		<th>사원이름</th>
@@ -37,7 +40,7 @@
 	</tr>
 	<tr>
 		<th>서  명</th>
-		<td><img src="/resources/memsign/${MemberVoDetail.mem_sign }"/></td>
+		<td><img src="/resources/memsign/${MemberVoDetail.mem_sign }" style="width: 150px; height: 150px;"/></td>
 	</tr>
 	
 					
