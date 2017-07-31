@@ -1,5 +1,6 @@
 package com.nyngw.humanResource.retiredMemberList.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.dto.JoinMemberVO;
 import com.nyngw.dto.Paging;
+import com.nyngw.humanResource.memberJoin.service.MemberJoinServiceImpl;
 import com.nyngw.humanResource.retiredMemberList.service.RetiredMemberListServiceImpl;
 
 @Controller
@@ -21,9 +23,18 @@ public class RetiredMemberListController {
 	
 	@Autowired
 	private RetiredMemberListServiceImpl retireMemberListService;
+	@Autowired
+	private MemberJoinServiceImpl memberJoinService;
 	
 	@RequestMapping("/rmm")
 	public String rmm(Model model,JoinMemberVO member,String page){
+		
+		try {
+			memberJoinService.viewMjmInfo(model);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		if(member.getMem_dept_number()!=null){
 			if(member.getMem_dept_number().equals("all")){
 				member.setMem_dept_number(null);

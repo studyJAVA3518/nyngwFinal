@@ -32,7 +32,6 @@ a:active {
 
 table {
 	width: 164px;
-	border: 1px solid #86B7FF;
 }
 
 th {
@@ -40,15 +39,31 @@ th {
 	font-size: 10pt;
 	font-family: 굴림;
 	height: 25px;
-	border: 1px solid #0099CC;
 }
 
 td {
 	font-size: 10pt;
 	font-family: 굴림;
-	height: 25px;
+	height: 30px;
+	vertical-align:middle;
 	border: 1px none #0099CC;
-	background-color: #DDE7FF;
+}
+
+.td1{
+	width:95px;
+	height:38px;
+}
+.td2{
+	width:145px;
+	height:38px;
+}
+.td3{
+	width:268px;
+	height:38px;
+}
+.td4{
+	width:189px;
+	height:38px;
 }
 </style>
 
@@ -68,16 +83,16 @@ td {
 					code+="";
 				},
 				success:function(result){
-					var code='<tr><th><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th>부서</th><th>직급(직책)</th><th>사원명</th></tr>';
+					var code='<tr><th class="td1" style="vertical-align:middle;"><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th class="td2" style="vertical-align:middle;">부서</th><th class="td3" style="vertical-align:middle;">직급(직책)</th><th class="td4" style="vertical-align:middle;">사원명</th></tr>';
 					var codeInput='';
 					$.each(result, function(i, value){
 // 						if (i==0){
 // 							code="";
 // 						}
-						code+='<tr><td><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
-						code+='<td>'+value.mem_dept_name+'</td>';
-						code+='<td>'+value.mem_position_number+'</td>';
-						code+='<td>'+value.mem_name+'</td></tr>';
+						code+='<tr><td class="td1"><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
+						code+='<td class="td2">'+value.mem_dept_name+'</td>';
+						code+='<td class="td3">'+value.mem_position_number+'</td>';
+						code+='<td class="td4">'+value.mem_name+'</td></tr>';
 						codeInput = value.mem_dept_number;
 					});
 					$("#memberTable").html(code);
@@ -98,10 +113,10 @@ td {
 					var code='<tr><th><input type="checkbox" onclick="$.allCheck();" id="allCheck"></th><th>부서</th><th>직급(직책)</th><th>사원명</th></tr>';
 					var codeInput='';
 					$.each(result, function(i, value){
-						code+='<tr><td><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
-						code+='<td>'+value.mem_dept_name+'</td>';
-						code+='<td>'+value.mem_position_number+'</td>';
-						code+='<td>'+value.mem_name+'</td></tr>';
+						code+='<tr><td class="td1"><input type="checkbox" id="'+value.mem_number+'" value="'+value.mem_name+'"></td>';
+						code+='<td class="td2">'+value.mem_dept_name+'</td>';
+						code+='<td class="td3">'+value.mem_position_number+'</td>';
+						code+='<td class="td4">'+value.mem_name+'</td></tr>';
 						codeInput = value.mem_dept_number;
 					});
 					$("#memberTable").html(code);
@@ -455,7 +470,7 @@ td {
 					</form>
 				</div>
 			<div id="treeMainTop" class="row" style="height:200px;overflow:auto; margin-bottom:10px; border-bottom: 1px solid gray;">
-				<table class="table textCenter" id="memberTable">
+				<table class="table tableGray textCenter" id="memberTable">
 					<tr>
 						<th><input type="checkbox" id="allCheck"></th>
 						<th>부서</th>

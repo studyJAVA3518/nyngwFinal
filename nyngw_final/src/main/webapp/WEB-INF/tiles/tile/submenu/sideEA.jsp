@@ -31,7 +31,7 @@
 								<li>
 									<h3>결재진행</h3>
 									<ul>
-										<li id="sideMenu2"><a href="/electronicApproval/approvalProgress/waitingApproval">&nbsp;&nbsp;&nbsp;└ 미결재문서</a></li>
+										<li id="sideMenu2"><a href="/electronicApproval/approvalProgress/waitingApproval?check=1">&nbsp;&nbsp;&nbsp;└ 미결재문서</a></li>
 										<li id="sideMenu3"><a href="/electronicApproval/approvalProgress/completeApproval">&nbsp;&nbsp;&nbsp;└ 결재완료문서</a></li>
 										<li id="sideMenu4"><a href="/electronicApproval/approvalProgress/refusedApproval">&nbsp;&nbsp;&nbsp;└ 반려문서</a></li>
 									</ul>

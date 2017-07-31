@@ -106,7 +106,7 @@ $(function(){
 				<th>부서 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input class="form-control" type="text" id="dept_name" name="dept_name"/>
 					</div>
 				</td>
 			</tr>
@@ -128,7 +128,7 @@ $(function(){
 				<th>부서 연락처</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_tel" name="dept_tel"/>
+						<input class="form-control" type="text" id="dept_tel" name="dept_tel"/>
 					</div>
 				</td>
 			</tr>
@@ -136,7 +136,7 @@ $(function(){
 				<th>부서 위치</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_addr" name="dept_addr"/>
+						<input class="form-control" type="text" id="dept_addr" name="dept_addr"/>
 					</div>
 				</td>
 			</tr>
@@ -191,7 +191,7 @@ $(function(){
 				<th>부서 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="up_dept_name" name="up_dept_name"/>
+						<input class="form-control" type="text" id="up_dept_name" name="up_dept_name"/>
 					</div>
 				</td>
 			</tr>
@@ -199,7 +199,7 @@ $(function(){
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<input type="text" readonly name="up_dept_membernumber_origin" id="up_dept_membernumber_origin"/>
+						<input class="form-control" type="text" readonly name="up_dept_membernumber_origin" id="up_dept_membernumber_origin"/>
 						<br/>
 						수정하기  
 						<select name="up_dept_membernumber">
@@ -217,7 +217,7 @@ $(function(){
 				<th>부서 연락처</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="up_dept_tel" name="up_dept_tel" />
+						<input class="form-control" type="text" id="up_dept_tel" name="up_dept_tel" />
 					</div>
 				</td>
 			</tr>
@@ -225,7 +225,7 @@ $(function(){
 				<th>부서 위치</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="up_dept_addr" name="up_dept_addr"/>
+						<input class="form-control" type="text" id="up_dept_addr" name="up_dept_addr"/>
 					</div>
 				</td>
 			</tr>

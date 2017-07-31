@@ -12,14 +12,14 @@
 				<th>직급 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="position_name" name="position_name"/>
+						<input class="form-control" type="text" id="position_name" name="position_name"/>
 					</div>
 				</td>
 			</tr>
 			
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="부서 수정"/>
+					<input class="btn btn-default" type="submit" value="부서 수정"/>
 				</td>
 			</tr>
 		</form>

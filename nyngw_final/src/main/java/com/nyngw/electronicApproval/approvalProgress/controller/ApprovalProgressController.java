@@ -37,6 +37,14 @@ public class ApprovalProgressController {
 	public String waitingApproval(Model model,Principal principal){
 		ApprovalProgressService.defaultWA(model,principal);
 		model.addAttribute("sideValue","sideMenu2");
+
+	public String waitingApproval(Model model,Principal principal,String check){
+		if(check==null){
+			check = "";
+		}
+		System.out.println(check);
+		ApprovalProgressService.defaultWA(model,principal,check);
+
 		return "electronicApproval/approvalProgress/waitingApproval";
 	}
 

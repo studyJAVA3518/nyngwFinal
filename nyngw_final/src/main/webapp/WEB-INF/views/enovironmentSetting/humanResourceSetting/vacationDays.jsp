@@ -128,16 +128,16 @@ $(function(){
 		    <div role="tabpanel" class="tab-pane active" id="days">
 		    	<table class="table table-bordered textCenter">
 		    	<tr>
-		    		<th><input type="checkbox" id="allCheck"/></th>
+		    		<th><input class="form-control" type="checkbox" id="allCheck"/></th>
 		    		<th>연차</th>
 		    		<td colspan="2">연차별 추가 휴가 일수</td>
 		    	</tr>
 						<c:forEach items="${yearList }" var="year">
 							<tr>
-								<th><input type="checkbox" name="checkYR" value="${year.yv_year }"/></th>	
+								<th><input class="form-control" type="checkbox" name="checkYR" value="${year.yv_year }"/></th>	
 								<th>${year.yv_year }</th>
 								<td>${year.yv_vacation_day}</td>
-								<td><select id="yv_vacation_day" name="yv_vacation_day" class="btn btn-default">
+								<td><select id="yv_vacation_day" name="yv_vacation_day" class="form-control">
 										<option value="0">0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -154,8 +154,8 @@ $(function(){
 					<input type="button" value="변경" class="btn btn-default" onclick="vacationYear_go();"/>
 					<input type="button" value="삭제" class="btn btn-default" onclick="vacationYearDEL_go();"/>
 					<form id="yearVacation">
-						<input type="text" name="yv_year" />
-						<select name="yv_vacation_day" class="btn btn-default">
+						<input class="form-control" type="text" name="yv_year" />
+						<select name="yv_vacation_day" class="form-control">
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -171,7 +171,7 @@ $(function(){
 					</div>
 		    <div role="tabpanel" class="tab-pane" id="profile">
 		    	<form action="vacationDaysForm">
-		    	<select name="mem_dept_number" id="mem_dept_number" class="btn btn-default">
+		    	<select name="mem_dept_number" id="mem_dept_number" class="form-control">
 					<option value="all" >모든부서</option>
 					<option value="dept3" >인사부</option>
 					<option value="dept4" >기획홍보부</option>
@@ -182,7 +182,7 @@ $(function(){
 					<option value="dept9" >기획1팀</option>
 					<option value="dept10" >기획2팀</option>
 				</select>
-				<input type="text" name="mem_name" />
+				<input class="form-control" type="text" name="mem_name" />
 				<button class="btn btn-default">검색</button>
 				</form>
 		    	<table class="table table-bordered">

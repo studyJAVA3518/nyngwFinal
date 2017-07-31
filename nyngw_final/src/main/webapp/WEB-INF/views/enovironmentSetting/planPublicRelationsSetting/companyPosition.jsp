@@ -89,7 +89,7 @@
 				<th>직급 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="up_position_name" name="up_position_name"/>
+						<input class="form-control" type="text" id="up_position_name" name="up_position_name"/>
 						<input type="hidden" id="up_position_number" name="up_position_number"/>
 					</div>
 				</td>
@@ -97,7 +97,7 @@
 			
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="부서 수정" onclick="updatePosition_go();"/>
+					<input type="submit" value="부서 수정" class="btn btn-default" onclick="updatePosition_go();"/>
 				</td>
 			</tr>
 		</form>
