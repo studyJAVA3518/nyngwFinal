@@ -53,4 +53,12 @@ public class Board_SelectVO {
 	public void setVal(String val) {
 		this.val = val;
 	}
+	@Override
+	public String toString() {
+		return "Board_SelectVO [index=" + index + ", val=" + val
+				+ ", searchDate=" + searchDate + ", reportType=" + reportType
+				+ ", mem_code=" + mem_code + ", mem_number=" + mem_number
+				+ ", mem_id=" + mem_id + "]";
+	}
+	
 }

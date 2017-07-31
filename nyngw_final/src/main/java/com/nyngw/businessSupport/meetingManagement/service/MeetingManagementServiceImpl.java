@@ -124,6 +124,17 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 	public void meetingFileInsert(Meeting_DocumentVO meetingFile) {
 		meetingManagementDao.meetingFileInsert(meetingFile);
 	}
+
+	public boolean isMeeting_Document(String mt_md_number) {
+		boolean result=false;
+		int status = meetingManagementDao.isMeeting_Document_MM(mt_md_number);
+		
+		if(status==0){
+			result = true;
+		}
+			
+		return result;
+	}
 	
 	
 }

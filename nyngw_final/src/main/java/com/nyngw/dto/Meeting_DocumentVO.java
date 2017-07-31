@@ -43,4 +43,11 @@ public class Meeting_DocumentVO {
 	public void setMd_writer(String md_writer) {
 		this.md_writer = md_writer;
 	}
+	@Override
+	public String toString() {
+		return "Meeting_DocumentVO [md_number=" + md_number + ", md_name="
+				+ md_name + ", md_content=" + md_content + ", md_date="
+				+ md_date + ", md_writer=" + md_writer + "]";
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.nyngw.businessSupport.meetingManagement.controller;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -299,6 +300,14 @@ public class MeetingManagementController {
 		}
 		MemberVO meetingList3 = basicSettingService.selectMember(mem_id);
 		List<MeetingVO> metlist = meetingManagementService.selectMeetingAll();
+		List<MeetingVO> meetList = new ArrayList<MeetingVO>();
+		for (int i = 0; i < metlist.size(); i++) {
+			MeetingVO met = metlist.get(i);
+			if(meetingManagementService.isMeeting_Document(metlist.get(i).getMt_md_number())){
+				meetList.add(met);
+			}
+		}
+		
 		System.out.println("==========================으아니"+metlist.get(0).getMt_number());
 		boolean a =false;
 		if(metlist.size()>0){
@@ -306,7 +315,7 @@ public class MeetingManagementController {
 		}
 		
 		model.addAttribute("a",a);
-		model.addAttribute("metlist",metlist);
+		model.addAttribute("metlist",meetList);
 		model.addAttribute("meetingList3",meetingList3);
 		return "businessSupport/meetingManagement/addMeetingFile";
 	}
