@@ -85,8 +85,7 @@ $(function(){
 		</tr>
 	</table>
 </div>
-
-개인문서함>상신문서함>디테일
+<h2>상신문서함 디테일</h2>
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
 <c:if test="${indexA == 0 and indexB == 0}">
 	<form name="hiddenForm">
@@ -98,7 +97,7 @@ $(function(){
 
 <div>
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
-	<table class="table table-bordered">
+	<table class="table table-bordered tableGray">
 		<tr>
 			<th class="tableTh">품의번호</th>
 			<td colspan="5">${eaVO.ea_number }</td>
@@ -183,7 +182,9 @@ $(function(){
 			</td>	
 		</tr>
 	</table>
-	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button">뒤로</button></a>
+	<div class="textCenter">
+		<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button" class="btn btn-default">뒤로</button></a>
+	</div>
 </div>
 <style>
 	div.aa table {

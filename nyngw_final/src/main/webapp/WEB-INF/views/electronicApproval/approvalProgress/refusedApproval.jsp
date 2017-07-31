@@ -3,41 +3,30 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-결재진행>반려문서
-반려문서는 본인이 상신한 문서 중 결재자가 반려 처리한 문서를 확인, 처리할 수 있는 메뉴입니다.
-
-<form>
-	<table class="table">
-		<tr>
-			<td>검색일자</td>
-			<td>
-				<select name="EADateOption" class="form-control">
-					<option>반려일</option>
-					<option>기안일</option>
-				</select>
-			</td>
-			<td>
-				<input type="date" class="form-control" id="" name=""/>
-			</td>
-		</tr>
-		<tr>
-			<td>문서검색</td>
-			<td>
-				<select name="docSearchOption">
-					<option>--선택--</option>
-					<option>제목</option>
-					<option>품의번호</option>
-					<option>문서분류</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" name="searchText">
-			</td>	
-		</tr>		
-	</table>
-	<button type="button" onclick="searchRefusedApproval_go(this.form);">검색</button>
-</form>
-
+<h2>반려문서</h2>
+<p class="docTitleDescription">
+	반려문서는 본인이 상신한 문서 중 결재자가 반려 처리한 문서를 확인, 처리할 수 있는 메뉴입니다.
+</p>
+<div class="eaSearchDivMagin">
+	<form>
+		검색일자&nbsp;
+		<select name="EADateOption" class="form-control docInputSelect" style="width: 100px;">
+			<option>반려일</option>
+			<option>기안일</option>
+		</select>&nbsp;
+		<input type="date" class="form-control docInputSelect" id="" name=""/>&nbsp;
+		문서검색
+		<select name="docSearchOption" class="form-control docInputSelect" style="width: 110px;">
+			<option>--선택--</option>
+			<option>제목</option>
+			<option>품의번호</option>
+			<option>문서분류</option>
+		</select>
+		&nbsp;
+		<input type="text" name="searchText" class="form-control eaInputSearch" style="width: 230px;">&nbsp;
+		<button type="button" onclick="searchRefusedApproval_go(this.form);" class="btn btn-default">검색</button>
+	</form>
+</div>
 <table class="table" border="1">
 	<tr>
 		<th>품의번호</th>

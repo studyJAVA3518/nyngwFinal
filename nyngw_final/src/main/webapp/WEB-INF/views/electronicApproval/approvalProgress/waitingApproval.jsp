@@ -3,12 +3,12 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-결재진행>미결재문서함
-미결재문서는 본인이 결재자로 지정된 결재 문서 중 결재 처리를 하지 않은 문서들을 검색, 처리 할 수 있는 메뉴입니다.
-
+<h2>미결재문서함</h2>
+<p class="docTitleDescription">
+	미결재문서는 본인이 결재자로 지정된 결재 문서 중 결재 처리를 하지 않은 문서들을 검색, 처리 할 수 있는 메뉴입니다.
+</p>
 <form>
-	<table class="table tableGray eaTableMagin">
+	<table class="table tableGray" style="margin: 0 0 20px 0;">
 		<tr>
 			<td>검색일자</td>
 			<td>

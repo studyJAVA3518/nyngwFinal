@@ -3,39 +3,29 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-개인문서함>반려문서함
-반려문서는 본인이 반려한 문서 또는 본인이 결재한 문서를 다른 결재자가 반려한 문서들을 확인할 수 있는 메뉴입니다.
-
-<form>
-	<table class="table">
-		<tr>
-			<td>검색일자</td>
-			<td>
-				<select name="EADateOption">
-					<option >반려일</option>
-					<option >기안일</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>문서검색</td>
-			<td>
-				<select name="docSearchOption">
-					<option value="all">--선택--</option>
-					<option value="ea_title">제목</option>
-					<option value="ea_number">품의번호</option>
-					<option value="doc_name">문서분류</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" name="searchText">
-			</td>	
-		</tr>		
-	</table>
-	<button type="button" onclick="searchRefusedApproval_go(this.form);">검색</button>
-</form>
-
-<table class="table">
+<h2>반려문서함</h2>
+<p class="docTitleDescription">
+	반려문서는 본인이 반려한 문서 또는 본인이 결재한 문서를 다른 결재자가 반려한 문서들을 확인할 수 있는 메뉴입니다.
+</p>
+<div class="eaSearchDivMagin">
+	<form>
+		검색일자&nbsp;
+			<select name="EADateOption" class="form-control docInputSelect">
+				<option >반려일</option>
+				<option >기안일</option>
+			</select>&nbsp;&nbsp;
+		문서검색&nbsp;
+			<select name="docSearchOption" class="form-control docInputSelect">
+				<option value="all">--선택--</option>
+				<option value="ea_title">제목</option>
+				<option value="ea_number">품의번호</option>
+				<option value="doc_name">문서분류</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" name="searchText" class="form-control eaInputSearch">&nbsp;&nbsp;
+		<button type="button" onclick="searchRefusedApproval_go(this.form);" class="btn btn-default">검색</button>
+	</form>
+</div>
+<table class="table textCenter">
 	<tr>
 		<th>품의번호</th>
 		<th>문서분류</th>
@@ -61,9 +51,9 @@
 		</tr>
 	</c:forEach>
 </table>
-<div id="approvalHistoryDialog">
-	결재상태 이력보기
-	<table class="table" id="historyList">
+<div id="approvalHistoryDialog" class="textCenter">
+	<h2>결재상태 이력보기</h2>
+	<table class="table tableGray" id="historyList">
 		<tr>
 			<th>부서</th>
 			<th>직급</th>

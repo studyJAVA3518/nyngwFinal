@@ -3,25 +3,23 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-결재진행> 완료문서
-결재완료는 본인이 상신했던 문서 중 결재 처리가 된 문서를 확인할 수 있는 메뉴입니다.
-
+<h2>결재완료문서</h2>
+<p class="docTitleDescription">
+	결재완료는 본인이 상신했던 문서 중 결재 처리가 된 문서를 확인할 수 있는 메뉴입니다.
+</p>
 <form>
-	<table class="table">
+	<table class="table tableGray"  style="margin: 0 0 20px 0;">
 		<tr>
 			<td>검색일자</td>
 			<td>
-				<select name="EADateOption">
+				<select name="EADateOption" class="form-control">
 					<option>기안일</option>
 					<option>결재일</option>
 				</select>
 			</td>
-		</tr>
-		<tr>
 			<td>결재상태</td>
 			<td>
-				<select name="EAStatusOption">
+				<select name="EAStatusOption" class="form-control">
 					<option>--선택--</option>
 					<option>전체</option>
 					<option>종결</option>
@@ -33,22 +31,24 @@
 		<tr>
 			<td>문서검색</td>
 			<td>
-				<select name="docSearchOption">
+				<select name="docSearchOption" class="form-control">
 					<option>--선택--</option>
 					<option>제목</option>
 					<option>품의번호</option>
 					<option>문서분류</option>
 				</select>
 			</td>
-			<td>
-				<input type="text" name="searchText">
+			<td colspan="2">
+				<input type="text" name="searchText" class="form-control">
 			</td>	
 		</tr>		
 	</table>
-	<button type="button" onclick="searchCompleteApproval_go(this.form);">검색</button>
+	<div class="textCenter">
+		<button type="button" onclick="searchCompleteApproval_go(this.form);" class="btn btn-default">검색</button>
+	</div>
 </form>
 
-<table class="table" border="1">
+<table class="table" border="1"  style="margin-top: 20px;">
 	<tr>
 		<th>품의번호</th>
 		<th>문서분류</th>

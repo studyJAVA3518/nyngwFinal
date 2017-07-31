@@ -96,8 +96,8 @@
 	})
 </script>
 
-<div id="approvalHistoryDialog">
-	결재상태 이력보기
+<div id="approvalHistoryDialog" class="textCenter">
+	<h2>결재상태 이력보기</h2>
 	<table class="table" id="historyList">
 		<tr>
 			<th>부서</th>
@@ -108,40 +108,30 @@
 		</tr>
 	</table>
 </div>
-
-그외문서함>참조문서함
-참조문서함은 본인이 수신참조인으로 지정된 결재문서를 확인 할 수 있는 메뉴입니다.
-<form>
-	<table class="table">
-		<tr>
-			<td>검색일자</td>
-			<td>
-				<select name="EADateOption">
-					<option value="ea_writedate">기안일</option>
-					<option value="ea_startdate">시작일</option>
-					<option value="ea_enddate">종료일</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>문서검색</td>
-			<td>
-				<select name="docSearchOption">
-					<option value="all">--선택--</option>
-					<option value="ea_title">제목</option>
-					<option value="ea_number">품의번호</option>
-					<option value="doc_name">문서분류</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" name="searchText">
-			</td>	
-		</tr>		
-	</table>
-	<button type="button" onclick="searchReferenceDocument_go(this.form);">검색</button>
-</form>
-
-<table class="table" border="1">
+<h2>참조문서함</h2>
+<p class="docTitleDescription">
+	참조문서함은 본인이 수신참조인으로 지정된 결재문서를 확인 할 수 있는 메뉴입니다.
+</p>
+<div class="eaSearchDivMagin">
+	<form>
+		검색일자&nbsp;
+			<select name="EADateOption" class="form-control docInputSelect">
+				<option value="ea_writedate">기안일</option>
+				<option value="ea_startdate">시작일</option>
+				<option value="ea_enddate">종료일</option>
+			</select>&nbsp;&nbsp;&nbsp;
+		문서검색&nbsp;
+			<select name="docSearchOption" class="form-control docInputSelect">
+				<option value="all">--선택--</option>
+				<option value="ea_title">제목</option>
+				<option value="ea_number">품의번호</option>
+				<option value="doc_name">문서분류</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" name="searchText" class="form-control eaInputSearch">&nbsp;&nbsp;
+		<button type="button" onclick="searchReferenceDocument_go(this.form);" class="btn btn-default">검색</button>
+	</form>
+</div>
+<table class="table textCenter" border="1">
 	<tr>
 		<th>품의번호</th>
 		<th>문서분류</th>
