@@ -34,17 +34,14 @@ public class ApprovalProgressController {
 	
 	//미결재 문서 페이지 열기
 	@RequestMapping("/waitingApproval")
-	public String waitingApproval(Model model,Principal principal){
-		ApprovalProgressService.defaultWA(model,principal);
-		model.addAttribute("sideValue","sideMenu2");
-
 	public String waitingApproval(Model model,Principal principal,String check){
+		ApprovalProgressService.defaultWA(model,principal,check);
+		model.addAttribute("sideValue","sideMenu2");
 		if(check==null){
 			check = "";
 		}
 		System.out.println(check);
 		ApprovalProgressService.defaultWA(model,principal,check);
-
 		return "electronicApproval/approvalProgress/waitingApproval";
 	}
 
