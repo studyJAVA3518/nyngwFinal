@@ -10,7 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-업무지원 >> 업무일지 >> 개인업무조회
+<h2>개인업무조회</h2>
+<p class="docTitleDescription">
+	로그인한 사원의 개인업무를 조회할 수 있다.
+</p>
 <script>
 $(function(){  
     $('#searchDate option[value=${setSearchOption}]').prop('selected',true);
@@ -50,39 +53,25 @@ function documentDelete() {
 }
 </script>
 <div>
-		<form action="/businessSupport/dutyDocument/personal">
-			<table class="table table-border">
-				<tr>
-					<th>검색기간</th>
-					<td>
-						<select name="searchDate" id="searchDate">
-							<option value="today">금일</option>
-							<option value="week">1주일</option>
-							<option value="month">1개월</option>
-							<option value="trimester">3개월</option>
-						</select>
-<%-- 						<input type="hidden" name="index" value="${index}"> --%>
-					</td>
-					<th>보고유형</th>
-					<td>
-						<select name="reportType" id="reportType">
-							<option value="">전체</option>
-							<option value="code1">일일일지</option>
-							<option value="code2">주간일지</option>
-							<option value="code3">월간일지</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>검색입력</th>
-					<td colspan="3">
-						<label>제목</label>
-						<input type="text" name="val" value="${select.val}">
-					</td>
-				</tr>
-			</table>
-			<input type="submit" value="검색">
-		</form>
+	<form action="/businessSupport/dutyDocument/personal">
+		검색기간&nbsp;
+			<select name="searchDate" id="searchDate" class="form-control docInputSelect" style="width: 100px;">
+				<option value="today">금일</option>
+				<option value="week">1주일</option>
+				<option value="month">1개월</option>
+				<option value="trimester">3개월</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		보고유형&nbsp;
+			<select name="reportType" id="reportType" class="form-control docInputSelect" style="width: 120px;">
+				<option value="">전체</option>
+				<option value="code1">일일일지</option>
+				<option value="code2">주간일지</option>
+				<option value="code3">월간일지</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		검색입력&nbsp;&nbsp;
+			<input type="text" name="val" value="${select.val}" class="form-control eaInputSearch">&nbsp;
+		<input type="submit" value="검색"  class="btn btn-default">
+	</form>
 		<br>
 		<br>
 		<table class="table table-border">

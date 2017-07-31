@@ -82,8 +82,8 @@
 //          #con
 </script>
 <body>
-	부서업무조회상세페이지
-	<table class="table table-bordered">
+<h2>부서업무조회 상세페이지</h2>
+	<table class="table table-bordered tableGray">
 		<tr>
 			<th >제목</th>
 			<td colspan="3">${dutyDocument.dd_title}</td>
@@ -130,7 +130,9 @@
 	<input type="hidden" value="${select.val}">
 	<input type="hidden" value="${select.pageNumber}">
 	<input type="hidden" value="${select.searchDate}">
-	<button><a href="/businessSupport/dutyDocument/department?page=${select.pageNumber}&reportType=${select.reportType}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">취소</a></button>
+	<div class="textCenter divALM">
+		<button class="btn btn-default"><a href="/businessSupport/dutyDocument/department?page=${select.pageNumber}&reportType=${select.reportType}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">목록</a></button>
+	</div>
 	<form>
 	     <table class="table table-bordered">
 	        <tr>
