@@ -44,14 +44,14 @@ function print(printArea)
       win.close();
 }
 </script>
-
+마이페이지 >> 나의 급여 관리 >> 급여명세서 보기
 <!-- <div class="guideBox"> -->
 <!--   <p><button class="btn btn-primary">급여확인하기!</button></p> -->
 <!--     <div> -->
 <!--       <dl> -->
 <!--         <dd> -->
   <div id="printArea">
-         <table class="table table-border">
+         <table class="table table-border textCenter">
 <!-- 			<tr> -->
 <!-- 				<th>부서명</th> -->
 <!-- 				<th>직책명</th> -->
@@ -113,7 +113,7 @@ function print(printArea)
 				</c:otherwise>
 			</c:choose>
 			</table>
-			<div id="pageNum">
+			<div id="pageNum" class= "textCenter">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/mypage/myPayManagement/salary?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">다음달</a>
 		</c:if>
@@ -133,9 +133,9 @@ function print(printArea)
 <!-- </div> -->
 
 
-<input type = "button" OnClick="print(document.getElementById('printArea').innerHTML)" value="프린트"/>
+<input type = "button" class="btn btn-default" OnClick="print(document.getElementById('printArea').innerHTML)" value="프린트"/>
 
-마이페이지 >> 나의 급여 관리 >> 급여명세서 보기
+
 
 
 
