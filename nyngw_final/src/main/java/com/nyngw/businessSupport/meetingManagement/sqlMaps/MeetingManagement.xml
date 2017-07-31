@@ -14,10 +14,10 @@
 				mt_content,
 				mt_mr_number,
 				mr_name
-			from meeting m ,meetingroom  where (select ad_mem_number from attendance a 
-			where a.ad_mt_number = m.mt_number) = #{mem_number}
+			from meeting ,meetingroom  
+			where ( select distinct ad_mem_number from attendance ) = #{mem_number}
 			and mt_mr_number = mr_number
-			<choose>
+			<!-- <choose>
 				<when test='index == "mt_reader"'>
 					and mt_reader like '%'||#{val}||'%'
 				</when>
@@ -27,7 +27,7 @@
 				<when test='index == "mt_title"'>
 					and mt_title like '%'||#{val}||'%'
 				</when>
-			</choose>
+			</choose> -->
 			order by to_number(substr(mt_number,3,9999999)) desc
 		</select>
 		
@@ -45,14 +45,15 @@
 		</select>
 		
 		<select id="selectMeetingCount" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(*) from meeting m,meetingroom where (select ad_mem_number from attendance a 
-			where a.ad_mt_number = m.mt_number) = #{mem_id}
+		select count(*) from meeting m,meetingroom 
+              where (select distinct ad_mem_number from attendance) = #{mem_id}
 				and mt_mr_number = mr_number
 	</select>
 	
 	<select id="boardMeetingCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting m,meetingroom  where (select ad_mem_number from attendance a 
-			where a.ad_mt_number = m.mt_number) = #{mem_id}
+		select count(*) from meeting m,meetingroom  
+		where (select distinct ad_mem_number 
+				from attendance a  )= #{mem_id}
 				and mt_mr_number = mr_number
 		<choose>
 		    <when test='index == "mt_reader"'>
@@ -168,4 +169,10 @@
 		insert into meeting_document(md_number, md_name, md_date, md_content, md_writer)
 		values(#{md_number},#{md_name},to_date(to_char(#{md_date},'yyyy-mm-dd'),'yyyy-mm-dd'), #{md_content}, #{md_writer})
 	</insert>
+	
+	<select id="isMeeting_Document_MM" parameterType="String" resultType="Integer">
+		select count(*)
+		from meeting_document
+        where md_number=#{mt_md_number}
+	</select>
 </mapper>
