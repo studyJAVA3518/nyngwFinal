@@ -4,7 +4,10 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>회의 일정 등록페이지</h2>
+<h2>회의일정 등록 페이지</h2>
+<p class="docTitleDescription">
+	회의일정을 등록할 수 있습니다.
+</p>
 <style>
 .table{
 	background: white;
@@ -75,7 +78,7 @@ $(function(){
 })
 </script>
 <div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="meetingInsert" method="POST" accept-charset="utf-8">
+		<form name="tx_editor_form" id="tx_editor_form" action="meetingInsert" method="POST" accept-charset="utf-8">
 			<table class="table tableGray textCenter" style="background: white;">
 			<tr>
 				<th>회의제목</th>

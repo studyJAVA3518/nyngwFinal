@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<h2>공지사항</h2>
+<h2>공지사항 페이지</h2>
 	<p class="docTitleDescription">
 		공지사항 문서를 확인할 수 있습니다.
 	</p>

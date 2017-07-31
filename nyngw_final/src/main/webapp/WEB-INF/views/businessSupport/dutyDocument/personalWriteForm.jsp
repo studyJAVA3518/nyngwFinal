@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>개인 / 부서 업무일지 등록페이지</h2>
+<h2>개인 / 부서 업무일지 등록 페이지</h2>
+<p class="docTitleDescription">
+	개인 / 부서의 업무일지를 등록하는 페이지
+</p>
 	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalWrite"  method="post" accept-charset="utf-8">
 		<table class="table table-bordered">
 			<tr>

@@ -17,7 +17,7 @@
    });
 </script>
 <body>
-<h2>부서업무조회</h2>
+<h2>부서업무 조회 페이지</h2>
 <p class="docTitleDescription">
 	로그인한 사원의 부서업무를 조회 할 수 있다.
 </p>

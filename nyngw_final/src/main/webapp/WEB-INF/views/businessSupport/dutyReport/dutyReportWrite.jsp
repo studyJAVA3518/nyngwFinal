@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<h2>내 업무 보고 등록</h2>
+<h2>내 업무 보고 등록 페이지</h2>
+<p class="docTitleDescription">
+	본인이 시행한 업무를 등록하는 페이지
+</p>
 <script>
 	$(function(){
 		$.ajax({

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-<h2>일정 수정</h2>
+<h2>일정 수정 페이지</h2>
 	<p class="docTitleDescription">
-		일정을 수정 할 수 있습니다.
+		일정을 수정할 수 있습니다.
 	</p>
 <form>
 	<input type="hidden" value="${schedule.sc_number }" name="sc_number">

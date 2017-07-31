@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <h2>게시글 수정 페이지</h2>
+<p class="docTitleDescription">
+	게시글을 수정할 수 있습니다.
+</p>
 <div>
 	<form name="tx_editor_form" id="tx_editor_form" action="/sharingInformation/board/update" method="post">
 		<table class="table table-bordered tableGray">

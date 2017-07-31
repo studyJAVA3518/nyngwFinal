@@ -10,7 +10,7 @@
 	});
 </script>
 
-<h2>생일자 조회</h2>
+<h2>생일자 조회 페이지</h2>
 	<p class="docTitleDescription">
 		사원들의 생일을 확인할 수 있습니다.
 	</p>
