@@ -6,22 +6,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 마이페이지 >> 나의 근태 관리 >> 휴가현황
+<style>
+	.attended1{
+		display : inline-block;
+		width:20%; 
+	}
+	.attended{
+	display : inline-block;
+		width: 70%;
+	}
+</style>
+<div style="text-align: right; margin-bottom: 10px;">
+	<button class="btn btn-default"><a href="/electronicApproval/draft/searchDraftDocument?draftBoxOption=&searchOption=doc_name&searchText=휴가">휴가 신청</a></button>
+</div>
 	<table class="table table-border">
 				<tr>
 					<th>검색입력</th>
 					<td colspan="4">
 					<form action="/mypage/myDalManagement/vacation">
-						<select name="index">
+						<select name="index" class="form-control docInputSelect attended1">
 							<option value="vacation_vp_number">휴가 정책</option>
 						</select>
 					<input type="hidden" value="${select.index}">
-					<input type="text" name="val" value="${select.val}">
-					<input type="submit" value="검색">
+					<input type="text" name="val" class="form-control attended" value="${select.val}">
+					<input type="submit" value="검색" class="btn btn-default">
 					</form> 
 					</td>
 				</tr>
 			<tr>
-			<th>번호</th>
 			<th>휴가 분류</th>
 			<th>휴가 시작일</th>
 			<th>휴가 종료일</th>
@@ -30,8 +42,8 @@
 			<c:choose>
 				<c:when test="${viewData.boardCountPerPage > 0}">
 				<c:forEach items="${viewData.vacationList}" var="board" >
-				<tr>
-					<td>${board.vacation_number}</td>
+				<tr class="textCenter">
+					<input type="hidden" value="${board.vacation_number}">
 					<td>${board.vp_kind }</td>
 					<td><fmt:formatDate value="${board.vacation_start}" pattern="yy'년'MM'월'dd'일'"/></td>
 					<td><fmt:formatDate value="${board.vacation_end}" pattern="yy'년'MM'월'dd'일'"/></td>
@@ -47,7 +59,7 @@
 			</c:choose>
 			</table>
 
-	<div id="pageNum">
+	<div id="pageNum" class= "textCenter">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/mypage/myDalManagement/vacation?page=${beginPage-1}"/>">이전</a>
 		</c:if>
@@ -58,8 +70,3 @@
 			<a href="<c:url value="/mypage/myDalManagement/vacation?page=${endPage + 1}"/>">다음</a>
 		</c:if>
 		</div>
-	
-<div>
-	<button><a href="/electronicApproval/draft/searchDraftDocument?draftBoxOption=&searchOption=doc_name&searchText=휴가">휴가 신청</a></button>
-</div>
-

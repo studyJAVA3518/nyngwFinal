@@ -43,6 +43,6 @@
 					
 </table>
 </form>
-
-<button><a href="/mypage/basicSetting/updateMemberForm">수정</a></button>
-
+<div class="textCenter">
+<button class="btn btn-default"><a href="/mypage/basicSetting/updateMemberForm">수정</a></button>
+</div>
