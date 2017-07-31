@@ -94,7 +94,7 @@
 	
 	<c:if test="${param.error != null }">
 		<script>
-			alert("로그인 실패");
+		  alert("로그인 실패");
 		</script>
 	</c:if>
 	
