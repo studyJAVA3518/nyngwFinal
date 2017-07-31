@@ -84,7 +84,10 @@ function readURL2(input) {
    document.getElementsByName('mem_img')[0].value=file;
 }
 </script>
-
+<h2>개인정보 수정 페이지</h2>
+<p class="docTitleDescription">
+	개인정보를 수정할 수 있습니다.
+</p>
 <form action="/mypage/basicSetting/updateMember" enctype="multipart/form-data" method="POST">
 <table class="table table-bordered">
 	<tr>
