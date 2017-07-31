@@ -76,6 +76,7 @@ public class NoticeMatterController implements ApplicationContextAware {
 		}
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
+		model.addAttribute("sideValue", "sideMenu1");
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
 		}

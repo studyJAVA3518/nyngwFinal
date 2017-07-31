@@ -56,6 +56,7 @@ public class MyDalManagementController {
 	
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
+		model.addAttribute("sideValue","sideMenu1");
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
 		}
@@ -114,7 +115,7 @@ public class MyDalManagementController {
 			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
 			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
-		
+		model.addAttribute("sideValue","sideMenu2");
 		model.addAttribute("page",page);
 		return "mypage/myDalManagement/vacation";
 	}
