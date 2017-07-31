@@ -74,7 +74,7 @@ function documentDelete() {
 	</form>
 		<br>
 		<br>
-		<table class="table table-border">
+		<table class="table table-border textCenter">
 			<tr>
 				<th><input type="checkbox" id="allCheck" value="1"></th>
 				<th>번호</th>
@@ -101,7 +101,7 @@ function documentDelete() {
 				</c:otherwise>
 			</c:choose>
 		</table>
-		<div id="pageNum">
+		<div id="pageNum" class="textCenter">
 			<c:if test="${beginPage > perPage}">
 				<a href="<c:url value="/businessSupport/dutyDocument/personal?page=${beginPage-1}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&setSearchOption=${setSearchOption}"/>">이전</a>
 			</c:if>
@@ -113,8 +113,8 @@ function documentDelete() {
 			</c:if>
 		</div>
 	</div>
-	<button><a href="/businessSupport/dutyDocument/personalWriteForm">글쓰기</a></button>
+	<button  class="btn btn-default"><a href="/businessSupport/dutyDocument/personalWriteForm">글쓰기</a></button>
 <!-- 	<button><a href="/businessSupport/dutyDocument/personalWriteForm">선택삭제</a></button> -->
-	<input type="button" value="선택삭제" onclick="documentDelete();" /> 
+	<input type="button" value="선택삭제" onclick="documentDelete();" class="btn btn-default" /> 
 </body>
 </html>

@@ -3,24 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-미팅파일!!!!!!!!!!!!!!!
+<h2>회의록 관리</h2>
+<p class="docTitleDescription">
+	회의에 사용되는 회의록 관리페이지
+</p>
 <div>
 		<form action="/businessSupport/meetingManagement/meetingFile">
-			<table class="table table-border textCenter">
-				<tr>
-					<th>검색입력</th>
-					<td colspan="3">
-						<select name="index">
-							<option value="md_name">제목</option>
-							<option value="md_writer">작성자</option>
-						</select>
-						<input type="hidden" value="${select.index}">
-						<input type="text" name="val" value="${select.val}">
-					</td>
-				</tr>
-			</table>
-				<input type="submit" value="검색">
+			<select name="index" class="form-control docInputSelect">
+				<option value="md_name">제목</option>
+				<option value="md_writer">작성자</option>
+			</select>
+			<input type="hidden" value="${select.index}">
+			<input type="text" name="val" value="${select.val}" class="form-control eaInputSearch" style="width: 400px;">
+			<input type="submit" value="검색" class="btn btn-default">
 		</form>
 		<br>
 		<br>
@@ -49,16 +44,18 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
-		<div id="pageNum">
-		<c:if test="${beginPage > perPage}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
-		</c:if>
-		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
-		</c:forEach>
-		<c:if test="${endPage < viewData.getPageTotalCount()}">
-			<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
-		</c:if>
+		<div id="pageNum" class="textCenter">
+			<c:if test="${beginPage > perPage}">
+				<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
+			</c:if>
+			<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+				<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a>
+			</c:forEach>
+			<c:if test="${endPage < viewData.getPageTotalCount()}">
+				<a href="<c:url value="/businessSupport/meetingManagement/meetingFile?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
+			</c:if>
 		</div>
 	</div>
-	<button><a href="/businessSupport/meetingManagement/addMeetingFile">회의록 쓰기</a></button>
+	<div style="float: right;">
+		<button class="btn btn-default"><a href="/businessSupport/meetingManagement/addMeetingFile">회의록 쓰기</a></button>
+	</div>

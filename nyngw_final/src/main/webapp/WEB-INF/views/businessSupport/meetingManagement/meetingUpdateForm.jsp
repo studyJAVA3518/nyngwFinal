@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<h2>회의 일정 수정페이지</h2>
 <script>
 $(function(){   
     var loadContent = function() {
@@ -47,16 +47,16 @@ function meetingDelete(mt_number){
 
 <div>
 <form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingUpdate" method="post"  accept-charset="utf-8">
-			<table class="table table-border textCenter">
+			<table class="table table-border textCenter tableGray">
 			<input type="hidden" name="mt_number" value="${meeting.mt_number }">
 			<tr>
 				<th>회의제목</th>
 				<td>
-					<input type="text" name="mt_title" value="${meeting.mt_title }">
+					<input type="text" class="form-control" name="mt_title" value="${meeting.mt_title }">
 				</td>
 				<th>회의장소</th>
 					<td>
-						<select name="mt_mr_number">
+						<select name="mt_mr_number" class="form-control">
 						<c:forEach items="${meetingroom }" var="meetingroom">
 							<option value="${meetingroom.mr_number }">${meetingroom.mr_name }</option>
 						</c:forEach>
@@ -66,10 +66,10 @@ function meetingDelete(mt_number){
 			<tr>
 				<th>회의일</th>
 				<td>
-					<input type="text" class="inputTypeDate" name="param_mt_date" value="${param_mt_date }">
+					<input type="text" class="inputTypeDate form-control" name="param_mt_date" value="${param_mt_date }">
 				</td>
 				<th>회의주최자</th>
-				<td><input type="text" name="mt_reader" value="${meeting.mt_reader }" readonly="readonly"/></td>
+				<td><input type="text" name="mt_reader" class="form-control" value="${meeting.mt_reader }" readonly="readonly"/></td>
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
@@ -82,10 +82,10 @@ function meetingDelete(mt_number){
 			
 			<input type="hidden" value="${page}">
 			<div style="text-align: center;">
-			<button onclick='saveContent()'>등록</button>
-			<input type="reset" value="초기화" />
-			<button type="button" onclick="meetingDelete('${meeting.mt_number}');">삭제하기</button>
-			<button><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">취소</a></button>
+			<button onclick='saveContent()' class="btn btn-default">등록</button>
+			<input type="reset" value="초기화" class="btn btn-default"/>
+			<button type="button" onclick="meetingDelete('${meeting.mt_number}');" class="btn btn-default">삭제하기</button>
+			<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">취소</a></button>
 			</div>
 	</form>
 			

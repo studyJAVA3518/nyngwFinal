@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<h2>받은 업무보고 상세페이지</h2>
 <script>
    function answerWriteClick(id,form){
       var drc_content = document.getElementsByName('drc_content')[0].value;
@@ -35,8 +36,8 @@
       }
    }
 </script>
-<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/dutyReport/dutyReportWrite" method="POST" accept-charset="utf-8">
-	<table class="table table-bordered">
+<form name="tx_editor_form" id="tx_editor_form" action="/businessSupport/dutyReport/dutyReportWrite" method="POST" accept-charset="utf-8">
+	<table class="table table-bordered tableGray">
 		<tr>
 			<th>보고유형</th>
 			<td>${fn:substring(dutyReportVO.dr_code_name,0,2)}보고</td>
@@ -58,48 +59,54 @@
 		</tr>
 	</table>
 </form>
-<form action="/businessSupport/dutyReport/dutyReportCommentWrite" style="width: 750px;">
-	<table class="table table-bordered">
-		<tr>
-			<th>의견</th><td><textarea cols="70" rows="2" name="drc_content"></textarea></td>
-			<td>
-				<input type="hidden" name="dr_number" value="${dutyReportVO.dr_number}">
-				<button type="button" onclick="answerWriteClick('${dutyReportVO.dr_number}',this.form)">등록</button>
-			</td>
-		</tr>
-	</table>
-	<input type="hidden" name = "dr_number" value="${dutyReportVO.dr_number }">
-	<input type="hidden" value="${select.reportType}">
-	<input type="hidden" value="${select.titleType}">
-	<input type="hidden" value="${select.val}">
-	<input type="hidden" value="${select.pageNumber}">
-	<input type="hidden" value="${select.searchDate}">
-</form>
-<table style="background-color: lightgray; width: 750px; height: 30px; font-size: 10px; margin-bottom: 30px;">
+<div class="textCenter divALM">
+	<c:choose>
+		<c:when test="${mem_id eq loginUser}">
+			<button class="btn btn-default"><a href="/businessSupport/dutyReport/dutyReport?page=${pageNumber }" >목록</a></button>
+		</c:when>
+		<c:otherwise>
+			<button class="btn btn-default"><a href="/businessSupport/dutyReport/getDutyReportselect?page=${pageNumber }">목록</a></button>
+		</c:otherwise>
+	</c:choose>
+</div>
+<div class="businessReplay">
 	<c:forEach items="${comment}" var="comment">
-		<tr style="border: solid; border-color: white;">
-			<th>
+		<div class="replyWholeWrap">
+			<div class="replyWrap">
 				<input id="${comment.drc_mem_number}" type="hidden" value="${comment.drc_mem_number }">
 				<input type="hidden" value="${comment.drc_number }">
-			</th>
-			<td>${comment.drc_mem_name }</td>
-			<td style="width: 20%;"><fmt:formatDate value="${comment.drc_date }" pattern="yyyy/MM/dd"/></td>
-			<td style="width: 65%;">${comment.drc_content }</td>
-			<td>
+				&nbsp;&nbsp;
+				${comment.drc_mem_name }
+				&nbsp;&nbsp;
+				<fmt:formatDate value="${comment.drc_date }" pattern="yyyy/MM/dd"/>
+				&nbsp;&nbsp;
 				<c:if test="${loginUserID eq comment.drc_mem_number}">
-					<button type="button" onclick="departmentCommentDelete('${comment.drc_number}','${dutyReportVO.dr_number}')">ⓧ</button>
+					<button type="button" class="btn btn-default replyBtn" onclick="departmentCommentDelete('${comment.drc_number}','${dutyReportVO.dr_number}')">삭제</button>
 				</c:if>
-			</td>
-			<td>
-			</td>
-		</tr>
+			</div>
+			<textarea rows="3" cols="64" class="replyTextArea" readonly>${comment.drc_content }</textarea>
+		</div>
 	</c:forEach>
-</table>
-<c:choose>
-	<c:when test="${mem_id eq loginUser}">
-		<button class="btn"><a href="/businessSupport/dutyReport/dutyReport?page=${pageNumber }" >목록</a></button>
-	</c:when>
-	<c:otherwise>
-		<button class="btn"><a href="/businessSupport/dutyReport/getDutyReportselect?page=${pageNumber }">목록</a></button>
-	</c:otherwise>
-</c:choose>
+	
+	
+	
+	<div class="replyWholeWrap">
+		<form action="/businessSupport/dutyReport/dutyReportCommentWrite">
+			<div class="replyWrap2">
+		  	 	댓글 등록하기
+			</div>
+			<textarea cols="70" rows="4" class="replyTextWriteArea" name="drc_content"  style="resize: none;"></textarea>
+			<div class="replyRightWrap">
+			<input type="hidden" name = "dr_number" value="${dutyReportVO.dr_number }">
+			<input type="hidden" value="${select.reportType}">
+			<input type="hidden" value="${select.titleType}">
+			<input type="hidden" value="${select.val}">
+			<input type="hidden" value="${select.pageNumber}">
+			<input type="hidden" value="${select.searchDate}">
+				<input type="hidden" name="dr_number" value="${dutyReportVO.dr_number}">
+				<button class="btn btn-default replyEnrollBtn" type="button" onclick="answerWriteClick('${dutyReportVO.dr_number}',this.form)">등록</button>
+			</div>
+		</form>
+	</div>
+</div>
+
