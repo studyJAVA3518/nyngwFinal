@@ -100,7 +100,7 @@ $(function(){
 </p>
 <div class="row">
 	<h4>부서 만들기</h4>
-	<table class="table textCenter">
+	<table class="table textCenter tableGray">
 		<form method="post" name="insertDeptForm">
 			<tr>
 				<th>부서 이름</th>
@@ -167,7 +167,7 @@ $(function(){
 	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	
 		<form>
-			<table class="table textCenter">
+			<table class="table textCenter tableGray">
 			<c:forEach var="depart" items="${dvList}">
 				<tr>
 					<th>${depart.dept_name}</th>
@@ -185,7 +185,7 @@ $(function(){
 <div class="updateDeptBox">
 	<!-- 부서를 수정하는 팝업창 -->
 	<h4>부서 수정하기</h4>
-	<table class="table textCenter">
+	<table class="table textCenter tableGray">
 		<form method="post" name="updateDeptForm">
 			<tr>
 				<th>부서 이름</th>

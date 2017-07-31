@@ -90,7 +90,7 @@
 <!-- 급여종류 수정 팝업 -->
 <div class="row" id="updatePayKindBox">
 	<h4>급여 종류 수정하기</h4>
-	<table class="table textCenter">
+	<table class="table textCenter tableGray">
 		<form class="form-inline" name="payKindUpdateForm">
 			<tr>
 				<th>급여 종류</th>
@@ -122,7 +122,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<h4>급여 종류 수정 및 삭제</h4>
-		<table class="table textCenter">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>No</th>
 				<th>종류</th>
