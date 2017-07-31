@@ -23,6 +23,10 @@
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position : top center;
+		
+	}
+	.txc-table{
+		margin :0 auto;
 	}
 </style>
 <script type="text/javascript">
@@ -38,8 +42,8 @@ $(function(){
 	//결재 다이얼로그
 	$("#approve_go").click(function(){
 		$('#approvalDialog').dialog({
-			width: 700,
-			height: 500,
+			width: 500,
+			height: 400,
 			modal: true,
 			buttons:[{
 				text: "등록",
@@ -64,8 +68,8 @@ $(function(){
 	//합의 다이얼로그
 	$("#agree_go").click(function(){
 		$('#agreeDialog').dialog({
-			width: 700,
-			height: 500,
+			width: 500,
+			height: 400,
 			modal: true,
 			buttons:[{
 				text: "등록",
@@ -90,8 +94,8 @@ $(function(){
     //반려 다이얼로그
 	$("#disapprove_go").click(function(){
 		$('#disapproveDialog').dialog({
-			width: 700,
-			height: 500,
+			width: 500,
+			height: 400,
 			modal: true,
 			buttons:[{
 				text: "등록",
@@ -116,8 +120,8 @@ $(function(){
     //거부 다이얼로그 
 	$("#refuse_go").click(function(){
 		$('#refuseDialog').dialog({
-			width: 700,
-			height: 500,
+			width: 500,
+			height: 400,
 			modal: true,
 			buttons:[{
 				text: "등록",
@@ -327,63 +331,92 @@ $(function(){
 	}); */
 })
 </script>
-결재진행>미결재문서함상세
+<h2>미결재문서함상세페이지</h2>
 <!-- 선택한 결재문서의 정보들을 가지고 들어와야하고 이 때 필요한 정보를 hidden에 담아 주자 -->
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
-<form name="hiddenForm" id="buttonForm">
-	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">
-	<c:choose>
-		<c:when test="${mem_al_number eq 'A' }">
-			<button type="button" id="approve_go">결재</button>
-		</c:when>
-		<c:otherwise>
-			<button type="button" id="agree_go">합의</button>
-		</c:otherwise>
-	</c:choose>	
-	<c:choose>
-		<c:when test="${mem_al_number eq 'A' }">
-			<button type="button" id="disapprove_go">반려</button>
-		</c:when>
-		<c:otherwise>
-			<button type="button" id="refuse_go">거부</button>
-		</c:otherwise>
-	</c:choose>	
-<!-- 	<button type="button" id="insteadApprove_go">전결</button> -->
-<!-- 	<button type="button" id="postpone_go">보류</button> -->
-	<button type="button" id="approvalHistory_go">결재이력</button>
-</form>
+<div class="divALM">
+	<form name="hiddenForm" id="buttonForm">
+		<input type="hidden" name="ea_number" value="${eaVO.ea_number }">
+		<c:choose>
+			<c:when test="${mem_al_number eq 'A' }">
+				<button type="button" id="approve_go" class="btn btn-default">결재</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" id="agree_go" class="btn btn-default">합의</button>
+			</c:otherwise>
+		</c:choose>	
+		<c:choose>
+			<c:when test="${mem_al_number eq 'A' }">
+				<button type="button" id="disapprove_go" class="btn btn-default">반려</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" id="refuse_go" class="btn btn-default">거부</button>
+			</c:otherwise>
+		</c:choose>	
+	<!-- 	<button type="button" id="insteadApprove_go">전결</button> -->
+	<!-- 	<button type="button" id="postpone_go">보류</button> -->
+		<button type="button" id="approvalHistory_go" class="btn btn-default">결재이력</button>
+	</form>
+</div>  
 
 <!-- 결재하기 버튼 다이얼로그 -->
 <c:choose>
 	<c:when test="${mem_al_number eq 'A' }">
 		<div id="approvalDialog">
-			결재하기
+			<div class="textCenter">
+				<h2>결재하기</h2>
+			</div>
 			<form id="approvalSubmitForm">
-				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
-				<%=user.getUsername() %>님 결재하시겠습니까?<br>
-				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
-				결재사유
-				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
-				<input type="hidden" name="ah_code_number" value="code14">
-				<input type="hidden" name="ah_ast_number" value="${ast_number}">
-				<input type="hidden" name="ah_status" value="결재">
-				<textarea id="textArea" name="ah_comment"></textarea>
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">
+					<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+					<%=user.getUsername() %>
+					</a>&nbsp;님 결재하시겠습니까?
+				</p>
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">비밀번호&nbsp;&nbsp;:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="password" id="pwd" name="mem_pwd"  class="form-control eaInputSearch">
+				</p>
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">결재사유</a>
+				</p>
+					<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
+					<input type="hidden" name="ah_code_number" value="code14">
+					<input type="hidden" name="ah_ast_number" value="${ast_number}">
+					<input type="hidden" name="ah_status" value="결재">
+					<textarea id="textArea" name="ah_comment" class="form-control" style="resize:none; height: 115px;"></textarea>
 			</form>   
 		</div>
 	</c:when>
 	<c:otherwise>
 		<div id="agreeDialog">
-			합의하기
+			<div class="textCenter">
+				<h2>합의하기</h2>
+			</div>			
 			<form id="agreeSubmitForm">
-				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
-				<%=user.getUsername() %>님 합의 하시겠습니까?<br>
-				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
-				합의사유
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">
+						<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
+						<%=user.getUsername() %>
+					</a>&nbsp;님 합의 하시겠습니까?
+				</p>
+<%-- 				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%> --%>
+<%-- 				<%=user.getUsername() %>님 <br> --%>
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">비밀번호&nbsp;&nbsp;:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 					<input type="password" id="pwd" name="mem_pwd"  class="form-control eaInputSearch"> -->
+					<input type="password" id="pwd" name="mem_pwd" class="form-control eaInputSearch">
+				</p>
+<!-- 				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br> -->
+<!-- 				합의사유 -->
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">합의사유</a>
+				</p>
 				<input type="hidden" name="ah_ea_number" value="${eaVO.ea_number }">
 				<input type="hidden" name="ah_code_number" value="code12">
 				<input type="hidden" name="ah_ast_number" value="${ast_number}">
 				<input type="hidden" name="ah_status" value="합의">
-				<textarea id="textArea" name="ah_comment"></textarea>
+				<textarea id="textArea" name="ah_comment" class="form-control" style="resize:none; height: 115px;"></textarea>
 			</form>   
 		</div>
 	</c:otherwise>
@@ -393,12 +426,28 @@ $(function(){
 <c:choose>
 	<c:when test="${mem_al_number eq 'A' }">
 		<div id="disapproveDialog">
-			반려하기
+			<div class="textCenter">
+				<h2>반려하기</h2>
+			</div>	
 			<form id="disapproveSubmitForm">
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">
 				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
-				<%=user.getUsername() %>님 반려하시겠습니까?<br>
-				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br>
-				반려사유
+				<%=user.getUsername() %>
+					</a>&nbsp;님 반려하시겠습니까?
+				</p>			
+<%-- 				<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%> --%>
+<%-- 				<%=user.getUsername() %>님 반려하시겠습니까?<br> --%>
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">비밀번호&nbsp;&nbsp;:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 					<input type="password" id="pwd" name="mem_pwd"  class="form-control eaInputSearch"> -->
+					<input type="password" id="pwd" name="mem_pwd" class="form-control eaInputSearch">
+				</p>
+<!-- 				비밀번호 <input type="password" id="pwd" name="mem_pwd"><br> -->
+				<p class="docTitleDescription">
+					<a style="font-weight: bold;">반려사유</a>
+				</p>
+<!-- 				반려사유 -->
 		<!-- 		code12	합의 -->
 		<!-- 		code13	거부 -->
 		<!-- 		code14	결재 -->
@@ -408,7 +457,7 @@ $(function(){
 				<input type="hidden" name="ah_code_number" value="code15">
 				<input type="hidden" name="ah_ast_number" value="${ast_number}">
 				<input type="hidden" name="ah_status" value="반려">
-				<textarea id="textArea" name="ah_comment"></textarea>
+				<textarea id="textArea" name="ah_comment" class="form-control" style="resize:none; height: 115px;"></textarea>
 			</form>   
 		</div>
 		</c:when>
@@ -437,8 +486,11 @@ $(function(){
 
 
 <div id="approvalHistoryDialog">
-	결재상태 이력보기
-	<table class="table" id="historyList">
+	<div class="textCenter">
+		<h2>결재상태 이력보기</h2>
+	</div>		
+<!-- 	결재상태 이력보기 -->
+	<table class="table textCenter" id="historyList">
 		<tr>
 			<th>부서</th>
 			<th>직급</th>
@@ -529,10 +581,12 @@ $(function(){
 			<th colspan="6">내용</th>
 		</tr>
 		<tr>
-			<td colspan="6">
-				${eaVO.ea_content }
+			<td colspan="6" style="margin: 0 auto;">
+				<div class="textCenter" style="margin: 0 auto;">
+					${eaVO.ea_content }
+				</div>
 			</td>	
 		</tr>
 	</table>
-	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button">뒤로</button></a>
+	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button"  class="btn btn-default">뒤로</button></a>
 </div>

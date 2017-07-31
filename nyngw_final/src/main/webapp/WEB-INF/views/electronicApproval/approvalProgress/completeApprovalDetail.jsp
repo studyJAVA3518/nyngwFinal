@@ -23,7 +23,10 @@
 		background-size: contain;                                                                                                                                                                
 		background-repeat: no-repeat;                                                                                                                                                            
 		background-position : top center;                                                                                                                                                        
-	}                                                                                                                                                                                            
+	}     
+	.txc-table{
+		margin :0 auto;
+	}                                                                                                                                                                                       
 </style>                                                                                                                                                                                         
 <script type="text/javascript">                                                                                                                                                                  
 $(function(){                                                                                                                                                                                    
@@ -67,18 +70,18 @@ $(function(){
                                                                                                                                                                                                  
 	})	                                                                                                                                                                                         
 })                                                                                                                                                                                               
-</script>                                                                                                                                                                                        
-결재진행>결재완료문서 디테일                                                                                                                                                                                 
+</script>     
+<h2>결재완료문서 디테일</h2>                                                                                                                                                                                   
 <!-- 선택한 결재문서의 정보들을 가지고 들어와야하고 이 때 필요한 정보를 hidden에 담아 주자 -->                                                                                                                                     
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>                                                                                                                            
 <form name="hiddenForm" id="buttonForm">                                                                                                                                                         
 	<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
-	<button type="button" id="approvalHistory_go">결재이력</button>                                                                                                                                  
+	<button type="button" id="approvalHistory_go"  class="btn btn-default divALM">결재이력</button>                                                                                                                                  
 </form>                                                                                                                                                                                          
                                                                                                                                                                                                  
-<div id="approvalHistoryDialog">                                                                                                                                                                 
-	결재상태 이력보기                                                                                                                                                                                    
-	<table class="table" id="historyList">                                                                                                                                                       
+<div id="approvalHistoryDialog" class="textCenter">                                                                                                                                                                 
+	<h2>결재상태 이력보기</h2>                                                                                                                                                                                    
+	<table class="table tableGray" id="historyList">                                                                                                                                                       
 		<tr>                                                                                                                                                                                     
 			<th>부서</th>                                                                                                                                                                          
 			<th>직급</th>                                                                                                                                                                          
@@ -91,7 +94,7 @@ $(function(){
                                                                                                                                                                                                  
 <div>                                                                                                                                                                                            
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">                                                                                                                    
-	<table class="table table-bordered">                                                                                                                                                         
+	<table class="table table-bordered tableGray">                                                                                                                                                         
 		<tr>                                                                                                                                                                                     
 			<th class="tableTh">품의번호</th>                                                                                                                                                        
 			<td colspan="5">${eaVO.ea_number }</td>                                                                                                                                              
@@ -169,10 +172,14 @@ $(function(){
 			<th colspan="6">내용</th>                                                                                                                                                              
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
-			<td colspan="6">                                                                                                                                                                     
-				${eaVO.ea_content }                                                                                                                                                              
+			<td colspan="6">                    
+				<div class="textCenter" style="margin: 0 auto;">                                                                                                                                                 
+					${eaVO.ea_content }
+				</div>                                                                                                                                                              
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
-	</table>                                                                                                                                                                                     
-	<a href="/electronicApproval/approvalProgress/completeApproval"><button type="button">뒤로</button></a>                                                                                         
+	</table>      
+	<div class="textCenter">                                                                                                                                                                               
+		<a href="/electronicApproval/approvalProgress/completeApproval"><button type="button" class="btn btn-default">뒤로</button></a>
+	</div>                                                                                         
 </div>                                                                                                                                                                                           

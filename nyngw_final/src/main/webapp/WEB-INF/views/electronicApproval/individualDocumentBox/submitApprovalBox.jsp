@@ -4,51 +4,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-개인문서함>상신문서함
-상신 문서함은 본인이 작성하여 상신한 결재 문서들을 검색 할 수 있으며, 결재 진행 상태를 확인 할 수 있는 메뉴입니다.
-
-<form>
-	<table class="table">
-		<tr>
-			<td>검색일자</td>
-			<td>
-				<select name="EADateOption">
-					<option>기안일</option>
-					<option>최종 결재일</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>결재상태</td>
-			<td>
-				<select name="EAStatusOption">
-					<option>--선택--</option>
-					<option>상신</option>
-					<option>진행</option>
-					<option>종결</option>
-					<option>반려</option>
-				</select>
-			</td>
-		</tr>		
-		<tr>
-			<td>문서검색</td>
-			<td>
-				<select name="docSearchOption">
-					<option>--선택--</option>
-					<option>제목</option>
-					<option>품의번호</option>
-					<option>문서분류</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" name="searchText">
-			</td>	
-		</tr>		
-	</table>
-	<button type="button" onclick="submitApprovalBox_go(this.form);">검색</button>
-</form>
-
-<table class="table" border="1">
+<h2>상신문서함</h2>
+<p class="docTitleDescription">
+	상신 문서함은 본인이 작성하여 상신한 결재 문서들을 검색 할 수 있으며, 결재 진행 상태를 확인 할 수 있는 메뉴입니다.
+</p>
+<div class="eaSearchDivMagin">
+	<form>
+		검색일자
+			<select name="EADateOption" class="form-control docInputSelect" style="width: 120px;">
+				<option>기안일</option>
+				<option>최종 결재일</option>
+			</select>&nbsp;
+		결재상태
+			<select name="EAStatusOption" class="form-control docInputSelect"style="width: 100px;">
+				<option>--선택--</option>
+				<option>상신</option>
+				<option>진행</option>
+				<option>종결</option>
+				<option>반려</option>
+			</select>&nbsp;
+		문서검색
+			<select name="docSearchOption" class="form-control docInputSelect"style="width: 105px;">
+				<option>--선택--</option>
+				<option>제목</option>
+				<option>품의번호</option>
+				<option>문서분류</option>
+			</select>&nbsp;
+		<input type="text" name="searchText" class="form-control eaInputSearch" style="width: 220px;">
+		<button type="button" onclick="submitApprovalBox_go(this.form);" class="btn btn-default">검색</button>
+	</form>
+</div>
+<table class="table textCenter" border="1">
 	<tr>
 		<th>품의번호</th>
 		<th>제목</th>
@@ -78,7 +64,7 @@
 </c:choose>
 </table>
 
-<div id="pageNum">
+<div id="pageNum" class="textCenter">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/electronicApproval/individualDocumentBox/submitApprovalBox?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>
@@ -88,7 +74,7 @@
 		<c:if test="${endPage < viewData.getPageTotalCount()}">
 			<a href="<c:url value="/electronicApproval/individualDocumentBox/submitApprovalBox?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">다음</a>
 		</c:if>
-
+</div>
 <script>
 	function submitApprovalBox_go(form){
 		form.method="get";

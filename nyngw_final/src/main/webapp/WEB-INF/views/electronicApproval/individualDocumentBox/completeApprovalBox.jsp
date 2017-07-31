@@ -3,40 +3,38 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-개인문서함>완료문서함 결재완료문서는 본인이 결재라인에 포함되어 있는 문서들 중 결재 처리를 한 문서들을 확인할 수 있는
-메뉴입니다. 검색 목록의 제목을 클릭하면 결재문서가 팝업으로 뜨면 결재 이력을 확인할 수 있습니다.
-
-<form>
-	<table class="table">
-		<tr>
-			<th>검색일자</th>
-			<td><select name="EADateOption">
+<h2>결재완료문서함</h2>
+<p class="docTitleDescription">
+	결재완료문서는 본인이 결재라인에 포함되어 있는 문서들 중 결재 처리를 한 문서들을 확인할 수 있는
+	메뉴입니다. 검색 목록의 제목을 클릭하면 결재문서가 팝업으로 뜨면 결재 이력을 확인할 수 있습니다.
+</p>
+<div class="eaSearchDivMagin">
+	<form>
+		검색일자
+			<select name="EADateOption" class="form-control docInputSelect" style="width: 120px;">
 					<option>기안일</option>
 					<option>최종 결재일</option>
-			</select></td>
-			<th>결재상태</th>
-			<td><select name="EAStatusOption">
+			</select>
+		결재상태
+			<select name="EAStatusOption" class="form-control docInputSelect" style="width: 100px;"> 
 					<option>--선택--</option>
 					<option>상신</option>
 					<option>진행</option>
 					<option>종결</option>
 					<option>반려</option>
-			</select></td>
-		</tr>
-		<tr>
-			<th>문서검색</th>
-			<td><select name="docSearchOption">
-					<option>--선택--</option>
-					<option>제목</option>
-					<option>품의번호</option>
-					<option>문서분류</option>
-			</select> <input type="text" name="searchText"></td>
-		</tr>
-	</table>
-	<button type="button" onclick="completeApprovalBox_go(this.form);">검색</button>
-</form>
-
-<table class="table" border="1">
+			</select>
+		문서검색
+			<select name="docSearchOption" class="form-control docInputSelect" style="width: 110px;">
+				<option>--선택--</option>
+				<option>제목</option>
+				<option>품의번호</option>
+				<option>문서분류</option>
+			</select> 
+		<input type="text" name="searchText"  class="form-control eaInputSearch" style="width: 231px;">
+		<button type="button" onclick="completeApprovalBox_go(this.form);" class="btn btn-default">검색</button>
+	</form>
+</div>
+<table class="table textCenter" border="1">
 	<tr>
 		<th>품의번호</th>
 		<th>문서분류</th>
