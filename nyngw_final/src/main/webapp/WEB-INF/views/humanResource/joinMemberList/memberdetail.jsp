@@ -138,7 +138,7 @@
 		<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control inputTypeMemInsert" value="${member.mdi_bank_account }" readonly/> 
 	</div>
 	<br>
-	<div class="insertDocBtnWrap textCenter">
+	<div class="insertJoinBtnWrap textCenter">
 		<button onclick="modifyMember();" class="btn btn-default">사원 수정</button>
 		<button onclick="modifyDeleteMember();" class="btn btn-default">퇴직 처리</button>
 	</div>
