@@ -117,7 +117,7 @@ $(function(){
 	</table>
 	<h2>반려사유</h2>
 	<div id="historyReasonForreFusal">
-	
+	 ${ah_comment }
 	</div>                                                                                                                                                                                     
 </div>                                                                                                                                                                                           
         

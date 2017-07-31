@@ -552,8 +552,10 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
 		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(eaVO.getEa_number());	//결재 이력에 등록된 마지막 우선순위를 검색
-		String lastAhStatus = approvalProgressDao.selectLastAhStatus(eaVO.getEa_number());
+		Approval_HistoryVO approvalHistory = approvalProgressDao.selectLastAhStatus(eaVO.getEa_number());
+		String lastAhStatus = approvalHistory.getAh_status();
 		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
+		
 		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
 		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
 		
