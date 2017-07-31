@@ -2,12 +2,13 @@ package com.nyngw.electronicApproval.approvalProgress.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyngw.common.service.CommonServiceImpl;
-import com.nyngw.dto.ApprovalParamVO;
 import com.nyngw.dto.Approval_HistoryVO;
 import com.nyngw.dto.Common_CodeVO;
 import com.nyngw.dto.Electronic_ApprovalVO;
+import com.nyngw.dto.MemberVO;
 import com.nyngw.electronicApproval.approvalProgress.service.ApprovalProgressServiceImpl;
 
 @Controller
@@ -90,13 +91,18 @@ public class ApprovalProgressController {
 	public String waitingApprovalDetail(Model model,String ea_number,Principal principal){
 		int check = 1;	//미결재
 		ApprovalProgressService.waDetail(model, ea_number,principal,check);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO member = commonServiceImpl.findMemberByMemId(user.getUsername());
+		String userName = member.getMem_name();
+		model.addAttribute("userName",userName);
 		return "electronicApproval/approvalProgress/waitingApprovalDetail";
 	}
 	
 	//완료 문서 상세 페이지
 	@RequestMapping("/completeApprovalDetail")
-	public String completeApprovalDetail(Model model,String ea_number, Principal principal){
+	public String completeApprovalDetail(String checkBox, Model model,String ea_number, Principal principal){
 		int check = 2;	//완료
+		model.addAttribute("checkBox",checkBox);
 		ApprovalProgressService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/approvalProgress/completeApprovalDetail";
 	}

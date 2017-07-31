@@ -55,8 +55,8 @@
 		<tr>
 			<td class="ea_number">${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${EA.ea_mem_number }</td>
+			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}&checkBox=indi">${EA.ea_title }</a></td>
+			<td>${EA.write_name }</td>
 			<td>${EA.ea_startdate}</td>
 			<td><fmt:formatDate value="${EA.ea_ah_time}" pattern="yyyy/MM/dd" /></td>
 			<td>${status1 }</td>

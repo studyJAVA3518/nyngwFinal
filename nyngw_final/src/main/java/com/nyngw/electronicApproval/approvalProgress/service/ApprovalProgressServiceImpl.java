@@ -93,7 +93,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		
 	}
 	
-	//미결제문서 자세히보기
+	//미결재문서 자세히보기
 	public void waDetail(Model model, String ea_number,Principal principal,int check) {
 
 		//결재정보 setting
@@ -125,11 +125,13 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
 		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);	//결재 이력에 등록된 마지막 우선순위를 검색
-		String lastAhStatus = approvalProgressDao.selectLastAhStatus(ea_number);
+		Approval_HistoryVO approvalHistory = approvalProgressDao.selectLastAhStatus(ea_number);
+		String lastAhStatus = approvalHistory.getAh_status();
+		String ah_comment = approvalHistory.getAh_comment();
 		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
 		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
 		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
-		
+		model.addAttribute("ah_comment",ah_comment);
 		//합의자의 싸인을 담기 위함
 		for (Approval_StepVO approval_StepVO : agreementMemberList) {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
@@ -448,10 +450,13 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			memberList.add(commonServiceImpl.findMemberByMemNumber(eaVO.getEa_mem_number()));
 			completeDateList.add(approvalProgressDao.selectResentHistoryDate(eaVO.getEa_number()));
 		}
+		
 		for(Date date : completeDateList){
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String to = transFormat.format(date);
-			completeDateFormatList.add(to);
+			if(date!=null){
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String to = transFormat.format(date);
+				completeDateFormatList.add(to);
+			}
 		}
 		
 		model.addAttribute("code_nameList",code_nameList);
@@ -629,7 +634,8 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		List<String> approvalMem_sign = new ArrayList<String>();
 		List<String> agreementMem_sign = new ArrayList<String>();
 		int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(eaVO.getEa_number());	//결재 이력에 등록된 마지막 우선순위를 검색
-		String lastAhStatus = approvalProgressDao.selectLastAhStatus(eaVO.getEa_number());
+		Approval_HistoryVO approvalHistory = approvalProgressDao.selectLastAhStatus(eaVO.getEa_number());
+		String lastAhStatus = approvalHistory.getAh_status();
 		int index=1;	//결재자와 합의자의 수를 저장하기 위한 변수
 		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
 		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수

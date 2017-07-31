@@ -369,8 +369,7 @@ $(function(){
 			<form id="approvalSubmitForm">
 				<p class="docTitleDescription">
 					<a style="font-weight: bold;">
-					<%User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
-					<%=user.getUsername() %>
+					${userName}
 					</a>&nbsp;님 결재하시겠습니까?
 				</p>
 				<p class="docTitleDescription">

@@ -86,7 +86,7 @@
 
 <h2>회사 정보 설정</h2>
 <h4>회사 로고 등록 및 변경</h4>
-<table class="table textCenter">
+<table class="table textCenter tableGray">
 	<form class="form-inline" method="post" name="comLogo" enctype="multipart/form-data">
 		<tr>
 			<td colspan="2">
@@ -118,7 +118,7 @@
 <br>
 <h4>회사 정보 등록</h4>
 <div id="callBackDiv">
-<table class="table">
+<table class="table tableGray">
 	<form class="form-inline" id="form" method="post" name="comInfo">
 		<tr>
 			<th>회사 이름</th>
@@ -143,18 +143,18 @@
 				<div class="form-group">
 					<div id="list"></div>
 					<div class="form-group">
-						<label for="mem_zip" class="labelMemInsert">우편번호</label>
+						<label for="mem_zip" class="labelMemInsert textCenter">우편번호</label>
 						<input type="text"  class="form-control inputTypeMemInsertNarrow" id="zipNo"  name="zipNo"  placeholder="우편번호 "  readonly  value="${companyInfo.company_zip}"/>
 						<input type="button" onClick="goPopup();" class="btn btn-default" value="주소검색"/>
 					</div>
 					<br>
 					<div class="form-group">
-						<label for="mem_addr1" class="labelMemInsert">주소</label>
+						<label for="mem_addr1" class="labelMemInsert textCenter">주소</label>
 						<input type="text" class="form-control inputTypeMemInsert" id="roadAddrPart1"  name="roadAddrPart1"  placeholder="도로명주소" readonly value="${companyInfo.company_addr1}" />
 					</div>
 				    <br>
 				    <div class="form-group">   
-						<label for="mem_addr2" class="labelMemInsert">상세 주소</label>
+						<label for="mem_addr2" class="labelMemInsert textCenter">상세 주소</label>
 						<input type="text" class="form-control inputTypeMemInsert" id="addrDetail"  name="addrDetail"  placeholder="상세주소" value="${companyInfo.company_addr2}" />
 					</div>
 				</div>

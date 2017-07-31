@@ -219,7 +219,7 @@ td {
 
 <!-- 다이얼로그 전체 -->
 <div id="treeDialog" style="width:900px;height:600px;">
-	기안하기>결재라인설정
+<h2>보고 대상 설정</h2>
 	
 	<!-- 트리 디브 전체 -->
 	<div id="treeWrap" class="row">
@@ -235,13 +235,15 @@ td {
 		<!-- 2. 트리 메인 -->
 		<div id="treeMain" class="col-md-9">
 			<!-- 2.1 트리 메인 탑 -->
-			<div id="treeMainTop" class="row" style="height:200px;overflow:auto;border:1px solid black;">
-				<form id="search" onsubmit="javascript:goThere2(); return false;">
-					사원명 <input name="searchText"><button type="button" onclick="javascript:goThere2()">검색</button>
-					<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
-				</form>
-				
-				<table class="table" id="memberTable">
+			<div id="treeMainTop" class="row" style="height:200px;overflow:auto;">
+				<div class="divALM">
+					<form id="search" onsubmit="javascript:goThere2(); return false;">
+						<a style="font-weight: bold;">&nbsp;&nbsp;&nbsp;사원명&nbsp;&nbsp;</a> 
+						<input name="searchText" class="form-control eaInputSearch"> &nbsp;<button type="button" onclick="javascript:goThere2()"  class="btn btn-default">검색</button>
+						<input type="hidden" id="searchInput" name="dept_number" value="${dept_number }">
+					</form>
+				</div>
+				<table class="table textCenter" id="memberTable">
 					<tr>
 						<th><input type="checkbox" id="allCheck"></th>
 						<th>부서</th>
@@ -252,21 +254,21 @@ td {
 			</div>
 			
 			<!-- 2.2 트리 메인 미들 -->
-			<div id="treeMainMiddle">
-				<button type="button" id="addToApproval">보고대상</button>
+			<div id="treeMainMiddle" style="margin: 10px auto;">
+				<button type="button" id="addToApproval" class="btn btn-default">보고대상</button>
 			</div>	
 			
 			<!-- 2.3 트리 메인 바텀 -->
-			<div id="treeMainBottom" class="row" style="border:1px solid black;">
+			<div id="treeMainBottom" class="row">
 				<div id="treeMainBottomTop" class="row">
 					<div id="treeMainBottomA" class="col-md-6" style="height:150px;">
-						<p>보고대상</p>
+						<p class="docTitleDescription" style="font-weight: bold;">보고대상</p>
 						<div style="float:left;width:280px;">
 							<select id="approval" name="approval" size="5" style="width:280px;height:90px;">
 							</select>
 						</div>
 						<div id ="but" style="float:left;width:40px">
-							<p><input type = "button" value="ⓧ" id="deleteA"></p>
+							<p><input type = "button" value="ⓧ" id="deleteA" class="btn btn-default eabtn"></p>
 						</div>
 					</div>
 				</div>

@@ -4,6 +4,12 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<h2>회의 일정 등록페이지</h2>
+<style>
+.table{
+	background: white;
+}
+</style>
 <script type="text/javascript">
    function file_change(file){
    var str=file.lastIndexOf("\\")+1;   //파일 마지막 "\" 루트의 길이 이후부터 글자를 잘라 파일명만 가져온다.
@@ -24,7 +30,7 @@ $(function(){
 	 $('#linePopup').css('display', 'none');
 	 $("#linePopup_go").click(function(){
 			$('#linePopup').dialog({
-				width:950,
+				width:1000,
 				height: 700,
 				modal: true,
 				buttons: [{
@@ -70,41 +76,41 @@ $(function(){
 </script>
 <div>
 		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="meetingInsert" method="POST" accept-charset="utf-8">
-			<table class="table table-border textCenter">
+			<table class="table tableGray textCenter" style="background: white;">
 			<tr>
 				<th>회의제목</th>
 				<td>
-					<input type="text" name="mt_title">
+					<input type="text" class="form-control" name="mt_title">
 				</td>
 				<th>회의일</th>
 				<td>
-					<input type="text" class="inputTypeDate" name="mt_date">
+					<input type="text" class="inputTypeDate form-control" name="mt_date">
 				</td>
 			</tr>
 			<tr>
 				<th>회의장소</th>
 					<td>
-						<select name="mt_mr_number">
+						<select name="mt_mr_number" class="form-control">
 						<c:forEach items="${meetingroom }" var="meetingroom">
 							<option value="${meetingroom.mr_number }">${meetingroom.mr_name }</option>
 						</c:forEach>
 						</select>
 					</td>
 				<th>회의참여자</th>
-				<td><button type="button" id="linePopup_go">검색</button></td>
+				<td><button type="button" id="linePopup_go" class="btn btn-default">검색</button></td>
 			</tr>
 			<tr>
 				<th>회의주최자</th>
-				<td><input type="text" name="mt_reader" value="${meetingList2.mem_name }" readonly="readonly"></td>
+				<td><input type="text" name="mt_reader" class="form-control" value="${meetingList2.mem_name }" readonly="readonly"></td>
 				<td id="approvalMember" colspan="5">
 			</tr>
 		</table>
+			<div style="text-align: center;">
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/meetingeditor.jsp" flush="false"/>
 			<input type="hidden" value="${page}">
-			<div><button onclick='saveContent()'>등록</button></div>
-			<input type="reset" value="초기화" />	
-			<div style="text-align: center;">
-				<button type="button"><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">취소</a></button>
+			<button onclick='saveContent()'class="btn btn-default">등록</button>
+			<input type="reset" value="초기화"class="btn btn-default" />	
+				<button class="btn btn-default" type="button"><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">취소</a></button>
 			</div>
 		</form>
 	</div>

@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-업무지원 >> 업무 보고 상신 >> 내 업무보고
-<br>
+<h2>내 업무보고</h2>
+<p class="docTitleDescription">
+	본인이 시행한 업무를 상사에게 보고하는 페이지.
+</p>
 <script>
 $(function(){  
     $('#searchDate option[value=${setSearchOption}]').prop('selected',true);
@@ -24,7 +26,6 @@ $(function(){ //전체선택 체크박스 클릭
 		})
 })
 function dutyReportDelete() {
-	alert('ff');
 	var items=[];
 	$('input[name="dr_chk"]:checkbox:checked').each(function(){items.push($(this).val());});
 	
@@ -44,35 +45,26 @@ function dutyReportDelete() {
 </script>
 <div>
 	<form action="/businessSupport/dutyReport/dutyReport">
-		<div>
-			<table class="table table-bordered">
-				<tr>
-					<th>검색기간</th>
-					<td><select name="searchDate" id="searchDate">
-							<option value="today">금일</option>
-							<option value="week">1주일</option>
-							<option value="month">1개월</option>
-							<option value="trimester">3개월</option>
-					</select></td>
-					<th>보고유형</th>
-					<td><select name="reportType" id="reportType">
-							<option value="code1">일일보고</option>
-							<option value="code2">주간보고</option>
-							<option value="code3">월간보고</option>
-					</select></td>
-				</tr>
-				<tr>
-					<th>검색입력</th>
-					<td colspan="3"><select name="titleType" id="titleType">
-							<option value="dr_title">제목</option>
-							<option value="dr_content">내용</option>
-					</select> <input type="text" name="val" value="${select.val}"></td>
-				</tr>
-			</table>
-		</div>
-		<div style="text-align: center;">
-			<input type="submit" value="검색" class="btn">
-		</div>
+		검색기간&nbsp;
+			<select name="searchDate" id="searchDate" class="form-control docInputSelect" style="width: 100px;">
+				<option value="today">금일</option>
+				<option value="week">1주일</option>
+				<option value="month">1개월</option>
+				<option value="trimester">3개월</option>
+			</select>&nbsp;&nbsp;
+		보고유형&nbsp;
+			<td><select name="reportType" id="reportType" class="form-control docInputSelect" style="width: 110px;">
+					<option value="code1">일일보고</option>
+					<option value="code2">주간보고</option>
+					<option value="code3">월간보고</option>
+			</select>&nbsp;&nbsp;
+		검색입력&nbsp;
+			<select name="titleType" id="titleType" class="form-control docInputSelect" style="width: 80px;">
+					<option value="dr_title">제목</option>
+					<option value="dr_content">내용</option>
+			</select> &nbsp;&nbsp;
+		<input type="text" name="val" value="${select.val}"  class="form-control eaInputSearch" style="width: 225px;">&nbsp;
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
 </div>
 <br>
@@ -82,7 +74,7 @@ function dutyReportDelete() {
 		<div>
 			<table class="table table-bordered">
 				<tr>
-					<th><input type="checkbox" name="check_all" value="all"></th>
+					<th><input type="checkbox" id="check_all" value="all"></th>
 					<th>번호</th>
 					<th>보고일</th>
 					<th>제목</th>
@@ -126,13 +118,7 @@ function dutyReportDelete() {
 					href="<c:url value="/businessSupport/dutyReport/dutyReport?page=${endPage + 1}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}"/>">다음</a>
 			</c:if>
 		</div>
-		<div>
-			<input type="button" value="선택삭제" onclick="dutyReportDelete();" /> 
-		</div>
 	</div>
-	<div style="text-align: right;">
-		<button>
-			<a href="/businessSupport/dutyReport/dutyReportWriteForm" id="dutyReportWriteForm">글쓰기</a>
-		</button>
-	</div>
+		<button class="btn btn-default"><a href="/businessSupport/dutyReport/dutyReportWriteForm" id="dutyReportWriteForm">글쓰기</a></button>
+		<input type="button" value="선택삭제" class="btn btn-default" onclick="dutyReportDelete();" /> 
 </div>

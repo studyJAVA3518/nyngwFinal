@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	글쓰기페이지
+<h2>개인 / 부서 업무일지 등록페이지</h2>
 	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalWrite"  method="post" accept-charset="utf-8">
 		<table class="table table-bordered">
 			<tr>
 				<th>보고유형</th>
 				<td>
-					<select name="dd_code_number">
+					<select name="dd_code_number"  class="form-control">
 						<option value="code1">일일일지</option>
 						<option value="code2">주간일지</option>
 						<option value="code3">월간일지</option>
@@ -28,17 +28,19 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td colspan="3"><input type="text" name="dd_title"></td>
+				<td colspan="3"><input type="text" name="dd_title" class="form-control"></td>
 				<th>업무시작일</th>
-				<td><input type="text" class="inputTypeDate" name="start_date"></td>
+				<td><input type="text" class="inputTypeDate form-control" name="start_date"></td>
 			</tr>
 			<tr>
 				<th colspan="6">내용</th>
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<button type="button" onclick="saveContent();">등록</button>
-		<button><a href="/businessSupport/dutyDocument/personal">취소</a></button>
+		<div class="textCenter">
+			<button class="btn btn-default" type="button" onclick="saveContent();">등록</button>
+			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal">취소</a></button>
+		</div>
 	</form>
 </body>
 </html>

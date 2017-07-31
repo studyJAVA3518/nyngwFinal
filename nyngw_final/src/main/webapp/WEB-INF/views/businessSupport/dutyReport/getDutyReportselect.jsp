@@ -3,37 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<h2>받은 업무 보고</h2>
+<p class="docTitleDescription">
+	보고대상이 자신인 업무의 정보를 볼 수 있는 페이지.
+</p>
 <div>
 	<form action="/businessSupport/dutyReport/getDutyReportselect">
-		<div>
-			<table class="table table-bordered">
-				<tr>
-					<th>검색기간</th>
-					<td><select name="searchDate" id="searchDate">
-							<option value="today">금일</option>
-							<option value="week">1주일</option>
-							<option value="month">1개월</option>
-							<option value="trimester">3개월</option>
-					</select></td>
-					<th>보고유형</th>
-					<td><select name="reportType" id="reportType">
-							<option value="code1">일일보고</option>
-							<option value="code2">주간보고</option>
-							<option value="code3">월간보고</option>
-					</select></td>
-				</tr>
-				<tr>
-					<th>검색입력</th>
-					<td colspan="3"><select name="titleType" id="titleType">
-							<option value="dr_title">제목</option>
-							<option value="dr_content">내용</option>
-					</select> <input type="text" name="val" value="${select.val}"></td>
-				</tr>
-			</table>
-		</div>
-		<div style="text-align: center;">
-			<input type="submit" value="검색" class="btn">
-		</div>
+		검색기간&nbsp;
+			<select name="searchDate" id="searchDate" class="form-control docInputSelect" style="width: 100px;">
+				<option value="today">금일</option>
+				<option value="week">1주일</option>
+				<option value="month">1개월</option>
+				<option value="trimester">3개월</option>
+			</select>&nbsp;&nbsp;
+		보고유형&nbsp;
+			<select name="reportType" id="reportType" class="form-control docInputSelect" style="width: 110px;">
+				<option value="code1">일일보고</option>
+				<option value="code2">주간보고</option>
+				<option value="code3">월간보고</option>
+			</select>&nbsp;&nbsp;
+		검색입력&nbsp;
+			<select name="titleType" id="titleType" class="form-control docInputSelect" style="width: 80px;">
+					<option value="dr_title">제목</option>
+					<option value="dr_content">내용</option>
+			</select>
+		<input type="text" name="val" value="${select.val}" class="form-control eaInputSearch" style="width: 240px;">
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
 </div>
 <br>

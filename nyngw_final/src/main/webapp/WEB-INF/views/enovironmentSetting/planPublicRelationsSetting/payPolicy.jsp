@@ -116,7 +116,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<table class="table textCenter">
+		<table class="table textCenter tableGray">
 			<form class="form-inline" name="payPolicyInsertForm">
 				<tr>
 					<th>급여 종류 선택</th>
@@ -165,7 +165,9 @@
 				</tr>
 			</form>
 		</table>
-		
+		<br>
+	</div>
+	<div class="col-md-12" style="border-bottom:1px solid #ddd;padding-bottom:45px;">
 		<h2>급여 정책 삭제하기</h2>
 		<p class="docTitleDescription">기본적으로 설정되어있는 급여정책(시간당시급,기본급,직책수당) 외의 급여정책을 삭제할 수 있습니다.</p>
 		<form name="deletePayPolicyForm" class="inline-form">
@@ -187,12 +189,12 @@
 		</form>
 	</div>
 </div>
-
-<div class="row">
+<br><br>
+<div class="row" style="border-bottom:1px solid #ddd;padding-bottom:45px;">
 	<div class="col-md-6">
 		<h2>전체 급여정책 설정</h2>
 		<p class="docTitleDescription">회사원 전체에게 동일하게 적용되는 급여를 설정합니다.</p>
-		<table class="table textCenter">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>No</th>
 				<th>급여 정책 이름</th>
@@ -217,7 +219,8 @@
 	</div>
 	<div class="col-md-6">
 		<h2>4대 보험료율</h2>
-		<table class="table textCenter">
+		<p class="docTitleDescription">4대 보험 보험료율을 확인할 수 있습니다.</p>
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>No</th>
 				<th>이름</th>
@@ -240,12 +243,12 @@
 	</div>
 </div>
 
-
+<br>
 <div class="row">
 	<h2>직급별 급여정책 설정</h2>
-	<p class="docTitleDescription">직급별로 급여를 설정합니다</p>
+	<p class="docTitleDescription">직급별로 급여를 설정합니다. (기본급은 시간당 시급*209시간)</p>
 	<div class="col-md-4">
-		<table class="table textCenter">
+		<table class="table tableGray">
 			<tr>
 				<th>No</th>
 				<th>직급</th>
@@ -258,8 +261,8 @@
 						<td>${payHourView.position_name}</td>
 						<td>
 							<input type="hidden" id="up_hour_pp_number" name="up_basic_pp_number" value="${payHourView.pp_number}" class="form-control inlinePayText"/>
-							<input type="text" id="up_hour_pp_pay" name="up_basic_pp_pay" value="<fmt:formatNumber value="${payHourView.pp_pay}" pattern="##########"/>" class="form-control inlinePayText"/>
-							<input type="button" class="btn btn-default UpdatePayPolicyHourBtn" value="수정"/>
+							<div style="text-indent:23.5px;"><input type="text" id="up_hour_pp_pay" name="up_basic_pp_pay" value="<fmt:formatNumber value="${payHourView.pp_pay}" pattern="##########"/>" class="form-control inlinePayText"/></div>
+							<div style="text-indent:23.5px;"><input type="button" class="btn btn-default UpdatePayPolicyHourBtn" value="수정"/></div>
 							
 						</td>
 					</form>
@@ -269,11 +272,11 @@
 	</div>
 	
 	<div class="col-md-4">
-		<table class="table textCenter">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>No</th>
 				<th>직급</th>
-				<th>기본급<br/>(시간당 시급*209시간)</th>
+				<th>기본급</th>
 			</tr>
 			<c:forEach var="payBasicView" varStatus="status" items="${payViewBasicList}">
 				<tr>
@@ -290,7 +293,7 @@
 	</div>
 	
 	<div class="col-md-4">
-		<table class="table textCenter">
+		<table class="table tableGray">
 			<tr>
 				<th>No</th>
 				<th>직급</th>
@@ -303,8 +306,8 @@
 						<td>${payPosView.position_name}</td>
 						<td>
 							<input type="hidden" id="up_pos_pp_number" name="up_pos_pp_number" value="${payPosView.pp_number}" class="form-control inlinePayText"/>
-							<input type="text" id="up_pos_pp_pay" name="up_pos_pp_pay" value="<fmt:formatNumber value="${payPosView.pp_pay}" pattern="##########"/>" class="form-control inlinePayText"/>
-							<input type="button" class="btn btn-default UpdatePayPolicyPosBtn" value="수정"/>
+							<div style="text-indent:23.5px;"><input type="text" id="up_pos_pp_pay" name="up_pos_pp_pay" value="<fmt:formatNumber value="${payPosView.pp_pay}" pattern="##########"/>" class="form-control inlinePayText"/></div>
+							<div style="text-indent:23.5px;"><input type="button" class="btn btn-default UpdatePayPolicyPosBtn" value="수정"/></div>
 						</td>
 
 					</form>

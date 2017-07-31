@@ -2,25 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>					
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>				
-	<script>
-    	$(function(){
-    		
-	    	
-    		//아코디언
-    		$("#accordion>ul>li").click(function(){
-    			if($(this).children("ul").attr("style")=="display: block;"){
-	    			$(this).children("ul").slideUp();
-    			}else{
-	    			$(this).children().slideDown();
-    			}
-    		
-    		})
-    		
-    		$("#${sideValue}").addClass('active');
-	    	
-	    })
-	    
-	</script>
+<script>
+	$(function() {
+
+		//아코디언
+		$("#accordion>ul>li").click(function() {
+			if ($(this).children("ul").attr("style") == "display: block;") {
+				$(this).children("ul").slideUp();
+			} else {
+				$(this).children().slideDown();
+
+			}
+
+		})
+		$("#${sideValue}").addClass('sideBarActive');
+		$("#accordion>ul>li>ul>#${sideValue}").parents().slideDown();
+	})
+</script>
 					
 					<h2 class="blind">인사관리</h2>
 					<article>

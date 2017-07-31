@@ -52,19 +52,22 @@ function vacationDelete_go() {
 }
 
 </script>
-<h2>휴가 추가</h2>
-<form id="vacation">
-   <input class="form-control" type="text" name="vp_kind" placeholder="휴가명"/>
-   <input class="form-control" type="text" name="vp_totalday" placeholder="휴가일수"/>
-<select name="vp_payonoff" class="form-control docInputSelect" >
-	<option value="y" class="deductVacation">급여 지급</option>
-	<option value="n">급여 미지급</option>
-</select>
-<button class="btn btn-default" type="button" onclick ="vacation_go();">등록</button>
-</form>
+<h2>휴가 등록</h2>
+<div style="border-bottom:1px solid #ddd;padding-bottom:45px;">
+	<form id="vacation">
+	   <input class="form-control" style="width:260px;display:inline-block;" type="text" name="vp_kind" placeholder="휴가명"/>
+	   <input class="form-control" style="width:290px;display:inline-block;" type="text" name="vp_totalday" placeholder="휴가일수"/>
+		<select name="vp_payonoff" style="width:170px;display:inline-block;" class="form-control docInputSelect" >
+			<option value="y" class="deductVacation">급여 지급</option>
+			<option value="n">급여 미지급</option>
+		</select>
+		<button class="btn btn-default" type="button" onclick ="vacation_go();">등록</button>
+	</form>
+</div>	
 
+<br>
 <h2>휴가 종류 설정</h2>
-<table class="table textCenter">
+<table class="table textCenter tableGray">
 	<form method="post" class="form-inline" >
 		<tr>
 			<div class="form-group">
@@ -77,19 +80,21 @@ function vacationDelete_go() {
 		<c:forEach items="${vacationList}" var="va"  varStatus="status">
 			<tr>
 				<div>
-				<td><input class="form-control" type="checkbox" value="${va.vp_number}" name="check_number" id="${va.vp_number }" />
-				<td>${va.vp_kind}</td>
-				<td><input class="form-control" type="text" value="${va.vp_totalday }" name="day" id="${va.vp_number }_dy" /></td>
-				<td><select class="form-control docInputSelect" name="on" id="${va.vp_number}_on" >
-						<option value="y" class="deductVacation">급여 지급</option>
-						<option value="n">급여 미지급</option>
-				</select></td>
+					<td><input type="checkbox" value="${va.vp_number}" name="check_number" id="${va.vp_number }" />
+					<td>${va.vp_kind}</td>
+					<td><input class="form-control" type="text" value="${va.vp_totalday }" name="day" id="${va.vp_number }_dy" /></td>
+					<td><select class="form-control docInputSelect" name="on" id="${va.vp_number}_on" >
+							<option value="y" class="deductVacation">급여 지급</option>
+							<option value="n">급여 미지급</option>
+					</select></td>
 				</div>
 			</tr>
 		</c:forEach>
-		<input type="button" class="btn btn-default" value="setting" onclick="vacationDeduction_go(this.form);"/>
-		<input type="button" class="btn btn-default" value="delete" onclick="vacationDelete_go();"/>
 	</form>
+	<tr><td colspan="4">
+		<input type="button" class="btn btn-default" value="수정" onclick="vacationDeduction_go(this.form);"/>
+		<input type="button" class="btn btn-default" value="삭제" onclick="vacationDelete_go();"/>
+	</td></tr>
 </table>
 
 <script>
