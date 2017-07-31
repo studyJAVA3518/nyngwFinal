@@ -6,7 +6,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<h2>회의 일정 수정페이지</h2>
+<h2>회의일정 수정 페이지</h2>
+<p class="docTitleDescription">
+	회의일정을 수정 / 삭제할 수 있습니다.
+</p>
 <script>
 $(function(){   
     var loadContent = function() {
@@ -46,7 +49,7 @@ function meetingDelete(mt_number){
 </script>
 
 <div>
-<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingUpdate" method="post"  accept-charset="utf-8">
+<form name="tx_editor_form" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingUpdate" method="post"  accept-charset="utf-8">
 			<table class="table table-border textCenter tableGray">
 			<input type="hidden" name="mt_number" value="${meeting.mt_number }">
 			<tr>
