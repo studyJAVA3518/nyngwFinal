@@ -12,7 +12,7 @@
 				<th>부서 이름</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input class="form-control" type="text" id="dept_name" name="dept_name"/>
 					</div>
 				</td>
 			</tr>
@@ -20,7 +20,7 @@
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input class="form-control" type="text" id="dept_name" name="dept_name"/>
 					</div>
 				</td>
 			</tr>
@@ -28,7 +28,7 @@
 				<th>부서 연락처</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input class="form-control" type="text" id="dept_name" name="dept_name"/>
 					</div>
 				</td>
 			</tr>
@@ -36,14 +36,14 @@
 				<th>부서 위치</th>
 				<td>
 					<div class="form-group">
-						<input type="text" id="dept_name" name="dept_name"/>
+						<input class="form-control" type="text" id="dept_name" name="dept_name"/>
 					</div>
 				</td>
 			</tr>
 			
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="부서 수정"/>
+					<input class="btn btn-default" type="submit" value="부서 수정"/>
 				</td>
 			</tr>
 		</form>

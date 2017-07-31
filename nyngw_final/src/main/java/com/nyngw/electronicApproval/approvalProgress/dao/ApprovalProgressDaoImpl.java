@@ -191,5 +191,18 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 		sqlSession.delete("EA_deleteApprovalHistory",ea_number);
 	}
 
+	public String selectDisapproveAstNumber(Map<String, String> param) {
+		return (String) sqlSession.selectOne("selectDisapproveAstNumber",param);
+	}
+	
+	
+	public int selectMaxPriority(String ea_number) {
+		return (Integer) sqlSession.selectOne("selectMaxPriority",ea_number);
+	}
+	
+	public void ea_updateApprovalStep(Map param) {
+		sqlSession.update("ea_updateApprovalStep",param);
+	}
+
 
 }

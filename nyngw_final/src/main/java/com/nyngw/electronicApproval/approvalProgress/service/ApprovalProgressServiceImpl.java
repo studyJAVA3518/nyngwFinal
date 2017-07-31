@@ -37,7 +37,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 	private AppointedUIServiceImpl appointedUIService;
 	
 	//모든 미결재문서를 가져옴
-	public void defaultWA(Model model,Principal principal) {
+	public void defaultWA(Model model,Principal principal, String check) {
 		//접속자의 정보 검색
 		String mem_id = principal.getName();
 		MemberVO member = commonServiceImpl.findMemberByMemId(mem_id);
@@ -51,8 +51,10 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		//결재별 현황 검색
 		for (String ea_number: ea_numberList) {
 			//한 결재의 마지막 결재우선순위 검색
+			System.out.println("lastAstPrioritoy");
 			int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
-			//한 결재의 마지막 결재스탭번호
+			//한 결재의 마지막 결재스탭번호(변하지 않는 최종 순위이다.)
+			System.out.println("lastAstNumber");
 			int lastAstNumber = approvalProgressDao.selectLastApprovalStep(ea_number);
 			
 			//한 사원의 한 결재의 우선순위 검색 
@@ -65,7 +67,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
 			
 			//미결재문서 (자신의 우선순위 차례이면)
-			if(lastAstPriority!=lastAstNumber){
+//			if(lastAstPriority!=lastAstNumber){
 				if(lastAhHistory+1==memberAstPriority){
 					Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 					eaList.add(eaVO);
@@ -75,8 +77,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 					eaList.add(eaVO);
 					statusList.add("전결");
 				}
-			}
-			
+//			}
 		}
 		model.addAttribute("eaList",eaList);
 		model.addAttribute("statusList", statusList);
@@ -736,6 +737,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 
 	public void editApproval(Model model, Electronic_ApprovalVO eaVO, Principal principal,String ea_content,
 			String param_startdate,String param_enddate) {
+		System.out.println("처음 들어봄");
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date startdate = null;
 		Date enddate = null;
@@ -748,9 +750,21 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		eaVO.setEa_content(ea_content);
 		eaVO.setEa_startdate(startdate);
 		eaVO.setEa_enddate(enddate);
-		approvalProgressDao.EA_updateApproval(eaVO);
 		
 		approvalProgressDao.EA_deleteApprovalHistory(eaVO.getEa_number());
+		System.out.println("중간 들어옴");
+		//한 결재의 마지막 결재우선순위 검색(반려일 때 +2 이다)
+		int maxPriority = approvalProgressDao.selectMaxPriority(eaVO.getEa_number());
+		
+		Map<String,String> param = new HashMap<String,String>();
+		param.put("maxPriority", maxPriority+"");
+		param.put("ea_number", eaVO.getEa_number());
+		
+		String ast_number = approvalProgressDao.selectDisapproveAstNumber(param);
+		param.put("ast_number", ast_number);
+		approvalProgressDao.ea_updateApprovalStep(param);
+		System.out.println("마지막 들어봄");
+		approvalProgressDao.EA_updateApproval(eaVO);
 	}
 
 }

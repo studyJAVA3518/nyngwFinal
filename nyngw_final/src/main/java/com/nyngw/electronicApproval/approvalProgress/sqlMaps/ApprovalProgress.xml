@@ -127,6 +127,10 @@
 		select max(ast_priority) from approval_step where ast_ea_number = #{ea_number} and ast_al_number = 'B'
 	</select>
 	
+	<select id="selectMaxPriority" parameterType="string" resultType="int" >
+		select max(ast_priority) from approval_step where ast_ea_number = #{ea_number}
+	</select>
+	
 	
 	<!-- 전자결제에서 해당회원이 진행한 모든 전자결재번호 리스트로 불러오기 -->
 	<select id="selectEaNumberList" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
@@ -173,4 +177,15 @@
 	<delete id="EA_deleteApprovalHistory" parameterType="string">
 		delete from approval_history where ah_ea_number = #{ea_number}
 	</delete>
+	
+	<select id="selectDisapproveAstNumber" parameterType="map" resultType="string">
+		select ast_number from approval_step where ast_priority = #{maxPriority} and ast_ea_number = #{ea_number}
+	</select>
+	
+	<update id="ea_updateApprovalStep" parameterType="map">
+		update approval_step
+		set ast_priority = substr(ast_number,4)
+		where ast_priority = #{maxPriority}
+		and ast_ea_number = #{ea_number}
+	</update>
 </mapper>

@@ -54,8 +54,8 @@ function vacationDelete_go() {
 </script>
 <h2>휴가 추가</h2>
 <form id="vacation">
-   <input type="text" name="vp_kind" placeholder="휴가명"/>
-   <input type="text" name="vp_totalday" placeholder="휴가일수"/>
+   <input class="form-control" type="text" name="vp_kind" placeholder="휴가명"/>
+   <input class="form-control" type="text" name="vp_totalday" placeholder="휴가일수"/>
 <select name="vp_payonoff" >
 	<option value="y" class="deductVacation">급여 지급</option>
 	<option value="n">급여 미지급</option>
@@ -77,10 +77,10 @@ function vacationDelete_go() {
 		<c:forEach items="${vacationList}" var="va"  varStatus="status">
 			<tr>
 				<div>
-				<td><input type="checkbox" value="${va.vp_number}" name="check_number" id="${va.vp_number }" />
+				<td><input class="form-control" type="checkbox" value="${va.vp_number}" name="check_number" id="${va.vp_number }" />
 				<td>${va.vp_kind}</td>
-				<td><input type="text" value="${va.vp_totalday }" name="day" id="${va.vp_number }_dy" /></td>
-				<td><select name="on" id="${va.vp_number}_on" >
+				<td><input class="form-control" type="text" value="${va.vp_totalday }" name="day" id="${va.vp_number }_dy" /></td>
+				<td><select class="form-control" name="on" id="${va.vp_number}_on" >
 						<option value="y" class="deductVacation">급여 지급</option>
 						<option value="n">급여 미지급</option>
 				</select></td>

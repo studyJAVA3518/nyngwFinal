@@ -1031,7 +1031,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
 			
 			//미결재문서 (자신의 우선순위 차례이면)
-			if(lastAstPriority!=lastAstNumber){
+//			if(lastAstPriority!=lastAstNumber){
 				if(lastAhHistory+1==memberAstPriority){
 					Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 					eaList.add(eaVO);
@@ -1039,7 +1039,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 					Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 					eaList.add(eaVO);
 				}
-			}
+//			}
 		}
 		for(int j = 0; j < eaList.size(); j++){
 			MemberVO nameVO = CommonDao.common_selectMemberByMemNumber(eaList.get(j).getEa_mem_number());

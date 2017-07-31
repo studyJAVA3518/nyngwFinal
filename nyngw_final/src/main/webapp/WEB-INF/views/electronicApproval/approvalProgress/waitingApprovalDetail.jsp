@@ -588,5 +588,5 @@ $(function(){
 			</td>	
 		</tr>
 	</table>
-	<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button"  class="btn btn-default">뒤로</button></a>
+	<a href="/electronicApproval/approvalProgress/waitingApproval?check=1"><button type="button"  class="btn btn-default">뒤로</button></a>
 </div>
