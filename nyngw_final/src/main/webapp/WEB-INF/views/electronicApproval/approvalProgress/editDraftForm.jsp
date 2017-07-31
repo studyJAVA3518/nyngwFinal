@@ -36,11 +36,10 @@
 		location.href="/electronicApproval/draft/submitApproval";
 	}
 </script>
-
-기안하기>결재 재상신 페이지
+<h2>결재 재상신 페이지</h2>
 <form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/approvalProgress/editDraft" method="post" accept-charset="utf-8">
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
-	<table class="table table-bordered">
+	<table class="table table-bordered tableGray">
 		<tr>
 			<th>품의번호</th>
 			<td colspan="5">
@@ -126,11 +125,11 @@
 		
 		<tr>
 			<th>시행일자</th>
-			<td colspan="5"><input type="date" name="param_ea_startdate" value="${eaVO.ea_startdate }">~<input type="date" name="param_ea_enddate" value="${eaVO.ea_enddate }"></td>
+			<td colspan="5"><input type="text" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01" name="param_ea_startdate" value="${eaVO.ea_startdate }">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;<input type="text" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01" name="param_ea_enddate" value="${eaVO.ea_enddate }"></td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="5"><input type="text" name="ea_title" value="${eaVO.ea_title }"></td>
+			<td colspan="5"><input type="text" name="ea_title" class="form-control" value="${eaVO.ea_title }"></td>
 		</tr>
 		<tr>
 			<th colspan="6">내용</th>
@@ -140,9 +139,9 @@
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 </form>
 <input type="hidden" value="${page}">
-<button type="button" onclick="saveContent();">등록</button>
-<input type="reset" value="초기화" />	
-<a href="/sharingInformation/board/list?page=${page }"><button type="button">취소</button></a>
+<button type="button" onclick="saveContent();" class="btn btn-default">등록</button>
+<input type="reset" value="초기화"  class="btn btn-default"/>	
+<a href="/sharingInformation/board/list?page=${page }"><button type="button" class="btn btn-default">취소</button></a>
 
 
 <textarea id="text_content" style="display:none;">

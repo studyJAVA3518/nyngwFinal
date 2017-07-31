@@ -27,7 +27,7 @@
 		<button type="button" onclick="searchRefusedApproval_go(this.form);" class="btn btn-default">검색</button>
 	</form>
 </div>
-<table class="table" border="1">
+<table class="table textCenter" border="1">
 	<tr>
 		<th>품의번호</th>
 		<th>문서분류</th>
