@@ -17,47 +17,38 @@
    });
 </script>
 <body>
-업무지원 >> 업무일지 >> 부서업무조회
-   <div>
+<h2>부서업무조회</h2>
+<p class="docTitleDescription">
+	로그인한 사원의 부서업무를 조회 할 수 있다.
+</p>
+   <div class="eaSearchDivMagin">
       <form action="/businessSupport/dutyDocument/department">
-         <table class="table table-border">
-            <tr>
-               <th>검색기간</th>
-               <td>
-                  <select name="searchDate" id="searchDate">
-                     <option value="today">금일</option>
-                     <option value="week">1주일</option>
-                     <option value="month">1개월</option>
-                     <option value="trimester">3개월</option>
-                  </select>
-               </td>
-               <th>보고유형</th>
-               <td>
-                  <select name="reportType" id="reportType">
-                     <option value="">전체</option>
-                     <option value="code1">일일일지</option>
-                     <option value="code2">주간일지</option>
-                     <option value="code3">월간일지</option>
-                  </select>
-               </td>
-            </tr>
-            <tr>
-               <th>검색입력</th>
-               <td colspan="3">
-                  <select name="titleType" id="titleType">
-                     <option value="">전체</option>
-                     <option value="dd_title">제목</option>
-                     <option value="mem_name">작성자</option>
-                  </select>
-                  <input type="text" name="val" value="${select.val}">
-               </td>
-            </tr>
-         </table>
-            <input type="submit" value="검색">
+           검색기간
+              <select name="searchDate" id="searchDate" class="form-control docInputSelect" style="width: 100px;">
+                 <option value="today">금일</option>
+                 <option value="week">1주일</option>
+                 <option value="month">1개월</option>
+                 <option value="trimester">3개월</option>
+              </select>&nbsp;
+           보고유형
+              <select name="reportType" id="reportType" class="form-control docInputSelect" style="width: 120px;">
+                 <option value="">전체</option>
+                 <option value="code1">일일일지</option>
+                 <option value="code2">주간일지</option>
+                 <option value="code3">월간일지</option>
+              </select>&nbsp;
+           검색입력
+              <select name="titleType" id="titleType" class="form-control docInputSelect" style="width: 100px;">
+                 <option value="">전체</option>
+                 <option value="dd_title">제목</option>
+                 <option value="mem_name">작성자</option>
+              </select>&nbsp;
+            <input type="text" name="val" value="${select.val}" class="form-control eaInputSearch" style="width: 225px;">
+            <input type="submit" value="검색"  class="btn btn-default">
       </form>
       <br>
       <br>
-      <table class="table table-border">
+      <table class="table table-border textCenter">
          <tr>
             <th>번호</th>
             <th>업무시작일</th>
