@@ -14,7 +14,7 @@
 </p>
 
 	 <div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/documentManagement/documentManager/edocumentUpdate" method="post">
+		<form name="tx_editor_form"  id="tx_editor_form"  action="/documentManagement/documentManager/edocumentUpdate" method="post">
 			<table class="table table-bordered tableGray">
 				<tr>
 					<th>문서구분번호</th><td>${document.doc_code_number }<input type="hidden" value="${document.doc_code_number}" name="doc_code_number" readonly="readonly"></td>
@@ -33,7 +33,7 @@
 				</tr>
 			</table>
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-			<div class="textCenter">
+			<div class="insertJoinBtnWrap textCenter">
 				<input type="hidden" value="${page}">
 				<button type="button" onclick="saveContent();"  class="btn btn-default">수정</button>
 				<input type="reset" value="초기화" class="btn btn-default"/>		

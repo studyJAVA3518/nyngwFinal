@@ -9,10 +9,10 @@ function file_change(file){
 }
 
 </script>
-	<h1>게시판등록폼</h1>
+	<h2>게시글 등록 페이지</h2>
 	<div>
 		<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>게시판종류</th>
 					<td>게시판</td>
@@ -26,7 +26,7 @@ function file_change(file){
 				</tr>
 			</table>	
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>첨부파일</th>
 					<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);">
@@ -35,8 +35,10 @@ function file_change(file){
 				</tr>
 			</table>
 		</form>
-		<input type="hidden" value="${page}">
-		<button type="button" onclick="saveContent();">등록</button>
-		<input type="reset" value="초기화" />	
-		<button type="button"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
+		<div class="insertJoinBtnWrap textCenter">
+			<input type="hidden" value="${page}">
+			<button type="button" onclick="saveContent();"class="btn btn-default">등록</button>
+			<input type="reset" value="초기화" class="btn btn-default"/>	
+			<button type="button"class="btn btn-default"><a href="/sharingInformation/board/list?page=${page }">취소</a></button>
+		</div>
 	</div>

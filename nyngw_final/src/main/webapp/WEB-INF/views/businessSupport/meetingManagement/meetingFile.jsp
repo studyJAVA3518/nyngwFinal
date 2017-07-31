@@ -56,6 +56,6 @@
 			</c:if>
 		</div>
 	</div>
-	<div style="float: right;">
+	<div style="float: right;" class="insertJoinBtnWrap">
 		<button class="btn btn-default"><a href="/businessSupport/meetingManagement/addMeetingFile">회의록 쓰기</a></button>
 	</div>

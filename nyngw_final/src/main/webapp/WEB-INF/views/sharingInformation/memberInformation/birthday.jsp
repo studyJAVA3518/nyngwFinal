@@ -68,7 +68,7 @@
 	</c:choose>
 
 </table>
-<div id="pageNum" class="textCenter pageBottoWrap">
+<div id="pageNum" class="insertJoinBtnWrap textCenter pageBottoWrap">
 	<c:if test="${beginPage > perPage}">
 		<a href="<c:url value="/sharingInformation/memberInformation/birthdayCheck?page=${beginPage-1}&month=${month }"/>">이전</a>
 	</c:if>

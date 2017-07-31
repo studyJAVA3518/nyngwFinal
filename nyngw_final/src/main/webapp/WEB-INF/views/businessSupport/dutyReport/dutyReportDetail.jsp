@@ -96,7 +96,7 @@
 		  	 	댓글 등록하기
 			</div>
 			<textarea cols="70" rows="4" class="replyTextWriteArea" name="drc_content"  style="resize: none;"></textarea>
-			<div class="replyRightWrap">
+			<div class="insertJoinBtnWrap replyRightWrap">
 			<input type="hidden" name = "dr_number" value="${dutyReportVO.dr_number }">
 			<input type="hidden" value="${select.reportType}">
 			<input type="hidden" value="${select.titleType}">

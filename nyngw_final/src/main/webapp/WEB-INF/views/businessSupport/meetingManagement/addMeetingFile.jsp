@@ -67,7 +67,7 @@ $(function(){
 				<th colspan="5">내용</th>
 			</tr>
 		</table>
-			<div class="textCenter">
+			<div class="insertJoinBtnWrap textCenter">
 				<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 				<input type="hidden" value="${page}">
 				<button onclick='saveContent()' class="btn btn-default">등록</button>

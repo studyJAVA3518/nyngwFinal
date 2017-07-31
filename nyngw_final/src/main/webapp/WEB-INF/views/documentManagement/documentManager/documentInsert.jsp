@@ -51,7 +51,7 @@ function insert_error_go(){
 </p>
 
 
-	<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="documentInsertComplete" method="POST" accept-charset="utf-8">
+	<form enctype="multipart/form-data" name="tx_editor_form"  id="tx_editor_form" action="documentInsertComplete" method="POST" accept-charset="utf-8">
 		<table class="table table-bordered tableGray">
 			<caption>문서 작성</caption>
 			<tbody>
@@ -93,7 +93,7 @@ function insert_error_go(){
 			</tr>
 		</table>
 		
-		<div class="textCenter">
+		<div class="insertJoinBtnWrap textCenter">
 			<button type="button" onclick="insert_error_go(); " class="btn btn-default">등록</button>
 			<button class="btn btn-default">
 				<a href="/documentManagement/documentManager/documentSelect" id="documentSelect">취소</a>

@@ -125,7 +125,7 @@
          <td><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
       </tr>
    </table>   
-   </div>
+</div>
    <div class="textCenter">
 	<c:choose>
 		<c:when test="${mem.mem_number eq board.board_mem_number}">
@@ -168,17 +168,18 @@
       </table>
    </form>
       
-   <form action="/sharingInformation/board/answerWrite">
-      <table class="table table-bordered tableGray">
-         <tr>
-            <th colspan="4">
-               <textarea rows="5" cols="71" style="resize: none;" name="comment_content" ></textarea>
-            </th>
-            <td>
-               <input type="hidden" name="board_number" value="${board.board_number}">
-               <button class="btn btn-default" type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
-            </td>
-         </tr>
-      </table>
-   </form>
-</div>
+   <div class="insertJoinBtnWrap">   
+	   <form action="/sharingInformation/board/answerWrite">
+	      <table class="table table-bordered tableGray">
+	         <tr>
+	            <th colspan="4">
+	               <textarea rows="5" cols="71" style="resize: none;" name="comment_content" ></textarea>
+	            </th>
+	            <td>
+	               <input type="hidden" name="board_number" value="${board.board_number}">
+	               <button class="btn btn-default" type="button" onclick="answerWriteClick('${board.board_number}',this.form)">등록</button>
+	            </td>
+	         </tr>
+	      </table>
+	   </form>
+	</div>

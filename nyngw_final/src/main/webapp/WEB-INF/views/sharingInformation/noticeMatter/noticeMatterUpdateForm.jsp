@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 	<div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/sharingInformation/noticeMatter/nmUpdate" method="post"  accept-charset="utf-8">
-			<table class="table table-bordered">
+		<form name="tx_editor_form" id="tx_editor_form" action="/sharingInformation/noticeMatter/nmUpdate" method="post"  accept-charset="utf-8">
+			<table class="table table-bordered tableGray">
 				<tr>
 					<th>게시글번호</th>
 					<td>${board.board_number }<input type="hidden" value="${board.board_number}" name="board_number" readonly="readonly"></td>
@@ -24,16 +24,18 @@
 				</tr>
 			</table>
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-			<table class="table table-bordered">
+			<table class="table table-bordered tableGray">
 				<tr>
-					<th>파일이름</th>
+					<th style="width: 100px;">파일이름</th>
 					<td>${board.board_file_name }</td>
 				</tr>
 			</table>
-			<input type="hidden" value="${page}">
-			<button type="button" onclick="saveContent();" class="btn">수정</button>
-			<input type="reset" value="초기화" />
-			<button type="button"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
+			<div class="insertJoinBtnWrap textCenter">
+				<input type="hidden" value="${page}">
+				<button type="button" onclick="saveContent();" class="btn btn-default">수정</button>
+				<input type="reset" value="초기화" class="btn btn-default"/>
+				<button type="button" class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">취소</a></button>
+			</div>
 		</form>
 	</div>
 <textarea id="text_content" style="display:none;">

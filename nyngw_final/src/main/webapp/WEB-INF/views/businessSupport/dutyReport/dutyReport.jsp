@@ -72,7 +72,7 @@ function dutyReportDelete() {
 <div>
 	<div>
 		<div>
-			<table class="table table-bordered">
+			<table class="table table-bordered textCenter">
 				<tr>
 					<th><input type="checkbox" id="check_all" value="all"></th>
 					<th>번호</th>
@@ -119,6 +119,8 @@ function dutyReportDelete() {
 			</c:if>
 		</div>
 	</div>
+	<div class="insertJoinBtnWrap">
 		<button class="btn btn-default"><a href="/businessSupport/dutyReport/dutyReportWriteForm" id="dutyReportWriteForm">글쓰기</a></button>
-		<input type="button" value="선택삭제" class="btn btn-default" onclick="dutyReportDelete();" /> 
+		<input type="button" value="선택삭제" class="btn btn-default" onclick="dutyReportDelete();" />
+	</div> 
 </div>

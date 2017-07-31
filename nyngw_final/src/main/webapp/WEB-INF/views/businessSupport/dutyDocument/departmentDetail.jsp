@@ -153,7 +153,7 @@
 				</div>
 			</c:forEach> 
 		</form>
-  	 	<div class="replyWholeWrap">
+  	 	<div class="insertJoinBtnWrap replyWholeWrap">
   	 		<form>
   	 			<div class="replyWrap2">
   	 				댓글 등록하기

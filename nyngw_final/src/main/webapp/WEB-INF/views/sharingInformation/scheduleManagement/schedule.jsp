@@ -70,14 +70,15 @@
 </style>
 
 
-
-<div id='body' class='section'style="text-align: right;">
-<c:if test="${au == 'ok'}">
-<a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button class="btn btn-default">일정 등록 </button></a>
-</c:if>
-	<div>
-		<div class='two-col'>
-				<div id='calendar'></div>
+<div class="insertJoinBtnWrap">
+	<div id='body' class='section'style="text-align: right;">
+	<c:if test="${au == 'ok'}">
+	<a href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=${sc_code_number }"><button class="btn btn-default">일정 등록 </button></a>
+	</c:if>
+		<div>
+			<div class='two-col'>
+					<div id='calendar'></div>
+			</div>
 		</div>
 	</div>
 </div>

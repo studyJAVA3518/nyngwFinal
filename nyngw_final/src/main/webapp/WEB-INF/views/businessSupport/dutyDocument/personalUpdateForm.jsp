@@ -17,7 +17,7 @@
 </script>
 <body>
 <h2>수정페이지</h2>
-	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalUpdate" method="post">
+	<form name="tx_editor_form" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalUpdate" method="post">
 		<table class="table table-bordered tableGray">
 			<tr>
 				<th >제목<input type="hidden"  name="dd_number" value="${dutyDocument.dd_number}"></th>
@@ -57,7 +57,7 @@
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<div class="textCenter">
+		<div class="insertJoinBtnWrap textCenter">
 			<button onclick='saveContent()' class="btn btn-default">수정</button>
 			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal">취소</a></button>
 		</div>

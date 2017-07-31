@@ -67,7 +67,7 @@
 		<%
 			List<MeetingRoomVO> mrList = (List) request.getAttribute("mrList");	//회의실 리트스 로드
 			for (int i = 0; i<mrList.size(); i++){%>
-		<div class="col-md-4">
+		<div class="col-md-4" style="margin-bottom: 20px;">
 			<table class="table tableGray">
 				<tr><th><%=mrList.get(i).getMr_name()%> </th></tr>	<!-- 각각의 회의실 리스트의 이름 출력 -->
 				
