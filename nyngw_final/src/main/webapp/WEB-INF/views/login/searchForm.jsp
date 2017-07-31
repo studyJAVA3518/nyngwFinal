@@ -41,6 +41,7 @@
 <!-- 프로젝트 메인화면 구성에 대한 css import -->
 <link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet">
 
+
 <!-- Vedio -->
 <!--1. 비디오를 웹브라우저에 노출하기 위한 플러그인입니다. 비디오 재생 플레이어의 일종이라 생각하시면 됩니다.-->
 <script src="<%=request.getContextPath()%>/resources/js/video.js"></script>
