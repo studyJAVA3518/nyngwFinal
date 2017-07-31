@@ -52,7 +52,7 @@ th{
 			</tr>
 		</table>
 	</div>
-	<div class="textCenter">
+	<div class="insertJoinBtnWrap textCenter">
 	<c:choose>
 		<c:when test="${mem.mem_id eq loginuser}">
 			<button class="btn btn-default"><a href="/documentManagement/documentManager/edocumentUpdateForm?doc_number=${document.doc_number }&page=${pageNumber}">수정</a></button>

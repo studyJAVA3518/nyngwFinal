@@ -46,6 +46,7 @@ function noticeMatterDelete(id){
 				<td colspan="3"><a href="/sharingInformation/board/boardDownload?fileName=${board.board_file_name}">${board.board_file_name }</a></td>
 			</tr>
 		</table>
+		<div class="insertJoinBtnWrap textCenter">
 		<c:choose>
 			<c:when test="${mem.mem_number eq board.board_mem_number}">
 				<button class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmUpdateForm?board_number=${board.board_number}">수정하기</a></button>
@@ -56,4 +57,5 @@ function noticeMatterDelete(id){
 				<button class="btn btn-default"><a href="/sharingInformation/noticeMatter/nmList?page=${page }">목록</a></button>
 			</c:otherwise>
 	</c:choose>
+	</div>
 	</div>

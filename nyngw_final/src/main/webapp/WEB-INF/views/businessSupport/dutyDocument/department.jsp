@@ -77,7 +77,7 @@
             </c:otherwise>
          </c:choose>
       </table>
-      <div id="pageNum" class="textCenter">
+      <div id="pageNum" class="insertJoinBtnWrap textCenter">
 <%--          <c:forEach begin="1" end="${viewData.getPageTotalCount()}" step="1" var="i">  --%>
 <%--             <a href="/businessSupport/dutyDocument/department?page=${i}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}">[${i}]</a>  --%>
 <%--           </c:forEach>  --%>

@@ -113,8 +113,10 @@ function documentDelete() {
 			</c:if>
 		</div>
 	</div>
-	<button  class="btn btn-default"><a href="/businessSupport/dutyDocument/personalWriteForm">글쓰기</a></button>
-<!-- 	<button><a href="/businessSupport/dutyDocument/personalWriteForm">선택삭제</a></button> -->
-	<input type="button" value="선택삭제" onclick="documentDelete();" class="btn btn-default" /> 
+	<div class="insertJoinBtnWrap">
+		<button  class="btn btn-default"><a href="/businessSupport/dutyDocument/personalWriteForm">글쓰기</a></button>
+	<!-- 	<button><a href="/businessSupport/dutyDocument/personalWriteForm">선택삭제</a></button> -->
+		<input type="button" value="선택삭제" onclick="documentDelete();" class="btn btn-default" />
+	</div> 
 </body>
 </html>

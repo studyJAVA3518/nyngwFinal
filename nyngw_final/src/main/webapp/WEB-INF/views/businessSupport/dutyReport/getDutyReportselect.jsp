@@ -68,7 +68,7 @@
 				</c:choose>
 			</table>
 		</div>
-		<div id="pageNum" style="text-align: center;">
+		<div id="pageNum" class="insertJoinBtnWrap" style="text-align: center;">
 			<c:if test="${beginPage > perPage}">
 				<a
 					href="<c:url value="/businessSupport/dutyReport/dutyReport?page=${beginPage-1}&searchDate=${select.searchDate}&reportType=${select.reportType}&val=${select.val}&titleType=${select.titleType}"/>">이전</a>

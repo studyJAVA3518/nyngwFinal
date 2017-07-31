@@ -122,7 +122,7 @@ $(function(){
 
 </script>
 
-<div class="row">
+<div class="row insertJoinBtnWrap">
 	<div class="verticalTree"></div>
 </div>
 

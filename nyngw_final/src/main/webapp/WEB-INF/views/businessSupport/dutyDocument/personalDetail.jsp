@@ -49,7 +49,7 @@
 				</td>
 			</tr>
 		</table>
-		<div class="textCenter">
+		<div class="insertJoinBtnWrap textCenter">
 			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personalUpdateForm?dd_number=${dutyDocument.dd_number}">수정</a></button>
 			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal?page=${page}&reportType=${reportType}&searchDate=${searchDate}&val=${val}">취소</a></button>
 		</div>

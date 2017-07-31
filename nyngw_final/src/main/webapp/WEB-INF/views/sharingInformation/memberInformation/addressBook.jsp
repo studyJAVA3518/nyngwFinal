@@ -43,7 +43,7 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div id="pageNum" class="textCenter pageBottoWrap">
+	<div id="pageNum" class="insertJoinBtnWrap textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/sharingInformation/memberInformation/addressBook?page=${beginPage-1}&mem_name=${mem_name }"/>">이전</a>
 		</c:if>

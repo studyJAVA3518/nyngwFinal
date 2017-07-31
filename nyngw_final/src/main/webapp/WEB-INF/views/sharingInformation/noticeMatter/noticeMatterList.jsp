@@ -56,7 +56,7 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div id="pageNum" class="textCenter pageBottoWrap">
+	<div id="pageNum" class="insertJoinBtnWrap textCenter pageBottoWrap">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/sharingInformation/noticeMatter/nmList?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>

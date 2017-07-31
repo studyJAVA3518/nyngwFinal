@@ -37,7 +37,7 @@
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<div class="textCenter">
+		<div class="insertJoinBtnWrap textCenter">
 			<button class="btn btn-default" type="button" onclick="saveContent();">등록</button>
 			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal">취소</a></button>
 		</div>
