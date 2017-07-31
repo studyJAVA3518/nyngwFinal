@@ -218,7 +218,7 @@
 		<input type="text" id="mdi_bank_account" name="mdi_bank_account" class="form-control inputTypeMemInsert" placeholder="계좌번호 입력" />
 	</div>
 	<br>
-	<div class="insertDocBtnWrap textCenter">
+	<div class="insertJoinBtnWrap textCenter">
 		<button onclick="joinMember();" class="btn btn-default">사원가입</button>
 	</div>
 </form>

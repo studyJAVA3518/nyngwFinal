@@ -26,11 +26,9 @@
 		<div class="col-md-3">
 			<!-- image를 사용할 때에는 클래스에 img-responsive -->
 			<div class="row">
-					<div class="col-md-6 col-md-offset-3 logoBg" style="background-image : url('/${companyLogo}');">
 				<a href="/homeMain/main">
-	<%-- 						<img src="<%=request.getContextPath()%>/${companyLogo}" alt="company logo" class="img-responsive"> --%>
+					<div class="col-md-6 col-md-offset-3 logoBg" style="background-image : url('/${companyLogo}');"></div>
 				</a>
-					</div>
 			</div>
 		</div>
 		<div class="col-md-9">

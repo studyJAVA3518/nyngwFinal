@@ -465,7 +465,7 @@
 		</div>      
 	      
 		<!-- 푸터 전체 부분  : 부트스트랩 클래스 이외에 footer 클래스를 추가에 푸터에 추가로 들어갈 css를 설정-->
-		<div class="container-fliud footer" id="footer">
+		<div class="container-fliud footer navbar-fixed-bottom" id="footer">
 			<tiles:insertAttribute name="footer" />
 		</div>        
 	</div>
