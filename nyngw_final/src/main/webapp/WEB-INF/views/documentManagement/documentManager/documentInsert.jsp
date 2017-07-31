@@ -45,7 +45,7 @@ function insert_error_go(){
 }
 </script>
 
-<h2>문서 등록하기</h2>
+<h2>문서 등록페이지</h2>
 <p class="docTitleDescription">
 	일반 문서를 등록할 수 있습니다.
 </p>

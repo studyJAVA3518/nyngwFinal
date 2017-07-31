@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>      
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<h2>공지사항 상세 페이지</h2>
+<p class="docTitleDescription">
+	전자 문서를 수정할 수 있습니다.
+</p>      
 <script>
 function noticeMatterDelete(id){
 	var con_test = confirm("공지사항을 삭제하시겠습니까?");

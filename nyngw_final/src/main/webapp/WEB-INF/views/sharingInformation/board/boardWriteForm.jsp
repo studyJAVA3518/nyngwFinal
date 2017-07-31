@@ -10,6 +10,9 @@ function file_change(file){
 
 </script>
 	<h2>게시글 등록 페이지</h2>
+<p class="docTitleDescription">
+	게시글을 등록할 수 있습니다.
+</p>
 	<div>
 		<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="write" method="post" accept-charset="utf-8">
 			<table class="table table-bordered tableGray">

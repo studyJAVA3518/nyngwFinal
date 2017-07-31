@@ -16,7 +16,10 @@
 // 	alert('${dt}');
 </script>
 <body>
-<h2>수정페이지</h2>
+<h2>개인업무 수정 페이지</h2>
+<p class="docTitleDescription">
+	개인업무의 정보를 수정할 수 있습니다
+</p>
 	<form name="tx_editor_form" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalUpdate" method="post">
 		<table class="table table-bordered tableGray">
 			<tr>

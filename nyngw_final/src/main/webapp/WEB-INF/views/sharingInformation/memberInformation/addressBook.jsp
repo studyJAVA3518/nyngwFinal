@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
-	<h2>주소록조회</h2>
+	<h2>주소록 조회 페이지</h2>
 	<p class="docTitleDescription">
 		사원들의 주소록을 확인할 수 있습니다.
 	</p>
