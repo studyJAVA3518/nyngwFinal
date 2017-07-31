@@ -91,16 +91,16 @@
 		<tr>
 			<td colspan="2">
 				<label for="basic">기본 이미지 사용</label>
-				<input type="radio" name="logo" value="basic" id="basic" checked/> 
+				<input class="form-control" type="radio" name="logo" value="basic" id="basic" checked/> 
 				<label for="custom">업로드 로고(CI) 사용</label>
-				<input type="radio" name="logo" value="custom" id="basic"/> 
+				<input class="form-control" type="radio" name="logo" value="custom" id="basic"/> 
 				<span class="logoDesc">※ 업로드 로고(CI)를 사용할 경우 업로드할 로고화면의 배경부분을 투명하게 처리해야 합니다.</span>
 			<td>
 		</tr>
 		<tr>
 			<th>로고(CI) 변경</th>
-			<td><input type="file" id="logoFile" name="logoFile"/>
-				<input type="hidden" id="company_number2" name="company_number2" value="${companyInfo.company_number}"/>
+			<td><input class="form-control" type="file" id="logoFile" name="logoFile"/>
+				<input class="form-control" type="hidden" id="company_number2" name="company_number2" value="${companyInfo.company_number}"/>
 				<span class="logoDesc">(최적 사이즈 220*80)</span>
 			</td>
 		</tr>
@@ -142,9 +142,9 @@
 			<td>
 				<div class="form-group">
 					<div id="list"></div>
-					<input type="text" style="width:500px;" id="zipNo" name="zipNo" readonly placeholder="정보 없음" value="${companyInfo.company_zip}"/> <input type="button" onClick="goPopup();" value="주소검색" class="btn btn-default"/>
-					기본 주소 <input type="text" style="width:500px;" id="roadAddrPart1" name="roadAddrPart1" readonly placeholder="정보 없음"  value="${companyInfo.company_addr1}"/>
-					상세 주소 <input type="text" style="width:500px;" id="addrDetail" name="addrDetail" placeholder="정보 없음"  value="${companyInfo.company_addr2}"/>
+					<input class="form-control" type="text" style="width:500px;" id="zipNo" name="zipNo" readonly placeholder="정보 없음" value="${companyInfo.company_zip}"/> <input type="button" onClick="goPopup();" value="주소검색" class="btn btn-default"/>
+					기본 주소 <input class="form-control" type="text" style="width:500px;" id="roadAddrPart1" name="roadAddrPart1" readonly placeholder="정보 없음"  value="${companyInfo.company_addr1}"/>
+					상세 주소 <input class="form-control" type="text" style="width:500px;" id="addrDetail" name="addrDetail" placeholder="정보 없음"  value="${companyInfo.company_addr2}"/>
 				</div>
 			</td>
 		</tr>
