@@ -133,7 +133,6 @@ public class DraftServiceImpl implements DraftService {
 
 		try{
 			List<DepartmentVO> select = draftDao.draft_selectDepartmentList();
-			System.out.println("------>"+select.size());
 			sel_menu_id = new String[select.size()];
 
 			int h = select.size();
@@ -227,7 +226,6 @@ public class DraftServiceImpl implements DraftService {
 				memberJsonList.add(memberjsonMap);
 			}
 		}
-		System.out.println(dept_number);
 		model.addAttribute("dept_number",dept_number);
 		return memberJsonList;
 	}
@@ -452,7 +450,6 @@ public class DraftServiceImpl implements DraftService {
 		}
 		//참조자
 		if(apVO.getReferenceMembers()!=null&&!apVO.getReferenceMembers().equals("")){
-			System.out.println("참조자");
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();
 			StringTokenizer st = new StringTokenizer(referenceMembers,","); 

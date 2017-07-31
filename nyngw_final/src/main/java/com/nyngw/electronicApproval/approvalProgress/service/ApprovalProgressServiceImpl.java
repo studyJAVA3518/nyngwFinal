@@ -67,10 +67,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			
 			//한 결재의 마지막 결재이력의 우선순위 검색
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
-			System.out.println("p-"+priority);
-			System.out.println("mem-"+memberAstPriority);
-			System.out.println("lAstP-"+lastAstPriority);
-			System.out.println("lAhH-"+lastAhHistory);
 			//미결재문서 (자신의 우선순위 차례이면)
 			if(priority==lastAstPriority+2){
 			}else{
@@ -510,7 +506,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 				statusResult = "반려";
 			}
 		}
-		System.out.println("서비스(반려리스트 사이즈) : "+ra_eaList.size());
 		
 		if(ra_eaList.size()==0){
 			model.addAttribute("ca_eaList",Collections.emptyList());
@@ -577,7 +572,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		}else if(ahVO.getAh_code_number() .equals("code15")||ahVO.getAh_code_number() .equals("code13")){	//거부,반려자
 			if(member!=null){
 				if(principal.getName() .equals(member.getMem_id())){
-					System.out.println("패스워드 통과");
 					//한 결재의 마지막 결재우선순위 검색
 					int lastAstPriority = approvalProgressDao.selectLastAstPriority(ahVO.getAh_ea_number());
 					Map<String,String> paramMap = new HashMap<String, String>();
@@ -753,7 +747,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 
 	public void editApproval(Model model, Electronic_ApprovalVO eaVO, Principal principal,String ea_content,
 			String param_startdate,String param_enddate) {
-		System.out.println("처음 들어봄");
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date startdate = null;
 		Date enddate = null;
@@ -768,7 +761,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		eaVO.setEa_enddate(enddate);
 		
 		approvalProgressDao.EA_deleteApprovalHistory(eaVO.getEa_number());
-		System.out.println("중간 들어옴");
 		//한 결재의 마지막 결재우선순위 검색(반려일 때 +2 이다)
 		int maxPriority = approvalProgressDao.selectMaxPriority(eaVO.getEa_number());
 		
@@ -779,7 +771,6 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		String ast_number = approvalProgressDao.selectDisapproveAstNumber(param);
 		param.put("ast_number", ast_number);
 		approvalProgressDao.ea_updateApprovalStep(param);
-		System.out.println("마지막 들어봄");
 		approvalProgressDao.EA_updateApproval(eaVO);
 	}
 
