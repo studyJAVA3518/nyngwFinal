@@ -13,22 +13,22 @@
 	$(function(){  
 		$('#reportType option[value=${dutyDocument.dd_code_number}]').prop('selected',true);
 	});
-	alert('${dt}');
+// 	alert('${dt}');
 </script>
 <body>
-	수정페이지
+<h2>수정페이지</h2>
 	<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form"  action="/businessSupport/dutyDocument/personalUpdate" method="post">
-		<table class="table table-bordered">
+		<table class="table table-bordered tableGray">
 			<tr>
-				<th >제목<input type="hidden" name="dd_number" value="${dutyDocument.dd_number}"></th>
-				<td><input type="text" name="dd_title" value="${dutyDocument.dd_title}"></td>
+				<th >제목<input type="hidden"  name="dd_number" value="${dutyDocument.dd_number}"></th>
+				<td><input type="text" name="dd_title" class="form-control" value="${dutyDocument.dd_title}"></td>
 				<th >업무시작일</th>
-				<td><input type="text" class="inputTypeDate" name="dd_start_date" id="dd_start_date" value="${dt}"></td>
+				<td><input type="text" class="inputTypeDate form-control" name="dd_start_date" id="dd_start_date" value="${dt}"></td>
 			</tr>
 			<tr>
 				<th>업무일지</th>
 				<td>
-					<select name="reportType" id="reportType">
+					<select name="reportType" id="reportType" class="form-control docInputSelect">
 						<option value="code1">일일일지</option>
 						<option value="code2">주간일지</option>
 						<option value="code3">월간일지</option>
@@ -57,8 +57,10 @@
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-		<div><button onclick='saveContent()'>수정</button></div>
-		<button><a href="/businessSupport/dutyDocument/personal">취소</a></button>
+		<div class="textCenter">
+			<button onclick='saveContent()' class="btn btn-default">수정</button>
+			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal">취소</a></button>
+		</div>
 	</form>
 <textarea id="text_content" style="display:none;">
 ${dutyDocument.dd_content}

@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*, java.text.*" %>
+<h2>회의록 등록페이지</h2>
 <%Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String strdate = simpleDate.format(date);
@@ -43,35 +44,35 @@ $(function(){
 </script>
 
 <div>
-		<form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="meetingFileInsert" method="POST" accept-charset="utf-8">
-			<table class="table table-border">
+		<form name="tx_editor_form"  id="tx_editor_form" action="meetingFileInsert" method="POST" accept-charset="utf-8">
+			<table class="table table-border tableGray">
 			<tr>
 				<th>회의록명</th>
 				<td>
-					<input type="text" name="md_name">
+					<input type="text" name="md_name" class="form-control">
 				</td>
 				<th>회의</th>
-				<td><button id="meetPopup_go">회의찾기</button></td>
+				<td><button id="meetPopup_go" class="btn btn-default">회의찾기</button></td>
 				<td id="chk_meet" name="md_number"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="md_writer" value="${meetingList3.mem_name }" readonly="readonly"></td>
+				<td><input class="form-control" type="text" name="md_writer" value="${meetingList3.mem_name }" readonly="readonly"></td>
 				<th>작성일</th>
-				<td>
-					<input type="date" name="md_date" value="<%= strdate %>" readonly="readonly"/>
+				<td colspan="2">
+					<input type="date" class="form-control" name="md_date" value="<%= strdate %>" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<th colspan="4">내용</th>
+				<th colspan="5">내용</th>
 			</tr>
 		</table>
-			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-			<input type="hidden" value="${page}">
-			<div><button onclick='saveContent()'>등록</button></div>
-			<input type="reset" value="초기화" />	
-			<div style="text-align: center;">
-				<button type="button"><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
+			<div class="textCenter">
+				<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+				<input type="hidden" value="${page}">
+				<button onclick='saveContent()' class="btn btn-default">등록</button>
+				<input type="reset" value="초기화" class="btn btn-default"/>	
+				<button type="button" class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
 			</div>
 		</form>
 	</div>
@@ -79,7 +80,7 @@ $(function(){
 	<div id="meetPopup" style="height:100%;width:100%;">
 	<div class="textCenter"><h2>회의 리스트</h2></div>
 	
-	<table class="table textCenter" >
+	<table class="table textCenter tableGray" >
 	<tr>
 		<th></th>
 		<th>회의명</th>
@@ -106,7 +107,9 @@ $(function(){
 				</c:otherwise>
 			</c:choose>
 </table>
-<button type="button" id="submit">등록</button>
+<div class="textCenter">
+	<button type="button" id="submit" class="btn btn-default">등록</button>
+</div>
 	</div>	
 	
 <textarea id="text_content" style="display:none;">

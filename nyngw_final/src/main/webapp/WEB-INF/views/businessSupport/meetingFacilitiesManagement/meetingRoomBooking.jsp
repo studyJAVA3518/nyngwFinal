@@ -16,6 +16,9 @@
 		float: left;
 		border:3px; 
 	}
+	.form-control{
+		display: inline;
+	}
 </style>
 
 <script type="text/javascript">
@@ -47,14 +50,15 @@
 
 //-->
 </script>
-회의실 예약!!!!!!!!!!!!!!
-	<div>
+<h2>회의실 예약</h2>
+<p class="docTitleDescription">
+	회사의 회의실을 예약하는 페이지.
+</p>
+	<div class="textCenter" style="margin: 20px auto 30px auto;">
 		<form>
-			<table class="table table-bordered">
-				<tr><th>날짜</th><td>
-				<input type="date" name="rv_date" value="${rv_date }"></td></tr>
-			</table>
-			<button type="button" onclick="searchReservation_go(this.form);">검색</button>
+			<a style="font-weight: bold;">날짜&nbsp;&nbsp;&nbsp;</a>
+			<input type="text"  class="inputTypeDate form-control" style="width: 150px;" name="rv_date" value="${rv_date }">&nbsp;&nbsp;&nbsp;
+			<button type="button" onclick="searchReservation_go(this.form);" class="btn btn-default">검색</button>
 		</form>
 	</div>
 	<div>
@@ -64,13 +68,13 @@
 			List<MeetingRoomVO> mrList = (List) request.getAttribute("mrList");	//회의실 리트스 로드
 			for (int i = 0; i<mrList.size(); i++){%>
 		<div class="col-md-4">
-			<table class="table">
+			<table class="table tableGray">
 				<tr><th><%=mrList.get(i).getMr_name()%> </th></tr>	<!-- 각각의 회의실 리스트의 이름 출력 -->
 				
 				<%List<ReservationVO> RList = (List) request.getAttribute(mrList.get(i).getMr_number());	//각 회의실 별 예약 리스트 (모든 시간의 정보가 들어있는 게 아님)
 				if (RList.size()==0){	//예약정보가 없을 시 모든시간 사용가능
 					for (int j = 9; j<18; j++){%>
-					<tr><td style="background:green;">
+					<tr><td style="background: white;">
 						<%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; 
 						<button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button>
 					</td></tr>
@@ -79,7 +83,7 @@
 					int RListIndex = 0;
 					for(int j = 9 ; j<18 ;j++){
 						if(RList.get(RListIndex).getRv_time().equals(j+"")){%>
-							<tr><td style="background:red;">
+							<tr><td style="background: red;">
 								<%=j %>시 &nbsp;&nbsp; 예약중
 								<%
 							    MemberVO member = (MemberVO)request.getAttribute("member");
@@ -91,7 +95,7 @@
 								RListIndex++;
 							}
 						}else{%>
-							<tr><td style="background:green;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button></td></tr>
+							<tr><td style="background:white;"><%=j %>시 &nbsp;&nbsp; 사용가능&nbsp;&nbsp; <button class="reservationBtn"><a href="/businessSupport/meetingFacilitiesManagement/reservation?rv_time=<%=j%>&rv_date=${rv_date }&rv_mr_number=<%=mrList.get(i).getMr_number()%>">예약</a></button></td></tr>
 						<%}
 					}
 				}%>

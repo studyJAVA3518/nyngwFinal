@@ -4,12 +4,12 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<h2>회의 일정 상세페이지</h2>
 <div>
-			<table class="table table-border textCenter">
+			<table class="table table-border textCenter tableGray">
 			<tr>
 				<th>회의제목</th>
-				<td>
+				<td colspan="3">
 					${meeting.mt_title }
 				</td>
 			</tr>
@@ -33,11 +33,12 @@
 				<th colspan="4">내용</th>
 			</tr>
 		</table>
-			${meeting.mt_content }
+			<div class="textCenter">
+				${meeting.mt_content }
+			</div>
 			<input type="hidden" value="${page}">
-			<div style="text-align: center;">
-			
-			<button><a href="/businessSupport/meetingManagement/meetingUpdateForm?mt_number=${meeting.mt_number}&param_mt_date=<fmt:formatDate value="${meeting.mt_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
-			<button><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">목록</a></button>
+			<div style="text-align: center; margin-top: 30px;">
+				<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingUpdateForm?mt_number=${meeting.mt_number}&param_mt_date=<fmt:formatDate value="${meeting.mt_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
+				<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">목록</a></button>
 			</div>
 	</div>

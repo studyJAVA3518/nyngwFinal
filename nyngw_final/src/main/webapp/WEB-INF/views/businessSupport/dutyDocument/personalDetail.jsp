@@ -10,9 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	상세페이지
+<h2>상세페이지</h2>
 	<form>
-		<table class="table table-bordered">
+		<table class="table table-bordered tableGray">
 			<tr>
 				<th >제목</th>
 				<td colspan="3">${dutyDocument.dd_title}</td>
@@ -49,8 +49,10 @@
 				</td>
 			</tr>
 		</table>
-		<button><a href="/businessSupport/dutyDocument/personalUpdateForm?dd_number=${dutyDocument.dd_number}">수정</a></button>
-		<button><a href="/businessSupport/dutyDocument/personal?page=${page}&reportType=${reportType}&searchDate=${searchDate}&val=${val}">취소</a></button>
+		<div class="textCenter">
+			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personalUpdateForm?dd_number=${dutyDocument.dd_number}">수정</a></button>
+			<button class="btn btn-default"><a href="/businessSupport/dutyDocument/personal?page=${page}&reportType=${reportType}&searchDate=${searchDate}&val=${val}">취소</a></button>
+		</div>
 	</form>
 </body>
 </html>
