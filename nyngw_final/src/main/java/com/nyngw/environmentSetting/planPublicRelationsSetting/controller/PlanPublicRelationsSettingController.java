@@ -126,7 +126,6 @@ public class PlanPublicRelationsSettingController {
 			Model model) throws IOException{
 		
 		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/workingDayForm";
-		System.out.println("엑셀 파일 업로드 컨트롤러");
 
 		MultipartFile excelFile = request.getFile("excelFile");
 		
@@ -330,7 +329,6 @@ public class PlanPublicRelationsSettingController {
 	@RequestMapping(value="/companyDepartInsert",method=RequestMethod.POST)
 	public String companyDepartInsert(Model model, HttpServletRequest request, 
 			DepartmentVO deptVO){
-		System.out.println("부서 컨트롤러 진입!!");
 		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/companyDepartForm";
 
 		try {
@@ -354,7 +352,6 @@ public class PlanPublicRelationsSettingController {
 		DepartmentVO dvo = null;
 		try {
 			dvo = planPublicRelationsSettingService.getDeptOne(tmp_dept_number);
-			System.out.println("업데이트할 부서 이름 : "+dvo.getDept_name());
 			map.put("dept_number", dvo.getDept_number());
 			map.put("dept_name", dvo.getDept_name());
 			map.put("dept_membernumber", dvo.getDept_membernumber());
@@ -635,9 +632,6 @@ public class PlanPublicRelationsSettingController {
 	public String updatePayKind(Model model, HttpServletRequest request,
 			String up_pk_number, String up_pk_name, String up_pk_tax){
 		String url = "redirect:"+request.getContextPath()+"/enovironmentSetting/planPublicRelationsSetting/payKindForm";
-		System.out.println(up_pk_number);
-		System.out.println(up_pk_name);
-		System.out.println(up_pk_tax);
 		try {
 			planPublicRelationsSettingService.modifyPayKind(model, up_pk_number, up_pk_name,up_pk_tax);
 		} catch (SQLException e) {
@@ -767,7 +761,6 @@ public class PlanPublicRelationsSettingController {
 	public @ResponseBody Map<String,Object> updatePayPolicyAllPos(Model model,
 			String up_all_pp_number,
 			String up_all_pp_pay){
-		System.out.println("컨트롤러 진입!!");
 		Map<String, Object> map = new HashMap<String,Object>();
 		int result = -1;
 		try {

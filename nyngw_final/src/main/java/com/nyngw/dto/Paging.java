@@ -21,11 +21,6 @@ public class Paging {
 		// recordsPerPage가 0이 아니면 recordsPerPage, 아니면 무조건 5(default : 5)
 		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 5;
 
-		// System.out.println("debug > paging sizeOfPage : " + this.sizeOfPage);
-		// System.out.println("debug > paging recordsPerPage : " +
-		// this.recordsPerPage);
-		// System.out.println("debug > paging currentPageNo : " +
-		// this.currentPageNo);
 	}
 
 	public int getRecordsPerPage() {

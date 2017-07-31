@@ -57,12 +57,10 @@ public class JoinMemberListServiceImpl implements JoinMemberListService {
 		}catch(Exception e){
 		}
 //		try{
-//			System.out.println("<==================inse");
 //			joinMemberListDao.modifyMemberBankinsert(member);
 //			result=1;
 //			return result;
 //		}catch(Exception e1){
-//			System.out.println("income <======== exception insert");
 //		}
 
 		return result;

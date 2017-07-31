@@ -16,7 +16,6 @@
             
          }
       
-      System.out.println("¼º°ø");
       Notice1VO vo = new Notice1VO();
       vo.setAdmin_code(request.getParameter("adminCode"));
       vo.setEnroll_date(new Date(12));
@@ -31,7 +30,6 @@
       int result=0;
       try {
          result=adminNotice1Service.insertNotice1(vo);
-         System.out.println(result);
       } catch (SQLException e) {
          e.printStackTrace();
       }

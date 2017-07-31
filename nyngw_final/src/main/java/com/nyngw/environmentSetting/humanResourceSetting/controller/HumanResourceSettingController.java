@@ -57,7 +57,6 @@ public class HumanResourceSettingController {
 			}
 		}
 		
-		System.out.println(mcv.getMem_dept_number());
 		
 		int p=1;
 		if(page != null){
@@ -124,7 +123,6 @@ public class HumanResourceSettingController {
 		for (int i = 0; i < numbers.size(); i++) {
 			vacation.setYv_year(numbers.get(i));
 			vacation.setYv_vacation_day(on.get(i));
-			System.out.println(vacation);
 			try{
 				humanResurceSettingsService.setModifyVacationYearSetting(vacation);
 			}catch(Exception e){

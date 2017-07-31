@@ -26,8 +26,6 @@ public class DownloadView extends AbstractView {
         // TODO Auto-generated method stub
          
         File file = (File)model.get("downloadFile");
-        System.out.println("DownloadView --> file.getPath() : " + file.getPath());
-        System.out.println("DownloadView --> file.getName() : " + file.getName());
          
         response.setContentType(getContentType());
         response.setContentLength((int)file.length());
