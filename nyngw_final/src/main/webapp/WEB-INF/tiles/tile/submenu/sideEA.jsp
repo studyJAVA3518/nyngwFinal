@@ -1,27 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>					
-				
-	<script>
-    	$(function(){
-    		
-	    	
-    		//아코디언
-    		$("#accordion>ul>li").click(function(){
-    			if($(this).children("ul").attr("style")=="display: block;"){
-	    			$(this).children("ul").slideUp();
-    			}else{
-	    			$(this).children().slideDown();
-    			}
-    		
-    		})
-    		$("#${sideValue}").addClass('active');
-    		$("#accordion>ul>li>#${sideValue}").slideDown();
-	    })
-	    
-	</script>
-					
-					<h2 class="blind">전자결재</h2>
+<%@ page trimDirectiveWhitespaces="true"%>
+
+<script>
+	$(function() {
+
+		//아코디언
+		$("#accordion>ul>li").click(function() {
+			if ($(this).children("ul").attr("style") == "display: block;") {
+				$(this).children("ul").slideUp();
+			} else {
+				$(this).children().slideDown();
+
+			}
+
+		})
+		$("#${sideValue}").addClass('sideBarActive');
+		$("#accordion>ul>li>ul>#${sideValue}").parents().slideDown();
+	})
+</script>
+
+<h2 class="blind">전자결재</h2>
 					<article>
 						<div class="lst_snb" id="accordion">
 							<ul>
