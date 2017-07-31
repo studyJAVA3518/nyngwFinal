@@ -17,7 +17,7 @@
 	<div style="text-align: right;">
 	<form action="/sharingInformation/memberInformation/birthdayCheck">
 	<label>날짜 : </label>
-	<select name="month" id="monthSelect">
+	<select name="month" id="monthSelect" class="form-control docInputSelect" style="width: 60px;">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>

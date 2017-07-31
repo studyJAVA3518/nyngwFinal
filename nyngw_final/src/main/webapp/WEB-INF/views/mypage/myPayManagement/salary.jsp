@@ -114,15 +114,15 @@ function print(printArea)
 			</c:choose>
 			</table>
 			<div id="pageNum" class= "textCenter">
+		<c:if test="${endPage < viewData.getPageTotalCount()}">
+			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">이전달</a>
+		</c:if>
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/mypage/myPayManagement/salary?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">다음달</a>
 		</c:if>
 <%-- 		<c:forEach var="pno" begin="${beginPage}" end="${endPage}"> --%>
 <%-- 			<a href="<c:url value="/mypage/myPayManagement/salary?page=${pno}&index=${select.index}&val=${select.val}" />">[${pno}]</a> --%>
 <%-- 		</c:forEach> --%>
-		<c:if test="${endPage < viewData.getPageTotalCount()}">
-			<a href="<c:url value="/mypage/myPayManagement/salary?page=${endPage + 1}&index=${select.index}&val=${select.val}"/>">이전달</a>
-		</c:if>
 		</div>
     </div>
 		
