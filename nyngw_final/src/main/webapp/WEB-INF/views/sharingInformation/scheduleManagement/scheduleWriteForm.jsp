@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <h2>일정 등록 페이지</h2>
+<p class="docTitleDescription">
+	일정 등록하는 페이지 입니다.
+</p>
 <form>
 	<input type="hidden" value="${sc_code_number }" name="sc_code_number">
 	<table class="table table-bordered tableGray">
