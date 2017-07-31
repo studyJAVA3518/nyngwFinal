@@ -90,7 +90,7 @@
 <!-- 급여종류 수정 팝업 -->
 <div class="row" id="updatePayKindBox">
 	<h4>급여 종류 수정하기</h4>
-	<table class="table">
+	<table class="table textCenter">
 		<form class="form-inline" name="payKindUpdateForm">
 			<tr>
 				<th>급여 종류</th>
@@ -123,7 +123,7 @@
 	<div class="col-md-6">
 		
 		<h4>급여 종류 설정</h4>
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>종류</th>
@@ -180,7 +180,7 @@
 
 <h2>퇴직금정책 설정</h2>
 
-<table class="table">
+<table class="table textCenter">
 	<form class="form-inline" action="paySetting_go();" method="post">
 		<tr>
 			<th>적용되는 경우</th>

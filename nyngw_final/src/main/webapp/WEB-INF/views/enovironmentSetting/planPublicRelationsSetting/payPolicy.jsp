@@ -117,7 +117,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<h5>급여 정책 추가하기</h5>
-		<table class="table">
+		<table class="table textCenter">
 			<form class="form-inline" name="payPolicyInsertForm">
 				<tr>
 					<th>급여 종류 선택</th>
@@ -193,7 +193,7 @@
 	<div class="col-md-6">
 		<h4>전체 급여정책 설정</h4>
 		<p>회사원 전체에게 동일하게 적용되는 급여를 설정합니다.</p>
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>급여 정책 이름</th>
@@ -218,7 +218,7 @@
 	</div>
 	<div class="col-md-6">
 		<h4>4대 보험료율</h4>
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>이름</th>
@@ -246,7 +246,7 @@
 	<h4>직급별 급여정책 설정</h4>
 	<p>직급별로 급여를 설정합니다</p>
 	<div class="col-md-4">
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>직급</th>
@@ -270,7 +270,7 @@
 	</div>
 	
 	<div class="col-md-4">
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>직급</th>
@@ -291,7 +291,7 @@
 	</div>
 	
 	<div class="col-md-4">
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<th>No</th>
 				<th>직급</th>

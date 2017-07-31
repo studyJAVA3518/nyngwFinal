@@ -6,7 +6,7 @@
 
 <div class="row">
 	<h4>부서 수정하기</h4>
-	<table class="table">
+	<table class="table textCenter">
 		<form action="#" method="post">
 			<tr>
 				<th>부서 이름</th>
