@@ -6,7 +6,7 @@
 
 <div class="row">
 	<h4>직급 수정하기</h4>
-	<table class="table textCenter">
+	<table class="table textCenter tableGray">
 		<form action="#" method="post">
 			<tr>
 				<th>직급 이름</th>

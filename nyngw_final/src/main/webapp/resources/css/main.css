@@ -406,6 +406,10 @@ h5 {
 	display: block;
 }
 
+.active{
+	background:white;	
+}
+
 /*서브메뉴 브로슈어 및 사용자매뉴얼 다운로드*/
 .leftTemplate a {
 	display : block;
