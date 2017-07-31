@@ -29,24 +29,7 @@ $(function(){
     loadContent();
  });
 </script>
-<script>
-function meetingFileDelete(md_number){
-	var con_test = confirm("해당 회의록을 삭제하시겠습니까?");
-	if(con_test==true){
-		$.ajax({
-            type : "POST",
-            url : "/businessSupport/meetingManagement/meetingFileDelete",
-            data : {'md_number' : md_number},
-            success : function(result){
-            	location.href=result.uri;
-	        }, 
-	        error : function(){
-	        },
-            dataType : 'json' 
-		});
-	}
-}
-</script>
+
 
 <div>
 <form name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/businessSupport/meetingManagement/meetingFileUpdate" method="post"  accept-charset="utf-8">
@@ -78,9 +61,8 @@ function meetingFileDelete(md_number){
 			<input type="hidden" value="${page}">
 			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
 			<button onclick='saveContent()' class="btn btn-default">등록</button>
-			<input type="reset" class="btn btn-default" value="초기화"/>
-			<button type="button" onclick="meetingfileDelete('${meetingFile.md_number}');" class="btn btn-default">삭제하기</button>
-			<button class="btn btn-default" ><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
+			<input type="reset" class="btn btn-default" value="초기화" />
+			<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
 			</div>
 	</form>
 			

@@ -136,5 +136,9 @@ public class MeetingManagementServiceImpl implements MeetingManagementService {
 		return result;
 	}
 	
+	@Override
+	public void meetingFileDelete(String md_number) {
+		meetingManagementDao.meetingFileDelete(md_number);
+	}
 	
 }

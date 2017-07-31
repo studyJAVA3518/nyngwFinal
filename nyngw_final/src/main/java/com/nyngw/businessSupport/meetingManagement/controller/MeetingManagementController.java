@@ -364,4 +364,13 @@ public class MeetingManagementController {
 		
 		return "businessSupport/meetingManagement/meetingFileUpdateForm";
 	}
+	
+	@RequestMapping("/meetingFileDelete")
+	public @ResponseBody Map<String,String> meetingFileDelete(String md_number){
+		System.out.println(md_number+"오니?");
+		meetingManagementService.meetingFileDelete(md_number);
+		Map<String,String> resultMap = new HashMap<String, String>();
+		resultMap.put("uri", "/businessSupport/meetingManagement/meetingFile");
+		return resultMap;
+	}
 }

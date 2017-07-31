@@ -39,4 +39,6 @@ public interface MeetingManagementService {
 
 	public List<MeetingVO> selectMeetingAll();
 
+	public void meetingFileDelete(String md_number);
+
 }
