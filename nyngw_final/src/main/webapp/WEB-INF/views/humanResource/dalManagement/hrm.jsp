@@ -85,7 +85,7 @@
 </div>
 <h4>부서별 근태현황</h4>
 <div id="btngroup"></div>
-<div class="">
+<div class="insertJoinBtnWrap textCenter" >
 	<table class="table table-bordered">
 		<tr>
 			<th colspan='5'>부서별현황</th>

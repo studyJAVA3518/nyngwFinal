@@ -244,7 +244,7 @@
 </div>
 
 <br>
-<div class="row">
+<div class="row insertJoinBtnWrap">
 	<h2>직급별 급여정책 설정</h2>
 	<p class="docTitleDescription">직급별로 급여를 설정합니다. (기본급은 시간당 시급*209시간)</p>
 	<div class="col-md-4">

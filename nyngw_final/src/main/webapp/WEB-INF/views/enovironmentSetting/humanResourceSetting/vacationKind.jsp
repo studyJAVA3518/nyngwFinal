@@ -66,9 +66,10 @@ function vacationDelete_go() {
 </div>	
 
 <br>
+<div class="insertJoinBtnWrap">
 <h2>휴가 종류 설정</h2>
-<table class="table textCenter tableGray">
-	<form method="post" class="form-inline" >
+<form method="post" class="form-inline" >
+	<table class="table textCenter tableGray">
 		<tr>
 			<div class="form-group">
 				<th><input type="checkbox" id="allCheck"/></th>
@@ -90,13 +91,13 @@ function vacationDelete_go() {
 				</div>
 			</tr>
 		</c:forEach>
-	</form>
 	<tr><td colspan="4">
 		<input type="button" class="btn btn-default" value="수정" onclick="vacationDeduction_go(this.form);"/>
 		<input type="button" class="btn btn-default" value="삭제" onclick="vacationDelete_go();"/>
 	</td></tr>
-</table>
-
+	</table>
+</form>
+</div>
 <script>
 
 $(function(){ //전체선택 체크박스 클릭

@@ -13,11 +13,11 @@
 	회사의 직급을 등록하거나 수정하실 수 있으며, 위 아래 버튼을 눌러 위치를 변경하실 수 있습니다.<br/>
 	ex) 부장, 과장, 대리, 사원 등
 </p>
-<div class="row">
+<div class="row insertJoinBtnWrap textCenter">
 	<h4>직급 만들기</h4>
 	<div class="col-md-12">
-		<table class="table textCenter tableGray">
-			<form class="inline-form" name="positionInsertForm">
+		<form class="inline-form" name="positionInsertForm">
+			<table class="table textCenter tableGray">
 				<tr>
 					<th>직급명</th>
 					<td>
@@ -43,18 +43,18 @@
 						<input type="button" value="직급 등록" class="btn btn-default" onclick="insertPosition_go();"/>
 					</td>
 				</tr>
-			</form>
-		</table>
+			</table>
+		</form>
 	</div>
 </div>
 
 <br>
-<div class="row">
+<div class="row insertJoinBtnWrap">
 	<h4>직급 리스트</h4>
 	<p class="docTitleDescription">총 ${positionCount}개의 직급이 등록되어 있습니다.</p>
 	<div class="col-md-12">
-		<table class="table textCenter tableGray">
-			<form class="inline-form" name="positionListForm">
+		<form class="inline-form" name="positionListForm">
+			<table class="table textCenter tableGray">
 				<tr>
 					<th>No.</th>
 					<th>직급</th>
@@ -76,16 +76,16 @@
 						</td>
 					</tr>
 				</c:forEach>
-			</form>
-		</table>
+			</table>
+		</form>
 	</div>
 </div>
 
 
 <div class="updatePositionBox">
 	<h4>직급 수정하기</h4>
-	<table class="table textCenter tableGray">
-		<form name="updatePositionForm" method="post">
+	<form name="updatePositionForm" method="post">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>직급 이름</th>
 				<td>
@@ -101,8 +101,8 @@
 					<input type="submit" value="부서 수정" class="btn btn-default" onclick="updatePosition_go();"/>
 				</td>
 			</tr>
-		</form>
-	</table>
+		</table>
+	</form>
 </div>
 
 <script>

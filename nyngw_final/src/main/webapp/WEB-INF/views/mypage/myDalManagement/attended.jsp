@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-마이페이지 >> 나의 근태 관리 >> 출결관리
+
 <script type="text/javascript">
 $(function(){
 	
@@ -48,8 +48,10 @@ $(function(){
 <div id="dialogg">
 	출근하셔쎼여 ?
 </div>
-
-
+<h2>나의 출결현황</h2>
+<p class="docTitleDescription">
+	자신의 근태현황을 확인할 수 있습니다.
+</p>
 	<table class="table table-bordered ">
 			<tr>
 			<th>검색</th>

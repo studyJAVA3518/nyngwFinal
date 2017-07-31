@@ -5,7 +5,6 @@
 <%@page import="com.nyngw.mypage.myDalManagement.MyVacationListView"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-마이페이지 >> 나의 근태 관리 >> 휴가현황
 <style>
 	.attended1{
 		display : inline-block;
@@ -16,6 +15,10 @@
 		width: 70%;
 	}
 </style>
+<h2>나의 휴가현황</h2>
+<p class="docTitleDescription">
+	자신의 휴가현황을 확인할 수 있습니다.
+</p>
 <div style="text-align: right; margin-bottom: 10px;">
 	<button class="btn btn-default"><a href="/electronicApproval/draft/searchDraftDocument?draftBoxOption=&searchOption=doc_name&searchText=휴가">휴가 신청</a></button>
 </div>

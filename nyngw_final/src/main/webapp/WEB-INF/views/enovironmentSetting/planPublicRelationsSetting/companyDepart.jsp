@@ -98,10 +98,10 @@ $(function(){
 	회사의 부서를 등록하는 메뉴입니다.
 	부서를 만들때 자동으로 부서 메뉴도 생성됩니다.
 </p>
-<div class="row">
+<div class="row insertJoinBtnWrap textCenter ">
 	<h4>부서 만들기</h4>
-	<table class="table textCenter tableGray">
-		<form method="post" name="insertDeptForm">
+	<form method="post" name="insertDeptForm">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>부서 이름</th>
 				<td>
@@ -159,11 +159,11 @@ $(function(){
 					<input type="button" class="btn btn-default" value="부서 등록" onclick="insertDept_go(this.form);"/>
 				</td>
 			</tr>
-		</form>
-	</table>
+		</table>
+	</form>
 </div>
 <br>
-<div class="row">
+<div class="row insertJoinBtnWrap">
 	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	
 		<form>
@@ -182,11 +182,11 @@ $(function(){
 		</form>
 </div>
 
-<div class="updateDeptBox">
+<div class="updateDeptBox insertJoinBtnWrap textCenter" >
 	<!-- 부서를 수정하는 팝업창 -->
 	<h4>부서 수정하기</h4>
-	<table class="table textCenter tableGray">
-		<form method="post" name="updateDeptForm">
+	<form method="post" name="updateDeptForm">
+		<table class="table textCenter tableGray">
 			<tr>
 				<th>부서 이름</th>
 				<td>
@@ -236,7 +236,7 @@ $(function(){
 					<input type="button" class="btn btn-default" value="부서 수정" id="updateDeptBtn" onclick="updateDept_go();"/>
 				</td>
 			</tr>
-		</form>
-	</table>
+		</table>
+	</form>
 </div>
 
