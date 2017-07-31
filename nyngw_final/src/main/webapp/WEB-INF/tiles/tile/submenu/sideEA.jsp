@@ -16,6 +16,7 @@
     		
     		})
     		$("#${sideValue}").addClass('active');
+    		$("#accordion>ul>li>#${sideValue}").slideDown();
 	    })
 	    
 	</script>
