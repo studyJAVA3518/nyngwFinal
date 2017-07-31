@@ -64,7 +64,7 @@
 </c:choose>
 </table>
 
-<div id="pageNum" class="textCenter">
+<div id="pageNum" class="insertJoinBtnWrap textCenter">
 		<c:if test="${beginPage > perPage}">
 			<a href="<c:url value="/electronicApproval/individualDocumentBox/submitApprovalBox?page=${beginPage-1}&index=${select.index}&val=${select.val}"/>">이전</a>
 		</c:if>

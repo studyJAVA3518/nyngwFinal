@@ -211,14 +211,14 @@ $(function(){
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
 	</table>      
-	<div class="textCenter">   
-	<c:choose>
-		<c:when test="${checkBox eq 'ap' }">
-			<a href="/electronicApproval/approvalProgress/completeApproval"><button type="button" class="btn btn-default">뒤로</button></a>
-		</c:when>
-		<c:otherwise>
-			<a href="/electronicApproval/individualDocumentBox/completeApprovalBox"><button type="button" class="btn btn-default">뒤로</button></a>
-		</c:otherwise>
-	</c:choose>                                                                                                                                                                            
+	<div class="textCenter insertJoinBtnWrap">   
+		<c:choose>
+			<c:when test="${checkBox eq 'ap' }">
+				<a href="/electronicApproval/approvalProgress/completeApproval"><button type="button" class="btn btn-default">뒤로</button></a>
+			</c:when>
+			<c:otherwise>
+				<a href="/electronicApproval/individualDocumentBox/completeApprovalBox"><button type="button" class="btn btn-default">뒤로</button></a>
+			</c:otherwise>
+		</c:choose>                                                                                                                                                                            
 	</div>                                                                                         
 </div>                                                                                                                                                                                           

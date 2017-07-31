@@ -34,35 +34,38 @@
 		<button type="button" onclick="completeApprovalBox_go(this.form);" class="btn btn-default">검색</button>
 	</form>
 </div>
-<table class="table textCenter" border="1">
-	<tr>
-		<th>품의번호</th>
-		<th>문서분류</th>
-		<th>제목</th>
-		<th>기안자</th>
-		<th>기안일</th>
-		<th>결재일</th>
-		<!-- 최종 결재자 -->
-		<th>결재상태</th>
-		<!-- 결재상태  ( 결재 한 번도 안 됐을 때 '상신'/결재가 한 번이라도 이루어 졌을 때 '진행' -->
-	</tr>
 
-	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty myEaList }">
-		<tr><td colspan="7">결재 완료 문서가 없습니다!</td></tr>
-	</c:if>
-	<c:forEach items="${myEaList }" var="EA" varStatus="status">
+<div class="insertJoinBtnWrap textCenter"> 
+	<table class="table textCenter" border="1">
 		<tr>
-			<td class="ea_number">${EA.ea_number }</td>
-			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}&checkBox=indi">${EA.ea_title }</a></td>
-			<td>${EA.write_name }</td>
-			<td>${EA.ea_startdate}</td>
-			<td><fmt:formatDate value="${EA.ea_ah_time}" pattern="yyyy/MM/dd" /></td>
-			<td>${status1 }</td>
+			<th>품의번호</th>
+			<th>문서분류</th>
+			<th>제목</th>
+			<th>기안자</th>
+			<th>기안일</th>
+			<th>결재일</th>
+			<!-- 최종 결재자 -->
+			<th>결재상태</th>
+			<!-- 결재상태  ( 결재 한 번도 안 됐을 때 '상신'/결재가 한 번이라도 이루어 졌을 때 '진행' -->
 		</tr>
-	</c:forEach>
-</table>
+	
+		<!-- EA=electronicApproval (전자결재) -->
+		<c:if test="${empty myEaList }">
+			<tr><td colspan="7">결재 완료 문서가 없습니다!</td></tr>
+		</c:if>
+		<c:forEach items="${myEaList }" var="EA" varStatus="status">
+			<tr>
+				<td class="ea_number">${EA.ea_number }</td>
+				<td>${code_nameList[status.index].code_name }</td>
+				<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}&checkBox=indi">${EA.ea_title }</a></td>
+				<td>${EA.write_name }</td>
+				<td>${EA.ea_startdate}</td>
+				<td><fmt:formatDate value="${EA.ea_ah_time}" pattern="yyyy/MM/dd" /></td>
+				<td>${status1 }</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>	
 
 <script>
 	function submitApprovalBox_go(form){

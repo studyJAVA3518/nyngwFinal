@@ -128,7 +128,7 @@
 	<jsp:include page="../draft/approvalLineManager.jsp" flush="false"/>
 </div>
 <button type="button" id="linePopup_go">결재라인</button>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/individualDocumentBox/editDraft" method="post" accept-charset="utf-8">
+<form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="/electronicApproval/individualDocumentBox/editDraft" method="post" accept-charset="utf-8">
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
 	<table class="table table-bordered">
 		<tr>

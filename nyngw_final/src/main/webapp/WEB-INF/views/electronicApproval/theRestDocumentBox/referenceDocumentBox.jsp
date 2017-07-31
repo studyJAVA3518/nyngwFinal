@@ -79,7 +79,7 @@
 				height: 500,
 				modal: true,
 				buttons: {
-			       "취소": function() {
+			       "확인": function() {
 						$(this).dialog("close");
 					}
 				},
@@ -119,8 +119,8 @@
 				<option value="ea_writedate">기안일</option>
 				<option value="ea_startdate">시작일</option>
 				<option value="ea_enddate">종료일</option>
-			</select>&nbsp;&nbsp;&nbsp;
-		문서검색&nbsp;
+			</select>
+			&nbsp;&nbsp;&nbsp;문서검색&nbsp;
 			<select name="docSearchOption" class="form-control docInputSelect">
 				<option value="all">--선택--</option>
 				<option value="ea_title">제목</option>
@@ -131,32 +131,34 @@
 		<button type="button" onclick="searchReferenceDocument_go(this.form);" class="btn btn-default">검색</button>
 	</form>
 </div>
-<table class="table textCenter" border="1">
-	<tr>
-		<th>품의번호</th>
-		<th>문서분류</th>
-		<th>제목</th>
-		<th>기안자</th>
-		<th>기안일</th>
-		<th>시행일</th>
-	</tr>
 
-	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty EAList }">
-		<tr><td colspan="7">참조자로 선정된 문서가 없습니다!</td></tr>
-	</c:if>
-	<c:forEach items="${EAList }" var="EA" varStatus="status">
+<div class="insertJoinBtnWrap textCenter">
+	<table class="table textCenter" border="1">
 		<tr>
-			<td class="ea_number">${EA.ea_number }</td>
-			<td>${EA.doc_name }</td>
-			<td class="approvalHistory_go" style="color: blue;">${EA.ea_title }</td>
-			<td>${EA.mem_name}</td>
-			<td><fmt:formatDate value="${EA.ea_writedate}" pattern="yyyy/MM/dd"/>
-			<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
-					~
-				<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
-			</td>
+			<th>품의번호</th>
+			<th>문서분류</th>
+			<th>제목</th>
+			<th>기안자</th>
+			<th>기안일</th>
+			<th>시행일</th>
 		</tr>
-	</c:forEach>
-</table>
-
+	
+		<!-- EA=electronicApproval (전자결재) -->
+		<c:if test="${empty EAList }">
+			<tr><td colspan="7">참조자로 선정된 문서가 없습니다!</td></tr>
+		</c:if>
+		<c:forEach items="${EAList }" var="EA" varStatus="status">
+			<tr>
+				<td class="ea_number">${EA.ea_number }</td>
+				<td>${EA.doc_name }</td>
+				<td class="approvalHistory_go" style="color: blue;">${EA.ea_title }</td>
+				<td>${EA.mem_name}</td>
+				<td><fmt:formatDate value="${EA.ea_writedate}" pattern="yyyy/MM/dd"/>
+				<td><fmt:formatDate value="${EA.ea_startdate}" pattern="yyyy/MM/dd"/>
+						~
+					<fmt:formatDate value="${EA.ea_enddate}" pattern="yyyy/MM/dd"/>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>

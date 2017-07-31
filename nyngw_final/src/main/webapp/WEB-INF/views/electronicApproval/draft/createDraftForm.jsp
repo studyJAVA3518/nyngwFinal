@@ -124,94 +124,98 @@
 <div id="linePopup" style="height:100%;width:100%;">
 	<jsp:include page="approvalLineManager.jsp" flush="false"/>
 </div>
+
 <h2>결재상신페이지</h2>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
-	<input type="hidden" name="ea_doc_number" value="${doc_number }">
-	<table class="table table-bordered tableGray">
-		<tr>
-			<th>품의번호</th>
-			<td colspan="5">${ea_number }</td>
-			<input type="hidden" name="ea_number" value="${param_ea_number }">
-			<input type="hidden" name="param_ea_number" value="${ea_number }">
-		</tr>
-		<tr>
-			<th>작성일자</th>
-			<td colspan="5">${ea_writedate }</td>
-			<input type="hidden" name="param_ea_writedate" value="${ea_writedate }">
-		</tr>
-		<tr>
-			<th>기안부서</th>
-			<td colspan="5">${member.dept_name }</td>
-		</tr>
-		<tr>
-			<th>기안자</th>
-			<td colspan="5">${member.mem_name }</td>
-			<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
-		</tr>
-		<tr id="approvalMember">
-			<th rowspan="2">결재<br><button type="button" id="linePopup_go" class="btn btn-default">결재라인</button></th>
-			<th id="approvalMember1" class="tableTd"></th>
-			<th id="approvalMember2" class="tableTd"></th>
-			<th id="approvalMember3" class="tableTd"></th>
-			<th id="approvalMember4" class="tableTd"></th>
-			<th id="approvalMember5" class="tableTd"></th>
-		</tr>                                
-		<tr id="approvalStatus">                                 
-			<td id="approvalStatus1" class="tableSign"></td>
-			<td id="approvalStatus2" class="tableSign"></td>
-			<td id="approvalStatus3" class="tableSign"></td>
-			<td id="approvalStatus4" class="tableSign"></td>
-			<td id="approvalStatus5" class="tableSign"></td>
-		</tr>                                
-		<tr id="agreementMember">                                 
-			<th rowspan="2">합의</th>        
-			<th id="agreementMember1" class="tableTd"></th>
-			<th id="agreementMember2" class="tableTd"></th>
-			<th id="agreementMember3" class="tableTd"></th>
-			<th id="agreementMember4" class="tableTd"></th>
-			<th id="agreementMember5" class="tableTd"></th>
-		</tr>                                
-		<tr id="agreementStatus">                               
-			<td id="agreementStatus1" class="tableSign"><input type="hidden" name="agreementStatus1"></td>
-			<td id="agreementStatus2" class="tableSign"><input type="hidden" name="agreementStatus2"></td>
-			<td id="agreementStatus3" class="tableSign"><input type="hidden" name="agreementStatus3"></td>
-			<td id="agreementStatus4" class="tableSign"><input type="hidden" name="agreementStatus4"></td>
-			<td id="agreementStatus5" class="tableSign"><input type="hidden" name="agreementStatus5"></td>
-		</tr>
-		<tr>
-			<th>시행자</th>
-			<td id="implementMembers" colspan="5"></td>
-		</tr>
-		<tr>
-			<th>수신 및 참조</th>
-			<td id="referenceMembers" colspan="5"></td>
-		</tr>
-		<tr>
-			<th>시행일자</th>
-			<td colspan="5"><input type="text" name="param_ea_startdate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01">&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="param_ea_enddate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"></td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td colspan="5"><input type="text" name="ea_title" class="form-control"></td>
-		</tr>
-		<tr>
-			<th colspan="6">내용</th>
-		</tr>
-	</table>
-	<!-- ea_content -> content -->
-	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<th>첨부파일</th> -->
-<!-- 			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	 -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
-</form>
-<input type="hidden" value="${page}">
 <div class="textCenter">
-	<button type="button" onclick="saveContent();"  class="btn btn-default">등록</button>
-	<input type="reset" value="초기화" class="btn btn-default" />	
-	<button type="button"  class="btn btn-default"><a href="/electronicApproval/draft/draft">취소</a></button>
+	<form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
+		<input type="hidden" name="ea_doc_number" value="${doc_number }">
+		<table class="table table-bordered tableGray">
+			<tr>
+				<th>품의번호</th>
+				<td colspan="5">${ea_number }</td>
+				<input type="hidden" name="ea_number" value="${param_ea_number }">
+				<input type="hidden" name="param_ea_number" value="${ea_number }">
+			</tr>
+			<tr>
+				<th>작성일자</th>
+				<td colspan="5">${ea_writedate }</td>
+				<input type="hidden" name="param_ea_writedate" value="${ea_writedate }">
+			</tr>
+			<tr>
+				<th>기안부서</th>
+				<td colspan="5">${member.dept_name }</td>
+			</tr>
+			<tr>
+				<th>기안자</th>
+				<td colspan="5">${member.mem_name }</td>
+				<input type="hidden" name="ea_mem_number" value="${member.mem_number }">
+			</tr>
+			<tr id="approvalMember">
+				<th rowspan="2">결재<br><button type="button" id="linePopup_go" class="btn btn-default">결재라인</button></th>
+				<th id="approvalMember1" class="tableTd"></th>
+				<th id="approvalMember2" class="tableTd"></th>
+				<th id="approvalMember3" class="tableTd"></th>
+				<th id="approvalMember4" class="tableTd"></th>
+				<th id="approvalMember5" class="tableTd"></th>
+			</tr>                                
+			<tr id="approvalStatus">                                 
+				<td id="approvalStatus1" class="tableSign"></td>
+				<td id="approvalStatus2" class="tableSign"></td>
+				<td id="approvalStatus3" class="tableSign"></td>
+				<td id="approvalStatus4" class="tableSign"></td>
+				<td id="approvalStatus5" class="tableSign"></td>
+			</tr>                                
+			<tr id="agreementMember">                                 
+				<th rowspan="2">합의</th>        
+				<th id="agreementMember1" class="tableTd"></th>
+				<th id="agreementMember2" class="tableTd"></th>
+				<th id="agreementMember3" class="tableTd"></th>
+				<th id="agreementMember4" class="tableTd"></th>
+				<th id="agreementMember5" class="tableTd"></th>
+			</tr>                                
+			<tr id="agreementStatus">                               
+				<td id="agreementStatus1" class="tableSign"><input type="hidden" name="agreementStatus1"></td>
+				<td id="agreementStatus2" class="tableSign"><input type="hidden" name="agreementStatus2"></td>
+				<td id="agreementStatus3" class="tableSign"><input type="hidden" name="agreementStatus3"></td>
+				<td id="agreementStatus4" class="tableSign"><input type="hidden" name="agreementStatus4"></td>
+				<td id="agreementStatus5" class="tableSign"><input type="hidden" name="agreementStatus5"></td>
+			</tr>
+			<tr>
+				<th>시행자</th>
+				<td id="implementMembers" colspan="5"></td>
+			</tr>
+			<tr>
+				<th>수신 및 참조</th>
+				<td id="referenceMembers" colspan="5"></td>
+			</tr>
+			<tr>
+				<th>시행일자</th>
+				<td colspan="5"><input type="text" name="param_ea_startdate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01">&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="param_ea_enddate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td colspan="5"><input type="text" name="ea_title" class="form-control"></td>
+			</tr>
+			<tr>
+				<th colspan="6">내용</th>
+			</tr>
+		</table>
+		<!-- ea_content -> content -->
+		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
+	<!-- 	<table> -->
+	<!-- 		<tr> -->
+	<!-- 			<th>첨부파일</th> -->
+	<!-- 			<td colspan="3"><input type="file" name="board_file_name" onchange="javascript:file_change(this.value);"></td>	 -->
+	<!-- 		</tr> -->
+	<!-- 	</table> -->
+	</form>
+	<input type="hidden" value="${page}">
+	<div class="textCenter insertJoinBtnWrap">
+		<button type="button" onclick="saveContent();"  class="btn btn-default">등록</button>
+		<input type="reset" value="초기화" class="btn btn-default" />	
+		<button type="button"  class="btn btn-default"><a href="/electronicApproval/draft/draft">취소</a></button>
+	</div>
+
 </div>
 
 <textarea id="text_content" style="display:none;">
