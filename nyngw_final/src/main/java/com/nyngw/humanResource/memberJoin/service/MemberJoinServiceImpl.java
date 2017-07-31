@@ -47,15 +47,11 @@ public class MemberJoinServiceImpl implements MemberJoinService {
 
 		
 		try{
-			System.out.println("joinMember <============================");
 			memberJoinDao.joinMember_JM(joinMember);
-			System.out.println("<<<<<<<<<=====================success ...... 1");
 			MemberVO member = memberJoinDao.idCheck_MJ(joinMember.getMem_id());
 			memberJoinDao.joinMemberMDI_JM(joinMember);
-			System.out.println("<<<<<<<<<=====================success ......  2");
 			result=1;
 		}catch(Exception e){
-			System.out.println("<<<<<<<<<,=============== transaction ");
 			/*txManager.rollback(txStatus);*/
 		}
 		return result;

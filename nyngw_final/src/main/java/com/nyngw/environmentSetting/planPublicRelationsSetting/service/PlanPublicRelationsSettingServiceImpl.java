@@ -313,10 +313,6 @@ public class PlanPublicRelationsSettingServiceImpl implements
         	dalVO.setDal_mem_number(article.get("D"));
         	dalList.add(dalVO);
         	
-            System.out.println(article.get("A"));
-            System.out.println(article.get("B"));
-            System.out.println(article.get("C"));
-            System.out.println(article.get("D"));
         }
         int result = planPublicRelationsSettingDao.insertDAL(dalList);
         model.addAttribute("resultDAL",result);
@@ -530,8 +526,6 @@ public class PlanPublicRelationsSettingServiceImpl implements
 		Pay_PolicyVO ppOriginvo = new Pay_PolicyVO();
 		ppOriginvo.setPp_number(pp_number);
 		ppOriginvo.setPp_pay(Float.parseFloat(pp_pay));
-		System.out.println("서비스 : "+pp_number);
-		System.out.println("서비스 : "+pp_pay);
 		//시간당 급여 수정
 		int result = planPublicRelationsSettingDao.updatePayPolicyPrice(ppOriginvo);
 		model.addAttribute("resultPPPricePos",result);

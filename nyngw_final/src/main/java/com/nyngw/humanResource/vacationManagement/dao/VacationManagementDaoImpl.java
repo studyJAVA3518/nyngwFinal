@@ -27,7 +27,6 @@ public class VacationManagementDaoImpl implements VacationManagementDao {
 	@Override
 	public int countTotalMember(Member_Vacation_FN_GETCNTVO mvfg) {
 		int result=0;
-		System.out.println(mvfg);
 		if (sqlSession.selectOne("countTotalMember", mvfg) != null) {
 			result = (int) sqlSession.selectOne("countTotalMember", mvfg);
 		}

@@ -39,7 +39,6 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 			Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
 		int documentTotalCount =dutyDocumentDao.documentSelectCount_DD(select); 
-		System.out.println(documentTotalCount);
 //				dutyDocumentDao.selectDocumentCount_DD();
 			List<Duty_DocumentVO> documentList = null;
 			int firstRow = 0;
@@ -50,7 +49,6 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 				documentList = dutyDocumentDao.selectDocumentList_DD(firstRow, endRow, select);
 //				documentTotalCount = documentList.size();
 //				if(!select.getVal().equals("")){
-//					System.out.println("여기 안들어와?");
 //					documentTotalCount = dutyDocumentDao.documentSelectCount_DD(select);
 //				}
 			} else {
@@ -72,13 +70,6 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		if(dutyDocument.getDd_public()==null){
 			dutyDocument.setDd_public("n");
 		}
-		System.out.println(dutyDocument.getDd_number()); //시퀀스
-		System.out.println(dutyDocument.getDd_title());  //제목
-		System.out.println(dutyDocument.getDd_content());//내용
-		System.out.println(dutyDocument.getDd_date());//날짜
-		System.out.println(dutyDocument.getDd_public());//공개여부
-		System.out.println(dutyDocument.getDd_mem_number());//사용자아이디
-		System.out.println(dutyDocument.getDd_code_number());//코드종류
 		dutyDocumentDao.dutyDocumentInsert_DD(dutyDocument);
 	}
 	@Override
@@ -129,10 +120,8 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 			date = sdformat.format(cal.getTime());
 		}
 		select.put("date", date);
-		System.out.println(select.get("searchDate"));
 		int currentPageNumber = pageNumber;
 		int documentTotalCount =dutyDocumentDao.departmentCount_DD(select); 
-		System.out.println(documentTotalCount);
 		List<Duty_DocumentVO> documentList = null;
 		int firstRow = 0;
 		int endRow = 0;
@@ -176,7 +165,6 @@ public class DutyDocumentServiceImpl implements DutyDocumentService {
 		Map<String, Object> select = new HashMap<String, Object>();
 		Duty_DocumentVO dutyDocument = dutyDocumentDao.documentSelect_DD(dd_number);
 		MemberVO member = codeManagerDao.common_selectMemberByMemID(principal.getName());
-		System.out.println(principal.getName()+"22222222222222222222222222222222222222222");
 		dutyDocument.setMem_name(member.getMem_name());
 		Common_CodeVO common = codeManagerDao.common_selectCodeNameByDocument(dutyDocument.getDd_code_number());
 		dutyDocument.setDd_name(common.getCode_name());

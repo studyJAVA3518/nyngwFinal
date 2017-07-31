@@ -81,19 +81,13 @@ public class HomeMainController {
 			session.setAttribute("memberName",member.getMem_name());
 			
 			String auto="";
-			System.out.println("세션 셋 전");
 			if(session.getAttribute("auto")==null){
 				session.setAttribute("auto", auto);
-				System.out.println("세션 셋");
 			}else{
-				System.out.println("세션리셋");
 				auto = (String)session.getAttribute("auto");
 				auto += "화이팅,";
 				session.setAttribute("auto", auto);
 			}
-			System.out.println("세션 셋 후");
-			System.out.println(session.getAttribute("auto"));
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

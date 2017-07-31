@@ -95,7 +95,6 @@ public class PayManagementDaoImpl implements PayManagementDao {
 	 * @return
 	 */
 	public int MP_selectDateCount(String mp_pay_date) {
-		System.out.println(mp_pay_date);
 		return (int) sqlSession.selectOne("MP_selectDateCount",mp_pay_date);
 	}
 	

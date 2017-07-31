@@ -37,10 +37,6 @@ public class DutyDocumentDaoImpl implements DutyDocumentDao {
 
 	@Override
 	public int documentSelectCount_DD(Board_SelectVO select) {
-		System.out.println("val:"+select.getVal());
-		System.out.println("searchDate:"+select.getSearchDate());
-		System.out.println("reportType:"+select.getReportType());
-		System.out.println("mem_code:"+select.getMem_code());
 		int result =(Integer) sqlSession.selectOne("documentSelectCount_DD",select);
 		return result;
 	}

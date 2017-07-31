@@ -30,7 +30,6 @@ public class RetiredMemberListDaoImpl implements RetiredMemberListDao {
 		if(sqlSession.selectOne("countTotalMember_RM", member)!=null){
 			result=(int) sqlSession.selectOne("countTotalMember_RM", member);
 		}
-		System.out.println(result);
 		return result;
 	}
 

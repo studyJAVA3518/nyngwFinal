@@ -131,11 +131,7 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 	@Override
 	public void userMainUiSelectService(Model model, Principal principal) {
 		String loginUser = principal.getName();
-		System.out.println(loginUser);
 		MemberVO member = CommonDao.common_selectMemberByMemID(loginUser);
-		System.out.println("-----------------------------------");
-		System.out.println(member.getMem_number());
-		System.out.println("-----------------------------------");
 		int eaListCount = eaListCount(member.getMem_number()); //미결재
 		model.addAttribute("eaListCount",eaListCount);
 		int userUiApprovalCount = userUiApprovalCount(member.getMem_number()); //상신
@@ -476,7 +472,6 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 					}
 					if(memberAddressList.size()>count){
 						for(int j = 0; j < count; j++){
-//							System.out.println(memberAddressList.get(j).getMem_position_name());
 							mUUSVO = new MainUserUiSelectVO();//내용이들어가는곳
 							mUUSVO.setContent1(memberAddressList.get(j).getMem_dept_name());
 							mUUSVO.setContent2(memberAddressList.get(j).getMem_name());
@@ -1024,11 +1019,6 @@ public class AppointedUIServiceImpl implements AppointedUIService {
 			Map<String, String> paramMap = new HashMap<String,String>();
 			paramMap.put("ast_ea_number", ea_number);
 			paramMap.put("ast_mem_number", mem_number);
-			System.out.println(ea_number);
-			System.out.println(mem_number);
-			System.out.println(paramMap);
-			System.out.println(paramMap.get("ast_ea_number"));
-			System.out.println(paramMap.get("ast_mem_number"));
 			int memberAstPriority = approvalProgressDao.selectOneAstPriority(paramMap);
 			//한 결재의 마지막 결재이력의 우선순위 검색
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);

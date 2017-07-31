@@ -67,37 +67,5 @@ public class CommonServiceImpl implements CommonService{
 		return codeManagerDao.selectMemIdByMemPwd(mem_pwd);
 	}
 	
-//	public void autoCompute(){
-//		
-//		System.out.println(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-//		
-//		RequestAttributes attribs = RequestContextHolder.getRequestAttributes();
-//		System.out.println(attribs);
-////		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-////		System.out.println(request);
-////	    RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-//	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-////	    System.out.println("test1");
-//	    System.out.println("requestAttributes  = " + requestAttributes);
-//	    
-//	    
-//	    
-//	    if(requestAttributes !=null);{
-//	    	ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
-////	    	System.out.println("test2");
-//	    	System.out.println(attributes);
-//	    	if(attributes !=null){
-//	    		System.out.println("test3");
-//	    		HttpServletRequest request = attributes.getRequest();
-//	    		HttpSession httpSession = request.getSession(true);
-//	    		
-//	    		String auto = (String) httpSession.getAttribute("auto");
-//	    		
-//	    		if(auto!=null){
-//	    			System.out.println("schedule log:"+auto);
-//	    		}
-//	    	}
-//	    }
-//	}
 	
 }

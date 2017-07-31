@@ -23,7 +23,6 @@ public class MyPayManagementServiceImpl implements MyPayManagementService {
 			Board_SelectVO select) {
 		int currentPageNumber = pageNumber;
 		int memberTotalCount = myPayManagementDao.selectMySalaryCount(select.getMem_number());
-		System.out.println("=====================================여기다임마"+select.getMem_number());
 			List<Member_payViewVO> mySalaryList = null;
 			int firstRow = 0;
 			int endRow = 0;

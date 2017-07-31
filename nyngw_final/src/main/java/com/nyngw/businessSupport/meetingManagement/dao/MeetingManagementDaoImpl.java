@@ -26,7 +26,6 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 		int offset = firstRow - 1;
 		int limit = endRow - firstRow + 1;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		System.out.println(select+"  <<<<>>>>>  "+rowBounds);
 		List<MeetingVO> meetingList = (ArrayList<MeetingVO>)sqlSession.selectList("meetingCalList",select,rowBounds);
 		return meetingList;
 	}
@@ -124,7 +123,6 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 	
 	@Override
 	public void meetingFileInsert(Meeting_DocumentVO meetingFile) {
-		System.out.println(meetingFile);
 		sqlSession.insert("meetingFileInsert", meetingFile);
 	}
 	public int isMeeting_Document_MM(String mt_md_number) {
