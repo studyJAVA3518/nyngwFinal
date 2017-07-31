@@ -47,7 +47,12 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	 * @return
 	 */
 	public int selectLastAstPriority(String ast_ea_number) {
-		return (int) sqlSession.selectOne("selectLastAstPriority",ast_ea_number);
+		Integer result = 0;
+		result = (Integer) sqlSession.selectOne("selectLastAstPriority",ast_ea_number);
+		if(result==null){
+			result = 0;
+		}
+		return result; 
 	}
 
 	//자신의 결재 우선순위 ast_ea_number / ast_mem_number
@@ -61,7 +66,12 @@ public class ApprovalProgressDaoImpl implements ApprovalProgressDao {
 	
 	//결재이력의 가장 높은 우선순위 ah_ea_number
 	public int selectLastApprovalHistory(String ah_ea_number) {
-		return (int) sqlSession.selectOne("selectLastApprovalHistory",ah_ea_number);
+		Integer result = 0;
+		result = (int) sqlSession.selectOne("selectLastApprovalHistory",ah_ea_number);
+		if(result ==null){
+			result = 0;
+		}
+		return result;
 	}
 
 	public List<Approval_StepVO> selectAstMemNumberByEaNumber(Approval_StepVO asVO) {
