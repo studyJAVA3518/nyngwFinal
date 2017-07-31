@@ -37,7 +37,6 @@ public class BasicSettingController {
 	 */
 	@RequestMapping("/sign")
 	public String signInsertForm(Model model, Principal principal){
-		System.out.println("사인 들어옴");
 		
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String mem_id = user.getUsername();
@@ -90,7 +89,6 @@ public class BasicSettingController {
 			if(!multipartFile.isEmpty()){
 				File file = new File(upload , multipartFile.getOriginalFilename());//+"$$"+System.currentTimeMillis()
 				multipartFile.transferTo(file);
-				System.out.println(file);
 				memup.setMem_img(multipartFile.getOriginalFilename());
 				vo.setMem_img(memup.getMem_img());
 			}else{

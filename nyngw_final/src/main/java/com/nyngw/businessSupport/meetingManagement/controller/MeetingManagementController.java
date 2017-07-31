@@ -177,7 +177,6 @@ public class MeetingManagementController {
 	
 	@RequestMapping("/meetingDetail")
 	public String meetingDetail(String mt_number, Model model, String page){
-		System.out.println(mt_number);
 		MeetingVO meeting = meetingManagementService.selectMeetingNumber(mt_number);
 		
 		model.addAttribute("meeting", meeting);
@@ -189,7 +188,6 @@ public class MeetingManagementController {
 	public String meetingUpdateForm(String mt_number, Model model, String page,String param_mt_date){
 		MeetingVO meeting = meetingManagementService.selectMeetingNumber(mt_number);
 		List<MeetingRoomVO> meetingroom = meetingManagementService.selectMeetingRoom();
-		System.out.println("업데이트폼 들어와?");
 		model.addAttribute("meetingroom",meetingroom);
 		model.addAttribute("meeting", meeting);
 		model.addAttribute("page",page);
@@ -217,7 +215,6 @@ public class MeetingManagementController {
 	
 	@RequestMapping("/meetingDelete")
 	public @ResponseBody Map<String,String> meetingDelete(String mt_number){
-		System.out.println(mt_number+"오니?");
 		meetingManagementService.attendDelete(mt_number);
 		meetingManagementService.meetingDelete(mt_number);
 		Map<String,String> resultMap = new HashMap<String, String>();
@@ -308,7 +305,6 @@ public class MeetingManagementController {
 			}
 		}
 		
-		System.out.println("==========================으아니"+metlist.get(0).getMt_number());
 		boolean a =false;
 		if(metlist.size()>0){
 			a =true;
@@ -333,7 +329,6 @@ public class MeetingManagementController {
 		meetingFile.setMd_writer(md_writer);
 		meetingFile.setMd_content(md_content);
 		meetingFile.setMd_number(md_number);
-		System.out.println(md_writer);
 		try {
 			meetingFile.setMd_date(new SimpleDateFormat("yyyy-MM-dd").parse(md_date));
 		} catch (ParseException e) {
@@ -345,19 +340,15 @@ public class MeetingManagementController {
 	
 	@RequestMapping("/meetingFileDetail")
 	public String meetingFileDetail(String md_number, Model model, String page){
-		System.out.println("넘어오니 ?");
-		System.out.println(md_number);
 		Meeting_DocumentVO meetingFile = meetingManagementService.selectMeetingFileNumber(md_number);
 		model.addAttribute("meetingFile", meetingFile);
 		model.addAttribute("page", page);
-		System.out.println(meetingFile.getMd_name());
 		return "businessSupport/meetingManagement/meetingFileDetail";
 	}
 	
 	@RequestMapping("/meetingFileUpdateForm")
 	public String meetingFileUpdateForm(String md_number, Model model, String page,String param_md_date){
 		Meeting_DocumentVO meetingFile = meetingManagementService.selectMeetingFileNumber(md_number);
-		System.out.println(param_md_date);
 		model.addAttribute("meetingFile", meetingFile);
 		model.addAttribute("page",page);
 		model.addAttribute("param_mt_date",param_md_date);
@@ -367,7 +358,6 @@ public class MeetingManagementController {
 	
 	@RequestMapping("/meetingFileDelete")
 	public @ResponseBody Map<String,String> meetingFileDelete(String md_number){
-		System.out.println(md_number+"오니?");
 		meetingManagementService.meetingFileDelete(md_number);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/businessSupport/meetingManagement/meetingFile");

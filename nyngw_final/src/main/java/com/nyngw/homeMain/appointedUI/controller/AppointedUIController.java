@@ -45,16 +45,10 @@ public class AppointedUIController {
 		model.addAttribute("member",member);
 		model.addAttribute("mem_img",member2.getMem_img());
 		
-		System.out.println("111111111111111111111111111111111");
 		if(menu1 != null && menu2 != null && menu3 != null){
-			System.out.println(menu3);
-			System.out.println("2222222222222222222222222222222222222");
 			MiddleMenuVO mid1 = appointedUIservice.selectMiddleMenuFind_UI(menu1);
 			MiddleMenuVO mid2 = appointedUIservice.selectMiddleMenuFind_UI(menu2);
 			MiddleMenuVO mid3 = appointedUIservice.selectMiddleMenuFind_UI(menu3);
-			System.out.println(mid3.getMid_big_number());
-			System.out.println(mid3.getMid_name());
-			System.out.println(mid3.getMid_number());
 			model.addAttribute("big_number", mid1.getMid_big_number());
 			model.addAttribute("middleMenu", mid1.getMid_number());
 			model.addAttribute("big_number1", mid2.getMid_big_number());
@@ -63,9 +57,7 @@ public class AppointedUIController {
 			model.addAttribute("middleMenu2", mid3.getMid_number());
 		}
 		
-		System.out.println("333333333333333333333333333333333333333333");
 		if(middle1 != null && middle2 != null && middle3 != null){
-			System.out.println("4444444444444444444444444444444444444444444444444");
 			MiddleMenuVO mid1 = appointedUIservice.selectBigMiddleMenuFind_UI(middle1);
 			MiddleMenuVO mid2 = appointedUIservice.selectBigMiddleMenuFind_UI(middle2);
 			MiddleMenuVO mid3 = appointedUIservice.selectBigMiddleMenuFind_UI(middle3);

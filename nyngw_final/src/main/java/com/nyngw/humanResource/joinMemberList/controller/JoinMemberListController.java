@@ -46,7 +46,6 @@ public class JoinMemberListController {
 		
 		paging.makePaging();
 		
-		System.out.println(paging);
 				
 		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
 		endRow = firstRow + paging.getRecordsPerPage() - 1;
@@ -65,11 +64,9 @@ public class JoinMemberListController {
 	@RequestMapping("/detail")
 	public String memberDetail(Model model,String mem_id){
 		
-		System.out.println("<===== detail   "+mem_id);
 		
 		JoinMemberVO member = joinMemberListService.getMemberDetail(mem_id);
 		
-		System.out.println(member);
 		
 		model.addAttribute("member", member);
 		

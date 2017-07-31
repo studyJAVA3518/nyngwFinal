@@ -106,9 +106,6 @@ public class DutyReportController {
 	
 	@RequestMapping("/dutyReportCommentWrite")
 	public @ResponseBody Map<String,String> dutyReportCommentWrite(String drc_content, String id, Principal principal){
-		System.out.println(drc_content);
-		System.out.println(id);
-		System.out.println(principal.getName());
 		dutyReportService.dutyReportCommentWrite(drc_content, id, principal);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/businessSupport/dutyReport/dutyReportDetail?dr_number="+id);

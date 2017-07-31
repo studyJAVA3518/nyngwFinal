@@ -264,7 +264,6 @@ public class DocumentManagerController implements ApplicationContextAware{
 	
 	@RequestMapping("/edocumentInsert")
 	public String edocumentInsert(Model model,Principal principal){
-		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등로곺ㅁ");
 		List<Common_CodeVO> codeList = documentManagerService.documentCodeSelect(); 
 		model.addAttribute("codeList2",codeList);
 		
@@ -284,7 +283,6 @@ public class DocumentManagerController implements ApplicationContextAware{
 	 */
 	@RequestMapping(value="/edocumentInsertComplete", method=RequestMethod.POST)
 	public String edocumentInsertComplete(Model model , CommandDocumentVO2 document,@RequestParam( value="content") String doc_content,String doc_name) throws IOException{
-		System.out.println("여기들어오나요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~?전자결재등록"+doc_name);
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String mem_id = user.getUsername(); 
 		MemberVO mem = basicSettingService.selectMember(mem_id);

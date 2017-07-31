@@ -57,7 +57,6 @@ public class RetiredMemberListController {
 		
 		paging.makePaging();
 		
-		System.out.println(paging);
 				
 		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
 		endRow = firstRow + paging.getRecordsPerPage() - 1;
@@ -79,7 +78,6 @@ public class RetiredMemberListController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(mem_chk!=null){
 			for (int i = 0; i < mem_chk.size(); i++) {
-				System.out.println(mem_chk.get(i));
 				retireMemberListService.saveMember(mem_chk.get(i));
 			}
 		}

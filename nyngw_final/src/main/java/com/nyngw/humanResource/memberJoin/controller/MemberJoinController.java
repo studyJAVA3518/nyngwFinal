@@ -70,7 +70,6 @@ public class MemberJoinController {
 		*/
 		joinMember.setMem_retirement("1");
 		
-		System.out.println(joinMember);
 		
 		model.addAttribute("status", "no");
 		int result = memberJoinService.joinMember(joinMember);

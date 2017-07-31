@@ -56,7 +56,6 @@ public class VacationManagementController {
 		
 		paging.makePaging();
 		
-		System.out.println(paging);
 				
 		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
 		endRow = firstRow + paging.getRecordsPerPage() - 1;

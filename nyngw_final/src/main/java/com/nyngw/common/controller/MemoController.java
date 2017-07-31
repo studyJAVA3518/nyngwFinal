@@ -73,7 +73,6 @@ public class MemoController {
 		this.page=page;
 		map.put("su", "no");
 		
-		System.out.println("들어오니??????????????????????????????");
 		
 		memo = commonService.getMemo(memo); 
 		map.put("su", "ok");
@@ -111,7 +110,6 @@ public class MemoController {
 			map.put("page", paging);
 			map.put("list", memoList);
 			map.put("su", "ok");
-			System.out.println(memoList.size());
 		}catch(Exception e){
 		}
 		return map;
@@ -136,7 +134,6 @@ public class MemoController {
 		
 		paging.makePaging();
 		
-		System.out.println(paging);
 		
 		if(p > paging.getFinalPageNo()){
 			paging.setCurrentPageNo(1);

@@ -306,10 +306,6 @@ public class BoardController implements ApplicationContextAware{
 		comment.setComment_mem_number(comment_mem_number);
 		comment.setComment_number(comment_number);
 		boardService.answerUpdate(comment);
-//		System.out.println(board_number);
-//		System.out.println(comment_number);
-//		System.out.println(comment_mem_number);
-//		System.out.println(comment_content);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/sharingInformation/board/detail?board_number="+board_number);
 		return resultMap;

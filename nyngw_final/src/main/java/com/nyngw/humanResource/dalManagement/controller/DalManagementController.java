@@ -59,7 +59,6 @@ public class DalManagementController {
 		
 		paging.makePaging();
 		
-		System.out.println(paging);
 				
 		firstRow = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage() + 1;
 		endRow = firstRow + paging.getRecordsPerPage() - 1;
@@ -77,7 +76,6 @@ public class DalManagementController {
 		excelMemberList = memdalList;
 		excelCountTotal = countTotal;
 		
-		System.out.println(paging);
 		
 		
 		

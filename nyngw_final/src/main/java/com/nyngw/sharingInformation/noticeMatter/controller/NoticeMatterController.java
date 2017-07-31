@@ -61,7 +61,6 @@ public class NoticeMatterController implements ApplicationContextAware {
 			member = commonService.findMemberByMemNumber(list.get(i).getBoard_mem_number());
 			//			list.get(i).setMem_name();
 			viewData.getBoardList().get(i).setMem_name(member.getMem_name());
-			System.out.println(";lll"+member.getMem_name());
 		}
 		if(viewData.getPageTotalCount()>0){
 			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
@@ -112,7 +111,6 @@ public class NoticeMatterController implements ApplicationContextAware {
 	@RequestMapping(value="/nmWrite", method=RequestMethod.POST)
 	public String noticeMatterWrite(CommandBoardVO commandboard, String page,Principal principal,
 			@RequestParam( value="content") String board_content) throws IOException{
-		System.out.println("등록하느부부누이ㅏㅓㅂ주여ㅑㅐㅈ부애ㅕㅜㅈ배ㅕㅑㅇㅈ부ㅐ");
 		String upload = "D:/git/nyngw/nyngw_final/nyngw_final/src/main/webapp/WEB-INF/upload/notice";
 		MultipartFile multipartFile = commandboard.getBoard_file_name();
 		BoardVO board = commandboard.toBoardVO();
@@ -140,7 +138,6 @@ public class NoticeMatterController implements ApplicationContextAware {
 		BoardVO board = noticeMatterService.selectNoticeMatte(board_number);
 		MemberVO member = commonService.findMemberByMemNumber(board.getBoard_mem_number());
 		board.setMem_name(member.getMem_name());
-		System.out.println(member.getMem_name());
 		model.addAttribute("board", board);
 		model.addAttribute("page",page);
 		return "sharingInformation/noticeMatter/noticeMatterUpdateForm";
@@ -174,7 +171,6 @@ public class NoticeMatterController implements ApplicationContextAware {
 	 */
 	@RequestMapping("/nmDelete")
 	public @ResponseBody Map<String,String> noticeMatterDelete(String id){
-		System.out.println(id+"오니?");
 		noticeMatterService.noticeMatterDelete(id);
 		Map<String,String> resultMap = new HashMap<String, String>();
 		resultMap.put("uri", "/sharingInformation/noticeMatter/nmList");

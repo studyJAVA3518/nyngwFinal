@@ -51,8 +51,6 @@ public class DutyDocumentController {
 	@RequestMapping("/department")
 	public String departmentselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
 			String searchDate, String reportType, String titleType, String val, Model model, Principal principal){
-		System.out.println("여기는 컨트롤러다 reportType"+reportType);
-		System.out.println("여기는 컨트롤러다 titleType"+titleType);
 		if(searchDate == null && reportType == null && titleType == null && val == null){
 			searchDate = "today";
 			reportType = "";
@@ -107,15 +105,12 @@ public class DutyDocumentController {
 	public String personalselect(@RequestParam(value="page",defaultValue="1")int pageNumber,
 				Model model,String val, String index, String searchDate, String reportType, 
 					String setSearchOption, String setReportOption,Principal principal){ //업무종류 하나 더 스트링으로 추가
-		System.out.println("asdfasdf");
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
-		System.out.println(reportType+ "-----------------------------------------------------들어와요?");
 		Board_SelectVO select = new Board_SelectVO();
 		select.setMem_code(member.getMem_number());
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd"); 
 		if(searchDate==null){
-			System.out.println("여기들어오냐");
 			searchDate = "today";
 			searchDate = sdformat.format(new Date());
 			index = searchDate;
@@ -137,8 +132,6 @@ public class DutyDocumentController {
 		}
 		model.addAttribute("setReportOption", setReportOption);
 		
-		System.out.println(reportType+"------------------->>>");
-		System.out.println(searchDate+"dasdsa");
 		if(searchDate.equals("today")){
 			searchDate = sdformat.format(new Date());
 		}else if(searchDate.equals("week")){
@@ -157,17 +150,12 @@ public class DutyDocumentController {
 		select.setVal(val);
 		select.setSearchDate(searchDate);
 		select.setReportType(reportType);
-		System.out.println(val);
-		System.out.println(reportType);
-		System.out.println(searchDate);
-//		System.out.println(select.getSearchDate()+"여기맞쥬?");
 		Duty_Document_ListView viewData = (Duty_Document_ListView) dutyDocumentService.selectDocumentList(pageNumber, select);
 		Common_CodeVO common = new Common_CodeVO();
 		List<Duty_DocumentVO> list = viewData.getDocumentList();
 		for(int i = 0; i < list.size(); i++){
 			common = dutyDocumentService.documentSelectCodeName_DD(list.get(i).getDd_code_number());
 			viewData.getDocumentList().get(i).setDd_code_name(common.getCode_name());
-			System.out.println(";lll"+common.getCode_name());
 		}
 		if(viewData.getPageTotalCount()>0){
 			int beginPageNumber = (viewData.getCurrentPageNumber()-1)/PAGE_NUMBER_COUNT_PER_PAGE*PAGE_NUMBER_COUNT_PER_PAGE+1;
@@ -192,7 +180,6 @@ public class DutyDocumentController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(dd_chk!=null){
 			for (int i = 0; i < dd_chk.size(); i++) {
-				System.out.println(dd_chk.get(i));
 				dutyDocumentService.dutyDocumentDelete_DD(dd_chk.get(i));
 			}
 		}
@@ -215,8 +202,6 @@ public class DutyDocumentController {
 		model.addAttribute("reportType", reportType);
 		model.addAttribute("searchDate", searchDate);
 		model.addAttribute("val",val);
-		System.out.println(searchDate+"222222222222222222");
-		System.out.println(reportType+"33333333333333");
 		return "businessSupport/dutyDocument/personalDetail";
 	}
 	
@@ -232,7 +217,6 @@ public class DutyDocumentController {
 	@RequestMapping("/personalWrite")
 	public String personalWrite(Duty_DocumentVO dutyDocument, Principal principal,String start_date, @RequestParam( value="content") String dd_content){
 		MemberVO member = CommonService.findMemberByMemId(principal.getName());
-		System.out.println(start_date+"오늘이냐?");
 		try {
 			dutyDocument.setDd_start_date(new SimpleDateFormat("yyyy-MM-dd").parse(start_date));
 		} catch (ParseException e) {
@@ -251,7 +235,6 @@ public class DutyDocumentController {
 		dutyDocument.setDd_name(common.getCode_name());
 		Date dbdt = dutyDocument.getDd_start_date();
 		String dt = dt = new SimpleDateFormat("yyyy-MM-dd").format(dbdt);
-		System.out.println(dutyDocument.getDd_code_number());
 		model.addAttribute("dt",dt);
 		model.addAttribute("dutyDocument", dutyDocument);
 		return "businessSupport/dutyDocument/personalUpdateForm";

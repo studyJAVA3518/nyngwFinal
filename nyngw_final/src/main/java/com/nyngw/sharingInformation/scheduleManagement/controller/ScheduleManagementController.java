@@ -55,10 +55,6 @@ public class ScheduleManagementController {
 				if(member.getMem_dept_number().equals(member2.getMem_dept_number())){
 					String sc_mem_number = schedule.get(i).getSc_mem_number();
 					scheduleManagementService.SI_selectDepartmentSchedule(model, sc_code_number, mem_number, sc_mem_number);
-					System.out.println("부서일정가져와!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+schedule.get(i).getSc_mem_number()+"스케줄등록한 사람???");
-					System.out.println("부서일정가져와!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+mem_number+"로그인한 사람???");
-					System.out.println("로그인한 사람의 부서번호!!!!!!!!!"+member.getMem_dept_number());
-					System.out.println("일정등록한 사람의 부서번호!!!!!!!!!"+member2.getMem_dept_number());
 				}
 			}
 			
@@ -77,7 +73,6 @@ public class ScheduleManagementController {
 			if(member.getMem_mngr_number().equals("role_ppr_admin")||member.getMem_mngr_number().equals("role_admin")){
 				model.addAttribute("au", "ok");
 			}
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>");
 		}else{
 			model.addAttribute("au", "");
 			if(member.getMem_mngr_number().equals("role_master")||member.getMem_mngr_number().equals("role_prr_admin")){

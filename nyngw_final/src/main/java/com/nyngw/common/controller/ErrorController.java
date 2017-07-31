@@ -16,7 +16,6 @@ public class ErrorController {
 	@RequestMapping("/404")
 	public String pageError404(Model model){
 		
-		System.out.println("Error page 404");
 		
 		model.addAttribute("title", "error 404");
 		model.addAttribute("error", "404");
@@ -28,7 +27,6 @@ public class ErrorController {
 	@RequestMapping("/500")
 	public String pageError500(Model model){
 		
-		System.out.println("Error page 500");
 		
 		model.addAttribute("title", "error 500");
 		model.addAttribute("error", "500");
@@ -40,7 +38,6 @@ public class ErrorController {
 	@RequestMapping("/exception")
 	public String pageException(Model model){
 		
-		System.out.println("Exception page");
 		
 		model.addAttribute("message", "error Exception");
 		model.addAttribute("title", "Exception Error");
