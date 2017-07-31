@@ -48,7 +48,7 @@ $(function(){
 <div id="dialogg">
 	출근하셔쎼여 ?
 </div>
-<h2>나의 출결현황</h2>
+<h2>나의 출결현황 페이지</h2>
 <p class="docTitleDescription">
 	자신의 근태현황을 확인할 수 있습니다.
 </p>

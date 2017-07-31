@@ -159,7 +159,7 @@ $(function() {
  }
 </style>
 
-<h2>급여관리</h2>
+<h2>급여관리 페이지</h2>
 <p class="docTitleDescription">
 	사원들의 급여를 확인할 수 있습니다.
 	기본월급 : <br/> 
