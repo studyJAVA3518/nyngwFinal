@@ -8,7 +8,7 @@
 <title>${title }</title>
 </head>
 <body>
-	<div style="background-image:/resources/images/error.jpg">
+	<div style="background-image:url('/resources/images/error.jpg')">
 		<c:if test="${error == '404'}">
 			<h2>${title}</h2>
 			<h5>${message }</h5>

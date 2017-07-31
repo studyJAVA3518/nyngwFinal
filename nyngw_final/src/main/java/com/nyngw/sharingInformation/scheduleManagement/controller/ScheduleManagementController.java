@@ -70,14 +70,17 @@ public class ScheduleManagementController {
 
 		if(sc_code_number.equals("code4")){
 			model.addAttribute("au", "ok");
+			model.addAttribute("sideValue", "sideMenu2");
 		}else if(sc_code_number.equals("code5")){
 			model.addAttribute("au", "");
+			model.addAttribute("sideValue", "sideMenu3");
 			if(member.getMem_mngr_number().equals("role_admin")){
 				model.addAttribute("au", "ok");
 			}
 		}else{
 			model.addAttribute("au", "");
 			if(member.getMem_mngr_number().equals("role_master")||member.getMem_mngr_number().equals("role_prr_admin")){
+				model.addAttribute("sideValue", "sideMenu4");
 				model.addAttribute("au", "ok");
 			}
 		}

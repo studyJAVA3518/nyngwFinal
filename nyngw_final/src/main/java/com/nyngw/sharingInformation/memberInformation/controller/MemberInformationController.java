@@ -34,6 +34,7 @@ public class MemberInformationController {
 		if(mem_name==null){
 			mem_name="";
 		}
+		model.addAttribute("sideValue", "sideMenu7");
 		memberInformationService.getMemberInfo(pageNumber, model,mem_name);
 		return "sharingInformation/memberInformation/addressBook";
 	}
@@ -53,8 +54,8 @@ public class MemberInformationController {
 	 * @return 조직도 화면 url 반환
 	 */
 	@RequestMapping("/organizationChart")
-	public String organizationChart(){
-
+	public String organizationChart(Model model){
+		model.addAttribute("sideValue", "sideMenu6");
 		return "sharingInformation/memberInformation/organizationChart";
 	}
 	
@@ -97,6 +98,7 @@ public class MemberInformationController {
 		}
 		memberInformationService.getBirthdayMember(pageNumber, model, month);
 		model.addAttribute("month",month);
+		model.addAttribute("sideValue", "sideMenu8");
 		return "sharingInformation/memberInformation/birthday";
 	}
 	
