@@ -30,7 +30,7 @@ public class VacationManagementController {
 		if(startdate==null){
 			Date date = new Date();
 			String today=date.getYear()+1900+"-"+(date.getMonth()+1)+"-"+date.getDate();
-			startdate = today;
+			startdate = date.getYear()+1900+"-"+(date.getMonth()-1)+"-"+date.getDate();
 			enddate = today;
 		}
 		if(search==null){

@@ -66,8 +66,8 @@ $(function(){
 <form method="post" name="vmtmForm">
 	<div class="hrmTopSpace">
 		휴가사용현황
-		<input type="text" name="startdate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
-		<input type="text" name="enddate" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
+		<input type="text" name="startdate" value="${startdate }" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
+		<input type="text" name="enddate" value="${enddate }" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
 		<select id="list" name="list" class="btn btn-default">
 			<option value="mem_name" selected= "selected">이름</option>
 			<option value="vp_kind">휴가종류</option>
