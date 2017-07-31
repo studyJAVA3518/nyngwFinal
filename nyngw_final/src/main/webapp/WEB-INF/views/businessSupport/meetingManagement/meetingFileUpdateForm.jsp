@@ -76,11 +76,11 @@ function meetingFileDelete(md_number){
 <!-- 			</table> -->
 			
 			<input type="hidden" value="${page}">
-			<div style="text-align: center;">
-			<button onclick='saveContent()'>등록</button>
-			<input type="reset" value="초기화" />
-			<button type="button" onclick="meetingfileDelete('${meetingFile.md_number}');">삭제하기</button>
-			<button><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
+			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
+			<button onclick='saveContent()' class="btn btn-default">등록</button>
+			<input type="reset" class="btn btn-default" value="초기화"/>
+			<button type="button" onclick="meetingfileDelete('${meetingFile.md_number}');" class="btn btn-default">삭제하기</button>
+			<button class="btn btn-default" ><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">취소</a></button>
 			</div>
 	</form>
 			

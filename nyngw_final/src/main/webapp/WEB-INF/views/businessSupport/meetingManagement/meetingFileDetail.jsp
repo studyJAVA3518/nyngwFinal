@@ -29,9 +29,9 @@
 		</table>
 			${meetingFile.md_content }
 			<input type="hidden" value="${page}">
-			<div style="text-align: center;">
+			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
 			
-			<button><a href="/businessSupport/meetingManagement/meetingFileUpdateForm?md_number=${meetingFile.md_number}&param_md_date=<fmt:formatDate value="${meetingFile.md_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
-			<button><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">목록</a></button>
+			<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingFileUpdateForm?md_number=${meetingFile.md_number}&param_md_date=<fmt:formatDate value="${meetingFile.md_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
+			<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingFile?page=${page }">목록</a></button>
 			</div>
 	</div>
