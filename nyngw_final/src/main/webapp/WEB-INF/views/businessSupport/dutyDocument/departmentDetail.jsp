@@ -25,7 +25,7 @@
       });
    }
    function departmentCommentDelete(id,dd_number){
-      var con_test = confirm("삭제할거에요?");
+      var con_test = confirm("삭제하시겠습니까?");
       if(con_test==true){
          $.ajax({
                type : "POST",
@@ -133,42 +133,40 @@
 	<div class="textCenter divALM">
 		<button class="btn btn-default"><a href="/businessSupport/dutyDocument/department?page=${select.pageNumber}&reportType=${select.reportType}&searchDate=${select.searchDate}&val=${select.val}&titleType=${select.titleType}">목록</a></button>
 	</div>
-	<form>
-	     <table class="table table-bordered">
-	        <tr>
-	           <th>작성자</th>
-	           <th colspan="2">댓글</th>
-	           <th>작성시간</th>
-	           <th>기타</th>
-	        </tr>
+	
+     <div class="businessReplay">
+        <form>
 	        <c:forEach items="${comment}" var="i">
-				<tr>
-					<td><input id="${i.ddc_mem_number}" type="hidden" value="${i.ddc_mem_number }">${i.ddc_name }<input type="hidden" value="${i.ddc_number }"></td>
-					<td colspan="2"><textarea  id="${i.ddc_number}" rows="2" cols="70" style="resize: none;" readonly>${i.ddc_content }</textarea></td>
-					<td><fmt:formatDate value="${i.ddc_date }" pattern="yyyy/MM/dd"/></td>
-					<td>
+				<div class="replyWholeWrap">
+					<div class="replyWrap">
+						<input id="${i.ddc_mem_number}" type="hidden" value="${i.ddc_mem_number }">${i.ddc_name }
+						<input type="hidden" value="${i.ddc_number }">
+						&nbsp;&nbsp;
+						<fmt:formatDate value="${i.ddc_date }" pattern="yyyy/MM/dd"/>
+						&nbsp;&nbsp;
 						<c:if test="${user eq i.ddc_mem_number}">
-							<button id="btn" type="button" onclick="answerUpdateClick('${dutyDocument.dd_number}','${i.ddc_number}','${i.ddc_mem_number}','${i.ddc_content}');">수정</button>
-							<button type="button" onclick="departmentCommentDelete('${i.ddc_number}','${dutyDocument.dd_number}')">삭제</button>
+							<button id="btn" type="button" onclick="answerUpdateClick('${dutyDocument.dd_number}','${i.ddc_number}','${i.ddc_mem_number}','${i.ddc_content}');" class="btn btn-default replyBtn">수정</button>
+							<button type="button" onclick="departmentCommentDelete('${i.ddc_number}','${dutyDocument.dd_number}')" class="btn btn-default replyBtn">삭제</button>
 						</c:if>
-				   </td>
-				</tr>
+					</div>
+					<textarea id="${i.ddc_number}" rows="3" cols="60" class="replyTextArea" readonly>${i.ddc_content }</textarea>
+				</div>
 			</c:forEach> 
-	  	 </table>
-	</form>
+		</form>
+  	 	<div class="replyWholeWrap">
+  	 		<form>
+  	 			<div class="replyWrap2">
+  	 				댓글 등록하기
+  	 			</div>
+  	 			<textarea rows="4" cols="70" style="resize: none;" name="comment_content" class="replyTextWriteArea"></textarea>
+				<input type="hidden" name="board_number" value="${dutyDocument.dd_number}">
+				<div class="replyRightWrap">
+					<button type="button" onclick="answerWriteClick('${dutyDocument.dd_number}',this.form)" class="btn btn-default replyEnrollBtn">등록</button>
+  	 			</div>
+  	 		</form>
+  	 	</div>
+  	 </div>
+	
       
-	<form>
-		<table class="table table-bordered">
-			<tr>
-				<th colspan="4">
-					<textarea rows="5" cols="71" style="resize: none;" name="comment_content"></textarea>
-				</th>
-				<td>
-					<input type="hidden" name="board_number" value="${dutyDocument.dd_number}">
-					<button type="button" onclick="answerWriteClick('${dutyDocument.dd_number}',this.form)">등록</button>
-				</td>
-			</tr>
-		</table>
-	</form>
 </body>
 </html>

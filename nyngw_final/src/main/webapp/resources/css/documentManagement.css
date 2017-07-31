@@ -1,1 +1,48 @@
 @CHARSET "UTF-8";
+
+.businessReplay {
+	background-color : #f4f4f4;
+	border-radius : 10px;
+	padding-top : 20px;
+	padding-bottom : 20px;
+}
+.replyBtn {
+	height : 24px;
+	font-size : 12px;
+	padding: 3px 6px;
+}
+.replyWholeWrap {
+	margin-left : 20px;
+	margin-right : 20px;
+	padding-bottom : 10px;
+	padding-top : 10px;
+	
+	border-bottom : 1px dashed #ddd;
+}
+.replyWrap {
+	float : left;
+	margin : 5px 15px;
+}
+.replyWrap2 {
+	float : left;
+	margin : 25px 10px 0px 15px;
+}
+.replyRightWrap {
+	float : right;
+	margin : 0px 17px 0px 0px;
+}
+.replyTextArea {
+	display : inline-block;
+	resize: none;
+	border-radius : 5px;
+	border : 1px solid #ddd;
+}
+.replyTextWriteArea {
+	display : inline-block;
+	resize: none;
+	border-radius : 5px;
+	border : 1px solid #ddd;
+}
+.replyEnrollBtn {
+	padding: 21px 12px; 
+}
