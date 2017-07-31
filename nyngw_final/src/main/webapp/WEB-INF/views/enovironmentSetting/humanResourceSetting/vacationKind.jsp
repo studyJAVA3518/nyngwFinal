@@ -56,7 +56,7 @@ function vacationDelete_go() {
 <form id="vacation">
    <input class="form-control" type="text" name="vp_kind" placeholder="휴가명"/>
    <input class="form-control" type="text" name="vp_totalday" placeholder="휴가일수"/>
-<select name="vp_payonoff" >
+<select name="vp_payonoff" class="form-control docInputSelect" >
 	<option value="y" class="deductVacation">급여 지급</option>
 	<option value="n">급여 미지급</option>
 </select>
@@ -80,7 +80,7 @@ function vacationDelete_go() {
 				<td><input class="form-control" type="checkbox" value="${va.vp_number}" name="check_number" id="${va.vp_number }" />
 				<td>${va.vp_kind}</td>
 				<td><input class="form-control" type="text" value="${va.vp_totalday }" name="day" id="${va.vp_number }_dy" /></td>
-				<td><select class="form-control" name="on" id="${va.vp_number}_on" >
+				<td><select class="form-control docInputSelect" name="on" id="${va.vp_number}_on" >
 						<option value="y" class="deductVacation">급여 지급</option>
 						<option value="n">급여 미지급</option>
 				</select></td>

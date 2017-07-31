@@ -102,7 +102,7 @@
 			<tr>
 				<th>공제여부</th>
 				<td>
-					<select name="up_pk_tax" id="up_pk_tax" class="form-control">
+					<select name="up_pk_tax" id="up_pk_tax" class="form-control docInputSelect">
 						<option value="n">공제 X(급여인 경우)</option>
 						<option value="y">공제 O(세금인 경우)</option>
 					</select>
@@ -117,12 +117,11 @@
 	</table>
 </div>
 
-<h2>급여종류 등록 및 삭제</h2>
+<h2>급여 종류 설정</h2>
 
 <div class="row">
 	<div class="col-md-6">
-		
-		<h4>급여 종류 설정</h4>
+		<h4>급여 종류 수정 및 삭제</h4>
 		<table class="table textCenter">
 			<tr>
 				<th>No</th>
@@ -161,13 +160,12 @@
 		</table>
 	</div>
 	
-	
 	<div class="col-md-6">
-		<h5>급여 종류 추가하기</h5>
+		<h4>급여 종류 추가하기</h4>
 		<form class="form-inline" name="payKindInsertForm">
 			<div class="form-group">
 				<input type="text" name="pk_name" id="pk_name" class="form-control inlinePayText"/>
-				<select name="pk_tax" class="form-control">
+				<select name="pk_tax" class="form-control docInputSelect">
 					<option value="n">공제 X(급여인 경우)</option>
 					<option value="y">공제 O(세금인 경우)</option>
 				</select>
@@ -178,18 +176,18 @@
 </div>
 
 
-<h2>퇴직금정책 설정</h2>
+<!-- <h2>퇴직금정책 설정</h2> -->
 
-<table class="table textCenter">
-	<form class="form-inline" action="paySetting_go();" method="post">
-		<tr>
-			<th>적용되는 경우</th>
-			<td>근속연수가 1년 이상(365일)인 경우에 퇴직금을 지급합니다.</td>
-		</tr>
-		<tr>
-			<th>계산 방법</th>
-			<td>(직전 3개월치의 급여 / 3개월치의 날짜) * 30일</td>
-		</tr>
-	</form>
-</table>
+<!-- <table class="table textCenter"> -->
+<!-- 	<form class="form-inline" action="paySetting_go();" method="post"> -->
+<!-- 		<tr> -->
+<!-- 			<th>적용되는 경우</th> -->
+<!-- 			<td>근속연수가 1년 이상(365일)인 경우에 퇴직금을 지급합니다.</td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<th>계산 방법</th> -->
+<!-- 			<td>(직전 3개월치의 급여 / 3개월치의 날짜) * 30일</td> -->
+<!-- 		</tr> -->
+<!-- 	</form> -->
+<!-- </table> -->
 
