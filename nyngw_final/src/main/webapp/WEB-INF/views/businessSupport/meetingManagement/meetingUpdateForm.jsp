@@ -76,12 +76,6 @@ function meetingDelete(mt_number){
 			</tr>
 		</table>
 		<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
-<!-- 			<table> -->
-<!-- 				<tr> -->
-<%-- 					<td colspan="6"><textarea rows="15" cols="97" style="resize: none;" name="board_content">${meeting.mt_content }</textarea></td> --%>
-<!-- 				</tr> -->
-				
-<!-- 			</table> -->
 			
 			<input type="hidden" value="${page}">
 			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
