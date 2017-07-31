@@ -86,7 +86,8 @@ public class DalManagementController {
 		model.addAttribute("enddal_date", enddal_date);
 		model.addAttribute("memdalList", memdalList);
 		model.addAttribute("countTotal", countTotal);
-
+		model.addAttribute("sideValue", "sideMenu1");
+		
 		return "humanResource/dalManagement/hrm";
 	}
 

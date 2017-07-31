@@ -59,6 +59,7 @@ public class DutyDocumentController {
 			titleType = "";
 			val = "";
 		}
+		model.addAttribute("sideValue", "sideMenu1");
 		dutyDocumentService.departmentList(searchDate,reportType,titleType,val,model,principal,pageNumber);
 		return "businessSupport/dutyDocument/department";
 	}
@@ -182,6 +183,7 @@ public class DutyDocumentController {
 		model.addAttribute("viewData",viewData);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("select",select);
+		model.addAttribute("sideValue", "sideMenu2");
 		return "businessSupport/dutyDocument/personal";
 	}
 

@@ -35,7 +35,7 @@ public class TheRestDocumentBoxController {
 		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApprovalList(vo);
 		
 		model.addAttribute("EAList", appList);
-		
+		model.addAttribute("sideValue","sideMenu8");
 		return "electronicApproval/theRestDocumentBox/implementDocumentBox";
 	}
 	
@@ -74,7 +74,7 @@ public class TheRestDocumentBoxController {
 		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApprovalREList(vo);
 		
 		model.addAttribute("EAList", appList);
-		
+		model.addAttribute("sideValue","sideMenu9");
 		return "electronicApproval/theRestDocumentBox/referenceDocumentBox";
 	}
 	//참조문서 검색
@@ -115,7 +115,7 @@ public class TheRestDocumentBoxController {
 		List<CommonApproval_TOTALVO> appList= theRestDocumentBoxService.getApprovalTOList(vo);
 		
 		model.addAttribute("EAList", appList);
-		
+		model.addAttribute("sideValue","sideMenu10");
 		return "electronicApproval/theRestDocumentBox/overallDocumentBox";
 	}
 	//전체문서 검색

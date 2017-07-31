@@ -15,7 +15,7 @@
     			}
     		
     		})
-	    	
+    		$("#${sideValue}").addClass('active');
 	    })
 	    
 	</script>
@@ -30,12 +30,12 @@
 								<li>
 									<h3>기획홍보부 설정</h3>
 									<ul>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">&nbsp;&nbsp;&nbsp;└ 근무일 및 출결정보 등록시간 설정</a></li>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">&nbsp;&nbsp;&nbsp;└ 회사 정보 설정</a></li>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">&nbsp;&nbsp;&nbsp;└ 회사 부서 설정</a></li>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">&nbsp;&nbsp;&nbsp;└ 회사 직급 설정</a></li>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm/">&nbsp;&nbsp;&nbsp;└ 급여종류 및 퇴직금 설정</a></li>
-										<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm/">&nbsp;&nbsp;&nbsp;└ 급여정책 설정</a></li>
+										<li id="sideMenu1"><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">&nbsp;&nbsp;&nbsp;└ 근무일 및 출결정보 등록시간 설정</a></li>
+										<li id="sideMenu2"><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">&nbsp;&nbsp;&nbsp;└ 회사 정보 설정</a></li>
+										<li id="sideMenu3"><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">&nbsp;&nbsp;&nbsp;└ 회사 부서 설정</a></li>
+										<li id="sideMenu4"><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">&nbsp;&nbsp;&nbsp;└ 회사 직급 설정</a></li>
+										<li id="sideMenu5"><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm/">&nbsp;&nbsp;&nbsp;└ 급여종류 및 퇴직금 설정</a></li>
+										<li id="sideMenu6"><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm/">&nbsp;&nbsp;&nbsp;└ 급여정책 설정</a></li>
 									</ul>
 								</li>
 								</sec:authorize>
@@ -43,8 +43,8 @@
 								<li>
 									<h3>인사부 설정</h3>
 									<ul>
-										<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">&nbsp;&nbsp;&nbsp;└ 휴가 종류 설정</a></li>
-										<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">&nbsp;&nbsp;&nbsp;└ 휴가 일수 설정</a></li>
+										<li id="sideMenu7"><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">&nbsp;&nbsp;&nbsp;└ 휴가 종류 설정</a></li>
+										<li id="sideMenu8"><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">&nbsp;&nbsp;&nbsp;└ 휴가 일수 설정</a></li>
 									</ul>
 								</li>
 								</sec:authorize>

@@ -60,7 +60,7 @@ public class MyPayManagementController {
 			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
 			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
-		
+		model.addAttribute("sideValue","sideMenu3");
 		model.addAttribute("page",page);
 		return "mypage/myPayManagement/salary";
 	}

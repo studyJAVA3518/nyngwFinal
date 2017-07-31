@@ -30,6 +30,7 @@ public class MeetingFacilitiesManagementController {
 		MemberVO member = CommonService.findMemberByMemId((principal.getName()));
 		model.addAttribute("member",member);
 		meetingFacilitiesManagementService.checkReservation(rv_date,model);
+		model.addAttribute("sideValue", "sideMenu5");
 		return "businessSupport/meetingFacilitiesManagement/meetingRoomBooking";
 	}
 	

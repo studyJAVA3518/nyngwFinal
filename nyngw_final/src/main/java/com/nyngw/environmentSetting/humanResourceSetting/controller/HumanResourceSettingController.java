@@ -41,6 +41,7 @@ public class HumanResourceSettingController {
 		
 		model.addAttribute("vacationList",vacationList);
 		String url = "enovironmentSetting/humanResourceSetting/vacationKind";
+		model.addAttribute("sideValue", "sideMenu7");
 		return url;
 	}
 	
@@ -86,6 +87,7 @@ public class HumanResourceSettingController {
 		model.addAttribute("page", paging);
 		model.addAttribute("yearList",yearList );
 		model.addAttribute("memberList", memberVacationList);
+		model.addAttribute("sideValue", "sideMenu8");
 		String url = "enovironmentSetting/humanResourceSetting/vacationDays";
 		return url;
 	}

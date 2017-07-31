@@ -81,6 +81,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
 		}
+		model.addAttribute("sideValue", "sideMenu1");
 		return "documentManagement/documentManager/documentSelect";
 	}
 	
@@ -253,6 +254,7 @@ public class DocumentManagerController implements ApplicationContextAware{
 		if(val!=null && !val.equals("")){
 			model.addAttribute("select",select);
 		}
+		model.addAttribute("sideValue", "sideMenu2");
 		return "documentManagement/documentManager/edocumentSelect";
 	}
 	

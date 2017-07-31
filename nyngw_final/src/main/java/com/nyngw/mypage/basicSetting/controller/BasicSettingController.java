@@ -44,7 +44,7 @@ public class BasicSettingController {
 		
 		MemberVO vo =  basicSettingServiceImpl.selectMember(mem_id);
 		model.addAttribute("MemberVoDetail",vo);
-		
+		model.addAttribute("sideValue","sideMenu4");
 		return "mypage/basicSetting/sign";
 	}
 	

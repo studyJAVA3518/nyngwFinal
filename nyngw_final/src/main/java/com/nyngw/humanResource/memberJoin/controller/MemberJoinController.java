@@ -37,7 +37,7 @@ public class MemberJoinController {
 			e.printStackTrace();
 		}
 		
-		
+		model.addAttribute("sideValue", "sideMenu4");
 		return "humanResource/memberJoin/mjm";
 	}
 	

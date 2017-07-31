@@ -58,6 +58,7 @@ public class JoinMemberListController {
 		
 		model.addAttribute("page", paging);
 		model.addAttribute("joinMemberList", joinMemberList);
+		model.addAttribute("sideValue", "sideMenu5");
 		return "humanResource/joinMemberList/jlm";
 	}
 	

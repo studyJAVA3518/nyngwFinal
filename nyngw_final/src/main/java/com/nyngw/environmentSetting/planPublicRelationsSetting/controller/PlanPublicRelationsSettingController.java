@@ -61,7 +61,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		model.addAttribute("sideValue", "sideMenu1");
 		return url;
 	}
 
@@ -172,6 +172,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("sideValue", "sideMenu2");
 		return url;
 	}
 	
@@ -319,7 +320,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		model.addAttribute("sideValue", "sideMenu3");
 		return url;
 	}
 	
@@ -434,6 +435,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("sideValue", "sideMenu4");
 		return url;
 	}
 	
@@ -593,6 +595,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("sideValue", "sideMenu5");
 		return url;
 	}
 	
@@ -669,6 +672,7 @@ public class PlanPublicRelationsSettingController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("sideValue", "sideMenu6");
 		return url;
 	}
 	/**

@@ -73,7 +73,7 @@ public class VacationManagementController {
 		model.addAttribute("page", paging);
 		model.addAttribute("memberVacation", memberVacation);
 		model.addAttribute("deptVacation", deptVacation);
-		
+		model.addAttribute("sideValue", "sideMenu2");
 		return "humanResource/vacationManagement/vmtm";
 	}
 	

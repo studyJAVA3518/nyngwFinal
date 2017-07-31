@@ -67,6 +67,7 @@ public class PayManagementController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("sideValue", "sideMenu3");
 		return "humanResource/payManagement/pmm";
 	}
 	

@@ -93,7 +93,7 @@ public class IndividualDocumentBoxController {
 			model.addAttribute("beginPage", beginPageNumber);	//보여줄 페이지 번호의 시작
 			model.addAttribute("endPage", endPageNumber);		//보여줄 페이지 번호의 끝
 		}
-		
+		model.addAttribute("sideValue","sideMenu5");
 		model.addAttribute("page",page);
 //		model.addAttribute("code_nameList",code_nameList );
 		
@@ -211,6 +211,7 @@ public class IndividualDocumentBoxController {
 		}
 		model.addAttribute("code_nameList",code_nameList );
 		model.addAttribute("memberList",memberList );
+		model.addAttribute("sideValue","sideMenu6");
 		return "electronicApproval/individualDocumentBox/completeApprovalBox";
 	}
 	
@@ -267,7 +268,7 @@ public class IndividualDocumentBoxController {
 		List<CommonApproval_TOTALVO> EAList = individualDocumentBoxService.getRefusedApprovalList(vo);
 		
 		model.addAttribute("EAList", EAList);
-		
+		model.addAttribute("sideValue","sideMenu7");
 		return "electronicApproval/individualDocumentBox/refusedApprovalBox";
 	}
 	

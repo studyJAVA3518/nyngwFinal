@@ -59,7 +59,7 @@ public class RetiredMemberListController {
 		model.addAttribute("dept_number", member.getMem_dept_number());
 		model.addAttribute("page", paging);
 		model.addAttribute("memberList", memberList);		
-		
+		model.addAttribute("sideValue", "sideMenu6");
 		return "humanResource/retiredMemberList/rmm";
 	}
 	

@@ -43,6 +43,7 @@ public class DutyReportController {
 		}
 		MemberVO mem = basicSettingService.selectMember(principal.getName());
 		model.addAttribute("mem_name",mem.getMem_name());
+		model.addAttribute("sideValue", "sideMenu3");
 		dutyReportService.dutyReportList(searchDate,reportType,titleType,val,model,principal,pageNumber);
 		return "businessSupport/dutyReport/dutyReport";
 	}
@@ -98,6 +99,7 @@ public class DutyReportController {
 			titleType = "";
 			val = "";
 		}
+		model.addAttribute("sideValue", "sideMenu4");
 		dutyReportService.getDutyReportselect(searchDate,reportType,titleType,val,model,principal,pageNumber);
 		return "businessSupport/dutyReport/getDutyReportselect";
 	}

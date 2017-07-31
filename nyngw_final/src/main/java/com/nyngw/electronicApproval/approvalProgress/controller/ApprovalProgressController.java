@@ -36,6 +36,7 @@ public class ApprovalProgressController {
 	@RequestMapping("/waitingApproval")
 	public String waitingApproval(Model model,Principal principal){
 		ApprovalProgressService.defaultWA(model,principal);
+		model.addAttribute("sideValue","sideMenu2");
 		return "electronicApproval/approvalProgress/waitingApproval";
 	}
 
@@ -67,7 +68,7 @@ public class ApprovalProgressController {
 	@RequestMapping("/completeApproval")
 	public String completeApproval(Model model, Principal principal){
 		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultCA(model, principal);
-		
+		model.addAttribute("sideValue","sideMenu3");
 		return "electronicApproval/approvalProgress/completeApproval";
 	}
 	
@@ -75,6 +76,7 @@ public class ApprovalProgressController {
 	@RequestMapping("/refusedApproval")
 	public String refusedApproval(Model model, Principal principal){
 		List<Electronic_ApprovalVO> EAList = ApprovalProgressService.defaultRA(model, principal);
+		model.addAttribute("sideValue","sideMenu4");
 		return "electronicApproval/approvalProgress/refusedApproval";
 	}
 	

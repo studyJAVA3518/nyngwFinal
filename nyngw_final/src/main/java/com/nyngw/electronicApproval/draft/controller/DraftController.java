@@ -41,6 +41,7 @@ public class DraftController {
 		
 		model.addAttribute("documentList", documentList);
 		model.addAttribute("code_nameList",code_nameList );
+		model.addAttribute("sideValue","sideMenu1");
 		return "electronicApproval/draft/draft";
 	}
 	

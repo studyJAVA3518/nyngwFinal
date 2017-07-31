@@ -83,6 +83,7 @@ public class MeetingManagementController {
 		}
 		
 		model.addAttribute("page",page);
+		model.addAttribute("sideValue", "sideMenu6");
 		return "businessSupport/meetingManagement/meetingCalendar";
 	}
 	
@@ -281,7 +282,7 @@ public class MeetingManagementController {
 		}
 		
 		model.addAttribute("page",page);
-		
+		model.addAttribute("sideValue", "sideMenu7");
 		return "businessSupport/meetingManagement/meetingFile";
 	}
 	@RequestMapping("addMeetingFile")

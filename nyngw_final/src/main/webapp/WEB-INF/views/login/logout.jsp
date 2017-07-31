@@ -5,5 +5,5 @@
 
 <script>
 alert("로그아웃 완료");
-location.href='login';
+location.href='/user/loginForm';
 </script>
