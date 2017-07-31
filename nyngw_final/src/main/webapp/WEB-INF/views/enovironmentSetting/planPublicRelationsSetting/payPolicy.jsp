@@ -112,11 +112,10 @@
 </script>
 
 
-<h2>급여정책 설정</h2>
+<h2>급여정책 추가하기</h2>
 
 <div class="row">
 	<div class="col-md-12">
-		<h5>급여 정책 추가하기</h5>
 		<table class="table textCenter">
 			<form class="form-inline" name="payPolicyInsertForm">
 				<tr>
@@ -167,10 +166,10 @@
 			</form>
 		</table>
 		
-		<h5>급여 정책 삭제하기</h5>
-		<p>기본적으로 설정되어있는 급여정책(시간당시급,기본급,직책수당) 외의 급여정책을 삭제할 수 있습니다.</p>
+		<h2>급여 정책 삭제하기</h2>
+		<p class="docTitleDescription">기본적으로 설정되어있는 급여정책(시간당시급,기본급,직책수당) 외의 급여정책을 삭제할 수 있습니다.</p>
 		<form name="deletePayPolicyForm" class="inline-form">
-			<select name="del_pp_number" class="form-control" style="display:inline-block; width:200px;">
+			<select name="del_pp_number" class="form-control docInputSelect" style="display:inline-block; width:200px;">
 				<c:forEach var="pp" items="${payViewList}" varStatus="status">
 					<c:choose>
 						<c:when test="${pp.pk_number =='pk1' || pp.pk_number=='pk2' || pp.pk_number=='pk3' || pp.pk_tax=='y'}">
@@ -191,8 +190,8 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<h4>전체 급여정책 설정</h4>
-		<p>회사원 전체에게 동일하게 적용되는 급여를 설정합니다.</p>
+		<h2>전체 급여정책 설정</h2>
+		<p class="docTitleDescription">회사원 전체에게 동일하게 적용되는 급여를 설정합니다.</p>
 		<table class="table textCenter">
 			<tr>
 				<th>No</th>
@@ -217,7 +216,7 @@
 		</table>
 	</div>
 	<div class="col-md-6">
-		<h4>4대 보험료율</h4>
+		<h2>4대 보험료율</h2>
 		<table class="table textCenter">
 			<tr>
 				<th>No</th>
@@ -243,8 +242,8 @@
 
 
 <div class="row">
-	<h4>직급별 급여정책 설정</h4>
-	<p>직급별로 급여를 설정합니다</p>
+	<h2>직급별 급여정책 설정</h2>
+	<p class="docTitleDescription">직급별로 급여를 설정합니다</p>
 	<div class="col-md-4">
 		<table class="table textCenter">
 			<tr>

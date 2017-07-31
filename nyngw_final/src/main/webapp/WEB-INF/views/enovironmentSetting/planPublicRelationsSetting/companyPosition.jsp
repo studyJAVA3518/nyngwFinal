@@ -9,7 +9,7 @@
 
 
 <h2>회사 직급 설정</h2>
-<p>
+<p class="docTitleDescription">
 	회사의 직급을 등록하거나 수정하실 수 있으며, 위 아래 버튼을 눌러 위치를 변경하실 수 있습니다.<br/>
 	ex) 부장, 과장, 대리, 사원 등
 </p>
@@ -27,7 +27,7 @@
 				<tr>
 					<th>직급레벨</th>
 					<td>
-						<select name="position_level">
+						<select class="form-control" name="position_level">
 							<c:forEach  var="posLevel" items="${posList}" begin="1" end="${posList.size()}" step="1">
 								<option value="${posLevel.position_level+5}" class="form-control">${posLevel.position_name}</option>
 							</c:forEach>
@@ -48,9 +48,10 @@
 	</div>
 </div>
 
+<br>
 <div class="row">
 	<h4>직급 리스트</h4>
-	<p>총 ${positionCount}개의 직급이 등록되어 있습니다.</p>
+	<p class="docTitleDescription">총 ${positionCount}개의 직급이 등록되어 있습니다.</p>
 	<div class="col-md-12">
 		<table class="table textCenter">
 			<form class="inline-form" name="positionListForm">
