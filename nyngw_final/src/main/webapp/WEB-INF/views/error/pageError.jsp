@@ -68,12 +68,27 @@
 	href="https://ysks.co.kr/wp-content/uploads/studio-jt/dynamic.css">
 <link rel="stylesheet"
 	href="https://ysks.co.kr/wp-content/plugins/jetpack/css/jetpack.css">
+<style>
+body {
+	text-align: center;
+	margin: 0 auto;
+}
+#wrap750 {
+	position: absolute;
+	width: 748px;
+	height: 700px;
+	left: 50%;
+	top: 50%;
+	margin-left: -350px;
+	margin-top: -300px;
+}
+</style>
 </head>
 <body>
+		
 	<div id="wrap750">
 		<div id="simpleHeader">
-			<span class="goSayclubHome"><a href="/homeMain/main">그룹웨어
-					홈</a></span>
+			<span class="goSayclubHome"><a href="/homeMain/main">그룹웨어 홈</a></span>
 		</div>
 		<div id="error" class="contentWrap">
 			<dl class="msg2">
