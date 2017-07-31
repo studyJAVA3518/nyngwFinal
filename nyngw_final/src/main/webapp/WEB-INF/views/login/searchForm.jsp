@@ -13,41 +13,33 @@
 <meta name="author" content="">
 <title>NTN Group Ware System</title>
 
+<!-- jQuery -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- jQuery monthPicker -->
+<script src="<%=request.getContextPath() %>/resources/js/MonthPicker.min.js"></script>
+<link href="<%=request.getContextPath()%>/resources/css/MonthPicker.min.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+
 <!-- Bootstrap Core CSS -->
 <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="<%=request.getContextPath()%>/resources/css/simple-sidebar.css" rel="stylesheet">
 <!-- jquery.form.js - ajaxSubmit() 사용 -->
 <script type='text/javascript' src='http://malsup.github.com/jquery.form.js'></script>
-  
-   <!-- Bootstrap Core JavaScript -->
+
+ <!-- Bootstrap Core JavaScript -->
 <script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
 
 <!-- fontawesome(클래스화 된 아이콘) css inport -->
 <link href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" rel="stylesheet">
-
-<!-- 풀캘린드-->
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/moment.min.js'></script>
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/fullcalendar.min.js'></script>
-<script src='<%=request.getContextPath() %>/resources/js/fullCalendar/ko.js'></script>
-<!-- 캘린더 css -->
-<link href='<%=request.getContextPath() %>/resources/css/base.css' rel='stylesheet' />
-<link rel='stylesheet' href='<%=request.getContextPath() %>/resources/css/fullcalendar.min.css' />
 
 <!-- 초기화 css import -->
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 
 <!-- 프로젝트 메인화면 구성에 대한 css import -->
 <link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet">
-
-<!-- 다음에디터를 쓰기위한 링크 -->
-<link rel="stylesheet" href="<c:url value="/resources/daumOpenEditor/css/editor.css"/>" type="text/css" charset="utf-8"/>
-<script src="<c:url value="/resources/daumOpenEditor/js/editor_loader.js"/>" type="text/javascript" charset="utf-8"></script>
-
-<!-- 조직도 트리를 위한 js -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/tree/zooTree.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/tree/zooTree.css">
-
 
 <!-- Vedio -->
 <!--1. 비디오를 웹브라우저에 노출하기 위한 플러그인입니다. 비디오 재생 플레이어의 일종이라 생각하시면 됩니다.-->
