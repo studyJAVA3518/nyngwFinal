@@ -105,7 +105,7 @@ $(function(){
 				<td id="approvalMember" colspan="5">
 			</tr>
 		</table>
-			<div style="text-align: center;">
+			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
 			<jsp:include page="/WEB-INF/views/common/daumOpenEditor/meetingeditor.jsp" flush="false"/>
 			<input type="hidden" value="${page}">
 			<button onclick='saveContent()'class="btn btn-default">등록</button>

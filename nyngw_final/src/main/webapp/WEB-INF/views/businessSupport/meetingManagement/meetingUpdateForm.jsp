@@ -81,7 +81,7 @@ function meetingDelete(mt_number){
 <!-- 			</table> -->
 			
 			<input type="hidden" value="${page}">
-			<div style="text-align: center;">
+			<div style="text-align: center;" class="insertJoinBtnWrap textCenter">
 			<button onclick='saveContent()' class="btn btn-default">등록</button>
 			<input type="reset" value="초기화" class="btn btn-default"/>
 			<button type="button" onclick="meetingDelete('${meeting.mt_number}');" class="btn btn-default">삭제하기</button>
