@@ -93,7 +93,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		
 	}
 	
-	//미결제문서 자세히보기
+	//미결재문서 자세히보기
 	public void waDetail(Model model, String ea_number,Principal principal,int check) {
 
 		//결재정보 setting
@@ -450,10 +450,13 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			memberList.add(commonServiceImpl.findMemberByMemNumber(eaVO.getEa_mem_number()));
 			completeDateList.add(approvalProgressDao.selectResentHistoryDate(eaVO.getEa_number()));
 		}
+		
 		for(Date date : completeDateList){
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String to = transFormat.format(date);
-			completeDateFormatList.add(to);
+			if(date!=null){
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String to = transFormat.format(date);
+				completeDateFormatList.add(to);
+			}
 		}
 		
 		model.addAttribute("code_nameList",code_nameList);
