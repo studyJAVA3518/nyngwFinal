@@ -78,7 +78,7 @@
 </script>
 
 <h2>근무일 및 출결정보 등록시간 설정</h2>
-<table class="table">
+<table class="table textCenter">
 	<tr>
 		<th>No</th>
 		<th>시간 종류</th>
@@ -132,7 +132,7 @@
 
 <h2>출결정보 수동 등록</h2>
 	<form name="workingDayForm" id="workingDayForm" class="form-inline" enctype="multipart/form-data">
-		<table class="table">
+		<table class="table textCenter">
 			<tr>
 				<td colspan="2">
 				<!-- 출결정보는 기본적으로 매일 오전 12시에 자동 업데이트가 됩니다.<br/> -->

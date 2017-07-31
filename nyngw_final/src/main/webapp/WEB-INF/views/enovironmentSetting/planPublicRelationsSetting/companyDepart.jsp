@@ -100,7 +100,7 @@ $(function(){
 </p>
 <div class="row">
 	<h4>부서 만들기</h4>
-	<table class="table">
+	<table class="table textCenter">
 		<form method="post" name="insertDeptForm">
 			<tr>
 				<th>부서 이름</th>
@@ -156,7 +156,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="button" value="부서 등록" onclick="insertDept_go(this.form);"/>
+					<input type="button" class="btn btn-default" value="부서 등록" onclick="insertDept_go(this.form);"/>
 				</td>
 			</tr>
 		</form>
@@ -167,7 +167,7 @@ $(function(){
 	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	
 		<form>
-			<table class="table">
+			<table class="table textCenter">
 			<c:forEach var="depart" items="${dvList}">
 				<tr>
 					<th>${depart.dept_name}</th>
@@ -185,7 +185,7 @@ $(function(){
 <div class="updateDeptBox">
 	<!-- 부서를 수정하는 팝업창 -->
 	<h4>부서 수정하기</h4>
-	<table class="table">
+	<table class="table textCenter">
 		<form method="post" name="updateDeptForm">
 			<tr>
 				<th>부서 이름</th>
@@ -233,7 +233,7 @@ $(function(){
 			<tr>
 				<td colspan="2">
 					<input type="hidden" id="up_dept_number" name="up_dept_number"/>
-					<input type="button" value="부서 수정" id="updateDeptBtn" onclick="updateDept_go();"/>
+					<input type="button" class="btn btn-default" value="부서 수정" id="updateDeptBtn" onclick="updateDept_go();"/>
 				</td>
 			</tr>
 		</form>

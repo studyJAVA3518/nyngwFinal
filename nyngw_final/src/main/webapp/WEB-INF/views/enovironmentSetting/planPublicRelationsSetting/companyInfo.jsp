@@ -86,7 +86,7 @@
 
 <h2>회사 정보 설정</h2>
 <h4>회사 로고 등록 및 변경</h4>
-<table class="table">
+<table class="table textCenter">
 	<form class="form-inline" method="post" name="comLogo" enctype="multipart/form-data">
 		<tr>
 			<td colspan="2">
@@ -110,7 +110,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="로고 수정" class="btn btn-default" onclick="updateLogo_go();"/>
+				<input type="button" class="btn btn-default" value="로고 수정" class="btn btn-default" onclick="updateLogo_go();"/>
 			</td>
 		</tr>
 	</form>
@@ -118,7 +118,7 @@
 	
 <h4>회사 정보 등록</h4>
 <div id="callBackDiv">
-<table class="table">
+<table class="table textCenter">
 	<form class="form-inline" id="form" method="post" name="comInfo">
 		<tr>
 			<th>회사 이름</th>

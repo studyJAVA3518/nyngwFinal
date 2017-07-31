@@ -16,7 +16,7 @@
 <div class="row">
 	<h4>직급 만들기</h4>
 	<div class="col-md-12">
-		<table class="table">
+		<table class="table textCenter">
 			<form class="inline-form" name="positionInsertForm">
 				<tr>
 					<th>직급명</th>
@@ -52,7 +52,7 @@
 	<h4>직급 리스트</h4>
 	<p>총 ${positionCount}개의 직급이 등록되어 있습니다.</p>
 	<div class="col-md-12">
-		<table class="table">
+		<table class="table textCenter">
 			<form class="inline-form" name="positionListForm">
 				<tr>
 					<th>No.</th>
@@ -83,7 +83,7 @@
 
 <div class="updatePositionBox">
 	<h4>직급 수정하기</h4>
-	<table class="table">
+	<table class="table textCenter">
 		<form name="updatePositionForm" method="post">
 			<tr>
 				<th>직급 이름</th>

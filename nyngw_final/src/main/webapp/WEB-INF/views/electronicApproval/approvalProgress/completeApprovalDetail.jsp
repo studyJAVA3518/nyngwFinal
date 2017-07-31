@@ -26,8 +26,40 @@
 	}     
 	.txc-table{
 		margin :0 auto;
-	}                                                                                                                                                                                       
-</style>                                                                                                                                                                                         
+	}    
+	
+	.tableTd1{
+		 width:120px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd2{
+		 width:150zpx;
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd3{
+		 width:130px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd4{
+		 width:100px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+	.tableTd5{
+		 width:160px; 
+		 height:37px;
+		 border-bottom: 1px solid #ddd;
+		 vertical-align: middle;
+	}
+</style>                        
+                                                                                                                                                                 
 <script type="text/javascript">                                                                                                                                                                  
 $(function(){                                                                                                                                                                                    
 	//기본 설정 dialog 보이지 않게                                                                                                                                                                        
@@ -43,11 +75,11 @@ $(function(){
 			success : function(res){                                                                                                                                                             
 				var code = "";                                                                                                                                                                   
 				$.each(res, function (i,value){                                                                                                                                              
-					code+='<tr><td>'+value.dept_name+'</td>';                                                                                                                                    
-					code+='<td>'+value.position_name+'</td>';                                                                                                                                    
-					code+='<td>'+value.mem_name+'</td>';                                                                                                                                         
-					code+='<td>'+value.ah_status+'</td>';                                                                                                                                        
-					code+='<td>'+value.ah_time+'</td></tr>';                                                                                                                                     
+					code+='<tr><td class="tableTd1">'+value.dept_name+'</td>';                                                                                                                                    
+					code+='<td class="tableTd2">'+value.position_name+'</td>';                                                                                                                                    
+					code+='<td class="tableTd3">'+value.mem_name+'</td>';                                                                                                                                         
+					code+='<td class="tableTd4">'+value.ah_status+'</td>';                                                                                                                                        
+					code+='<td class="tableTd5">'+value.ah_time+'</td></tr>';                                                                                                                                     
 				});                                                                                                                                                                              
 				$("#historyList").append(code);                                                                                                                                                  
 			},                                                                                                                                                                                   
@@ -64,7 +96,7 @@ $(function(){
 				}                                                                                                                                                                                
 			},                                                                                                                                                                                   
 			close: function() {                                                                                                                                                                  
-				$('#textArea').val('');                                                                                                                                                          
+				$('#historyList').html('<tr><th class="tableTd1">부서</th><th class="tableTd2">직급</th><th class="tableTd3">이름</th><th class="tableTd4">결재종류</th><th class="tableTd5">결재시간</th></tr>'); 
 			}                                                                                                                                                                                    
 		});                                                                                                                                                                                      
                                                                                                                                                                                                  
@@ -83,11 +115,11 @@ $(function(){
 	<h2>결재상태 이력보기</h2>                                                                                                                                                                                    
 	<table class="table tableGray" id="historyList">                                                                                                                                                       
 		<tr>                                                                                                                                                                                     
-			<th>부서</th>                                                                                                                                                                          
-			<th>직급</th>                                                                                                                                                                          
-			<th>이름</th>                                                                                                                                                                          
-			<th>결재종류</th>                                                                                                                                                                        
-			<th>결재시간</th>                                                                                                                                                                        
+			<th class="tableTd1">부서</th>                                                                                                                                                                          
+			<th class="tableTd2">직급</th>                                                                                                                                                                          
+			<th class="tableTd3">이름</th>                                                                                                                                                                          
+			<th class="tableTd4">결재종류</th>                                                                                                                                                                        
+			<th class="tableTd5">결재시간</th>                                                                                                                                                                        
 		</tr>                                                                                                                                                                                    
 	</table>                                                                                                                                                                                     
 </div>                                                                                                                                                                                           

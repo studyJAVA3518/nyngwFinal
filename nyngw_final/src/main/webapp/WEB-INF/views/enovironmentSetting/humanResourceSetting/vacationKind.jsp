@@ -60,11 +60,11 @@ function vacationDelete_go() {
 	<option value="y" class="deductVacation">급여 지급</option>
 	<option value="n">급여 미지급</option>
 </select>
-<button type="button" onclick ="vacation_go();">등록</button>
+<button class="btn btn-default" type="button" onclick ="vacation_go();">등록</button>
 </form>
 
 <h2>휴가 종류 설정</h2>
-<table class="table">
+<table class="table textCenter">
 	<form method="post" class="form-inline" >
 		<tr>
 			<div class="form-group">
@@ -87,8 +87,8 @@ function vacationDelete_go() {
 				</div>
 			</tr>
 		</c:forEach>
-		<input type="button" value="setting" onclick="vacationDeduction_go(this.form);"/>
-		<input type="button" value="delete" onclick="vacationDelete_go();"/>
+		<input type="button" class="btn btn-default" value="setting" onclick="vacationDeduction_go(this.form);"/>
+		<input type="button" class="btn btn-default" value="delete" onclick="vacationDelete_go();"/>
 	</form>
 </table>
 

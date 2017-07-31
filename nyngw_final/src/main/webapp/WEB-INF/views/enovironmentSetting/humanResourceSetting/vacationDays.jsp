@@ -126,7 +126,7 @@ $(function(){
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="days">
-		    	<table class="table table-bordered">
+		    	<table class="table table-bordered textCenter">
 		    	<tr>
 		    		<th><input type="checkbox" id="allCheck"/></th>
 		    		<th>연차</th>
@@ -151,8 +151,8 @@ $(function(){
 							</tr>
 						</c:forEach>
 					</table>
-					<input type="button" value="변경" onclick="vacationYear_go();"/>
-					<input type="button" value="삭제" onclick="vacationYearDEL_go();"/>
+					<input type="button" value="변경" class="btn btn-default" onclick="vacationYear_go();"/>
+					<input type="button" value="삭제" class="btn btn-default" onclick="vacationYearDEL_go();"/>
 					<form id="yearVacation">
 						<input type="text" name="yv_year" />
 						<select name="yv_vacation_day" class="btn btn-default">
@@ -166,7 +166,7 @@ $(function(){
 							<option value="7">7</option>
 							<option value="8">8</option>
 						</select>
-						<button onclick="addAndCheck();">추가</button>
+						<button class="btn btn-default" onclick="addAndCheck();">추가</button>
 					</form> 
 					</div>
 		    <div role="tabpanel" class="tab-pane" id="profile">
@@ -183,7 +183,7 @@ $(function(){
 					<option value="dept10" >기획2팀</option>
 				</select>
 				<input type="text" name="mem_name" />
-				<button>검색</button>
+				<button class="btn btn-default">검색</button>
 				</form>
 		    	<table class="table table-bordered">
 		    	<tr>

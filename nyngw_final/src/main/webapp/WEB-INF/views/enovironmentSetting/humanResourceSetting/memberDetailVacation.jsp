@@ -9,7 +9,7 @@
 
 
 
-<table class="table table-bordered">
+<table class="table table-bordered textCenter">
 	<tr>
 		<th>사원 아이디</th>
 		<td>${member.mem_id }</td>
