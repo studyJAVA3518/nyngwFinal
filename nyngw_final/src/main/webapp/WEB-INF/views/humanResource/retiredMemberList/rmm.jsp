@@ -18,7 +18,8 @@
 				'mem_chk' : items
 			},
 			success : function(res) {
-
+				alert('복직처리되었습니다.');
+				location.href="/humanResource/retiredMemberList/rmm";
 			},
 			error : function() {
 
@@ -33,26 +34,26 @@
 	   });
 	
 </script>
+<h2>퇴사자 정보</h2>
+<p class="docTitleDescription">
+	퇴사자의 정보를 확인하고 복직처리를 할 수 있습니다.
+</p>
 
-퇴사자 리스트
 <form action="rmm" method="post">
-	<table>
-		<tr>
-			<td><select id="mem_dept_number" name="mem_dept_number" class="btn btn-default">
-					<option value="all" selected="selected">모든부서</option>
-					<option value="dept3">인사부</option>
-					<option value="dept4">기획홍보부</option>
-					<option value="dept5">영업부</option>
-					<option value="dept6">생산부</option>
-					<option value="dept7">인사1팀</option>
-					<option value="dept8">인사2팀</option>
-					<option value="dept9">기획1팀</option>
-					<option value="dept10">기획2팀</option>
-			</select> <input type="text" name="mem_name" />
-				<button class="btn btn-default">검색</button></td>
-		</tr>
-	</table>
-	<table class="table table-bordered">
+	
+	<div class="retirementWrap">
+	부서 선택 
+		<select id="mem_dept_number" name="mem_dept_number" class="form-control docInputSelect">
+			<option value="all" selected="selected">모든부서</option>
+			
+			<c:forEach items="${depList}" var="depList" begin="0" end="${depList.size()}">
+				<option value="${depList.dept_number}">${depList.dept_name}</option>
+			</c:forEach>
+		</select> 
+		<input type="text" name="mem_name" class="form-control docInputSearch"/>
+		<button class="btn btn-default">검색</button></td>
+	</div>
+	<table class="table table-bordered textCenter">
 		<tr>
 			<th>퇴사</th>
 			<th>부서</th>
@@ -71,19 +72,21 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<c:if
-		test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
-		<a href="/humanResource/retiredMemberList/rmm?page=${i}">이전</a>
-	</c:if>
-	<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"
-		var="i">
-		<a href="/humanResource/retiredMemberList/rmm?page=${i}">[${i}]</a>
-	</c:forEach>
-	<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
-		<a href="/humanResource/retiredMemberList/rmm?page=${i}">다음</a>
-	</c:if>
-
-	<input type="button" value="복직" onclick="saveMember();"
-		class="btn btn-default" /> <input type="button" value="퇴사" name=""
-		class="btn btn-default" />
+	<div class="textCenter bottomBtnWrap">
+		<c:if
+			test="${page.currentPageNo >= page.firstPageNo + page.sizeOfPage}">
+			<a href="/humanResource/retiredMemberList/rmm?page=${i}">이전</a>
+		</c:if>
+		<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" step="1"
+			var="i">
+			<a href="/humanResource/retiredMemberList/rmm?page=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${page.startPageNo+page.sizeOfPage < page.finalPageNo}">
+			<a href="/humanResource/retiredMemberList/rmm?page=${i}">다음</a>
+		</c:if>
+	</div>
+	<div class="textCenter">
+		<input type="button" value="복직" onclick="saveMember();" class="btn btn-default" />
+		<input type="button" value="퇴사" name="" class="btn btn-default" />
+	</div>
 </form>
