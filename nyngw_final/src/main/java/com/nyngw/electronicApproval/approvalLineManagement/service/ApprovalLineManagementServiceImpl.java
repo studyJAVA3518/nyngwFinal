@@ -36,7 +36,6 @@ public class ApprovalLineManagementServiceImpl implements
 
 		try{
 			List<DepartmentVO> select = approvalLineManagementDao.EA_selectDepartmentList();
-			System.out.println("------>"+select.size());
 			sel_menu_id = new String[select.size()];
 
 			int h = select.size();

@@ -126,7 +126,6 @@ public class IndividualDocumentBoxController {
 			@RequestParam(value="param_ea_startdate") String ea_startdate,
 			@RequestParam(value="param_ea_enddate") String ea_enddate,
 			ApprovalParamVO apVO){
-		System.out.println("인");
 		individualDocumentBoxService.editApproval(model,eaVO,ea_content,apVO,ea_startdate,ea_enddate);
 		return "redirect:/electronicApproval/individualDocumentBox/submitApprovalBox";
 	}
@@ -245,7 +244,6 @@ public class IndividualDocumentBoxController {
 			map.put("mem_name", member.getMem_name());
 			map.put("ah_status",history.get(i).getAh_status());//결재상태
 			map.put("ah_time", ah_time);//결재시간
-			System.out.println(history.get(i).getAh_status());
 			historyMember.add(map);
 		}
 		return historyMember;

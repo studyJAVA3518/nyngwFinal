@@ -41,7 +41,6 @@ public class ApprovalProgressController {
 		if(check==null){
 			check = "";
 		}
-		System.out.println(check);
 		ApprovalProgressService.defaultWA(model,principal,check);
 		return "electronicApproval/approvalProgress/waitingApproval";
 	}

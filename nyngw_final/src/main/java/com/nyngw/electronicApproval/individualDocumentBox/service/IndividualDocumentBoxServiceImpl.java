@@ -479,7 +479,6 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		}
 		//참조자
 		if(apVO.getReferenceMembers()!=null&&!apVO.getReferenceMembers().equals("")){
-			System.out.println("참조자");
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();
 			StringTokenizer st = new StringTokenizer(referenceMembers,","); 
@@ -668,7 +667,6 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		eaVO.setEa_enddate(enddate);
 		approvalProgressDao.EA_updateApproval(eaVO);
 		
-		System.out.println("인2");
 		individualDocumentBoxDao.draft_deleteApprovalStep(eaVO.getEa_number());
 		
 		//스텝등록
@@ -823,7 +821,6 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		}
 		//참조자
 		if(apVO.getReferenceMembers()!=null&&!apVO.getReferenceMembers().equals("")){
-			System.out.println("참조자");
 			paramMap = new HashMap<String, String>(); 
 			referenceMembers = apVO.getReferenceMembers();
 			StringTokenizer st = new StringTokenizer(referenceMembers,","); 
