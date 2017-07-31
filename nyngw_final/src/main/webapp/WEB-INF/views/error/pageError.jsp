@@ -8,16 +8,22 @@
 <title>${title }</title>
 </head>
 <body>
-	<c:if test="${error == '404'}">
-	<h2>${title}</h2>
-	<h5>${message }</h5>
-	</c:if>
-	<c:if test="${error == '500'}">
-	<h2>${title}</h2>
-	<h5>${message }</h5>
-	</c:if>
-	<a href="/homeMain/main">메인으로</a>
-	<a href="javascript:history.back();">뒤로</a>
+	<div style="background-image:/resources/images/error.jpg">
+		<c:if test="${error == '404'}">
+			<h2>${title}</h2>
+			<h5>${message }</h5>
+		</c:if>
+		<c:if test="${error == '500'}">
+			<h2>${title}</h2>
+			<h5>${message }</h5>
+		</c:if>
+		<c:if test="${error == 'exception'}">
+			<h2>${title}</h2>
+			<h5>${message }</h5>
+		</c:if>
+		<br> <a href="/homeMain/main">메인으로</a> <a
+			href="javascript:history.back();">뒤로</a>
+	</div>
 </body>
 </html>
 

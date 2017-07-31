@@ -92,6 +92,13 @@
 </head>
 <body>
 	
+	<c:if test="${param.error != null }">
+		<script>
+			alert("로그인 실패");
+		</script>
+	</c:if>
+	
+	
 	<div class="container-fluid indexWrapper BigWrap">
 
 		<div class="videoEle"></div>
