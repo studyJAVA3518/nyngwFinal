@@ -74,9 +74,10 @@ public class ScheduleManagementController {
 		}else if(sc_code_number.equals("code5")){
 			model.addAttribute("au", "");
 			model.addAttribute("sideValue", "sideMenu3");
-			if(member.getMem_mngr_number().equals("role_admin")){
+			if(member.getMem_mngr_number().equals("role_ppr_admin")||member.getMem_mngr_number().equals("role_admin")){
 				model.addAttribute("au", "ok");
 			}
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>");
 		}else{
 			model.addAttribute("au", "");
 			if(member.getMem_mngr_number().equals("role_master")||member.getMem_mngr_number().equals("role_prr_admin")){
