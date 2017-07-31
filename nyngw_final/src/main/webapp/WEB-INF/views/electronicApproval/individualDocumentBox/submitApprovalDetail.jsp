@@ -36,7 +36,7 @@ $(function(){
 			height: 500,
 			modal: true,
 			buttons: {
-		       "취소": function() {
+		       "확인": function() {
 					$(this).dialog("close");
 				}
 			},
@@ -85,7 +85,8 @@ $(function(){
 		</tr>
 	</table>
 </div>
-<h2>상신문서함 디테일</h2>
+
+<h2>상신 문서 상세</h2>
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
 <c:if test="${indexA == 0 and indexB == 0}">
 	<form name="hiddenForm">
@@ -182,8 +183,8 @@ $(function(){
 			</td>	
 		</tr>
 	</table>
-	<div class="textCenter">
-		<a href="/electronicApproval/approvalProgress/waitingApproval"><button type="button" class="btn btn-default">뒤로</button></a>
+	<div class="insertJoinBtnWrap textCenter">
+		<a href="/electronicApproval/individualDocumentBox/submitApprovalBox"><button type="button" class="btn btn-default">뒤로</button></a>
 	</div>
 </div>
 <style>

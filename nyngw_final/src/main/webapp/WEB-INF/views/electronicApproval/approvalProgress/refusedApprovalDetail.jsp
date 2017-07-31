@@ -115,18 +115,20 @@ $(function(){
 <!-- 			<th>결재시간</th>                                                                                                                                                                         -->
 <!-- 		</tr>                                                                                                                                                                                     -->
 	</table>
+	<br><hr>
 	<h2>반려사유</h2>
-	<div id="historyReasonForreFusal">
-	 ${ah_comment }
+	<div id="historyReasonForreFusal" style="background-color:#eee;padding:30px 0;border-radius:10px;">
+		 ${ah_comment }
 	</div>                                                                                                                                                                                     
 </div>                                                                                                                                                                                           
         
-<div class="textCenter divALM">        
+<div class="divALM">        
 	<form name="hiddenForm" id="buttonForm">                                                                                                                                                         
 		<input type="hidden" name="ea_number" value="${eaVO.ea_number }">                                                                                                                            
 		<button type="button" id="approvalHistory_go"  class="btn btn-default">결재이력</button>                                                                                                                                  
 	</form>                                                                                                                                                                                          
 </div>  
+
 <div>
 	<form id="editForm">                                                                                                                                                                                            
 	<table class="table table-bordered tableGray">                                                                                                                                                         
@@ -222,7 +224,7 @@ $(function(){
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
 	</table>  
-	<div class="textCenter">                                                                                                                                                                      
+	<div class="insertJoinBtnWrap textCenter">                                                                                                                                                                      
 		<button type="button" onclick="rewriteApproval_go(this.form);"  class="btn btn-default">재작성</button>
 		<a href="/electronicApproval/approvalProgress/refusedApproval"><button type="button"  class="btn btn-default">뒤로</button></a>
 	</div>                                                                                         

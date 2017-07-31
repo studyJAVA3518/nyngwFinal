@@ -28,6 +28,10 @@
 	.txc-table{
 		margin :0 auto;
 	}
+	
+	.contentContainer table{
+		margin: auto;
+	}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -581,11 +585,13 @@ $(function(){
 		</tr>
 		<tr>
 			<td colspan="6" style="margin: 0 auto;">
-				<div class="textCenter" style="margin: 0 auto;">
+				<div class="textCenter contentContainer" style="margin: 0 auto;">
 					${eaVO.ea_content }
 				</div>
 			</td>	
 		</tr>
 	</table>
-	<a href="/electronicApproval/approvalProgress/waitingApproval?check=1"><button type="button"  class="btn btn-default">뒤로</button></a>
+	<div class="insertJoinBtnWrap textCenter">
+		<a href="/electronicApproval/approvalProgress/waitingApproval?check=1"><button type="button"  class="btn btn-default">뒤로</button></a>
+	</div>
 </div>

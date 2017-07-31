@@ -27,38 +27,41 @@
 		<button type="button" onclick="searchRefusedApproval_go(this.form);" class="btn btn-default">검색</button>
 	</form>
 </div>
-<table class="table textCenter" border="1">
-	<tr>
-		<th>품의번호</th>
-		<th>문서분류</th>
-		<th>제목</th>
-		<th>기안자</th>
-		<th>기안일</th>
-		<th>반려일</th>
-		<th>상태</th>
-	</tr>
 
-	<!-- EA=electronicApproval (전자결재) -->
-	<c:if test="${empty ra_eaList }">
-		<tr><td colspan="7">반려 문서가 없습니다!</td></tr>
-	</c:if>
-	<c:forEach items="${ra_eaList}" var="EA" varStatus="status">
+<div class="insertJoinBtnWrap textCenter">
+	<table class="table textCenter" border="1">
 		<tr>
-		
-			<td>${EA.ea_number }</td>
-			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/approvalProgress/refusedApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
-			<td>${memberList[status.index].mem_name}</td>
-			<td>
-				${EA.ea_startdate}
-			</td>
-			<td>
-				${completeDateFormatList[status.index]}
-			</td>
-			<td>${statusResult}</td>
+			<th>품의번호</th>
+			<th>문서분류</th>
+			<th>제목</th>
+			<th>기안자</th>
+			<th>기안일</th>
+			<th>반려일</th>
+			<th>상태</th>
 		</tr>
-	</c:forEach>
-</table>
+	
+		<!-- EA=electronicApproval (전자결재) -->
+		<c:if test="${empty ra_eaList }">
+			<tr><td colspan="7">반려 문서가 없습니다!</td></tr>
+		</c:if>
+		<c:forEach items="${ra_eaList}" var="EA" varStatus="status">
+			<tr>
+			
+				<td>${EA.ea_number }</td>
+				<td>${code_nameList[status.index].code_name }</td>
+				<td><a href="/electronicApproval/approvalProgress/refusedApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
+				<td>${memberList[status.index].mem_name}</td>
+				<td>
+					${EA.ea_startdate}
+				</td>
+				<td>
+					${completeDateFormatList[status.index]}
+				</td>
+				<td>${statusResult}</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>	
 
 <script>
 	function searchRefusedApproval_go(form){

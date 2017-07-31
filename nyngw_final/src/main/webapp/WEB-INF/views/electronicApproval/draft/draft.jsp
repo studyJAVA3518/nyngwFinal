@@ -37,23 +37,25 @@ $(function(){
 		</form>	
 	</div>
 
-<table class="table table-bordered tableGray">
-	<tr>
-		<th>기안문서함</th>
-		<th>문서명</th>
-		<th>문서설명</th>
-		<th>문서등록일</th>
-	</tr>
-	
-	<c:forEach items="${documentList }" var="document" varStatus="status">
-		<tr>
-			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/draft/createDraftForm?doc_number=${document.doc_number }">${document.doc_name }</a></td>
-			<td>${document.doc_explanation }</td>
-			<td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
-		</tr>
-	</c:forEach>
-</table>
+	<div class="insertJoinBtnWrap textCenter">
+		<table class="table table-bordered tableGray">
+			<tr>
+				<th>기안문서함</th>
+				<th>문서명</th>
+				<th>문서설명</th>
+				<th>문서등록일</th>
+			</tr>
+			
+			<c:forEach items="${documentList }" var="document" varStatus="status">
+				<tr>
+					<td>${code_nameList[status.index].code_name }</td>
+					<td><a href="/electronicApproval/draft/createDraftForm?doc_number=${document.doc_number }">${document.doc_name }</a></td>
+					<td>${document.doc_explanation }</td>
+					<td><fmt:formatDate value="${document.doc_date}" pattern="yyyy/MM/dd"/></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>	
 
 <script>
 	function searchDraft_go(form){

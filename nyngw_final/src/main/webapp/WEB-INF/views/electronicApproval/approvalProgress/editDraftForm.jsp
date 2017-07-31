@@ -37,7 +37,7 @@
 	}
 </script>
 <h2>결재 재상신 페이지</h2>
-<form enctype="multipart/form-data" name="tx_editor_form" style="width: 750px;" id="tx_editor_form" action="/electronicApproval/approvalProgress/editDraft" method="post" accept-charset="utf-8">
+<form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="/electronicApproval/approvalProgress/editDraft" method="post" accept-charset="utf-8">
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
 	<table class="table table-bordered tableGray">
 		<tr>
@@ -138,10 +138,13 @@
 	<!-- ea_content -> content -->
 	<jsp:include page="/WEB-INF/views/common/daumOpenEditor/editor.jsp" flush="false"/>
 </form>
-<input type="hidden" value="${page}">
-<button type="button" onclick="saveContent();" class="btn btn-default">등록</button>
-<input type="reset" value="초기화"  class="btn btn-default"/>	
-<a href="/sharingInformation/board/list?page=${page }"><button type="button" class="btn btn-default">취소</button></a>
+
+<div class="insertJoinBtnWrap textCenter">
+	<input type="hidden" value="${page}">
+	<button type="button" onclick="saveContent();" class="btn btn-default">등록</button>
+	<input type="reset" value="초기화"  class="btn btn-default"/>	
+	<a href="/electronicApproval/approvalProgress/refusedApprovalDetail?ea_number=${eaVO.ea_number }"><button type="button" class="btn btn-default">취소</button></a>
+</div>
 
 
 <textarea id="text_content" style="display:none;">
