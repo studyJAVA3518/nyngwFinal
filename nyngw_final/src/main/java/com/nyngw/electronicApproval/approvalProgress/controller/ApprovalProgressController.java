@@ -100,8 +100,9 @@ public class ApprovalProgressController {
 	
 	//완료 문서 상세 페이지
 	@RequestMapping("/completeApprovalDetail")
-	public String completeApprovalDetail(Model model,String ea_number, Principal principal){
+	public String completeApprovalDetail(String checkBox, Model model,String ea_number, Principal principal){
 		int check = 2;	//완료
+		model.addAttribute("checkBox",checkBox);
 		ApprovalProgressService.waDetail(model, ea_number,principal,check);
 		return "electronicApproval/approvalProgress/completeApprovalDetail";
 	}

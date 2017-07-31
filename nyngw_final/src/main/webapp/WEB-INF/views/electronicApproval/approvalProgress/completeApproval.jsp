@@ -67,7 +67,7 @@
 		<tr>
 			<td>${EA.ea_number }</td>
 			<td>${code_nameList[status.index].code_name }</td>
-			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}">${EA.ea_title }</a></td>
+			<td><a href="/electronicApproval/approvalProgress/completeApprovalDetail?ea_number=${EA.ea_number}&checkBox=ap">${EA.ea_title }</a></td>
 			<td>${memberList[status.index].mem_name}</td>
 			<td>
 				${EA.ea_startdate}
