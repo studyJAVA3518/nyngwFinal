@@ -130,6 +130,8 @@
 	</c:forEach>
 </table>
 
+<br>
+
 <h2>출결정보 수동 등록</h2>
 	<form name="workingDayForm" id="workingDayForm" class="form-inline" enctype="multipart/form-data">
 		<table class="table textCenter">

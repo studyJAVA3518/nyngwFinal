@@ -114,7 +114,7 @@ $(function(){
 				<th>부서장 사원번호</th>
 				<td>
 					<div class="form-group">
-						<select name="dept_membernumber">
+						<select name="dept_membernumber" class="form-control">
 							<c:forEach var="member" items="${upperMemList}">
 								<option value="${member.mem_number}">
 									${member.mem_number}&#09;${member.mem_name}&#09;${member.position_name}
@@ -144,7 +144,7 @@ $(function(){
 				<th>상위 부서 선택</th>
 				<td>
 					<div class="form-group">
-						<select name="dept_parents">
+						<select name="dept_parents" class="form-control">
 							<c:forEach var="dept" items="${dvList}">
 								<option value="${dept.dept_number}">
 									${dept.dept_name}
@@ -162,7 +162,7 @@ $(function(){
 		</form>
 	</table>
 </div>
-
+<br>
 <div class="row">
 	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	
@@ -202,7 +202,7 @@ $(function(){
 						<input class="form-control" type="text" readonly name="up_dept_membernumber_origin" id="up_dept_membernumber_origin"/>
 						<br/>
 						수정하기  
-						<select name="up_dept_membernumber">
+						<select class="form-control docInputSelect" style="width:410px;" name="up_dept_membernumber">
 							<option value="selectDept">선택하기</option>
 							<c:forEach var="member" items="${upperMemList}">
 								<option value="${member.mem_number}">

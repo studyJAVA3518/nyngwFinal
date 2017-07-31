@@ -137,7 +137,7 @@ $(function(){
 								<th><input class="form-control" type="checkbox" name="checkYR" value="${year.yv_year }"/></th>	
 								<th>${year.yv_year }</th>
 								<td>${year.yv_vacation_day}</td>
-								<td><select id="yv_vacation_day" name="yv_vacation_day" class="form-control">
+								<td><select id="yv_vacation_day" name="yv_vacation_day" class="form-control docInputSelect">
 										<option value="0">0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -155,7 +155,7 @@ $(function(){
 					<input type="button" value="삭제" class="btn btn-default" onclick="vacationYearDEL_go();"/>
 					<form id="yearVacation">
 						<input class="form-control" type="text" name="yv_year" />
-						<select name="yv_vacation_day" class="form-control">
+						<select name="yv_vacation_day" class="form-control docInputSelect">
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -171,7 +171,7 @@ $(function(){
 					</div>
 		    <div role="tabpanel" class="tab-pane" id="profile">
 		    	<form action="vacationDaysForm">
-		    	<select name="mem_dept_number" id="mem_dept_number" class="form-control">
+		    	<select name="mem_dept_number" id="mem_dept_number" class="form-control docInputSelect">
 					<option value="all" >모든부서</option>
 					<option value="dept3" >인사부</option>
 					<option value="dept4" >기획홍보부</option>

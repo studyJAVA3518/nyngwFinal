@@ -91,9 +91,9 @@
 		<tr>
 			<td colspan="2">
 				<label for="basic">기본 이미지 사용</label>
-				<input class="form-control" type="radio" name="logo" value="basic" id="basic" checked/> 
+				<input type="radio" name="logo" value="basic" id="basic" checked/>  &nbsp;&nbsp;&nbsp;
 				<label for="custom">업로드 로고(CI) 사용</label>
-				<input class="form-control" type="radio" name="logo" value="custom" id="basic"/> 
+				<input type="radio" name="logo" value="custom" id="basic"/> 
 				<span class="logoDesc">※ 업로드 로고(CI)를 사용할 경우 업로드할 로고화면의 배경부분을 투명하게 처리해야 합니다.</span>
 			<td>
 		</tr>
@@ -115,10 +115,10 @@
 		</tr>
 	</form>
 </table>
-	
+<br>
 <h4>회사 정보 등록</h4>
 <div id="callBackDiv">
-<table class="table textCenter">
+<table class="table">
 	<form class="form-inline" id="form" method="post" name="comInfo">
 		<tr>
 			<th>회사 이름</th>
@@ -142,9 +142,21 @@
 			<td>
 				<div class="form-group">
 					<div id="list"></div>
-					<input class="form-control" type="text" style="width:500px;" id="zipNo" name="zipNo" readonly placeholder="정보 없음" value="${companyInfo.company_zip}"/> <input type="button" onClick="goPopup();" value="주소검색" class="btn btn-default"/>
-					기본 주소 <input class="form-control" type="text" style="width:500px;" id="roadAddrPart1" name="roadAddrPart1" readonly placeholder="정보 없음"  value="${companyInfo.company_addr1}"/>
-					상세 주소 <input class="form-control" type="text" style="width:500px;" id="addrDetail" name="addrDetail" placeholder="정보 없음"  value="${companyInfo.company_addr2}"/>
+					<div class="form-group">
+						<label for="mem_zip" class="labelMemInsert">우편번호</label>
+						<input type="text"  class="form-control inputTypeMemInsertNarrow" id="zipNo"  name="zipNo"  placeholder="우편번호 "  readonly  value="${companyInfo.company_zip}"/>
+						<input type="button" onClick="goPopup();" class="btn btn-default" value="주소검색"/>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="mem_addr1" class="labelMemInsert">주소</label>
+						<input type="text" class="form-control inputTypeMemInsert" id="roadAddrPart1"  name="roadAddrPart1"  placeholder="도로명주소" readonly value="${companyInfo.company_addr1}" />
+					</div>
+				    <br>
+				    <div class="form-group">   
+						<label for="mem_addr2" class="labelMemInsert">상세 주소</label>
+						<input type="text" class="form-control inputTypeMemInsert" id="addrDetail"  name="addrDetail"  placeholder="상세주소" value="${companyInfo.company_addr2}" />
+					</div>
 				</div>
 			</td>
 		</tr>
