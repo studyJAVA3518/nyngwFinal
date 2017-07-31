@@ -42,10 +42,12 @@ public interface MeetingManagementDao {
 
 	public Meeting_DocumentVO selectMeeting_DocumentNumber(String md_number);
 
+	public void meetingFileDelete(String md_number);
 //	---------------------------- 참석 ----------------------
 	public void attendInsert(AttendanceVO attend);
 
 	public List<MeetingVO> selectMeetingAll();
+
 
 
 

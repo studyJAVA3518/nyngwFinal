@@ -175,4 +175,10 @@
 		from meeting_document
         where md_number=#{mt_md_number}
 	</select>
+	<update id="meetingFileDelete" parameterType="java.lang.String">
+		delete from meeting_document where
+		md_number = #{md_number}
+	</update>
+		
+	
 </mapper>

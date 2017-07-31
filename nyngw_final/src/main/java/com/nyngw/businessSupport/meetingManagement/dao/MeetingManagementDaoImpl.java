@@ -131,4 +131,8 @@ public class MeetingManagementDaoImpl implements MeetingManagementDao {
 		return (int) sqlSession.selectOne("isMeeting_Document_MM", mt_md_number);
 	}
 	
+	@Override
+	public void meetingFileDelete(String md_number) {
+		sqlSession.delete("meetingFileDelete", md_number);
+	}
 }
