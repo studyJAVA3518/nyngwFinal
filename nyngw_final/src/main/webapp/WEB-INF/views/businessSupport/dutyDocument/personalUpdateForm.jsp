@@ -13,7 +13,6 @@
 	$(function(){  
 		$('#reportType option[value=${dutyDocument.dd_code_number}]').prop('selected',true);
 	});
-// 	alert('${dt}');
 </script>
 <body>
 <h2>개인업무 수정 페이지</h2>

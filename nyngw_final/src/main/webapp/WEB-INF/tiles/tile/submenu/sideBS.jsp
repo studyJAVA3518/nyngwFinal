@@ -27,8 +27,8 @@
 								<li>
 									<h3>업무일지</h3>
 									<ul>
-										<li id="sideMenu1"><a href="/businessSupport/dutyDocument/department">&nbsp;&nbsp;&nbsp;└ 부서 업무 조회</a></li>
 										<li id="sideMenu2"><a href="/businessSupport/dutyDocument/personal">&nbsp;&nbsp;&nbsp;└ 개인 업무 조회</a></li>
+										<li id="sideMenu1"><a href="/businessSupport/dutyDocument/department">&nbsp;&nbsp;&nbsp;└ 부서 업무 조회</a></li>
 									</ul>
 								</li>
 							
