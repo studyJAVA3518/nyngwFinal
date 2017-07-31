@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 		    <th>시간</th>
-		    <td><input type="text"class="inputTypeDate form-control docInputSearch" value="" name="sc_time"></td>
+		    <td><input type="text"class="form-control docInputSearch" value="" name="sc_time"></td>
 		</tr>
 		<tr>
 			<th colspan="2">내용</th>
