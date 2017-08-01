@@ -11,15 +11,15 @@
 function insertDept_go(form){
 	
 	if(!document.getElementById("dept_name").value){
-		alert("부서 이름을 입력해야 합니다.");
+		alert("부서 이름을 입력해 주세요.");
 		return;
 	}
 	if(!document.getElementById("dept_tel").value){
-		alert("부서 연락처를 입력해야 합니다.");
+		alert("부서 연락처를 입력해 주세요.");
 		return;
 	}
 	if(!document.getElementById("dept_addr").value){
-		alert("부서 위치를 입력해야 합니다.");
+		alert("부서 위치를 입력해 주세요.");
 		return;
 	}
 	
@@ -32,15 +32,15 @@ function insertDept_go(form){
 function updateDept_go(){
 	
 	if(!document.getElementById("up_dept_name").value){
-		alert("부서 이름을 입력해야 합니다.");
+		alert("부서 이름을 입력해 주세요.");
 		return;
 	}
 	if(!document.getElementById("up_dept_tel").value){
-		alert("부서 연락처를 입력해야 합니다.");
+		alert("부서 연락처를 입력해 주세요.");
 		return;
 	}
 	if(!document.getElementById("up_dept_addr").value){
-		alert("부서 위치를 입력해야 합니다.");
+		alert("부서 위치를 입력해 주세요.");
 		return;
 	}
 	

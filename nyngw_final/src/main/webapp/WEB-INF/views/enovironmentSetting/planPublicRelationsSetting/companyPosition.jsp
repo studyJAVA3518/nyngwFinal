@@ -111,7 +111,7 @@
 	function insertPosition_go(){
 		
 		if(!document.getElementById("position_name").value){
-			alert("직급 이름을 입력해야 합니다.");
+			alert("직급 이름을 입력해 주세요.");
 			return;
 		}
 		
@@ -160,7 +160,7 @@
 	function updatePosition_go(){
 		
 		if(!document.getElementById("up_position_name").value){
-			alert("직급 이름을 입력해야 합니다.");
+			alert("직급 이름을 입력해 주세요.");
 			return;
 		}
 		

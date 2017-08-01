@@ -11,7 +11,7 @@
 	function insert_payKind_go(){
 		
 		if(!document.getElementById("pk_name").value){
-			alert("급여 이름을 입력해야 합니다.");
+			alert("급여 이름을 입력해 주세요.");
 			return;
 		}
 		
@@ -24,15 +24,15 @@
 	function update_payKind_go(){
 		
 		if(!document.getElementById("up_pk_number").value){
-			alert("급여 이름을 입력해야 합니다.");
+			alert("급여 이름을 입력해 주세요.");
 			return;
 		}
 		if(!document.getElementById("up_pk_name").value){
-			alert("급여 이름을 입력해야 합니다.");
+			alert("급여 이름을 입력해 주세요.");
 			return;
 		}
 		if(!document.getElementById("up_pk_tax").value){
-			alert("급여 이름을 입력해야 합니다.");
+			alert("급여 이름을 입력해 주세요.");
 			return;
 		}
 		
