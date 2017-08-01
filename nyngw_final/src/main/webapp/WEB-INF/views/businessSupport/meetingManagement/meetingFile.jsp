@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<h2>회의록 관리 페이지</h2>
+<h2>회의록 관리</h2>
 <p class="docTitleDescription">
 	회의에 사용되는 회의록 관리페이지
 </p>

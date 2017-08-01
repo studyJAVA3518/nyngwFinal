@@ -15,7 +15,7 @@
 	});
 </script>
 <body>
-<h2>개인업무 수정 페이지</h2>
+<h2>개인업무 수정</h2>
 <p class="docTitleDescription">
 	개인업무의 정보를 수정할 수 있습니다
 </p>
