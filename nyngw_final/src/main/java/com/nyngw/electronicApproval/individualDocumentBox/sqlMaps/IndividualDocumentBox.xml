@@ -7,7 +7,8 @@
 	<!-- 상신문서함 -->
 	<select id="selectSAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_approval
-		where ea_mem_number =  #{mem_number}
+		where ea_mem_number =  #{mem_number} 
+		order by to_number(substr(ea_number,instr(ea_number,'-',1,2)+1)) desc
 	</select>
 	
 	<!-- 결재번호로 누가 마지막으로 결재했는지 가져오기-->
