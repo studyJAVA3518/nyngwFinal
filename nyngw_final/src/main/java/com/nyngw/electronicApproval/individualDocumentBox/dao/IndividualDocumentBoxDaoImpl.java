@@ -107,6 +107,6 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 	}
 
 	public String isRefuseDisapprove(String ea_number) {
-		return null;
+		return (String) sqlSession.selectOne("isRefuseDisapprove",ea_number);
 	}
 }
