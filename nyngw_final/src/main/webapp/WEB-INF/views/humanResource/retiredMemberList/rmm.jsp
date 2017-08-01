@@ -32,7 +32,7 @@
 	   });
 	
 </script>
-<h2>퇴사자 정보 페이지</h2>
+<h2>퇴사자 정보</h2>
 <p class="docTitleDescription">
 	퇴사자의 정보를 확인하고 복직처리를 할 수 있습니다.
 </p>

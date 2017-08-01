@@ -36,7 +36,7 @@
 		location.href="/electronicApproval/draft/submitApproval";
 	}
 </script>
-<h2>결재 재상신 페이지</h2>
+<h2>결재 재상신</h2>
 <form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="/electronicApproval/approvalProgress/editDraft" method="post" accept-charset="utf-8">
 	<input type="hidden" name="ea_doc_number" value="${eaVO.ea_doc_number }">
 	<table class="table table-bordered tableGray">

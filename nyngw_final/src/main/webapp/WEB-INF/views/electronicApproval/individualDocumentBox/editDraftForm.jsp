@@ -120,8 +120,7 @@
 		location.href="/electronicApproval/draft/submitApproval";
 	}
 </script>
-
-기안하기>결재 재상신 페이지<br>
+<h2>결재 재상신</h2>
 
 
 <div id="linePopup" style="height:100%;width:100%;">

@@ -125,7 +125,7 @@
 	<jsp:include page="approvalLineManager.jsp" flush="false"/>
 </div>
 
-<h2>결재상신페이지</h2>
+<h2>결재상신</h2>
 <div class="textCenter">
 	<form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="/electronicApproval/draft/submitApproval" method="post" accept-charset="utf-8">
 		<input type="hidden" name="ea_doc_number" value="${doc_number }">

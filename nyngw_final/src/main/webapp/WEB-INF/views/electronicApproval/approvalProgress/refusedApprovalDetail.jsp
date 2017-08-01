@@ -102,7 +102,7 @@ $(function(){
 	})	                                                                                                                                                                                         
 })      
 </script>                                                                                                                                                                                        
-<h2>반려문서 상세페이지</h2>
+<h2>반려문서</h2>
                                                                                                                                                                                           
 <div id="approvalHistoryDialog" class="textCenter">                                                                                                                                                                 
 	<h2>결재상태 이력보기</h2>                                                                                                                                                                                    

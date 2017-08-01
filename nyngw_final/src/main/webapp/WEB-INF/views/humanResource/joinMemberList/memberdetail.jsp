@@ -50,7 +50,7 @@
 	}
 </script>
 
-<h2>사원정보 상세 페이지</h2>
+<h2>사원정보 상세 조회</h2>
 <p class="docTitleDescription">
 	사원 정보를 확인하고 수정할 수 있습니다.
 </p>

@@ -113,7 +113,7 @@
 	});
 </script>
 
-<h2>사원 등록 페이지</h2>
+<h2>사원 등록</h2>
 <p class="docTitleDescription">
 	사원을 등록할 수 있습니다.
 </p>

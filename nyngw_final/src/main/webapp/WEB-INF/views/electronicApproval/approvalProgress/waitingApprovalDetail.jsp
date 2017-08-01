@@ -335,7 +335,7 @@ $(function(){
 	}); */
 })
 </script>
-<h2>미결재문서함상세페이지</h2>
+<h2>미결재문서함 상세</h2>
 <!-- 선택한 결재문서의 정보들을 가지고 들어와야하고 이 때 필요한 정보를 hidden에 담아 주자 -->
 <%-- <input type="hidden" name="ea_number" value="${ea_number}"> --%>
 <div class="divALM">
