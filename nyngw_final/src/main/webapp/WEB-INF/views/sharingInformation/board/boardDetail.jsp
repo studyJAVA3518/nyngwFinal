@@ -5,7 +5,8 @@
 
 <script>
    function boardDelete(id){
-      var con_test = confirm("게시물을 삭제하시겠습니까?");
+      var con_test = confirm("게시물을 삭제 하시겠습니까?");
+      
       if(con_test==true){
          $.ajax({
                type : "POST",
@@ -20,12 +21,8 @@
          });
       }
    }
-   
    function answerWriteClick(id,form){
       var comment_content = document.getElementsByName('comment_content')[0].value;
-      alert(comment_content);
-      alert(id);
-      
       $.ajax({
             type : "POST",
             url : "/sharingInformation/board/answerWrite",
@@ -39,7 +36,7 @@
       });
    }
    function answerDeleteClick(id,board_number){
-      var con_test = confirm("삭제할거에요?");
+      var con_test = confirm("댓글을 삭제 하시겠습니까?");
       if(con_test==true){
          $.ajax({
                type : "POST",
@@ -55,32 +52,15 @@
       }
    }
    $(function(){
-//       $('#btn').click(function(){
-// //          $('#content').attr("readonly",true);
-//          var tf = $('#con').prop('readonly',!$('#con').prop('readonly'));
-// //          alert($('#con').attr('readonly'));
-         
-//          if($('#con').attr('readonly')=='readonly'){
-//             alert(tf);
-//          }
-//          if($('#con').attr('readonly')=='undefined'){
-//             alert(tf);
-//          }
    });
    
    function answerUpdateClick(board_number,comment_number,comment_mem_number,comment_content){
       var aa = "#"+comment_number;
       $(aa).prop('readonly',!$(aa).prop('readonly'));
       $(aa).focus();
-//       $('#con').prop('readonly',!$('#con').prop('readonly'));
-//       alert(board_number);
-//       alert(comment_number);
-//       alert(comment_mem_number);
       comment_content = document.getElementById(comment_number).value;
-//       alert(comment_content);
       
       if($(aa).attr('readonly')=='readonly'){
-//          alert("ㅁㅁㅁㅁ");
          $.ajax({
                type : "POST",
                url : "/sharingInformation/board/answerUpdate",

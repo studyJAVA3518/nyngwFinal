@@ -21,7 +21,7 @@
 		    </when>
 	  	</choose>
 <!-- 	  	그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
-		and board_code_number = 'code11' order by 1 desc
+		and board_code_number = 'code11' order by 6 desc
 	</select>
 
 	<select id="selectNoticeMatterCount" resultType="java.lang.Integer">
