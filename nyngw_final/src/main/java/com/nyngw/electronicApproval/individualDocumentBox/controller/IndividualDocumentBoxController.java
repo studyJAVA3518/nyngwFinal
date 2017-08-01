@@ -216,7 +216,7 @@ public class IndividualDocumentBoxController {
 	}
 	
 	@RequestMapping("/completeAllrovalDetail")
-	public @ResponseBody List<Map> completeAllrovalDetail(String ea_number){
+	public @ResponseBody List<Map> completeAllrovalDetail(Model model,String ea_number){
 		Map<String, String> stepMap = new HashMap<String, String>();
 		List<Approval_HistoryVO> history = individualDocumentBoxService.selectAhAll(ea_number);
 		List<Map> historyMember = new ArrayList<Map>();
@@ -239,12 +239,15 @@ public class IndividualDocumentBoxController {
 			MemberVO member = commonService.findMemberByMemNumber(ast_mem_number);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 			String ah_time = format.format(history.get(i).getAh_time());
+			String ah_comment = history.get(i).getAh_comment();
+			map.put("ah_comment",ah_comment);
 			map.put("dept_name", dept_name);
 			map.put("position_name", position_name);
 			map.put("mem_name", member.getMem_name());
 			map.put("ah_status",history.get(i).getAh_status());//결재상태
 			map.put("ah_time", ah_time);//결재시간
 			historyMember.add(map);
+			model.addAttribute("ah_comment",ah_comment);
 		}
 		return historyMember;
 		

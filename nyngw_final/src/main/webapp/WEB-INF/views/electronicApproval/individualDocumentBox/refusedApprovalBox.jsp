@@ -33,6 +33,14 @@
 	        	    });
 	        	    code+="</tbody>";
 					$("#historyList").append(code);
+					
+					var comment = "<p>";
+					$("#historyReasonForreFusal").html(comment);
+					$.each(res,function(i,value){
+						comment += value.ah_comment;
+					});
+					comment += "</p>";
+					$("#historyReasonForreFusal").append(comment);
 				},
 				dataType : 'json'
 	        });
@@ -61,14 +69,11 @@
 <div id="approvalHistoryDialog" class="textCenter">
 	<h2>결재 이력</h2>
 	<table class="table tableGray" id="historyList">
-		<tr>
-			<th>부서</th>
-			<th>직급</th>
-			<th>이름</th>
-			<th>결재종류</th>
-			<th>결재시간</th>
-		</tr>
 	</table>
+	<br><hr>
+	<h2>반려사유</h2>
+	<div id="historyReasonForreFusal" style="background-color:#eee;padding:30px 0;border-radius:10px;">
+	</div>
 </div>
 
 <h2>반려문서함</h2>

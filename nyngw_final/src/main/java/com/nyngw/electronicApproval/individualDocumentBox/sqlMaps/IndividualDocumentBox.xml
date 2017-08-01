@@ -106,7 +106,7 @@
 	</select>
 	
 	<select id="getRefusedApprovalList_ID" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
-		select distinct EA_NUMBER,doc_name,EA_TITLE,mem_name,EA_WRITEDATE,EA_STARTDATE,EA_ENDDATE,ah_time,ah_status  
+		select distinct EA_NUMBER,doc_name,EA_TITLE,mem_name,EA_WRITEDATE,EA_STARTDATE,EA_ENDDATE,ah_time,ah_status
 		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
 		where  al_number = AST_AL_NUMBER
 		and ea_number = AST_EA_NUMBER
