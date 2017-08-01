@@ -137,6 +137,7 @@
 		select *
 		from electronic_approval
 		where ea_mem_number=#{ea_mem_number}
+		order by to_number(substr(ea_number,instr(ea_number,'-',1,2)+1)) desc
 	</select>
 	
 	<!-- 결재이력에서 결재완료된 해당결재번호의 카운트를 세주는 쿼리 -->
