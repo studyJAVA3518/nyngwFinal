@@ -94,9 +94,10 @@
 	</update>
 	
 	<update id="dutyReportWrite" parameterType="com.nyngw.dto.Duty_ReportVO">
-		insert into duty_report
+		insert into duty_report 
+		(dr_number, dr_code_number,dr_date,dr_mem_number,dr_yesno,dr_title,dr_writedate,dr_to_mem_number,dr_content)
 		values('dr'||dr_seq.nextval, #{dr_code_number}, #{dr_date}, #{dr_mem_number},
-				#{dr_yesno}, #{dr_title}, #{dr_content}, SYSDATE, #{dr_to_mem_number})
+				#{dr_yesno}, #{dr_title}, SYSDATE, #{dr_to_mem_number}, #{dr_content})
 	</update>
 	
 	<select id="dutyReportSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.Duty_ReportVO">
