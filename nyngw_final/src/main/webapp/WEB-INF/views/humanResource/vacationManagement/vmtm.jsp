@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 
 function search_go(){
@@ -103,9 +103,8 @@ $(function(){
 							<td>${member.dept_name }</td>
 							<td>${member.mem_name }</td>
 							<td>${member.position_name }</td>
-							<c:set var = "string1" value = "${member.vacation_end}"/>	
-							<c:set var = "string2" value = "${fn:substring(string1, 0,10)}" />
-							<td>${string2 }</td>
+							<c:set var="TextValue" value="${member.vacation_end}"/>
+							<td>${fn:substring(TextValue,0,10) }</td>
 						</tr>
 					</c:forEach>
 				</table>
