@@ -13,7 +13,7 @@
 	function insert_payPolicy_go(){
 		
 		if(!document.getElementById("pp_pay").value){
-			alert("금액 또는 비율을 입력해야 합니다.");
+			alert("금액 또는 비율을 입력해 주세요.");
 			return;
 		}
 		

@@ -16,9 +16,9 @@ function vacation_go() {
 			data : memdata,
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공적으로 휴가를 추가하였습니다.");
 				}else{
-					alert("fucking");
+					alert("휴가 추가에 실패하였습니다.");
 				}
 			},
 			error : function() {
@@ -38,9 +38,9 @@ function vacationDelete_go() {
 			data : {'numbers':numbers},
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공적으로 휴가를 삭제하였습니다.");
 				}else{
-					alert("fucking");
+					alert("휴가 삭제에 실패하였습니다.");
 				}
 			},
 			error : function() {
@@ -147,7 +147,9 @@ $(function(){ //전체선택 체크박스 클릭
 			},
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공적으로 수정하였습니다.");
+				}else{
+					alert("수정에 실패하였습니다.");
 				}
 			},
 			error : function() {
