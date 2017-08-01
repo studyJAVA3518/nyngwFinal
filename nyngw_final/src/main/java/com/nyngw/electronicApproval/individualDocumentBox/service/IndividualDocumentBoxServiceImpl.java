@@ -142,10 +142,16 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 
 	//상신문서 자세히보기
 	public void waDetail(Model model, String ea_number,Principal principal,int check) {
-
+		//최고 우선순위 (반려면 +2)
+		int priority = approvalProgressDao.selectMaxPriority(ea_number);
+		
+		//한 결재의 마지막 결재우선순위 검색
+		int lastAstPriority = approvalProgressDao.selectLastAstPriority(ea_number);
+		
 		//결재정보 setting
 		Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 		model.addAttribute("eaVO",eaVO);
+		
 		//작성자 이름
 		MemberVO member = commonServiceImpl.findMemberByMemId(principal.getName());
 		model.addAttribute("mem_name",member.getMem_name());
@@ -196,6 +202,20 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 			}
 			index++;
 		}
+		
+		if(priority==lastAstPriority+2){	//거부나 반려이면
+			if(1==1){//합의자가 거부한 경우
+				//싸인을 거부로 설정
+				agreementMem_sign.add("refuse.jpg");
+				
+			}else if(2==2){	//결재자가 반려한 경우
+				//싸인을 반려로 설정
+				approvalMem_sign.add("disapprove.jpg");
+				
+			}
+			
+		}
+		
 		model.addAttribute("approvalMem_sign",approvalMem_sign);
 		model.addAttribute("agreementMem_sign",agreementMem_sign);
 		

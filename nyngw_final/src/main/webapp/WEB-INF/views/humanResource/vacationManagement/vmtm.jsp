@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <script>
 
 function search_go(){
@@ -39,18 +40,11 @@ $(function(){
 	$('#vacMyTab a[href="#resentVac"]').click(function(){
 		$('#vacMyTab a[href="#resentVac"]').css('background-color','#ccc');
 		$('#vacMyTab a[href="#personVac"]').css('background-color','rgba( 255, 255, 255, 0)');
-		$('#vacMyTab a[href="#deptVac"]').css('background-color','rgba( 255, 255, 255, 0)');
 		
 	});
 	$('#vacMyTab a[href="#personVac"]').click(function(){
 		$('#vacMyTab a[href="#resentVac"]').css('background-color','rgba( 255, 255, 255, 0)');
 		$('#vacMyTab a[href="#personVac"]').css('background-color','#ccc');
-		$('#vacMyTab a[href="#deptVac"]').css('background-color','rgba( 255, 255, 255, 0)');
-	});
-	$('#vacMyTab a[href="#deptVac"]').click(function(){
-		$('#vacMyTab a[href="#resentVac"]').css('background-color','rgba( 255, 255, 255, 0)');
-		$('#vacMyTab a[href="#personVac"]').css('background-color','rgba( 255, 255, 255, 0)');
-		$('#vacMyTab a[href="#deptVac"]').css('background-color','#ccc');
 	});
 	$('#list option[value=${list}]').prop('selected',true);
 });
@@ -62,10 +56,10 @@ $(function(){
 <p class="docTitleDescription">
 	사원들의 휴가현황을 확인할 수 있습니다.
 </p>
-
+<br>
 <form method="post" name="vmtmForm">
 	<div class="hrmTopSpace">
-		휴가사용현황
+		<h4>직원별 휴가 사용 현황</h4>
 		<input type="text" name="startdate" value="${startdate }" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
 		<input type="text" name="enddate" value="${enddate }" class="form-control docInputSelect inputTypeDate" placeholder="2017-01-01"/> 
 		<select id="list" name="list" class="btn btn-default">
@@ -89,14 +83,9 @@ $(function(){
 				직원 현황
 			</a>
 		</li>
-		<li role="presentation">
-			<a data-target="#deptVac" href="#deptVac" aria-controls="deptVac" role="tab" data-toggle="tab" aria-expanded="false">
-				부서 휴가 현황
-			</a>
-		</li>
 	</ul>
 
-	<div id="myTabContent" class="tab-content">
+	<div id="myTabContent" class="tab-content"  style="border-bottom:1px solid #ddd;padding-bottom:45px;">
 		
 		<!-- 최근휴가현황 -->
 		<div role="tabpanel" class="tab-pane fade active in" id="resentVac">
@@ -107,17 +96,16 @@ $(function(){
 						<th>부서</th>
 						<th>이름</th>
 						<th>직급</th>
-						<th>휴가일</th>
+						<th>휴가 종료일</th>
 					</tr>
 					<c:forEach items="${memberVacation }" var="member">
 						<tr>
 							<td>${member.dept_name }</td>
 							<td>${member.mem_name }</td>
 							<td>${member.position_name }</td>
-							<td>
-								<fmt:parseDate var="dateString" value="${member.vacation_end}" pattern="yyyymmdd" />
-								<fmt:formatDate value="${dateString }" pattern="yyyy년 MM월 dd일"/>
-							</td>
+							<c:set var = "string1" value = "${member.vacation_end}"/>	
+							<c:set var = "string2" value = "${fn:substring(string1, 0,10)}" />
+							<td>${string2 }</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -188,33 +176,31 @@ $(function(){
 				</div>
 			</div>
 		</div>
-		
-		<!-- 부서 휴가 현황 -->
-		<div role="tabpanel" class="tab-pane fade" id="deptVac">
-			<div class="hrTapWrap">
-				<table class="table table-bordered tableGray">
-					<tr>
-						<th>부서</th>
-						<th>휴가자</th>
-						<th>연차</th>
-						<th>결혼</th>
-						<th>출산</th>
-						<th>사망</th>
-					</tr>
-					<c:forEach items="${deptVacation }" var="member">
-						<tr>
-							<td>${member.dept_name }</td>
-							<td>${member.dept_total }</td>
-							<td>${member.dept_sf1 }</td>
-							<td>${member.dept_sf2 }</td>
-							<td>${member.dept_sf3 }</td>
-							<td>${member.dept_sf4 }</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</div>
-		
+	</div>
+	
+	<!-- 부서 휴가 현황 -->
+	<h4>부서별 휴가 사용 현황</h4>
+	<div class="insertJoinBtnWrap textCenter">
+		<table class="table table-bordered tableGray">
+			<tr>
+				<th>부서</th>
+				<th>휴가자</th>
+				<th>연차</th>
+				<th>결혼</th>
+				<th>출산</th>
+				<th>사망</th>
+			</tr>
+			<c:forEach items="${deptVacation }" var="member">
+				<tr>
+					<td>${member.dept_name }</td>
+					<td>${member.dept_total }</td>
+					<td>${member.dept_sf1 }</td>
+					<td>${member.dept_sf2 }</td>
+					<td>${member.dept_sf3 }</td>
+					<td>${member.dept_sf4 }</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 </div>
 
