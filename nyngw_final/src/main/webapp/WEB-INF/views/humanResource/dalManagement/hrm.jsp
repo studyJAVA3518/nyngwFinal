@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script>
     
@@ -67,7 +67,8 @@
 			<td>${mem.mem_name }</td>
 			<td>${mem.dept_name }</td>
 			<td>${mem.position_name }</td>
-			<td>${mem.dal_date }</td>
+			<fmt:parseDate value="${mem.dal_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+			<td><fmt:formatDate value="${dateFmt}"  pattern="yyyy-MM-dd"/></td>
 			<td>${mem.dal_content }</td>
 		</tr>
 	</c:forEach>
