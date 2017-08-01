@@ -476,6 +476,7 @@ public class PlanPublicRelationsSettingServiceImpl implements
 			String pp_pay) throws SQLException{
 		Pay_PolicyVO ppOriginvo = new Pay_PolicyVO();
 		ppOriginvo.setPp_number(pp_number);
+		System.out.println("시간당급여 : "+pp_pay);
 		ppOriginvo.setPp_pay(Float.parseFloat(pp_pay));
 		//시간당 급여 수정
 		planPublicRelationsSettingDao.updatePayPolicyPrice(ppOriginvo);

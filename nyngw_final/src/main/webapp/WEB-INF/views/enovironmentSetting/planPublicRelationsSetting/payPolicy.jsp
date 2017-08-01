@@ -37,8 +37,11 @@
 		
 		//시간당급여 금액 변경 클릭 / 기본급까지 변경됨!
 		$('.UpdatePayPolicyHourBtn').click(function(){
-			var pp_number = $(this).siblings('input#up_hour_pp_number').val();
-			var pp_pay = $(this).siblings('input#up_hour_pp_pay').val();
+			var pp_pay = $(this).parents().siblings('div.clickUpdate').children('input#up_hour_pp_pay').val();
+			var pp_number = $(this).parents().siblings('input#up_hour_pp_number').val();
+			
+			alert(pp_number);
+			alert(pp_pay);
 			
 			$.ajax({
 				url:'/enovironmentSetting/planPublicRelationsSetting/updatePayPolicyHour',
@@ -210,7 +213,9 @@
 								<input type="text" class="form-control" value="<fmt:formatNumber value="${payView.pp_pay}" pattern="##########"/>" name="up_allpos_pp_pay" id="up_allpos_pp_pay"/>
 								<input type="hidden" class="form-control" value="${payView.pp_number}" name="up_allpos_pp_number" id="up_allpos_pp_number"/>
 							</td>
-							<td><input type="button" class="btn btn-default UpdatePayPolicyAllposBtn" value="금액 수정"/></td>
+							<td>
+								<input type="button" class="btn btn-default UpdatePayPolicyAllposBtn" value="금액 수정"/>
+							</td>
 						</form>
 					</tr>
 				</c:if>
@@ -260,9 +265,13 @@
 						<td>${status.count}</td>
 						<td>${payHourView.position_name}</td>
 						<td>
-							<input type="hidden" id="up_hour_pp_number" name="up_basic_pp_number" value="${payHourView.pp_number}" class="form-control inlinePayText"/>
-							<div style="text-indent:23.5px;"><input type="text" id="up_hour_pp_pay" name="up_basic_pp_pay" value="<fmt:formatNumber value="${payHourView.pp_pay}" pattern="##########"/>" class="form-control inlinePayText"/></div>
-							<div style="text-indent:23.5px;"><input type="button" class="btn btn-default UpdatePayPolicyHourBtn" value="수정"/></div>
+							<input type="hidden" id="up_hour_pp_number" name="up_hour_pp_number" value="${payHourView.pp_number}" class="up_hour_pp_number form-control inlinePayText"/>
+							<div style="text-indent:23.5px;" class="clickUpdate">
+								<input type="text" id="up_hour_pp_pay" name="up_hour_pp_pay" value="<fmt:formatNumber value="${payHourView.pp_pay}" pattern="##########"/>" class="up_hour_pp_pay form-control inlinePayText"/>
+							</div>
+							<div style="text-indent:23.5px;">
+								<input type="button" class="btn btn-default UpdatePayPolicyHourBtn" value="수정"/>
+							</div>
 							
 						</td>
 					</form>
