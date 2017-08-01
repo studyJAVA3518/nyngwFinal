@@ -31,11 +31,11 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 </script>
 <script type="text/javascript">
 	function chk(){
-		var pwd = ${MemberVoDetail.mem_pwd};
+		var pwd = '${MemberVoDetail.mem_pwd}';
 		if(pwd==document.getElementsByName("mem_pwd")[0].value){
-			alert("성공!");
+			alert("수정에 성공하였습니다.");
 		}else{
-			alert("기존 비밀번호가 맞지 않습니다.");
+			alert("기존 비밀번호가 일치하지 않습니다.");
 		}
 	} 
 </script>
@@ -142,6 +142,6 @@ function readURL2(input) {
 	</table>
 
 	<div class="insertJoinBtnWrap textCenter" >
-		<input type="submit" class="btn btn-default" value="수정" onclick="chk()">
+		<input onclick="chk();" type="submit" class="btn btn-default" value="수정" />
 	</div>
 </form>
