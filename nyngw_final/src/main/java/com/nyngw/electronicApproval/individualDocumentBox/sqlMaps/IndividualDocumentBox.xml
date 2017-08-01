@@ -142,14 +142,17 @@
 	<select id="isRefuseDisapprove" parameterType = "string" resultType="string">
 		select ah_status 
 		from approval_history 
-		where ah_ea_number = #{ea_number} 
+		where ah_ea_number = #{ea_number}
 		and 
-		(select max(substr(ah_ast_number,4))  
+		(select max(substr(ah_ast_number,4)) 
 		from approval_history 
 		where ah_ea_number = #{ea_number}) 
-		= 
-		(select substr(ah_ast_number,4)  
+		in 
+		(select substr(ah_ast_number,4) 
 		from approval_history 
-		where ah_ea_number = #{ea_number})
+		where ah_ea_number = #{ea_number}) 
+		and 
+		(ah_status = '반려' 
+		or ah_status = '거부')
 	</select>
 </mapper>
