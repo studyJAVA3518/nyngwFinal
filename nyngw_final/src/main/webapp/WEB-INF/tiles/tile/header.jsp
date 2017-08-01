@@ -178,7 +178,7 @@
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm">급여정책 설정</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_hr_user')">
-							<li class="topMenuTitle">인사부부 설정</li>
+							<li class="topMenuTitle">인사부 설정</li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">휴가 일수 설정</a></li>
 							</sec:authorize>
