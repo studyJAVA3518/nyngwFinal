@@ -34,7 +34,7 @@
 										<li id="sideMenu2"><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">&nbsp;&nbsp;&nbsp;└ 회사 정보 설정</a></li>
 										<li id="sideMenu3"><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">&nbsp;&nbsp;&nbsp;└ 회사 부서 설정</a></li>
 										<li id="sideMenu4"><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">&nbsp;&nbsp;&nbsp;└ 회사 직급 설정</a></li>
-										<li id="sideMenu5"><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm/">&nbsp;&nbsp;&nbsp;└ 급여종류 및 퇴직금 설정</a></li>
+										<li id="sideMenu5"><a href="/enovironmentSetting/planPublicRelationsSetting/payKindForm/">&nbsp;&nbsp;&nbsp;└ 급여종류 설정</a></li>
 										<li id="sideMenu6"><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm/">&nbsp;&nbsp;&nbsp;└ 급여정책 설정</a></li>
 									</ul>
 								</li>
