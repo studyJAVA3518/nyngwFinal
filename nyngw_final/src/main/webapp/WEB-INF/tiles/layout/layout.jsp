@@ -156,7 +156,7 @@
 		         var mm=date.format("MM");
 		         var dd=date.format("DD");
 		         var ss=date.format("dd");
-		     
+		     	
 		         day=yy+"-"+mm+"-"+dd;
 		         
 			$.ajax({
@@ -170,7 +170,7 @@
 						var list= res.sc;
 			                
 						$.each(list, function( index, list ) {
-							code+="<tr onclick='location.href='/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+list.sc_number+"'>"
+							code+="<tr onclick=toMemo('"+list.sc_number+"');>"
 							+"<td>"+(index+1)+"</td><td>"+list.sc_title+"</td>"
 							+"<td>"+list.sc_time+"</td></tr>";
 						});
@@ -190,7 +190,7 @@
 							}
 						});
 			        }else{
-			           if(confirm(day+"에 일정을 등록하시겠습니까?")){
+			           if(confirm(mm+"월"+dd+"일에 일정을 등록하시겠습니까?")){
 			              location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
 			           }
 			        }
@@ -209,7 +209,13 @@
 		});
 
 	});
-       
+     
+	function toMemo(num){
+		if(confirm("해당 일정을 확인하시겠습니까?")){
+			location.href="/sharingInformation/scheduleManagement/scheduleDetail?sc_number="+num;
+		}
+	}
+	
 	function addMemo(){
 		$('#memoDialog').dialog({
 	        width: 400,
@@ -256,7 +262,7 @@
 				data : {"memo_number":memo_number},
 				success : function(res) {
 					if(res.su=="ok"){
-						alert("삭제")
+						alert("메모가 삭제되었습니다.")
 						var list= res.list;
 						var code="";
 						$.each(list, function( index, list ) {
@@ -291,7 +297,7 @@
 								data : metadata,
 								success : function(res) {
 									if(res.su=="ok"){
-										alert("등록")
+										alert("메모가 수정되었습니다.")
 									    var list= res.list;
 										var code="";
 									$.each(list, function( index, list ) {
