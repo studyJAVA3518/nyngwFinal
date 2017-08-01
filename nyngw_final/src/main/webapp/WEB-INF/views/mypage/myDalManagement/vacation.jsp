@@ -50,7 +50,7 @@
 					<td>${board.vp_kind }</td>
 					<td><fmt:formatDate value="${board.vacation_start}" pattern="yy'년'MM'월'dd'일'"/></td>
 					<td><fmt:formatDate value="${board.vacation_end}" pattern="yy'년'MM'월'dd'일'"/></td>
-					<td><fmt:formatDate value="${board.vacation_end_duedate}" pattern="yy'년'MM'월'dd'일'"/></td>
+					<td><fmt:formatDate value="${board.vacation_end_duedate}" pattern= "yy'년'MM'월'dd'일'"/></td>
 				</tr>
 				</c:forEach>
 				</c:when>
