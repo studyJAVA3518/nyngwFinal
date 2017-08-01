@@ -36,7 +36,7 @@
 </div>
   					
 <!-- 공지사항 -->
-<div class="row">
+<div class="row insertJoinBtnWrap">
 	<div class="col-md-12">
 		<h2 class="tableTitle textCenter">${mUUSS.menu1}<a href="${mUUSS.uriAddr1 }">more</a></h2>
 		<table class="table textCenter">
