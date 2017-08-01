@@ -57,6 +57,9 @@
 	.txc-table{
 		margin: 0 auto;
 	}
+	div.bb table{
+		margin: 0 auto;
+	}
 </style>                                                                                                                                                                                         
 <script type="text/javascript">                                                                                                                                                                  
 $(function(){                                                                                                                                                                                    
@@ -220,7 +223,9 @@ $(function(){
 		</tr>                                                                                                                                                                                    
 		<tr>                                                                                                                                                                                     
 			<td colspan="6">
-				${eaVO.ea_content }
+				<div class="textCenter bb" style="margin: 0 auto;">
+					${eaVO.ea_content }
+				</div>
 			</td>	                                                                                                                                                                             
 		</tr>                                                                                                                                                                                    
 	</table>  

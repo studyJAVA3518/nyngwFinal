@@ -232,12 +232,14 @@ $(function(){
 	<div class="row">
 		<div class="col-md-12 uiTopWrap">
 			<h2>UI 설정하기</h2>
-			
-			<div id="topDiv">
-				<button class="btn">자동</button>이 버튼을 누르면 밑에 화면1,2,3이 자주들어간 곳으로 설정됩니다.
-				<br>
-				<input type="checkbox" id="autoAndUser"> 체크시 자동으로 사용자가 자주 사용하는 화면으로 설정되고 미체크시 UI를 선택할 수 있습니다.
-			</div>
+				<p class="docTitleDescription">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용자가 원하는 메뉴를 직접 선택할 수 있습니다
+				</p>
+<!-- 			<div id="topDiv"> -->
+<!-- 				<button class="btn">자동</button>이 버튼을 누르면 밑에 화면1,2,3이 자주들어간 곳으로 설정됩니다. -->
+<!-- 				<br> -->
+<!-- 				<input type="checkbox" id="autoAndUser"> 체크시 자동으로 사용자가 자주 사용하는 화면으로 설정되고 미체크시 UI를 선택할 수 있습니다. -->
+<!-- 			</div> -->
 		</div>
 	</div>
 	

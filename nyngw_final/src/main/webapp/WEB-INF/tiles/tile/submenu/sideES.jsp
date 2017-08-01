@@ -30,7 +30,7 @@
 								<li>
 									<h3>기획홍보부 설정</h3>
 									<ul>
-										<li id="sideMenu1"><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">&nbsp;&nbsp;&nbsp;└ 근무일 및 출결정보 등록시간 설정</a></li>
+										<li id="sideMenu1"><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">&nbsp;&nbsp;&nbsp;└ 근무일 및 출결정보 시간 설정</a></li>
 										<li id="sideMenu2"><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">&nbsp;&nbsp;&nbsp;└ 회사 정보 설정</a></li>
 										<li id="sideMenu3"><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">&nbsp;&nbsp;&nbsp;└ 회사 부서 설정</a></li>
 										<li id="sideMenu4"><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">&nbsp;&nbsp;&nbsp;└ 회사 직급 설정</a></li>

@@ -170,7 +170,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<sec:authorize access="hasAnyRole('role_master','role_ppr_admin','role_ppr_user')">
 							<li class="topMenuTitle">기획홍보부 설정</li>
-							<li><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">근무일 및 출결정보 등록시간 설정</a></li>
+							<li><a href="/enovironmentSetting/planPublicRelationsSetting/workingDayForm">근무일 및 출결정보 시간 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyInfoForm">회사 정보 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyDepartForm">회사 부서 설정</a></li>
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/companyPositionForm/">회사 직급 설정</a></li>
@@ -178,7 +178,7 @@
 							<li><a href="/enovironmentSetting/planPublicRelationsSetting/payPolicyForm">급여정책 설정</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('role_master','role_hr_admin','role_hr_user')">
-							<li class="topMenuTitle">인사부부 설정</li>
+							<li class="topMenuTitle">인사부 설정</li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationKindForm">휴가 종류 설정</a></li>
 							<li><a href="/enovironmentSetting/humanResourceSetting/vacationDaysForm">휴가 일수 설정</a></li>
 							</sec:authorize>
