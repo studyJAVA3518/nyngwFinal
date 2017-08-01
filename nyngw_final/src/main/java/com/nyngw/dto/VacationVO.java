@@ -1,5 +1,6 @@
 package com.nyngw.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -40,8 +41,10 @@ public class VacationVO {
 	public void setVacation_start(Date vacation_start) {
 		this.vacation_start = vacation_start;
 	}
-	public Date getVacation_end() {
-		return vacation_end;
+	public String getVacation_end() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(vacation_end);
+		return to;
 	}
 	public void setVacation_end(Date vacation_end) {
 		this.vacation_end = vacation_end;
