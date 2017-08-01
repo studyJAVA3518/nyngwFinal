@@ -82,7 +82,7 @@
 //          #con
 </script>
 <body>
-<h2>부서업무 상세 페이지</h2>
+<h2>부서업무 상세</h2>
 <p class="docTitleDescription">
 	부서업무의 상세 정보를 확인할 수 있는 페이지
 </p>

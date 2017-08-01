@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*, java.text.*" %>
-<h2>회의록 등록 페이지</h2>
+<h2>회의록 등록</h2>
 <p class="docTitleDescription">
 	회의록을 등록할 수 있습니다.
 </p>

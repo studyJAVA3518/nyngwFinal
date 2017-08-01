@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>개인업무 상세 페이지</h2>
+<h2>개인업무 상세</h2>
 <p class="docTitleDescription">
 	개인업무의 상세 정보를 볼 수 있는 페이지
 </p>
