@@ -34,7 +34,6 @@ a:active {
 
 table {
 	width: 150px;
-	border: 1px solid #86B7FF;
 }
 
 th {
@@ -42,7 +41,6 @@ th {
 	font-size: 10pt;
 	font-family: 굴림;
 	height: 25px;
-	border: 1px solid #0099CC;
 }
 
 td {
@@ -50,7 +48,6 @@ td {
 	font-family: 굴림;
 	height: 25px;
 	border: 1px none #0099CC;
-	background-color: #DDE7FF;
 }
 </style>
 
