@@ -41,6 +41,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		//접속자의 정보 검색
 		String mem_id = principal.getName();
 		MemberVO member = commonServiceImpl.findMemberByMemId(mem_id);
+		
 		//접속자의 사원번호로 결재라인에 올라가있는 결재번호 검색
 		List<String> ea_numberList = approvalProgressDao.ap_selectEaNumberByMemId(member.getMem_number());
 		
@@ -67,6 +68,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 			
 			//한 결재의 마지막 결재이력의 우선순위 검색
 			int lastAhHistory = approvalProgressDao.selectLastApprovalHistory(ea_number);
+			
 			//미결재문서 (자신의 우선순위 차례이면)
 			if(priority==lastAstPriority+2){
 			}else{
@@ -101,6 +103,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		//결재정보 setting
 		Electronic_ApprovalVO eaVO = approvalProgressDao.selectEA(ea_number);
 		model.addAttribute("eaVO",eaVO);
+		
 		//작성자 이름
 		MemberVO member = commonServiceImpl.findMemberByMemNumber(eaVO.getEa_mem_number());
 		model.addAttribute("mem_name",member.getMem_name());
@@ -138,6 +141,7 @@ public class ApprovalProgressServiceImpl implements ApprovalProgressService {
 		int indexA = 0;	//결재한 결재자의 수를 저장하기 위한 변수
 		int indexB = 0;	//합의한 합의자의 수를 저장하기 위한 변수
 		model.addAttribute("ah_comment",ah_comment);
+		
 		//합의자의 싸인을 담기 위함
 		for (Approval_StepVO approval_StepVO : agreementMemberList) {
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
