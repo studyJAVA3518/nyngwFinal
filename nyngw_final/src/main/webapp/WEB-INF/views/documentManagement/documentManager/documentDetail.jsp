@@ -33,7 +33,7 @@ th{
 }
 </style>
 
-<h2>문서 상세페이지</h2>
+<h2>문서 상세</h2>
 <p class="docTitleDescription">
 	일반 문서의 상세보기입니다.
 </p>

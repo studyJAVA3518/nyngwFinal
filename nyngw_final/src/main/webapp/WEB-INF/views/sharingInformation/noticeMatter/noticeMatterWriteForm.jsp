@@ -7,9 +7,9 @@
    document.getElementsByName('board_file_name')[0].value=file;
 }
 </script>
-	<h2>공지사항 등록 페이지</h2>
+	<h2>공지사항 등록</h2>
 <p class="docTitleDescription">
-	전자 문서를 수정할 수 있습니다.
+	공지사항을 등록할 수 있습니다.
 </p>
 	<div>
 		<form enctype="multipart/form-data" name="tx_editor_form" id="tx_editor_form" action="nmWrite" method="POST" accept-charset="utf-8">

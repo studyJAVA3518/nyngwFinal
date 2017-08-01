@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h2>일정 상세 페이지</h2>
+<h2>일정 상세</h2>
 	<p class="docTitleDescription">
 		일정의 상세정보를 확인할 수 있습니다.
 	</p>

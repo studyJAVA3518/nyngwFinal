@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>공지사항 수정 페이지</h2>
+<h2>공지사항 수정</h2>
 <p class="docTitleDescription">
 	공지사항을 수정할 수 있습니다.
 </p>    

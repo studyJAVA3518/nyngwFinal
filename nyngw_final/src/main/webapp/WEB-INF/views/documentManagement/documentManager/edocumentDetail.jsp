@@ -29,7 +29,7 @@ th{
 	width: 120px;
 }
 </style>
-<h2>전자문서 상세페이지</h2>
+<h2>전자문서 상세</h2>
 <p class="docTitleDescription">
 	전자 문서의 상세보기입니다.
 </p>

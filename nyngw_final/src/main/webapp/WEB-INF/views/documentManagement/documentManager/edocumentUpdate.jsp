@@ -8,7 +8,7 @@
 	}
 </style>
 
-<h2>전자문서 수정페이지</h2>
+<h2>전자문서 수정</h2>
 <p class="docTitleDescription">
 	전자 문서를 수정할 수 있습니다.
 </p>
