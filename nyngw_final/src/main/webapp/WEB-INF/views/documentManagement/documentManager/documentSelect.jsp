@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 	
-	<h2>문서 조회 페이지</h2>
+	<h2>문서 조회</h2>
 	<p class="docTitleDescription">
 		일반 문서를 확인할 수 있습니다.
 	</p>

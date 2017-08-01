@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<h2>게시판 조회 페이지</h2>
+<h2>게시판 조회</h2>
 	<p class="docTitleDescription">
 		게시판 게시글을 확인할 수 있습니다.
 	</p>

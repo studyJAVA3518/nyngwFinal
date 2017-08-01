@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
-<h2>개인정보 페이지</h2>
+<h2>개인정보 조회</h2>
 <p class="docTitleDescription">
 	자신의 정보를 확인할 수 있습니다.
 </p>

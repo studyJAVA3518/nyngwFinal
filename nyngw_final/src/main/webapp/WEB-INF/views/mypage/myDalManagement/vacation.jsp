@@ -15,7 +15,7 @@
 		width: 70%;
 	}
 </style>
-<h2>나의 휴가현황 페이지</h2>
+<h2>나의 휴가현황</h2>
 <p class="docTitleDescription">
 	자신의 휴가현황을 확인할 수 있습니다.
 </p>

@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" href="https://fullcalendar.io/favicon-32x32.png" sizes="32x32">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="msapplication-TileImage" content="https://fullcalendar.io/mstile-144x144.png">
-<h2>일정 페이지</h2>
+<h2>일정 조회</h2>
 <p class="docTitleDescription">
 	일정을 확인할 수 있습니다.
 </p>

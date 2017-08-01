@@ -76,7 +76,7 @@
    }
 //          #con
 </script>
-<h2>게시판 상세 페이지</h2>
+<h2>게시판 상세</h2>
 <p class="docTitleDescription">
 	게시판 문서의 상세보기입니다.
 </p>

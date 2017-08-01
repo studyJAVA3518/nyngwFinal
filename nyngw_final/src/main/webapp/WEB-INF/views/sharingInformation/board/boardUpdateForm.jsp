@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>게시글 수정 페이지</h2>
+<h2>게시글 수정</h2>
 <p class="docTitleDescription">
 	게시글을 수정할 수 있습니다.
 </p>

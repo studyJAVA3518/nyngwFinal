@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>공지사항 상세 페이지</h2>
+<h2>공지사항 상세</h2>
 <p class="docTitleDescription">
-	전자 문서를 수정할 수 있습니다.
+	공지사항의 상세정보를 확인할 수있습니다.
 </p>      
 <script>
 function noticeMatterDelete(id){

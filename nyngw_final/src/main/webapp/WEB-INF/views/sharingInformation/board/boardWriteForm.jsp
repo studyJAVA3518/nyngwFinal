@@ -9,7 +9,7 @@ function file_change(file){
 }
 
 </script>
-	<h2>게시글 등록 페이지</h2>
+	<h2>게시글 등록</h2>
 <p class="docTitleDescription">
 	게시글을 등록할 수 있습니다.
 </p>
