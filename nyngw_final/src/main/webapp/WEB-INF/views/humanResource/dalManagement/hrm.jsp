@@ -42,7 +42,7 @@
 
 <h4>사원별 근태현황</h4>
 
-<table class="table table-bordered">
+<table class="table table-bordered textCenter">
 	<tr>
 		<th colspan='5'>사원현황</th>
 		<th colspan='3'>

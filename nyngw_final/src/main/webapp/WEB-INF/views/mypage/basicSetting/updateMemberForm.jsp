@@ -84,62 +84,64 @@ function readURL2(input) {
    document.getElementsByName('mem_img')[0].value=file;
 }
 </script>
+
 <h2>개인정보 수정 페이지</h2>
 <p class="docTitleDescription">
 	개인정보를 수정할 수 있습니다.
 </p>
+
 <form action="/mypage/basicSetting/updateMember" enctype="multipart/form-data" method="POST">
-<table class="table table-bordered">
-	<tr>
-		<th>사진</th>
+	<table class="table table-bordered">
+		<tr>
+			<th>사진</th>
 			<td><img id="imgPre" src="#" />
 				<input type="file" id="faceFile" name="mem_imgup" onchange="javascript:file_change(this.value);"/>
 			</td>
-	</tr>
-	<tr>
-		<th>사원이름</th>
-		<td><input type="text" name="mem_name" value="${MemberVoDetail.mem_name}"/></td>
-	</tr>
-	<tr>
-		<th>현재비밀번호</th>
-		<td><input type="password" name="mem_pwd" value=""/><label>필수입력사항입니다.</label> </td>
-	</tr>
-	<tr>
-		<th>새 비밀번호</th>
-		<td><input type="password" name="mem_npwd" value=""/></td>
-	</tr>
-	<tr>
-		<th>연락처</th>
-		<td><input type="text" name="mem_tel" value="${MemberVoDetail.mem_tel}"/></td>
-	</tr>
-	<tr>
-		<th>이메일</th>
-		<td><input type="email" name="mem_email" value="${MemberVoDetail.mem_email}"/></td>
-	</tr>
-	<tr>
-		<th>우편 번호</th>
-		<td><input type="text" name="mem_zip" id="mem_zip" value="${MemberVoDetail.mem_zip}"/></td>
-	</tr>
-	<tr>
-		<th>주소</th>
-		<td><input type="text" name="mem_addr1" id="mem_addr1" value="${MemberVoDetail.mem_addr1}"/>
-		<input type="button" value="주소찾기" onclick="goPopup()"></td>
-	</tr>
-	<tr>
-		<th>상세주소</th>
-		<td><input type="text" name="mem_addr2" id="mem_addr2" value="${MemberVoDetail.mem_addr2}"/></td>
-	</tr>
-</table>
-<table class="table table-bordered">
-	<tr>
-		<th>서명 이미지</th>
+		</tr>
+		<tr>
+			<th>사원이름</th>
+			<td><input class="form-control inputTypeMemInsert" type="text" name="mem_name" value="${MemberVoDetail.mem_name}"/></td>
+		</tr>
+		<tr>
+			<th>현재비밀번호</th>
+			<td><input class="form-control inputTypeMemInsert" type="password" name="mem_pwd" value=""/><label>필수입력사항입니다.</label> </td>
+		</tr>
+		<tr>
+			<th>새 비밀번호</th>
+			<td><input class="form-control inputTypeMemInsert" type="password" name="mem_npwd" value=""/></td>
+		</tr>
+		<tr>
+			<th>연락처</th>
+			<td><input class="form-control inputTypeMemInsert" type="text" name="mem_tel" value="${MemberVoDetail.mem_tel}"/></td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td><input class="form-control inputTypeMemInsert" type="email" name="mem_email" value="${MemberVoDetail.mem_email}"/></td>
+		</tr>
+		<tr>
+			<th>우편 번호</th>
+			<td><input class="form-control inputTypeMemInsert" type="text" name="mem_zip" id="mem_zip" value="${MemberVoDetail.mem_zip}"/></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td><input type="text" class="form-control inputTypeMemInsert" name="mem_addr1" id="mem_addr1" value="${MemberVoDetail.mem_addr1}"/>
+			<input type="button" class="btn btn-default" value="주소찾기" onclick="goPopup()"></td>
+		</tr>
+		<tr>
+			<th>상세주소</th>
+			<td><input type="text" class="form-control inputTypeMemInsert" name="mem_addr2" id="mem_addr2" value="${MemberVoDetail.mem_addr2}"/></td>
+		</tr>
+	</table>
+	<table class="table table-bordered">
+		<tr>
+			<th>서명 이미지</th>
 			<td><img id="imgPre1" src="#" />
 				<input type="file" id="signFile" name="mem_signup"/>
 			</td>
-	</tr>
-</table>
+		</tr>
+	</table>
 
-<div class="insertJoinBtnWrap textCenter" >
-<input type="submit" value="수정" onclick="chk()">
-</div>
+	<div class="insertJoinBtnWrap textCenter" >
+		<input type="submit" class="btn btn-default" value="수정" onclick="chk()">
+	</div>
 </form>
