@@ -9,7 +9,7 @@
 	<p class="docTitleDescription">
 		공지사항 문서를 확인할 수 있습니다.
 	</p>
-	<div>
+	<div style="margin-bottom: 30px;">
 	<form action="/sharingInformation/noticeMatter/nmList">
 		<select name="index" class="form-control docInputSelect">
 				<option value="board_mem_number" selected="selected">작성자</option>
