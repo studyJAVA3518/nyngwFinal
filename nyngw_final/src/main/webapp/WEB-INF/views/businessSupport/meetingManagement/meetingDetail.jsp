@@ -40,7 +40,7 @@
 				${meeting.mt_content }
 			</div>
 			<input type="hidden" value="${page}">
-			<div style="text-align: center; margin-top: 30px;">
+			<div style="text-align: center; margin-top: 30px;" class="insertJoinBtnWrap textCenter">
 				<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingUpdateForm?mt_number=${meeting.mt_number}&param_mt_date=<fmt:formatDate value="${meeting.mt_date }" pattern="yyyy-MM-dd"/>">수정하기</a></button>
 				<button class="btn btn-default"><a href="/businessSupport/meetingManagement/meetingCalendar?page=${page }">목록</a></button>
 			</div>

@@ -6,7 +6,7 @@
 
 	<!-- 모두 검색 -->
 	<select id= "selectDocumentList" resultType = "com.nyngw.dto.DocumentVO">
-		select * from document where doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10'
+		select * from document where (doc_code_number = 'code8' or doc_code_number ='code9' or doc_code_number ='code10') and  doc_eadoc = 'y'
 	</select>
 	
 	<!-- 검색어 분류와 기안문서함으로 검색-->

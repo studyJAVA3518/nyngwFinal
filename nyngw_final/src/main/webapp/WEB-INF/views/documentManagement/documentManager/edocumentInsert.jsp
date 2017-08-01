@@ -22,7 +22,7 @@ function insert_error_go(){
        alert("제목을 입력하십시오.");
        return;
     }else if(!document.getElementById("doc_lifetime").value){
-    	alert("보존기간를 입력하시오.");
+    	alert("보존기간를 입력하십시오.");
     	return;
     }else{
     	saveContent();

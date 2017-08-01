@@ -154,7 +154,7 @@ $(function(){
 				dataType : 'json'
 			});
 	    }else{
-			alert('값을 서로 다르게 해주세요.');	    	
+			alert('값을 서로 다르게 설정해 주십시오.');	    	
 	    }
 	}
 
