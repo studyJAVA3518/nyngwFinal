@@ -98,7 +98,7 @@
 			
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="부서 수정" class="btn btn-default" onclick="updatePosition_go();"/>
+					<input type="submit" value="직급 수정" class="btn btn-default" onclick="updatePosition_go();"/>
 				</td>
 			</tr>
 		</table>

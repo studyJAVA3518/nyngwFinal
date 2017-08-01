@@ -140,7 +140,7 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		return individualDocumentBoxDao.selectPositionName(position_number);
 	}
 
-	//미결제문서 자세히보기
+	//상신문서 자세히보기
 	public void waDetail(Model model, String ea_number,Principal principal,int check) {
 
 		//결재정보 setting
@@ -181,7 +181,6 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 			member2 = commonServiceImpl.findMemberByMemNumber(approval_StepVO.getAst_mem_number());
 			agreementMember.add(member2);
 			if(lastAhHistory>=index){	//마지막 결재자의 우선순위가 인덱스보다 크다는 것은 for문에 들어온 결재가 완료되었다는 것
-//					if()
 				agreementMem_sign.add(member2.getMem_sign());
 				indexB++;
 			}
