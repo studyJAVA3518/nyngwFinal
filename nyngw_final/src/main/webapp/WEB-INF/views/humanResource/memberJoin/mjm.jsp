@@ -49,30 +49,30 @@
 	function joinMember(){
 		//빈칸 체크
 		if(!document.getElementById("mem_id").value){
-			alert("아이디를 입력해 주세요.");
+			alert("아이디를 입력해 주십시오.");
 			return;
 		} 
 		if(!idch){
-			alert("아이디 중복확인을 해주세요");
+			alert("아이디 중복확인을 해주십시오.");
 			return;
 		}
 		if(!$("#mem_pwd").val()){
-			alert("비밀번호를 입력해 주세요.");
+			alert("비밀번호를 입력해 주십시오.");
 			return;
 		} 
 		if ($('#mem_pwd').val() != $('#mem_pwd_ok').val()) {
 			alert("비밀번호가 다릅니다.");
 		}
 		if(!($("#mem_name").val()&&$("#mem_reg").val()&&$("#mem_tel").val())){
-			alert("인적사항을 입력해주세요.");
+			alert("인적사항을 입력해 주십시오.");
 			return;
 		} 
 		if(!$("#mem_email").val()){
-			alert("이메일을 입력해 주세요.");
+			alert("이메일을 입력해 주십시오.");
 			return;
 		} 
 		if(!($("#mdi_bank").val()&&$("#mdi_bank_account").val())){
-			alert("계좌번호를 입력해 주세요.");
+			alert("계좌번호를 입력해 주십시오.");
 			return;
 		} 
 		
@@ -90,7 +90,7 @@
 				}
 			},
 			error : function(res){
-				alert("실패");
+				alert("실패 했습니다.");
 			},
 			dataType :'json'
 		})

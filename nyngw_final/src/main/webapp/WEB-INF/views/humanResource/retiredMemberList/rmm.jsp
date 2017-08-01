@@ -4,8 +4,6 @@
 <script language="javascript">
 	function saveMember() {
 
-		//alert($('#1').is(":checked"));
-
 		var items = [];
 		$('input[name="mem_chk"]:checkbox:checked').each(function() {
 			items.push($(this).val());
@@ -18,7 +16,7 @@
 				'mem_chk' : items
 			},
 			success : function(res) {
-				alert('복직처리되었습니다.');
+				alert('복직 처리되었습니다.');
 				location.href="/humanResource/retiredMemberList/rmm";
 			},
 			error : function() {

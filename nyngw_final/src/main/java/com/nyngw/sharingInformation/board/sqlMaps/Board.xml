@@ -41,7 +41,7 @@
 		    </when>
 	  	</choose>
 <!-- 	  	그리고 게시판 형식을 갖고 있는 애만 검색한다. -->
-		and board_code_number = 'code7' order by 1 desc
+		and board_code_number = 'code7' order by 6 desc
 	</select>
 	
 	<select id="selectBoard" parameterType="java.lang.String" resultType="com.nyngw.dto.BoardVO">

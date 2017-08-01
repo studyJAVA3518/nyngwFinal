@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 	function modifyMember() {
-		if (!($("#mdi_bank").val() && $("#mdi_bank_account").val())) {
-			alert("미입력 사항");
-			return;
-		}
 
 		var memdata = $('#memberDetail').serialize();
 		$.ajax({
@@ -17,23 +13,23 @@
 				if (res.status == "ok") {
 					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
 					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
-					alert("수정 성공");
+					alert("수정 성공 했습니다.");
 				} else {
 					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
 					location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
-					alert("수정이 실패하였습니다.");
+					alert("수정이 실패 했습니다.");
 				}
 			},
 			error : function() {
 				location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
 				location.href="/humanResource/joinMemberList/detail?mem_id=${member.mem_id }";
-				alert("결과를 확인해주세요.");
+				alert("결과를 확인해 주십시오.");
 			},
 			dataType : 'json'
 		})
 	}
 	function modifyDeleteMember() {
-		if (confirm("정말로 퇴사하시겠습니까?") == true) {
+		if (confirm("정말로 퇴사 하시겠습니까?") == true) {
 			
 			var memdata = $('#memberDetail').serialize();
 			$.ajax({

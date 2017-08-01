@@ -73,10 +73,6 @@ $(function(){
 		},
 		dataType:"json"
 	});
-
-// function aaa(a){
-// 	alert(a);
-// }
 	
 	$(document).delegate("#detail",'click', function(){
 		var dept_number = this.name;
