@@ -98,7 +98,7 @@ $(function(){
 	회사의 부서를 등록하는 메뉴입니다.
 	부서를 만들때 자동으로 부서 메뉴도 생성됩니다.
 </p>
-<div class="row insertJoinBtnWrap textCenter ">
+<div class="row insertJoinBtnWrap textCenter" style="margin: 15px 0px 30px;">
 	<h4>부서 만들기</h4>
 	<form method="post" name="insertDeptForm">
 		<table class="table textCenter tableGray">
@@ -162,7 +162,6 @@ $(function(){
 		</table>
 	</form>
 </div>
-<br>
 <div class="row insertJoinBtnWrap">
 	<h4>부서 리스트 (총 ${DeptCount} 개의 부서가 등록되어 있습니다.)</h4>
 	

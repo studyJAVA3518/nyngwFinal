@@ -7,6 +7,7 @@
 	<!-- 한 사원이 결재스탭에 포함 된 결재번호들을 검색 -->
 	<select id="ap_selectEaNumberByMemId" parameterType="string" resultType="string">
 		select distinct ast_ea_number from APPROVAL_step where ast_mem_number = #{mem_number}
+		order by to_number(substr(ast_ea_number,instr(ast_ea_number,'-',1,2)+1)) desc
 	</select>
 
 	<!-- 가장 높은 결재 우선순위 ast_ea_number-->
