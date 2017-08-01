@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>개인업무 조회 페이지</h2>
+<h2>개인업무 조회</h2>
 <p class="docTitleDescription">
 	로그인한 사원의 개인업무를 조회할 수 있다
 </p>

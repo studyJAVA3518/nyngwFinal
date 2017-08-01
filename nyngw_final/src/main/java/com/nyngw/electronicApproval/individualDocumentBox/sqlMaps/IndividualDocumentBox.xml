@@ -7,7 +7,8 @@
 	<!-- 상신문서함 -->
 	<select id="selectSAB" parameterType="java.lang.String" resultType="com.nyngw.dto.Electronic_ApprovalVO">
 		select * from Electronic_approval
-		where ea_mem_number =  #{mem_number}
+		where ea_mem_number =  #{mem_number} 
+		order by to_number(substr(ea_number,instr(ea_number,'-',1,2)+1)) desc
 	</select>
 	
 	<!-- 결재번호로 누가 마지막으로 결재했는지 가져오기-->
@@ -106,7 +107,7 @@
 	</select>
 	
 	<select id="getRefusedApprovalList_ID" parameterType="com.nyngw.dto.CommonApproval_TOTALVO" resultType="com.nyngw.dto.CommonApproval_TOTALVO">
-		select distinct EA_NUMBER,doc_name,EA_TITLE,mem_name,EA_WRITEDATE,EA_STARTDATE,EA_ENDDATE,ah_time,ah_status  
+		select distinct EA_NUMBER,doc_name,EA_TITLE,mem_name,EA_WRITEDATE,EA_STARTDATE,EA_ENDDATE,ah_time,ah_status
 		from ELECTRONIC_APPROVAL,approval_line,approval_step,document,approval_history,member
 		where  al_number = AST_AL_NUMBER
 		and ea_number = AST_EA_NUMBER
@@ -142,14 +143,17 @@
 	<select id="isRefuseDisapprove" parameterType = "string" resultType="string">
 		select ah_status 
 		from approval_history 
-		where ah_ea_number = #{ea_number} 
+		where ah_ea_number = #{ea_number}
 		and 
-		(select max(substr(ah_ast_number,4))  
+		(select max(substr(ah_ast_number,4)) 
 		from approval_history 
 		where ah_ea_number = #{ea_number}) 
-		= 
-		(select substr(ah_ast_number,4)  
+		in 
+		(select substr(ah_ast_number,4) 
 		from approval_history 
-		where ah_ea_number = #{ea_number})
+		where ah_ea_number = #{ea_number}) 
+		and 
+		(ah_status = '반려' 
+		or ah_status = '거부')
 	</select>
 </mapper>

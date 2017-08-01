@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<h2>회의일정 수정 페이지</h2>
+<h2>회의일정 수정</h2>
 <p class="docTitleDescription">
 	회의일정을 수정 / 삭제할 수 있습니다.
 </p>

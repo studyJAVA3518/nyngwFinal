@@ -106,7 +106,7 @@
 		</tr>
 		<tr>
 			<th>미리보기</th>
-			<td><img id="logoPre" src="#" alt="your image" width="50%" height="50%"/></td>
+			<td><img id="logoPre" src="#" alt="your image" width="220px" height="80px"/></td>
 		</tr>
 		<tr>
 			<td colspan="2">

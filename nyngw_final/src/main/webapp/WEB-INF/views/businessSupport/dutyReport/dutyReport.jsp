@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<h2>내 업무보고 페이지</h2>
+<h2>내 업무보고</h2>
 <p class="docTitleDescription">
 	본인이 시행한 업무를 상사에게 보고하는 페이지.
 </p>

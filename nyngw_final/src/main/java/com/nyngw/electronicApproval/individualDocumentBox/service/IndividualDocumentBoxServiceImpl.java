@@ -205,16 +205,16 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		
 		if(priority==lastAstPriority+2){	//거부나 반려이면
 			String whatIs = individualDocumentBoxDao.isRefuseDisapprove(ea_number);
-			if(1==1){//합의자가 거부한 경우
-				//싸인을 거부로 설정
-				agreementMem_sign.add("refuse.jpg");
+			if(whatIs.equals("거부")){//합의자가 거부한 경우
+				//마지막 싸인을 거부로 설정
+				agreementMem_sign.add(agreementMem_sign.size()-1,"refuse.jpg");
+				agreementMem_sign.remove(agreementMem_sign.size()-1);
 				
-			}else if(2==2){	//결재자가 반려한 경우
-				//싸인을 반려로 설정
-				approvalMem_sign.add("disapprove.jpg");
-				
+			}else if(whatIs.equals("반려")){	//결재자가 반려한 경우
+				//마지막 싸인을 반려로 설정
+				approvalMem_sign.add(approvalMem_sign.size()-1,"disapprove.jpg");
+				approvalMem_sign.remove(approvalMem_sign.size()-1);
 			}
-			
 		}
 		
 		model.addAttribute("approvalMem_sign",approvalMem_sign);

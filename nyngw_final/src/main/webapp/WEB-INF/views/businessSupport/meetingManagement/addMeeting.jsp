@@ -4,7 +4,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>회의일정 등록 페이지</h2>
+<h2>회의일정 등록</h2>
 <p class="docTitleDescription">
 	회의일정을 등록할 수 있습니다.
 </p>

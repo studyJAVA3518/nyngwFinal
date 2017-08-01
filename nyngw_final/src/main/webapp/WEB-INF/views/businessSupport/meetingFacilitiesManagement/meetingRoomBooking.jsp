@@ -50,7 +50,7 @@
 
 //-->
 </script>
-<h2>회의실 예약 페이지</h2>
+<h2>회의실 예약</h2>
 <p class="docTitleDescription">
 	회사의 회의실을 예약하는 페이지
 </p>
