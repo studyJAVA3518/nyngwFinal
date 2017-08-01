@@ -111,7 +111,7 @@
 </div>
 <h2>전체문서함</h2>
 <p class="docTitleDescription">
-	전체문서함은 조직원들이 주고 받은 모든 결재문서를 확인할 수 있는 메뉴입니다.
+	전체문서함은 자기가 속한 모든 결재문서를 확인할 수 있는 메뉴입니다.
 </p> 
 <div class="eaSearchDivMagin">
 	<form>
