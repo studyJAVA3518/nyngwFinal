@@ -225,7 +225,7 @@ $(function(){
 			success: function(result){ // success
 				if(result.check=='y'){
 					if(result.al_number=='A'){
-		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/disapprove.jpg\")'></div>";
 		 				$("#approvalStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
@@ -258,7 +258,7 @@ $(function(){
 			success: function(result){ // success
 				if(result.check=='y'){
 					if(result.al_number=='A'){
-		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/refuse.jpg\")'></div>";
+		 				var code="<div class='tableTd tableSign memSign' style='background-image:url(\"/resources/memsign/disapprove.jpg\")'></div>";
 		 				$("#approvalStatus"+result.priority).html(code);
 		 				$("#approve_go").attr("disabled",true);
 		 				$("#disapprove_go").attr("disabled",true);
