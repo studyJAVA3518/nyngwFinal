@@ -3,6 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-alert("로그아웃 성공");
 location.href='/user/loginForm';
 </script>

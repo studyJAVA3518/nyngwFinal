@@ -156,4 +156,20 @@ public class MemberVO {
 	public void setMem_position_number(String mem_position_number) {
 		this.mem_position_number = mem_position_number;
 	}
+	@Override
+	public String toString() {
+		return "MemberVO [mem_number=" + mem_number + ", mem_id=" + mem_id
+				+ ", mem_pwd=" + mem_pwd + ", mem_name=" + mem_name
+				+ ", mem_birthday=" + mem_birthday + ", mem_reg=" + mem_reg
+				+ ", mem_addr1=" + mem_addr1 + ", mem_addr2=" + mem_addr2
+				+ ", mem_zip=" + mem_zip + ", mem_tel=" + mem_tel
+				+ ", mem_email=" + mem_email + ", mem_img=" + mem_img
+				+ ", mem_sign=" + mem_sign + ", mem_retirement="
+				+ mem_retirement + ", mem_favorites=" + mem_favorites
+				+ ", mem_dept_number=" + mem_dept_number + ", mem_mngr_number="
+				+ mem_mngr_number + ", mem_position_number="
+				+ mem_position_number + ", dept_name=" + dept_name
+				+ ", position_name=" + position_name + "]";
+	}
+	
 }
