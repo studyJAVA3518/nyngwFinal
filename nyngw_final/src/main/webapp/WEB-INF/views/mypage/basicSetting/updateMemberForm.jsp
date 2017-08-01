@@ -29,7 +29,7 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 }
 
 	function chk(){
-		var pwd = ${MemberVoDetail.mem_pwd};
+		var pwd = '${MemberVoDetail.mem_pwd}';
 		if(pwd==document.getElementsByName("mem_pwd")[0].value){
 			alert("수정에 성공하였습니다.");
 		}else{
