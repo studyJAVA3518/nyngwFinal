@@ -66,7 +66,7 @@ $(function(){
 			},
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공했습니다.");
 				}
 			},
 			error : function() {
@@ -88,7 +88,7 @@ $(function(){
 			data : {"numbers":numbers},
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공했습니다.");
 				}
 			},
 			error : function() {
@@ -109,9 +109,9 @@ $(function(){
 			data :memdata,
 			success : function(res) {
 				if(res.su=="ok"){
-					alert("success");
+					alert("성공했습니다");
 				}else{
-					alert("기존에 존재함");
+					alert("기존에 존재합니다.");
 				}
 			},
 			error : function() {
