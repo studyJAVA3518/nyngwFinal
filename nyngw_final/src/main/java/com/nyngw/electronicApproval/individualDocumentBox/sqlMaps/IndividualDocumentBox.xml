@@ -136,4 +136,20 @@
 	<delete id="draft_deleteApprovalStep" parameterType="string">
 		delete from approval_step where ast_ea_number = #{ast_ea_number}
 	</delete>
+	
+	
+	<!-- 반려인지 결재인지 -->
+	<select id="isRefuseDisapprove" parameterType = "string" resultType="string">
+		select ah_status 
+		from approval_history 
+		where ah_ea_number = #{ea_number} 
+		and 
+		(select max(substr(ah_ast_number,4))  
+		from approval_history 
+		where ah_ea_number = #{ea_number}) 
+		= 
+		(select substr(ah_ast_number,4)  
+		from approval_history 
+		where ah_ea_number = #{ea_number})
+	</select>
 </mapper>

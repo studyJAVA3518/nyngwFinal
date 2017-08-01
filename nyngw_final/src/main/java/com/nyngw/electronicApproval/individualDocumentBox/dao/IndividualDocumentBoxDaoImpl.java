@@ -105,4 +105,8 @@ public class IndividualDocumentBoxDaoImpl implements IndividualDocumentBoxDao {
 	public void draft_deleteApprovalStep(String ea_number) {
 		sqlSession.delete("draft_deleteApprovalStep",ea_number);
 	}
+
+	public String isRefuseDisapprove(String ea_number) {
+		return null;
+	}
 }

@@ -141,7 +141,7 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 	}
 
 	//상신문서 자세히보기
-	public void waDetail(Model model, String ea_number,Principal principal,int check) {
+	public void saDetail(Model model, String ea_number,Principal principal,int check) {
 		//최고 우선순위 (반려면 +2)
 		int priority = approvalProgressDao.selectMaxPriority(ea_number);
 		
@@ -204,6 +204,7 @@ public class IndividualDocumentBoxServiceImpl implements IndividualDocumentBoxSe
 		}
 		
 		if(priority==lastAstPriority+2){	//거부나 반려이면
+			String whatIs = individualDocumentBoxDao.isRefuseDisapprove(ea_number);
 			if(1==1){//합의자가 거부한 경우
 				//싸인을 거부로 설정
 				agreementMem_sign.add("refuse.jpg");

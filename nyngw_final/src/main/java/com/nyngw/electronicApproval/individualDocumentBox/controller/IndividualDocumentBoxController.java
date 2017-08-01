@@ -108,7 +108,7 @@ public class IndividualDocumentBoxController {
 	@RequestMapping("/submitApprovalDetail")
 	public String submitApprovalDetail(Model model,String ea_number,Principal principal){
 		int check = 1;	//미결재
-		individualDocumentBoxService.waDetail(model, ea_number,principal,check);
+		individualDocumentBoxService.saDetail(model, ea_number,principal,check);
 		return "electronicApproval/individualDocumentBox/submitApprovalDetail";
 	}
 	
