@@ -28,9 +28,7 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 	document.getElementById("mem_zip").value = zipNo;
 }
 
-</script>
-<script type="text/javascript">
-	function chk(){
+	function chk(){z
 		var pwd = ${MemberVoDetail.mem_pwd};
 		if(pwd==document.getElementsByName("mem_pwd")[0].value){
 			alert("성공!");
@@ -38,8 +36,6 @@ function jusoCallBack(roadAddrPart1, addrDetail, zipNo){
 			alert("기존 비밀번호가 맞지 않습니다.");
 		}
 	} 
-</script>
-<script>
 
 $(function() {
 	$("#imgPre").css('visibility','hidden');

@@ -190,7 +190,7 @@
 							}
 						});
 			        }else{
-			           if(confirm(day+" -> 일정을 등록하시겠습니까?")){
+			           if(confirm(day+"에 일정을 등록하시겠습니까?")){
 			              location.href="/sharingInformation/scheduleManagement/scheduleWriteForm?sc_code_number=code4";
 			           }
 			        }
@@ -225,7 +225,7 @@
 						success : function(res) {
 	       	            	if(res.su=="ok"){
 	       	               
-	       	            		alert("등록")
+	       	            		alert("메모가 등록되었습니다.")
 								var list= res.list;
 								var code="";
 								$.each(list, function( index, list ) {

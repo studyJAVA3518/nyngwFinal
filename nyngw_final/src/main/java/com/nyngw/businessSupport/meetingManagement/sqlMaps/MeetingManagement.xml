@@ -5,8 +5,7 @@
 <mapper namespace="com.nyngw.businessSupport.meetingManagement.dao.MeetingManagementDao">
 
 		<select id="meetingCalList" parameterType="com.nyngw.dto.Board_SelectVO" resultType="com.nyngw.dto.MeetingVO">
-			select 
-        		mt_number,
+			select 	mt_number,
 				mt_date,
 				mt_rv_number,
 				mt_title,
@@ -14,10 +13,13 @@
 				mt_content,
 				mt_mr_number,
 				mr_name
-			from meeting ,meetingroom  
-			where ( select distinct ad_mem_number from attendance ) = #{mem_number}
+			from meeting ,meetingroom ,member 
+			where mem_number =(select distinct ad_mem_number 
+        					   from attendance 
+        					  where ad_mem_number =#{mem_number})
 			and mt_mr_number = mr_number
-			<!-- <choose>
+			and mt_reader = mem_name
+			<choose>
 				<when test='index == "mt_reader"'>
 					and mt_reader like '%'||#{val}||'%'
 				</when>
@@ -27,7 +29,7 @@
 				<when test='index == "mt_title"'>
 					and mt_title like '%'||#{val}||'%'
 				</when>
-			</choose> -->
+			</choose>
 			order by to_number(substr(mt_number,3,9999999)) desc
 		</select>
 		
@@ -43,18 +45,24 @@
 		<select id="meetingSelect" parameterType="java.lang.String" resultType="com.nyngw.dto.MeetingVO">
 			select * from meeting where mt_reader = #{mt_reader }
 		</select>
-		
-		<select id="selectMeetingCount" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(*) from meeting m,meetingroom 
-              where (select distinct ad_mem_number from attendance) = #{mem_id}
-				and mt_mr_number = mr_number
+
+	<select id="selectMeetingCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*)
+		from meeting,meetingroom,member
+		where mem_number =(select distinct ad_mem_number
+		from attendance
+		where ad_mem_number =#{mem_number})
+		and mt_mr_number = mr_number
+		and mt_reader = mem_name
 	</select>
 	
 	<select id="boardMeetingCount" parameterType="com.nyngw.dto.Board_SelectVO" resultType="java.lang.Integer">
-		select count(*) from meeting m,meetingroom  
-		where (select distinct ad_mem_number 
-				from attendance a  )= #{mem_id}
+		select count(*) from meeting,meetingroom ,member 
+			where mem_number =(select distinct ad_mem_number 
+        from attendance 
+        where ad_mem_number =#{mem_number})
 				and mt_mr_number = mr_number
+        and mt_reader = mem_name
 		<choose>
 		    <when test='index == "mt_reader"'>
 		    	AND mt_reader like '%'||#{val}||'%'
