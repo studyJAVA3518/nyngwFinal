@@ -531,7 +531,6 @@
         textarea.name = 'content';
         textarea.value = content;
         form.createField(textarea);
-        alert(content);
 
         /* 아래의 코드는 첨부된 데이터를 필드를 생성하여 값을 할당하는 부분으로 상황에 맞게 수정하여 사용한다.
          첨부된 데이터 중에 주어진 종류(image,file..)에 해당하는 것만 배열로 넘겨준다. */
