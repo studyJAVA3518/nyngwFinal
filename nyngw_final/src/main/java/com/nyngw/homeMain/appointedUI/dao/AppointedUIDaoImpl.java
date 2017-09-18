@@ -38,10 +38,7 @@ public class AppointedUIDaoImpl implements AppointedUIDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public CompanyVO selectCompany() throws SQLException{
-
-		CompanyVO Company = (CompanyVO) sqlSession.selectOne("selectCompany","");
 		CompanyVO company=mongoTemplate.findById(0, CompanyVO.class, COLLECTION_NAME);
-		
 		return company;
 	}
 	
